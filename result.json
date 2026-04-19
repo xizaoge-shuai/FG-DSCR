@@ -1,0 +1,92 @@
+{
+  "assignment": {
+    "edge-1": [
+      "t2",
+      "t4"
+    ],
+    "edge-2": [
+      "t3",
+      "t5",
+      "t8"
+    ],
+    "edge-3": [
+      "t1",
+      "t6",
+      "t7"
+    ]
+  },
+  "ordered_queues": {
+    "edge-1": [
+      "t4",
+      "t2"
+    ],
+    "edge-2": [
+      "t8",
+      "t3",
+      "t5"
+    ],
+    "edge-3": [
+      "t7",
+      "t1",
+      "t6"
+    ]
+  },
+  "summary": {
+    "num_containers": 8,
+    "num_nodes": 3,
+    "ACT": 34.97901785714286,
+    "AMS": 46.92023809523809,
+    "downloaded_mb": 2320,
+    "reused_mb": 1570,
+    "reuse_rate": 0.40359897172236503,
+    "objective": 40.94962797619047
+  },
+  "node_details": {
+    "edge-1": {
+      "queue": [
+        "t4",
+        "t2"
+      ],
+      "act": 46.4375,
+      "ams": 53.375,
+      "downloaded_mb": 1015,
+      "reused_mb": 380,
+      "completion_times": [
+        39.5,
+        53.375
+      ]
+    },
+    "edge-2": {
+      "queue": [
+        "t8",
+        "t3",
+        "t5"
+      ],
+      "act": 24.952380952380953,
+      "ams": 39.285714285714285,
+      "downloaded_mb": 500,
+      "reused_mb": 515,
+      "completion_times": [
+        12.285714285714285,
+        23.285714285714285,
+        39.285714285714285
+      ]
+    },
+    "edge-3": {
+      "queue": [
+        "t7",
+        "t1",
+        "t6"
+      ],
+      "act": 37.36666666666667,
+      "ams": 48.099999999999994,
+      "downloaded_mb": 805,
+      "reused_mb": 675,
+      "completion_times": [
+        22.7,
+        41.3,
+        48.099999999999994
+      ]
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "layer_sizes_mb": {
+    "ubuntu_base": 120,
+    "debian_base": 110,
+    "py_runtime": 80,
+    "go_runtime": 90,
+    "numpy": 150,
+    "pandas": 130,
+    "gin_web": 45,
+    "grpc": 60,
+    "opencv": 220,
+    "torch": 480,
+    "ffmpeg": 140,
+    "monitoring": 40,
+    "common_ssl": 30,
+    "common_utils": 25
+  },
+  "containers": [
+    {
+      "cid": "t1",
+      "layers": ["ubuntu_base", "py_runtime", "opencv", "numpy", "common_ssl"],
+      "resources": {"cpu": 2, "mem": 2},
+      "run_time": 15
+    },
+    {
+      "cid": "t2",
+      "layers": ["ubuntu_base", "py_runtime", "numpy", "pandas", "common_ssl", "common_utils"],
+      "resources": {"cpu": 1, "mem": 2},
+      "run_time": 10
+    },
+    {
+      "cid": "t3",
+      "layers": ["debian_base", "go_runtime", "gin_web", "grpc", "common_ssl"],
+      "resources": {"cpu": 1, "mem": 1},
+      "run_time": 8
+    },
+    {
+      "cid": "t4",
+      "layers": ["ubuntu_base", "py_runtime", "torch", "numpy", "common_ssl"],
+      "resources": {"cpu": 3, "mem": 4},
+      "run_time": 18
+    },
+    {
+      "cid": "t5",
+      "layers": ["debian_base", "go_runtime", "ffmpeg", "grpc", "common_utils"],
+      "resources": {"cpu": 2, "mem": 2},
+      "run_time": 12
+    },
+    {
+      "cid": "t6",
+      "layers": ["ubuntu_base", "py_runtime", "monitoring", "common_ssl", "common_utils"],
+      "resources": {"cpu": 1, "mem": 1},
+      "run_time": 6
+    },
+    {
+      "cid": "t7",
+      "layers": ["ubuntu_base", "py_runtime", "ffmpeg", "opencv", "common_utils"],
+      "resources": {"cpu": 2, "mem": 3},
+      "run_time": 11
+    },
+    {
+      "cid": "t8",
+      "layers": ["debian_base", "go_runtime", "common_ssl", "common_utils"],
+      "resources": {"cpu": 1, "mem": 1},
+      "run_time": 5
+    }
+  ],
+  "nodes": [
+    {
+      "eid": "edge-1",
+      "resources": {"cpu": 4, "mem": 8},
+      "repo_capacity_mb": 1000,
+      "bandwidth_mb_s": 40.0
+    },
+    {
+      "eid": "edge-2",
+      "resources": {"cpu": 4, "mem": 8},
+      "repo_capacity_mb": 900,
+      "bandwidth_mb_s": 35.0
+    },
+    {
+      "eid": "edge-3",
+      "resources": {"cpu": 8, "mem": 16},
+      "repo_capacity_mb": 1400,
+      "bandwidth_mb_s": 50.0
+    }
+  ]
+}
