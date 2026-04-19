@@ -5,6 +5,7 @@ import json
 import math
 import copy
 import argparse
+import statistics
 from collections import Counter, defaultdict
 
 
@@ -18,6 +19,7 @@ class Container:
     layers: Set[str]
     resources: Dict[str, float]   # {"cpu":..., "mem":..., "disk":...}
     run_time: float               # seconds
+    service_type: str = "default"
 
 
 @dataclass
@@ -47,6 +49,8 @@ class QueueMetrics:
     act: float
     ams: float
     final_cache: Set[str]
+    step_logs: List[Dict] = field(default_factory=list)
+    container_logs: List[Dict] = field(default_factory=list)
 
 
 # =========================
@@ -64,17 +68,20 @@ class FGDscrScheduler:
         self,
         layer_sizes_mb: Dict[str, int],
         alpha_obj: float = 0.5,
-        # Phase 1 weights
+    # Phase 1 weights
         lambda_cong: float = 1.0,
         lambda_frag: float = 1.0,
         lambda_aff: float = 0.2,
+        lambda_balance: float = 0.0,
+        lambda_idle: float = 0.0,
+        theta_cong_count: float = 0.0,
         tiny_gap_thresholds: Optional[Dict[str, float]] = None,
-        # Phase 2 weights
+    # Phase 2 weights
         alpha1_reuse: float = 1.0,
         alpha2_future: float = 0.15,
         alpha3_pull: float = 50.0,
         alpha4_evict: float = 0.02,
-        # LSPGDSF weights
+    # LSPGDSF weights
         beta_slot: float = 2.0,
         rho_centrality: float = 0.2,
         kappa_overshoot: float = 0.5,
@@ -82,6 +89,7 @@ class FGDscrScheduler:
         beam_width: int = 4,
         unit_mb: int = 50,
         max_best_response_rounds: int = 20,
+        algo_name: str = "FG-DSCR",
     ):
         self.layer_sizes_mb = dict(layer_sizes_mb)
         self.alpha_obj = alpha_obj
@@ -89,6 +97,9 @@ class FGDscrScheduler:
         self.lambda_cong = lambda_cong
         self.lambda_frag = lambda_frag
         self.lambda_aff = lambda_aff
+        self.lambda_balance = lambda_balance
+        self.lambda_idle = lambda_idle
+        self.theta_cong_count = theta_cong_count
 
         self.alpha1_reuse = alpha1_reuse
         self.alpha2_future = alpha2_future
@@ -102,6 +113,7 @@ class FGDscrScheduler:
         self.beam_width = beam_width
         self.unit_mb = max(unit_mb, 1)
         self.max_best_response_rounds = max_best_response_rounds
+        self.algo_name = algo_name
 
         self.tiny_gap_thresholds = tiny_gap_thresholds or {
             "cpu": 0.15,
@@ -112,6 +124,13 @@ class FGDscrScheduler:
         self.containers: Dict[str, Container] = {}
         self.nodes: Dict[str, EdgeNode] = {}
         self.layer_centrality: Dict[str, int] = {}
+        self.typical_demands: Dict[str, float] = {}
+
+    # 日志
+        self.phase1_history: List[Dict] = []
+        self.phase2_reuse_history: List[Dict] = []
+        self.node_step_logs: List[Dict] = []
+        self.container_metrics: List[Dict] = []
 
     # -------------------------
     # 基础工具
@@ -127,15 +146,152 @@ class FGDscrScheduler:
                 cnt[l] += 1
         self.layer_centrality = dict(cnt)
 
+    # 用于图1：定义“典型需求”，判断哪些剩余资源属于碎片
+        for q in ["cpu", "mem", "disk"]:
+            vals = [c.resources.get(q, 0.0) for c in containers if c.resources.get(q, 0.0) > 0]
+            self.typical_demands[q] = float(statistics.median(vals)) if vals else 0.0
+
     def image_size(self, cid: str) -> int:
         return sum(self.layer_sizes_mb[l] for l in self.containers[cid].layers)
 
     def cache_size(self, cache_layers: Set[str]) -> int:
         return sum(self.layer_sizes_mb[l] for l in cache_layers)
+    def aggregate_resource_usage(
+        self,
+        eid: str,
+        assignment: Dict[str, str],
+    ) -> Dict[str, float]:
+        used = defaultdict(float)
+        for cid, ne in assignment.items():
+            if ne != eid:
+                continue
+            c = self.containers[cid]
+            for q, v in c.resources.items():
+                used[q] += v
+        return dict(used)
 
-    # =========================
-    # Phase 1: 势博弈节点分配
-    # =========================
+
+    def fragmented_resource_amounts(
+        self,
+        assignment: Dict[str, str],
+    ) -> Dict[str, float]:
+        """
+        用于图1：
+        统计“剩余但不足以支撑一个典型镜像”的资源量，视为碎片化资源量。
+        这是诊断指标，不一定完全等同于可行性约束。
+        """
+        totals = {"cpu": 0.0, "mem": 0.0, "disk": 0.0}
+        for eid, node in self.nodes.items():
+            used = self.aggregate_resource_usage(eid, assignment)
+            for q, cap in node.resources.items():
+                rem = max(0.0, cap - used.get(q, 0.0))
+                thr = self.typical_demands.get(q, 0.0)
+                if 0.0 < rem < thr:
+                    totals[q] += rem
+        return totals
+
+
+    def potential_components(
+        self,
+        assignment: Dict[str, str],
+    ) -> Tuple[float, Dict[str, Dict]]:
+        layer_cnts = self.node_layer_counts(assignment)
+        node_counts = Counter(assignment.values())
+        total_num = len(self.containers)
+        avg_per_node = total_num / max(len(self.nodes), 1)
+
+        total = 0.0
+        comps: Dict[str, Dict] = {}
+
+        for eid, node in self.nodes.items():
+            m_j = node_counts.get(eid, 0)
+            D_j = self.distinct_missing_size(eid, layer_cnts[eid])
+            Frag_j = self.fragmentation_penalty(eid, assignment)
+            Aff_j = self.affinity_gain(eid, layer_cnts[eid])
+
+            cong_term = self.lambda_cong * ((D_j ** 2) / max(node.bandwidth_mb_s, 1e-8)) * (
+                1.0 + self.theta_cong_count * (m_j / max(avg_per_node, 1e-8))
+            )
+            frag_term = self.lambda_frag * Frag_j
+            aff_term = - self.lambda_aff * Aff_j
+            balance_term = self.lambda_balance * ((m_j - avg_per_node) ** 2)
+            idle_term = self.lambda_idle if m_j == 0 and total_num > 0 else 0.0
+
+            node_val = cong_term + frag_term + aff_term + balance_term + idle_term
+            total += node_val
+
+            comps[eid] = {
+                "m_j": m_j,
+                "D_j": D_j,
+                "Frag_j": Frag_j,
+                "Aff_j": Aff_j,
+                "cong_term": cong_term,
+                "frag_term": frag_term,
+                "aff_term": aff_term,
+                "balance_term": balance_term,
+                "idle_term": idle_term,
+                "node_potential": node_val,
+            }
+
+        return total, comps
+
+
+    def log_phase1_state(
+        self,
+        cycle: int,
+        assignment: Dict[str, str],
+        label: str,
+    ):
+        phi, comps = self.potential_components(assignment)
+        frag = self.fragmented_resource_amounts(assignment)
+        counts = Counter(assignment.values())
+
+        self.phase1_history.append({
+            "cycle": cycle,
+            "label": label,
+            "potential": phi,
+            "fragmented_cpu": frag["cpu"],
+            "fragmented_mem": frag["mem"],
+            "fragmented_disk": frag["disk"],
+            "active_nodes": sum(1 for eid in self.nodes if counts.get(eid, 0) > 0),
+            "idle_nodes": sum(1 for eid in self.nodes if counts.get(eid, 0) == 0),
+            "node_container_counts": {eid: counts.get(eid, 0) for eid in self.nodes},
+            "node_components": comps,
+        })
+
+
+    def build_phase2_reuse_history(
+        self,
+        step_logs: List[Dict],
+    ) -> List[Dict]:
+        bucket = defaultdict(lambda: {
+            "round": 0,
+            "step_reuse_mb_global": 0,
+            "step_downloaded_mb_global": 0,
+            "active_nodes": 0,
+        })
+
+        for rec in step_logs:
+            r = rec["local_step"]
+            bucket[r]["round"] = r
+            bucket[r]["step_reuse_mb_global"] += rec["reuse_mb"]
+            bucket[r]["step_downloaded_mb_global"] += rec["downloaded_mb"]
+            bucket[r]["active_nodes"] += 1
+
+        rows = [bucket[k] for k in sorted(bucket.keys())]
+
+        cum_reuse = 0
+        cum_download = 0
+        for row in rows:
+            cum_reuse += row["step_reuse_mb_global"]
+            cum_download += row["step_downloaded_mb_global"]
+            row["cumulative_reuse_mb_global"] = cum_reuse
+            row["cumulative_downloaded_mb_global"] = cum_download
+
+        return rows
+        # =========================
+        # Phase 1: 势博弈节点分配
+        # =========================
 
     def feasible_assign(
         self,
@@ -146,23 +302,16 @@ class FGDscrScheduler:
         node = self.nodes[eid]
         c = self.containers[cid]
 
-        # 单镜像基本可行性
+    # 只检查单镜像是否能在该节点上运行
+    # 不再把同一时间片已分配到该节点的所有镜像资源直接累加
         for q, demand in c.resources.items():
             if demand > node.resources.get(q, 0.0):
                 return False
 
-        # 当前时间片聚合资源约束
-        used = defaultdict(float)
-        for other_cid, other_eid in assignment.items():
-            if other_eid != eid or other_cid == cid:
-                continue
-            oc = self.containers[other_cid]
-            for q, v in oc.resources.items():
-                used[q] += v
+    # 镜像总大小不能超过节点缓存容量
+        if self.image_size(cid) > node.repo_capacity_mb:
+            return False
 
-        for q, v in c.resources.items():
-            if used[q] + v > node.resources.get(q, 0.0):
-                return False
         return True
 
     def node_layer_counts(
@@ -188,29 +337,36 @@ class FGDscrScheduler:
         eid: str,
         assignment: Dict[str, str],
     ) -> float:
+        """
+        顺序队列模型下，不再把“已分配镜像资源总和”当作并发占用。
+        这里改成“需求形状失衡惩罚”：
+        - 看分到该节点的镜像，在 cpu/mem/disk 三维上的平均归一化需求是否过于偏斜
+        - 越偏斜，说明后续更容易形成资源碎片化倾向
+        """
         node = self.nodes[eid]
-        used = defaultdict(float)
-        for cid, ne in assignment.items():
-            if ne != eid:
-                continue
-            c = self.containers[cid]
-            for q, v in c.resources.items():
-                used[q] += v
+        cids = [cid for cid, ne in assignment.items() if ne == eid]
 
-        ratios = []
-        tiny_gap_pen = 0.0
-        for q, cap in node.resources.items():
-            rem = max(0.0, cap - used[q])
-            rho = rem / max(cap, 1e-8)
-            ratios.append(rho)
-            if 0.0 < rho < self.tiny_gap_thresholds.get(q, 0.15):
-                tiny_gap_pen += 1.0
-
-        if len(ratios) == 0:
+        if not cids:
             return 0.0
-        mean_r = sum(ratios) / len(ratios)
-        var_r = sum((x - mean_r) ** 2 for x in ratios) / len(ratios)
-        return var_r + tiny_gap_pen
+
+        prof = []
+        tiny_gap_pen = 0.0
+
+        for q, cap in node.resources.items():
+            vals = [
+                self.containers[cid].resources.get(q, 0.0) / max(cap, 1e-8)
+                for cid in cids
+            ]
+            avg_q = sum(vals) / len(vals)
+            prof.append(avg_q)
+
+        # 如果某一维长期非常低，说明该节点上这类资源利用结构不均衡
+            if 0.0 < avg_q < self.tiny_gap_thresholds.get(q, 0.15):
+                tiny_gap_pen += 0.5
+
+        mean_p = sum(prof) / len(prof)
+        var_p = sum((x - mean_p) ** 2 for x in prof) / len(prof)
+        return var_p + tiny_gap_pen
 
     def affinity_gain(self, eid: str, layer_cnt: Counter) -> float:
         # 层共享亲和：sum s_l * log(1+n_jl)
@@ -220,18 +376,8 @@ class FGDscrScheduler:
                 gain += self.layer_sizes_mb[l] * math.log(1.0 + k)
         return gain
 
-    def potential(self, assignment: Dict[str, str]) -> float:
-        layer_cnts = self.node_layer_counts(assignment)
-        total = 0.0
-        for eid, node in self.nodes.items():
-            D_j = self.distinct_missing_size(eid, layer_cnts[eid])
-            Frag_j = self.fragmentation_penalty(eid, assignment)
-            Aff_j = self.affinity_gain(eid, layer_cnts[eid])
-            total += (
-                self.lambda_cong * (D_j ** 2) / max(node.bandwidth_mb_s, 1e-8)
-                + self.lambda_frag * Frag_j
-                - self.lambda_aff * Aff_j
-            )
+    def potential(self, assignment):
+        total, _ = self.potential_components(assignment)
         return total
 
     def greedy_init_assignment(self) -> Dict[str, str]:
@@ -266,6 +412,10 @@ class FGDscrScheduler:
     def best_response_assignment(self) -> Dict[str, str]:
         assignment = self.greedy_init_assignment()
 
+        # 清空旧日志
+        self.phase1_history = []
+        self.log_phase1_state(0, assignment, "greedy_init")
+
         improved = True
         rounds = 0
         while improved and rounds < self.max_best_response_rounds:
@@ -295,6 +445,8 @@ class FGDscrScheduler:
                 if best_eid != cur_eid:
                     assignment[cid] = best_eid
                     improved = True
+
+            self.log_phase1_state(rounds, assignment, f"best_response_round_{rounds}")
 
         return assignment
 
@@ -548,8 +700,14 @@ class FGDscrScheduler:
         completion = []
 
         remaining = set(ordered_cids)
-        for cid in ordered_cids:
+        step_logs: List[Dict] = []
+        container_logs: List[Dict] = []
+
+        for step_idx, cid in enumerate(ordered_cids, start=1):
             c = self.containers[cid]
+
+            t_before = t
+            cache_before_mb = self.cache_size(cache)
 
             # 统计下载/复用
             reuse_now = sum(self.layer_sizes_mb[l] for l in c.layers if l in cache)
@@ -559,6 +717,9 @@ class FGDscrScheduler:
             downloaded_mb += miss_now
 
             pull_time = miss_now / max(node.bandwidth_mb_s, 1e-8)
+            wait_time = t_before
+            deploy_delay = wait_time + pull_time
+
             t += pull_time + c.run_time
             completion.append(t)
 
@@ -571,7 +732,52 @@ class FGDscrScheduler:
                 clock=clock,
                 node=node,
             )
-            _ = gain  # 评估时不需要
+            _ = gain
+
+            evicted_mb = sum(self.layer_sizes_mb[l] for l in evicted)
+            cache_after_mb = self.cache_size(new_cache)
+
+            step_rec = {
+                "algo": self.algo_name,
+                "node_id": node.eid,
+                "cid": cid,
+                "service_type": c.service_type,
+                "local_step": step_idx,
+                "reuse_mb": reuse_now,
+                "downloaded_mb": miss_now,
+                "cumulative_reuse_mb": reused_mb,
+                "cumulative_downloaded_mb": downloaded_mb,
+                "cache_size_before_mb": cache_before_mb,
+                "cache_size_after_mb": cache_after_mb,
+                "evicted_mb": evicted_mb,
+                "num_evicted_layers": len(evicted),
+                "wait_time": wait_time,
+                "pull_time": pull_time,
+                "deploy_delay": deploy_delay,
+                "completion_time": t,
+                "run_time": c.run_time,
+            }
+            step_logs.append(step_rec)
+
+            container_logs.append({
+                "algo": self.algo_name,
+                "cid": cid,
+                "service_type": c.service_type,
+                "node_id": node.eid,
+                "local_step": step_idx,
+                "wait_time": wait_time,
+                "pull_time": pull_time,
+                "deploy_delay": deploy_delay,
+                "completion_time": t,
+                "run_time": c.run_time,
+                "reuse_mb": reuse_now,
+                "downloaded_mb": miss_now,
+                "cache_size_before_mb": cache_before_mb,
+                "cache_size_after_mb": cache_after_mb,
+                "evicted_mb": evicted_mb,
+                "num_evicted_layers": len(evicted),
+            })
+
             cache = new_cache
             clock = new_clock
 
@@ -590,6 +796,8 @@ class FGDscrScheduler:
             act=act,
             ams=ams,
             final_cache=cache,
+            step_logs=step_logs,
+            container_logs=container_logs,
         )
 
     # =========================
@@ -604,6 +812,10 @@ class FGDscrScheduler:
         node_to_cids: Dict[str, List[str]] = {eid: [] for eid in self.nodes}
         for cid, eid in assign_map.items():
             node_to_cids[eid].append(cid)
+
+        # 清空旧日志
+        self.node_step_logs = []
+        self.container_metrics = []
 
         # Phase 2
         ordered: Dict[str, List[str]] = {}
@@ -630,11 +842,16 @@ class FGDscrScheduler:
                 "completion_times": qm.completion_times,
             }
 
+            self.node_step_logs.extend(qm.step_logs)
+            self.container_metrics.extend(qm.container_logs)
+
             total_completion_sum += sum(qm.completion_times)
             total_num += len(ordered_seq)
             total_downloaded += qm.downloaded_mb
             total_reused += qm.reused_mb
             total_makespan += qm.ams
+
+        self.phase2_reuse_history = self.build_phase2_reuse_history(self.node_step_logs)
 
         ACT = total_completion_sum / max(total_num, 1)
         AMS = total_makespan / max(len(self.nodes), 1)
@@ -644,6 +861,7 @@ class FGDscrScheduler:
             "assignment": node_to_cids,
             "ordered_queues": ordered,
             "summary": {
+                "algo": self.algo_name,
                 "num_containers": total_num,
                 "num_nodes": len(self.nodes),
                 "ACT": ACT,
@@ -654,6 +872,10 @@ class FGDscrScheduler:
                 "objective": objective,
             },
             "node_details": node_details,
+            "phase1_history": self.phase1_history,
+            "phase2_reuse_history": self.phase2_reuse_history,
+            "node_step_logs": self.node_step_logs,
+            "container_metrics": self.container_metrics,
         }
         return out
 
@@ -676,6 +898,7 @@ def load_case(path: str):
                 layers=set(x["layers"]),
                 resources=x["resources"],
                 run_time=float(x["run_time"]),
+                service_type=x.get("service_type", x.get("image_type", "default")),
             )
         )
 
@@ -700,6 +923,13 @@ def main():
     parser.add_argument("--out", type=str, default="fg_dscr_result.json")
     parser.add_argument("--beam", type=int, default=4)
     parser.add_argument("--unit-mb", type=int, default=50)
+    parser.add_argument("--algo-name", type=str, default="FG-DSCR")
+
+    # 下面三个默认是0，只加日志不改算法行为
+    parser.add_argument("--lambda-balance", type=float, default=0.0)
+    parser.add_argument("--lambda-idle", type=float, default=0.0)
+    parser.add_argument("--theta-cong-count", type=float, default=0.0)
+
     args = parser.parse_args()
 
     containers, nodes, layer_sizes = load_case(args.case)
@@ -708,6 +938,10 @@ def main():
         layer_sizes_mb=layer_sizes,
         beam_width=args.beam,
         unit_mb=args.unit_mb,
+        algo_name=args.algo_name,
+        lambda_balance=args.lambda_balance,
+        lambda_idle=args.lambda_idle,
+        theta_cong_count=args.theta_cong_count,
     )
     scheduler.set_data(containers, nodes)
     res = scheduler.run()
