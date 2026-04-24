@@ -1,0 +1,24 @@
+# 数据
+drtp_raw/
+drtp_stats/
+drtp_stats_*/
+image_catalog.json
+image_overlap.csv
+layer_to_image.csv
+paper_case_*.json
+case_*.json
+
+# 运行结果
+result*.json
+fg_dscr_result.json
+
+# 画图脚本输出目录
+figs_*/
+plot_outputs/
+
+# Python 缓存
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.vscode/
+.DS_Store
