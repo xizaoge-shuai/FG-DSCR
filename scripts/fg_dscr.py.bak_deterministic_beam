@@ -897,7 +897,7 @@ class FGDscrScheduler:
         for l, freq in cnt.items():
             val = self.layer_sizes_mb[l] * freq
             items.append((val, l))
-        items.sort(key=lambda x: (-x[0], x[1]))
+        items.sort(reverse=True)
         return {l for _, l in items[:k]}
 
     def layer_priority(
@@ -1077,7 +1077,7 @@ class FGDscrScheduler:
                     continue
 
                 # 可以全枚举；如果太大可以加筛选
-                for cid in sorted(st.remaining):
+                for cid in list(st.remaining):
                     gain, new_cache, _, new_clock = self.score_candidate(
                         cid=cid,
                         cache=st.cache,

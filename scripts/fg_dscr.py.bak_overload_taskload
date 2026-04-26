@@ -71,7 +71,6 @@ class FGDscrScheduler:
         lambda_balance: float = 0.0,
         lambda_idle: float = 0.0,
         theta_cong_count: float = 0.0,
-        greedy_load_factor: float = 0.0,
     # Phase 1 weights
         lambda_cong: float = 1.0,
         lambda_frag: float = 1.0,
@@ -82,7 +81,6 @@ class FGDscrScheduler:
         tiny_gap_thresholds: Optional[Dict[str, float]] = None,
         lambda_task_load: float = 0.03,
         task_load_power: float = 2.0,
-        task_load_factor: float = 1.8,
     # Phase 2 weights
         alpha1_reuse: float = 1.0,
         alpha2_future: float = 0.15,
@@ -109,7 +107,6 @@ class FGDscrScheduler:
         self.theta_cong_count = theta_cong_count
         self.lambda_task_load = lambda_task_load
         self.task_load_power = task_load_power
-        self.task_load_factor = task_load_factor
         self.alpha1_reuse = alpha1_reuse
         self.alpha2_future = alpha2_future
         self.alpha3_pull = alpha3_pull
@@ -122,7 +119,6 @@ class FGDscrScheduler:
         self.beam_width = beam_width
         self.unit_mb = max(unit_mb, 1)
         self.max_best_response_rounds = max_best_response_rounds
-        self.greedy_load_factor = greedy_load_factor
         self.algo_name = algo_name
 
         self.tiny_gap_thresholds = tiny_gap_thresholds or {
@@ -201,9 +197,6 @@ class FGDscrScheduler:
         return totals
 
 
-
-
-
     def potential_components(
         self,
         assignment: Dict[str, str],
@@ -215,11 +208,8 @@ class FGDscrScheduler:
         num_nodes = max(len(self.nodes), 1)
         avg_per_node = total_num / num_nodes
 
-        total_run_time = sum(c.run_time for c in self.containers.values())
-        avg_run_per_node = total_run_time / num_nodes
-
-        # 先计算原始拥塞项，用它估计势函数量级。
-        # 这样 lambda_task_load 可以用 0.2 / 0.5 / 1.0 这种数值调参。
+        # 先计算每个节点的原始拥塞项，用它估计一个量级
+        # 这样 lambda_task_load 可以用 0.01 / 0.03 / 0.05 这种小数来调
         raw_cong_terms: Dict[str, float] = {}
         for eid, node in self.nodes.items():
             D_j = self.distinct_missing_size(eid, layer_cnts[eid])
@@ -228,7 +218,7 @@ class FGDscrScheduler:
             )
 
         cong_scale = max(
-            sum(raw_cong_terms.values()) / max(num_nodes, 1),
+            sum(raw_cong_terms.values()) / num_nodes,
             1.0
         )
 
@@ -247,32 +237,19 @@ class FGDscrScheduler:
             # 2) 资源碎片项
             frag_term = self.lambda_frag * Frag_j
 
-            # 3) 层共享亲和项：共享越强，势函数越小
+            # 3) 层共享亲和项，负号表示共享越强，势函数越小
             aff_term = - self.lambda_aff * Aff_j
 
-            # 4) 热点节点过载惩罚项
-            # 只惩罚超过软阈值的节点，不惩罚正常聚类。
-            # soft_limit = task_load_factor * 平均任务数。
+            # 4) 新增：节点任务负载惩罚项
+            # 不惩罚空节点，不强制平均，只让“任务堆太多的节点”变贵
             load_ratio = m_j / max(avg_per_node, 1e-8)
-            soft_limit = self.task_load_factor * avg_per_node
-            overload = max(0.0, m_j - soft_limit)
-            overload_ratio = overload / max(avg_per_node, 1e-8)
-
-            node_run_sum = sum(
-                self.containers[cid].run_time
-                for cid, ne in assignment.items()
-                if ne == eid
-            )
-            run_ratio = node_run_sum / max(avg_run_per_node, 1e-8)
-
             task_load_term = (
                 self.lambda_task_load
                 * cong_scale
-                * (overload_ratio ** self.task_load_power)
-                * run_ratio
+                * (load_ratio ** self.task_load_power)
             )
 
-            # 旧的强均衡项保留为日志项，不参与势函数
+            # 旧的强均衡项先保留为日志项，不参与势函数
             balance_term = 0.0
             idle_term = 0.0
 
@@ -289,11 +266,6 @@ class FGDscrScheduler:
                 "aff_term": aff_term,
                 "task_load_term": task_load_term,
                 "load_ratio": load_ratio,
-                "soft_limit": soft_limit,
-                "overload": overload,
-                "overload_ratio": overload_ratio,
-                "node_run_sum": node_run_sum,
-                "run_ratio": run_ratio,
                 "balance_term": balance_term,
                 "idle_term": idle_term,
                 "node_potential": node_val,
@@ -766,18 +738,7 @@ class FGDscrScheduler:
     ) -> Tuple[Optional[Dict[str, str]], Optional[str]]:
         return None, None
     
-
     def greedy_init_assignment(self) -> Dict[str, str]:
-        """
-        带软任务上限的 greedy 初始化。
-
-        原来的 greedy 会过度追求镜像层亲和，导致 edge-2 这类节点堆很多容器。
-        这里加入 greedy_load_factor：
-          - greedy_load_factor <= 0: 保持原行为
-          - greedy_load_factor > 0: 节点任务数达到 soft_cap 后，优先不再继续塞入
-
-        soft_cap = ceil(greedy_load_factor * N / M)
-        """
         # 大镜像、重资源优先
         cids = list(self.containers.keys())
         cids.sort(
@@ -789,53 +750,22 @@ class FGDscrScheduler:
         )
 
         assignment: Dict[str, str] = {}
-
-        avg_load = len(cids) / max(len(self.nodes), 1)
-        soft_cap = None
-        if self.greedy_load_factor and self.greedy_load_factor > 0:
-            soft_cap = max(1, math.ceil(self.greedy_load_factor * avg_load))
-
         for cid in cids:
-            feasible_eids = []
-            for eid in self.nodes:
-                if self.feasible_assign(cid, eid, assignment):
-                    feasible_eids.append(eid)
-
-            if not feasible_eids:
-                raise ValueError(f"No feasible node for container {cid}")
-
-            # 关键改动：
-            # 初始化阶段优先选择未超过 soft_cap 的节点。
-            # 只有所有可行节点都超过 soft_cap 时，才退回所有可行节点。
-            candidate_eids = feasible_eids
-            if soft_cap is not None:
-                counts = Counter(assignment.values())
-                under_cap = [
-                    eid for eid in feasible_eids
-                    if counts.get(eid, 0) < soft_cap
-                ]
-                if under_cap:
-                    candidate_eids = under_cap
-
             best_eid = None
             best_phi = float("inf")
-
-            for eid in candidate_eids:
+            for eid in self.nodes:
+                if not self.feasible_assign(cid, eid, assignment):
+                    continue
                 trial = dict(assignment)
                 trial[cid] = eid
                 phi = self.potential(trial)
-
                 if phi < best_phi:
                     best_phi = phi
                     best_eid = eid
-
             if best_eid is None:
                 raise ValueError(f"No feasible node for container {cid}")
-
             assignment[cid] = best_eid
-
         return assignment
-
 
     def best_response_assignment(self) -> Dict[str, str]:
         assignment = self.greedy_init_assignment()
@@ -897,7 +827,7 @@ class FGDscrScheduler:
         for l, freq in cnt.items():
             val = self.layer_sizes_mb[l] * freq
             items.append((val, l))
-        items.sort(key=lambda x: (-x[0], x[1]))
+        items.sort(reverse=True)
         return {l for _, l in items[:k]}
 
     def layer_priority(
@@ -1077,7 +1007,7 @@ class FGDscrScheduler:
                     continue
 
                 # 可以全枚举；如果太大可以加筛选
-                for cid in sorted(st.remaining):
+                for cid in list(st.remaining):
                     gain, new_cache, _, new_clock = self.score_candidate(
                         cid=cid,
                         cache=st.cache,
@@ -1357,10 +1287,8 @@ def main():
     parser.add_argument("--lambda-balance", type=float, default=0.0)
     parser.add_argument("--lambda-idle", type=float, default=0.0)
     parser.add_argument("--theta-cong-count", type=float, default=0.0)
-    parser.add_argument("--greedy-load-factor", type=float, default=0.0)
     parser.add_argument("--lambda-task-load", type=float, default=0.03)
     parser.add_argument("--task-load-power", type=float, default=2.0)
-    parser.add_argument("--task-load-factor", type=float, default=1.8)
     args = parser.parse_args()
 
     containers, nodes, layer_sizes = load_case(args.case)
@@ -1373,10 +1301,8 @@ def main():
         lambda_balance=args.lambda_balance,
         lambda_idle=args.lambda_idle,
         theta_cong_count=args.theta_cong_count,
-        greedy_load_factor=args.greedy_load_factor,
         lambda_task_load=args.lambda_task_load,
         task_load_power=args.task_load_power,
-        task_load_factor=args.task_load_factor,
     )
     scheduler.set_data(containers, nodes)
     res = scheduler.run()

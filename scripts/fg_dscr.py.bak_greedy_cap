@@ -71,7 +71,6 @@ class FGDscrScheduler:
         lambda_balance: float = 0.0,
         lambda_idle: float = 0.0,
         theta_cong_count: float = 0.0,
-        greedy_load_factor: float = 0.0,
     # Phase 1 weights
         lambda_cong: float = 1.0,
         lambda_frag: float = 1.0,
@@ -122,7 +121,6 @@ class FGDscrScheduler:
         self.beam_width = beam_width
         self.unit_mb = max(unit_mb, 1)
         self.max_best_response_rounds = max_best_response_rounds
-        self.greedy_load_factor = greedy_load_factor
         self.algo_name = algo_name
 
         self.tiny_gap_thresholds = tiny_gap_thresholds or {
@@ -766,18 +764,7 @@ class FGDscrScheduler:
     ) -> Tuple[Optional[Dict[str, str]], Optional[str]]:
         return None, None
     
-
     def greedy_init_assignment(self) -> Dict[str, str]:
-        """
-        带软任务上限的 greedy 初始化。
-
-        原来的 greedy 会过度追求镜像层亲和，导致 edge-2 这类节点堆很多容器。
-        这里加入 greedy_load_factor：
-          - greedy_load_factor <= 0: 保持原行为
-          - greedy_load_factor > 0: 节点任务数达到 soft_cap 后，优先不再继续塞入
-
-        soft_cap = ceil(greedy_load_factor * N / M)
-        """
         # 大镜像、重资源优先
         cids = list(self.containers.keys())
         cids.sort(
@@ -789,53 +776,22 @@ class FGDscrScheduler:
         )
 
         assignment: Dict[str, str] = {}
-
-        avg_load = len(cids) / max(len(self.nodes), 1)
-        soft_cap = None
-        if self.greedy_load_factor and self.greedy_load_factor > 0:
-            soft_cap = max(1, math.ceil(self.greedy_load_factor * avg_load))
-
         for cid in cids:
-            feasible_eids = []
-            for eid in self.nodes:
-                if self.feasible_assign(cid, eid, assignment):
-                    feasible_eids.append(eid)
-
-            if not feasible_eids:
-                raise ValueError(f"No feasible node for container {cid}")
-
-            # 关键改动：
-            # 初始化阶段优先选择未超过 soft_cap 的节点。
-            # 只有所有可行节点都超过 soft_cap 时，才退回所有可行节点。
-            candidate_eids = feasible_eids
-            if soft_cap is not None:
-                counts = Counter(assignment.values())
-                under_cap = [
-                    eid for eid in feasible_eids
-                    if counts.get(eid, 0) < soft_cap
-                ]
-                if under_cap:
-                    candidate_eids = under_cap
-
             best_eid = None
             best_phi = float("inf")
-
-            for eid in candidate_eids:
+            for eid in self.nodes:
+                if not self.feasible_assign(cid, eid, assignment):
+                    continue
                 trial = dict(assignment)
                 trial[cid] = eid
                 phi = self.potential(trial)
-
                 if phi < best_phi:
                     best_phi = phi
                     best_eid = eid
-
             if best_eid is None:
                 raise ValueError(f"No feasible node for container {cid}")
-
             assignment[cid] = best_eid
-
         return assignment
-
 
     def best_response_assignment(self) -> Dict[str, str]:
         assignment = self.greedy_init_assignment()
@@ -897,7 +853,7 @@ class FGDscrScheduler:
         for l, freq in cnt.items():
             val = self.layer_sizes_mb[l] * freq
             items.append((val, l))
-        items.sort(key=lambda x: (-x[0], x[1]))
+        items.sort(reverse=True)
         return {l for _, l in items[:k]}
 
     def layer_priority(
@@ -1077,7 +1033,7 @@ class FGDscrScheduler:
                     continue
 
                 # 可以全枚举；如果太大可以加筛选
-                for cid in sorted(st.remaining):
+                for cid in list(st.remaining):
                     gain, new_cache, _, new_clock = self.score_candidate(
                         cid=cid,
                         cache=st.cache,
@@ -1357,7 +1313,6 @@ def main():
     parser.add_argument("--lambda-balance", type=float, default=0.0)
     parser.add_argument("--lambda-idle", type=float, default=0.0)
     parser.add_argument("--theta-cong-count", type=float, default=0.0)
-    parser.add_argument("--greedy-load-factor", type=float, default=0.0)
     parser.add_argument("--lambda-task-load", type=float, default=0.03)
     parser.add_argument("--task-load-power", type=float, default=2.0)
     parser.add_argument("--task-load-factor", type=float, default=1.8)
@@ -1373,7 +1328,6 @@ def main():
         lambda_balance=args.lambda_balance,
         lambda_idle=args.lambda_idle,
         theta_cong_count=args.theta_cong_count,
-        greedy_load_factor=args.greedy_load_factor,
         lambda_task_load=args.lambda_task_load,
         task_load_power=args.task_load_power,
         task_load_factor=args.task_load_factor,
