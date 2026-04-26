@@ -1,0 +1,5 @@
+mariadb:10.11
+mongo:6
+rabbitmq:3-alpine
+bitnami/kafka:3.7
+bitnami/zookeeper:3.9

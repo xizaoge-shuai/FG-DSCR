@@ -1,0 +1,5 @@
+matomo:5
+redmine:5
+nextcloud:28
+owncloud/server:10.13
+gitea/gitea:1.21

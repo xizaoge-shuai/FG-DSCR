@@ -1,0 +1,5 @@
+bitnami/redis:7.2
+bitnami/postgresql:16
+bitnami/mysql:8.0
+bitnami/nginx:1.25
+bitnami/mongodb:7.0

@@ -11,44 +11,6 @@ from typing import Dict, List, Tuple
 
 import requests
 
-# FG_DOCKERHUB_RATE_LIMIT_PATCH
-import os as _fg_os
-import time as _fg_time
-from requests.auth import HTTPBasicAuth as _FG_HTTPBasicAuth
-
-_fg_orig_requests_get = requests.get
-
-def _fg_requests_get_with_auth_retry(url, **kwargs):
-    user = _fg_os.getenv("DOCKERHUB_USERNAME") or _fg_os.getenv("DOCKERHUB_USER")
-    token = (
-        _fg_os.getenv("DOCKERHUB_TOKEN")
-        or _fg_os.getenv("DOCKERHUB_PAT")
-        or _fg_os.getenv("DOCKERHUB_PASSWORD")
-    )
-
-    if user and token and "auth.docker.io/token" in str(url):
-        kwargs.setdefault("auth", _FG_HTTPBasicAuth(user, token))
-
-    max_retry = int(_fg_os.getenv("DOCKERHUB_MAX_RETRY", "8"))
-    base_sleep = int(_fg_os.getenv("DOCKERHUB_429_SLEEP", "180"))
-
-    last_resp = None
-    for i in range(max_retry):
-        resp = _fg_orig_requests_get(url, **kwargs)
-        last_resp = resp
-
-        if getattr(resp, "status_code", None) != 429:
-            return resp
-
-        wait = base_sleep * (i + 1)
-        print(f"[RATE_LIMIT] 429 for {url}; sleep {wait}s then retry {i+1}/{max_retry}", flush=True)
-        _fg_time.sleep(wait)
-
-    return last_resp
-
-requests.get = _fg_requests_get_with_auth_retry
-
-
 REGISTRY = "https://registry-1.docker.io"
 AUTH = "https://auth.docker.io/token"
 

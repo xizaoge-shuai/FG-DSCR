@@ -1,0 +1,7 @@
+﻿image_a,image_b,shared_layers,shared_size_mb
+elasticsearch:8.13.0,kibana:8.13.0,2,26.2372
+elasticsearch:8.13.0,neo4j:5,1,0.0
+elasticsearch:8.13.0,couchdb:3,0,0
+kibana:8.13.0,neo4j:5,1,0.0
+kibana:8.13.0,couchdb:3,0,0
+neo4j:5,couchdb:3,0,0
