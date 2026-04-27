@@ -1,0 +1,87 @@
+[
+  {
+    "image_ref": "gradle:8.7",
+    "repo": "library/gradle",
+    "tag": "8.7",
+    "manifest_digest": "sha256:74a6f26aca52584132a2c5a99d81e7b8db11ce712ea941835755a577d2226ebc",
+    "schemaVersion": 2,
+    "config_digest": "sha256:8cf9d27c8baa603ff2ad7a54bf41247eff6fd1446382a19ed76b502d9540307e",
+    "architecture": "amd64",
+    "os": "linux",
+    "total_layers": 10,
+    "total_size_bytes": 392223197,
+    "total_size_mb": 374.0532,
+    "layers": [
+      {
+        "index": 0,
+        "digest": "sha256:4a023cab5400feb5c1ab725beb8345ddb0e3200314004b56677a5eee2e8c86cf",
+        "size_bytes": 30439649,
+        "size_mb": 29.0295,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 1,
+        "digest": "sha256:5e5d1bccc5440d3a24f4a620704b9e687b4163c6c872fcc8e812e200c9bbac58",
+        "size_bytes": 17456240,
+        "size_mb": 16.6476,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 2,
+        "digest": "sha256:afd7ada947ce7661ad85815ab478851ccf7b0d064cde9c9195bafb2bd499b29e",
+        "size_bytes": 158512068,
+        "size_mb": 151.1689,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 3,
+        "digest": "sha256:478e5694bb3e0cbd54a331514092737b8a8de5a4fe7069a3f00e6eb1b98fd605",
+        "size_bytes": 178,
+        "size_mb": 0.0002,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 4,
+        "digest": "sha256:d8fa38685928ae1a460299486cb01d7d2db1eff47fbd68c8ac6c936e89af1641",
+        "size_bytes": 731,
+        "size_mb": 0.0007,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 5,
+        "digest": "sha256:9597f8bd6b29bc76b89a6b5abbb319791d5d158dacff7e8aa94f2c6532c056be",
+        "size_bytes": 4311,
+        "size_mb": 0.0041,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 6,
+        "digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1",
+        "size_bytes": 32,
+        "size_mb": 0.0,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 7,
+        "digest": "sha256:cceb7a9608833749b9ce19ac222db3d351fc0948875b9722f30056c2b3be54b7",
+        "size_bytes": 51545087,
+        "size_mb": 49.1572,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 8,
+        "digest": "sha256:c67a44bc0ca27ab347cbf95cec6ffe05b748f3a91ea2a83ac69c1cd292f7d39c",
+        "size_bytes": 134209999,
+        "size_mb": 127.9926,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 9,
+        "digest": "sha256:154d34656420a1177a9f23f6c4d45719e4974ab8b385a46316b114c8a5fd92ad",
+        "size_bytes": 54902,
+        "size_mb": 0.0524,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      }
+    ]
+  }
+]

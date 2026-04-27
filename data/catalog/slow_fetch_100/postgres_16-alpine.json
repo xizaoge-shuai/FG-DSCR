@@ -1,0 +1,94 @@
+[
+  {
+    "image_ref": "postgres:16-alpine",
+    "repo": "library/postgres",
+    "tag": "16-alpine",
+    "manifest_digest": "sha256:4941ef97aaa2633ce9808f7766f8b8d746dd039ce8c51ca6da185c3dc63ab579",
+    "schemaVersion": 2,
+    "config_digest": "sha256:667495ca2ac33180ad3690178da1bf274f481d0c43849d4c1941f0176983bd2e",
+    "architecture": "amd64",
+    "os": "linux",
+    "total_layers": 11,
+    "total_size_bytes": 109973099,
+    "total_size_mb": 104.8785,
+    "layers": [
+      {
+        "index": 0,
+        "digest": "sha256:6a0ac1617861a677b045b7ff88545213ec31c0ff08763195a70a4a5adda577bb",
+        "size_bytes": 3864189,
+        "size_mb": 3.6852,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 1,
+        "digest": "sha256:420ca0de84ca258657b5dffbb32d05c1ffd08f326153f341a05d60c320796b10",
+        "size_bytes": 971,
+        "size_mb": 0.0009,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 2,
+        "digest": "sha256:3b7e6bf074f6d138e0486a91ed9c516f23a85e6fc0eef0b91ef71e950c4824cd",
+        "size_bytes": 919055,
+        "size_mb": 0.8765,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 3,
+        "digest": "sha256:72393ada915053e88f4fb285b231e662c8ce06ca0584075e128e282968223fad",
+        "size_bytes": 169,
+        "size_mb": 0.0002,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 4,
+        "digest": "sha256:c740b6b7dd0b2cfbdf5ab6d882cca61ab4ac9b0fcab60c106d63b80aa8bdce47",
+        "size_bytes": 114,
+        "size_mb": 0.0001,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 5,
+        "digest": "sha256:0d3e610f9e0fac34b5b50769a7759e1c7c950f8f3db19983badf44fe6b901c26",
+        "size_bytes": 105172397,
+        "size_mb": 100.3002,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 6,
+        "digest": "sha256:282a6867e326b37553419747b47799e17c48beb65c6d1145b5e662c8ec4fca54",
+        "size_bytes": 9627,
+        "size_mb": 0.0092,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 7,
+        "digest": "sha256:d9681cd68a9456a69b2ed89a8433c6b2299665f40e06a85d84f3bdd585cb105d",
+        "size_bytes": 128,
+        "size_mb": 0.0001,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 8,
+        "digest": "sha256:5ef55a6c860c34c07cda7b782cb034cc975872371b4b83e0288de91bddbcf028",
+        "size_bytes": 169,
+        "size_mb": 0.0002,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 9,
+        "digest": "sha256:abdc7c6150b59ba65f6e49c428d8a5e13fed648b8abc84466576007028a25fd6",
+        "size_bytes": 6096,
+        "size_mb": 0.0058,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 10,
+        "digest": "sha256:20f9cf2e989379b4872852ab60c265982710bf81819c9d79286ec679d714721d",
+        "size_bytes": 184,
+        "size_mb": 0.0002,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      }
+    ]
+  }
+]

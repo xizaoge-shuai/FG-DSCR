@@ -1,0 +1,9 @@
+bitnami/etcd:3.5
+bitnami/kafka:3.7
+bitnami/mongodb:7.0
+bitnami/mysql:8.0
+bitnami/nginx:1.25
+bitnami/postgresql:16
+bitnami/rabbitmq:3.13
+bitnami/redis:7.2
+bitnami/zookeeper:3.9

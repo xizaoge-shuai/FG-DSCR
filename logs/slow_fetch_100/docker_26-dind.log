@@ -1,0 +1,3 @@
+[INFO] fetching docker:26-dind ...
+[WARN] skip docker:26-dind: HTTPSConnectionPool(host='auth.docker.io', port=443): Max retries exceeded with url: /token?service=registry.docker.io&scope=repository%3Alibrary%2Fdocker%3Apull (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1017)')))
+[OK] wrote data/catalog/slow_fetch_100/docker_26-dind.json, data/catalog/slow_fetch_100/docker_26-dind_overlap.csv, data/catalog/slow_fetch_100/docker_26-dind_layers.csv

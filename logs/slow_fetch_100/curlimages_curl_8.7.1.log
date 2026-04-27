@@ -1,0 +1,3 @@
+[INFO] fetching curlimages/curl:8.7.1 ...
+[WARN] skip curlimages/curl:8.7.1: HTTPSConnectionPool(host='auth.docker.io', port=443): Max retries exceeded with url: /token?service=registry.docker.io&scope=repository%3Acurlimages%2Fcurl%3Apull (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1017)')))
+[OK] wrote data/catalog/slow_fetch_100/curlimages_curl_8.7.1.json, data/catalog/slow_fetch_100/curlimages_curl_8.7.1_overlap.csv, data/catalog/slow_fetch_100/curlimages_curl_8.7.1_layers.csv

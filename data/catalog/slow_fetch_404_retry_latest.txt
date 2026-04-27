@@ -1,0 +1,9 @@
+logs/slow_fetch_100/bitnami_etcd_3.5.log:[WARN] skip bitnami/etcd:3.5: 404 Client Error: Not Found for url: https://registry-1.docker.io/v2/bitnami/etcd/manifests/3.5:latest
+logs/slow_fetch_100/bitnami_kafka_3.7.log:[WARN] skip bitnami/kafka:3.7: 404 Client Error: Not Found for url: https://registry-1.docker.io/v2/bitnami/kafka/manifests/3.7:latest
+logs/slow_fetch_100/bitnami_mongodb_7.0.log:[WARN] skip bitnami/mongodb:7.0: 404 Client Error: Not Found for url: https://registry-1.docker.io/v2/bitnami/mongodb/manifests/7.0:latest
+logs/slow_fetch_100/bitnami_mysql_8.0.log:[WARN] skip bitnami/mysql:8.0: 404 Client Error: Not Found for url: https://registry-1.docker.io/v2/bitnami/mysql/manifests/8.0:latest
+logs/slow_fetch_100/bitnami_nginx_1.25.log:[WARN] skip bitnami/nginx:1.25: 404 Client Error: Not Found for url: https://registry-1.docker.io/v2/bitnami/nginx/manifests/1.25:latest
+logs/slow_fetch_100/bitnami_postgresql_16.log:[WARN] skip bitnami/postgresql:16: 404 Client Error: Not Found for url: https://registry-1.docker.io/v2/bitnami/postgresql/manifests/16:latest
+logs/slow_fetch_100/bitnami_rabbitmq_3.13.log:[WARN] skip bitnami/rabbitmq:3.13: 404 Client Error: Not Found for url: https://registry-1.docker.io/v2/bitnami/rabbitmq/manifests/3.13:latest
+logs/slow_fetch_100/bitnami_redis_7.2.log:[WARN] skip bitnami/redis:7.2: 404 Client Error: Not Found for url: https://registry-1.docker.io/v2/bitnami/redis/manifests/7.2:latest
+logs/slow_fetch_100/bitnami_zookeeper_3.9.log:[WARN] skip bitnami/zookeeper:3.9: 404 Client Error: Not Found for url: https://registry-1.docker.io/v2/bitnami/zookeeper/manifests/3.9:latest

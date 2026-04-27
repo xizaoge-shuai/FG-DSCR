@@ -1,0 +1,5 @@
+usage: crawl_dockerhub_layers.py [-h] [--images [IMAGES ...]]
+                                 [--out-json OUT_JSON]
+                                 [--out-overlap-csv OUT_OVERLAP_CSV]
+                                 [--out-layer-map-csv OUT_LAYER_MAP_CSV]
+crawl_dockerhub_layers.py: error: unrecognized arguments: skip bitnami_kafka_3.7_ 404 Client Error_ Not Found for url_ https___registry-1.docker.io_v2_bitnami_kafka_manifests_3.7_latest.json skip bitnami_kafka_3.7_ 404 Client Error_ Not Found for url_ https___registry-1.docker.io_v2_bitnami_kafka_manifests_3.7_latest_overlap.csv skip bitnami_kafka_3.7_ 404 Client Error_ Not Found for url_ https___registry-1.docker.io_v2_bitnami_kafka_manifests_3.7_latest_layers.csv

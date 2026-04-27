@@ -1,0 +1,73 @@
+[
+  {
+    "image_ref": "mariadb:10.11",
+    "repo": "library/mariadb",
+    "tag": "10.11",
+    "manifest_digest": "sha256:9ec803a18f88f1df2b8328565a661335875419c531e19b45bc916eb3b51e5422",
+    "schemaVersion": 2,
+    "config_digest": "sha256:0715561427ab8d49f94235a37c4bad277762143cd7ad89c4f9fb1fabd6735c00",
+    "architecture": "amd64",
+    "os": "linux",
+    "total_layers": 8,
+    "total_size_bytes": 106494545,
+    "total_size_mb": 101.5611,
+    "layers": [
+      {
+        "index": 0,
+        "digest": "sha256:f63eb04151bcac21ad049f8d781b97b219aba392c5457907f8f3e88e43eb48ec",
+        "size_bytes": 29736498,
+        "size_mb": 28.3589,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 1,
+        "digest": "sha256:0351f58cbdcd011adcfc74be0b01a4c5767ed53a2b492e542baab00eaea5b4c2",
+        "size_bytes": 1722,
+        "size_mb": 0.0016,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 2,
+        "digest": "sha256:31ae8b4fcf57a0117055ed54f17c41bf135c22d9752bb270f754b92daeed9bac",
+        "size_bytes": 5614000,
+        "size_mb": 5.3539,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 3,
+        "digest": "sha256:bd65b0d3326244b8e26991492daf40b76e40c09d468a443931c78748c7ae34c9",
+        "size_bytes": 114,
+        "size_mb": 0.0001,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 4,
+        "digest": "sha256:825c101cb000b8c4e3cd82f773eeba942a7fe49a7498e25334ec1582e5d87b91",
+        "size_bytes": 331,
+        "size_mb": 0.0003,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 5,
+        "digest": "sha256:cb73e5ccf2f8a58dee7dd6c0bfc108aa7a50332d0a41aa5fe3adfd6e2567d291",
+        "size_bytes": 71129504,
+        "size_mb": 67.8344,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 6,
+        "digest": "sha256:b29c8d9c02a111f57fbcd2c2480f1026be9d754bc17c2823922fce6828ec4b2b",
+        "size_bytes": 4014,
+        "size_mb": 0.0038,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 7,
+        "digest": "sha256:1543bd86d69e8054b62301ee1ad8f04f2cce48f431b00a8ec0955691e0fc976d",
+        "size_bytes": 8362,
+        "size_mb": 0.008,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      }
+    ]
+  }
+]

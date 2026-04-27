@@ -1,0 +1,3 @@
+[INFO] fetching arangodb:3.11 ...
+[WARN] skip arangodb:3.11: HTTPSConnectionPool(host='registry-1.docker.io', port=443): Max retries exceeded with url: /v2/library/arangodb/manifests/3.11 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1017)')))
+[OK] wrote data/catalog/slow_fetch_100/arangodb_3.11.json, data/catalog/slow_fetch_100/arangodb_3.11_overlap.csv, data/catalog/slow_fetch_100/arangodb_3.11_layers.csv

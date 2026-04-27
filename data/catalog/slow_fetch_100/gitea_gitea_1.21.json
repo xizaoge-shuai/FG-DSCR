@@ -1,0 +1,66 @@
+[
+  {
+    "image_ref": "gitea/gitea:1.21",
+    "repo": "gitea/gitea",
+    "tag": "1.21",
+    "manifest_digest": "sha256:0abba6432e37944cd13b47aa0c6ffb958e1a22d7b3795c723267ac92163b774f",
+    "schemaVersion": 2,
+    "config_digest": "sha256:ae28faabfe1f9c5f3f30a7e3ee9e9d804a0647b2c668c230e4864c95af1fa830",
+    "architecture": "amd64",
+    "os": "linux",
+    "total_layers": 7,
+    "total_size_bytes": 68522622,
+    "total_size_mb": 65.3483,
+    "layers": [
+      {
+        "index": 0,
+        "digest": "sha256:619be1103602d98e1963557998c954c892b3872986c27365e9f651f5bc27cab8",
+        "size_bytes": 3402542,
+        "size_mb": 3.2449,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 1,
+        "digest": "sha256:a3dd1c70fa959a0bb7594f746b3953327e3da0a7d5ea7795f5f42236f80d9087",
+        "size_bytes": 17138881,
+        "size_mb": 16.3449,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 2,
+        "digest": "sha256:a6162b935ac8e1b34197e390ebb4d7a90f4f95d9824440848bc57ebd6f80fad0",
+        "size_bytes": 1204,
+        "size_mb": 0.0011,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 3,
+        "digest": "sha256:f7e5852aed4dbec248e081ae7bf7ebc7b1efcd29a810db1f45fcca6b343fa7c4",
+        "size_bytes": 3780,
+        "size_mb": 0.0036,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 4,
+        "digest": "sha256:2332d211dcb62e72b1dcf60e4bd40e3c348dec88dba39755eabcea504e86108e",
+        "size_bytes": 41771277,
+        "size_mb": 39.8362,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 5,
+        "digest": "sha256:f04674e4d98c218aed54c9170a76553f8afde47d3113ff0a1c10562738330fd0",
+        "size_bytes": 6204391,
+        "size_mb": 5.917,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      },
+      {
+        "index": 6,
+        "digest": "sha256:0d23272325a95bc39b32c8a0e74e5953882a1302dae70ce06ace726b9563d310",
+        "size_bytes": 547,
+        "size_mb": 0.0005,
+        "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip"
+      }
+    ]
+  }
+]
