@@ -1,0 +1,23 @@
+	Command being timed: "python3 scripts/run_gahrl_reimpl_train.py --case cases/drtp_diversity/drtp_img68_cache_1024mb_500.json --out results/drtp/recent_baselines/gahrl_reimpl/gahrl_reimpl_img68_500.json --episodes 80 --seed 42 --lambda-latency 0.5 --w-resource 0.30 --w-imbalance 0.20 --w-layer-hit 0.20 --cpu"
+	User time (seconds): 2588.60
+	System time (seconds): 40.18
+	Percent of CPU this job got: 1592%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:45.04
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 324476
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 58352
+	Voluntary context switches: 389
+	Involuntary context switches: 15511
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 352
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

@@ -1,0 +1,4 @@
+setting,size,case,ilrsa,gc
+16,200,cases/drtp_cache_sweep/drtp_cache_1024mb_200.json,results/drtp/cache_sweep/ilrsa/ilrsa_cache_1024mb_200.json,results/drtp/cache_sweep/fg_greedycap_final/fg_gc_g1.0_cache_1024mb_200.json
+16,500,cases/drtp_cache_sweep/drtp_cache_1024mb_500.json,results/drtp/cache_sweep/ilrsa/ilrsa_cache_1024mb_500.json,results/drtp/cache_sweep/fg_greedycap_final/fg_gc_g0.9_cache_1024mb_500.json
+16,1000,cases/drtp_cache_sweep/drtp_cache_1024mb_1000.json,results/drtp/cache_sweep/ilrsa/ilrsa_cache_1024mb_1000.json,results/drtp/cache_sweep/fg_greedycap_final/fg_gc_g0.9_cache_1024mb_1000.json

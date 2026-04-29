@@ -1,0 +1,7 @@
+setting,size,case,ilrsa,gc
+68,200,cases/drtp_diversity/drtp_img68_cache_1024mb_200.json,results/drtp/diversity/ilrsa/ilrsa_img68_200.json,results/drtp/diversity/fg_gc/fg_gc_img68_200.json
+68,500,cases/drtp_diversity/drtp_img68_cache_1024mb_500.json,results/drtp/diversity/ilrsa/ilrsa_img68_500.json,results/drtp/diversity/fg_gc/fg_gc_img68_500.json
+68,1000,cases/drtp_diversity/drtp_img68_cache_1024mb_1000.json,results/drtp/diversity/ilrsa/ilrsa_img68_1000.json,results/drtp/diversity/fg_gc/fg_gc_img68_1000.json
+88,200,cases/drtp_large_v2/drtp_img88_cache_1024mb_200.json,results/drtp/large_v2/ilrsa/ilrsa_img88_200.json,results/drtp/large_v2/fg_gc/fg_gc_img88_200.json
+88,500,cases/drtp_large_v2/drtp_img88_cache_1024mb_500.json,results/drtp/large_v2/ilrsa/ilrsa_img88_500.json,results/drtp/large_v2/fg_gc/fg_gc_img88_500.json
+88,1000,cases/drtp_large_v2/drtp_img88_cache_1024mb_1000.json,results/drtp/large_v2/ilrsa/ilrsa_img88_1000.json,results/drtp/large_v2/fg_gc/fg_gc_img88_1000.json

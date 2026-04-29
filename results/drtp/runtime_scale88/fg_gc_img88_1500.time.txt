@@ -1,0 +1,23 @@
+	Command being timed: "python3 scripts/fg_dscr.py --case cases/drtp_runtime_scale/drtp_img88_cache_1024mb_1500.json --out results/drtp/runtime_scale88/fg_gc_img88_1500.json --algo-name FG-DSCR-GC-img88-runtime-scale --beam 1 --unit-mb 50 --lambda-balance 0 --lambda-idle 0 --theta-cong-count 0 --lambda-task-load 0 --task-load-power 2.0 --task-load-factor 1.8 --greedy-load-factor 0.9"
+	User time (seconds): 88.51
+	System time (seconds): 0.00
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:28.55
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 24488
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 5695
+	Voluntary context switches: 49
+	Involuntary context switches: 29071
+	Swaps: 0
+	File system inputs: 824
+	File system outputs: 3632
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

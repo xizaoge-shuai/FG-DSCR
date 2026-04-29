@@ -1,0 +1,7638 @@
+{
+  "ordered_queues": {
+    "edge-1": [
+      "c001",
+      "c002",
+      "c006",
+      "c010",
+      "c014",
+      "c020",
+      "c027",
+      "c035",
+      "c044",
+      "c057",
+      "c063",
+      "c076",
+      "c085",
+      "c089",
+      "c097",
+      "c107",
+      "c118",
+      "c121",
+      "c130",
+      "c139",
+      "c147",
+      "c156",
+      "c166",
+      "c171",
+      "c179",
+      "c186",
+      "c194",
+      "c200",
+      "c209",
+      "c217",
+      "c223",
+      "c228",
+      "c236",
+      "c241",
+      "c250",
+      "c266",
+      "c274",
+      "c281",
+      "c291",
+      "c302",
+      "c308",
+      "c311",
+      "c321",
+      "c327",
+      "c337",
+      "c344",
+      "c353",
+      "c364",
+      "c378",
+      "c386",
+      "c394",
+      "c399",
+      "c408",
+      "c414",
+      "c422",
+      "c433",
+      "c446",
+      "c454",
+      "c464",
+      "c470",
+      "c480",
+      "c489",
+      "c499"
+    ],
+    "edge-2": [
+      "c023",
+      "c024",
+      "c032",
+      "c037",
+      "c047",
+      "c056",
+      "c068",
+      "c073",
+      "c081",
+      "c088",
+      "c095",
+      "c100",
+      "c108",
+      "c116",
+      "c123",
+      "c128",
+      "c134",
+      "c144",
+      "c149",
+      "c157",
+      "c162",
+      "c168",
+      "c178",
+      "c185",
+      "c193",
+      "c196",
+      "c206",
+      "c214",
+      "c222",
+      "c235",
+      "c243",
+      "c251",
+      "c260",
+      "c263",
+      "c271",
+      "c276",
+      "c278",
+      "c286",
+      "c290",
+      "c296",
+      "c306",
+      "c313",
+      "c320",
+      "c329",
+      "c338",
+      "c339",
+      "c347",
+      "c351",
+      "c361",
+      "c365",
+      "c375",
+      "c384",
+      "c397",
+      "c401",
+      "c407",
+      "c417",
+      "c426",
+      "c431",
+      "c440",
+      "c448",
+      "c452",
+      "c460",
+      "c468",
+      "c472",
+      "c487",
+      "c494"
+    ],
+    "edge-3": [
+      "c015",
+      "c018",
+      "c025",
+      "c048",
+      "c052",
+      "c067",
+      "c069",
+      "c078",
+      "c084",
+      "c093",
+      "c106",
+      "c113",
+      "c122",
+      "c135",
+      "c141",
+      "c150",
+      "c158",
+      "c161",
+      "c170",
+      "c177",
+      "c187",
+      "c198",
+      "c202",
+      "c207",
+      "c212",
+      "c215",
+      "c221",
+      "c232",
+      "c237",
+      "c245",
+      "c252",
+      "c256",
+      "c259",
+      "c269",
+      "c279",
+      "c282",
+      "c292",
+      "c303",
+      "c310",
+      "c319",
+      "c326",
+      "c332",
+      "c340",
+      "c350",
+      "c354",
+      "c360",
+      "c373",
+      "c381",
+      "c389",
+      "c393",
+      "c404",
+      "c410",
+      "c418",
+      "c427",
+      "c435",
+      "c441",
+      "c449",
+      "c463",
+      "c469",
+      "c485",
+      "c493"
+    ],
+    "edge-4": [
+      "c017",
+      "c021",
+      "c038",
+      "c043",
+      "c049",
+      "c062",
+      "c066",
+      "c075",
+      "c082",
+      "c090",
+      "c096",
+      "c099",
+      "c104",
+      "c115",
+      "c126",
+      "c132",
+      "c138",
+      "c146",
+      "c152",
+      "c163",
+      "c167",
+      "c174",
+      "c182",
+      "c188",
+      "c199",
+      "c204",
+      "c205",
+      "c224",
+      "c227",
+      "c233",
+      "c247",
+      "c264",
+      "c265",
+      "c280",
+      "c288",
+      "c294",
+      "c300",
+      "c309",
+      "c318",
+      "c325",
+      "c333",
+      "c335",
+      "c343",
+      "c348",
+      "c355",
+      "c362",
+      "c368",
+      "c369",
+      "c377",
+      "c380",
+      "c383",
+      "c396",
+      "c403",
+      "c413",
+      "c423",
+      "c437",
+      "c444",
+      "c459",
+      "c473",
+      "c477",
+      "c492",
+      "c500"
+    ],
+    "edge-5": [
+      "c011",
+      "c013",
+      "c030",
+      "c033",
+      "c039",
+      "c045",
+      "c051",
+      "c058",
+      "c064",
+      "c074",
+      "c080",
+      "c092",
+      "c102",
+      "c109",
+      "c124",
+      "c140",
+      "c143",
+      "c159",
+      "c169",
+      "c176",
+      "c183",
+      "c197",
+      "c210",
+      "c213",
+      "c225",
+      "c230",
+      "c239",
+      "c249",
+      "c257",
+      "c268",
+      "c275",
+      "c284",
+      "c295",
+      "c298",
+      "c304",
+      "c314",
+      "c330",
+      "c342",
+      "c352",
+      "c356",
+      "c366",
+      "c376",
+      "c387",
+      "c391",
+      "c406",
+      "c411",
+      "c425",
+      "c434",
+      "c443",
+      "c456",
+      "c466",
+      "c471",
+      "c481",
+      "c490",
+      "c497"
+    ],
+    "edge-6": [
+      "c022",
+      "c031",
+      "c036",
+      "c041",
+      "c050",
+      "c053",
+      "c060",
+      "c065",
+      "c072",
+      "c079",
+      "c087",
+      "c103",
+      "c110",
+      "c117",
+      "c125",
+      "c131",
+      "c137",
+      "c148",
+      "c155",
+      "c165",
+      "c172",
+      "c181",
+      "c189",
+      "c191",
+      "c211",
+      "c220",
+      "c234",
+      "c242",
+      "c248",
+      "c255",
+      "c262",
+      "c270",
+      "c289",
+      "c297",
+      "c307",
+      "c317",
+      "c323",
+      "c331",
+      "c345",
+      "c363",
+      "c371",
+      "c382",
+      "c390",
+      "c402",
+      "c415",
+      "c420",
+      "c428",
+      "c430",
+      "c436",
+      "c442",
+      "c453",
+      "c457",
+      "c462",
+      "c474",
+      "c478",
+      "c483",
+      "c488",
+      "c498"
+    ],
+    "edge-7": [
+      "c003",
+      "c004",
+      "c008",
+      "c012",
+      "c028",
+      "c034",
+      "c042",
+      "c054",
+      "c059",
+      "c070",
+      "c083",
+      "c091",
+      "c098",
+      "c105",
+      "c112",
+      "c119",
+      "c129",
+      "c136",
+      "c145",
+      "c154",
+      "c164",
+      "c175",
+      "c184",
+      "c192",
+      "c201",
+      "c203",
+      "c218",
+      "c219",
+      "c231",
+      "c240",
+      "c246",
+      "c254",
+      "c261",
+      "c272",
+      "c277",
+      "c285",
+      "c293",
+      "c301",
+      "c312",
+      "c322",
+      "c328",
+      "c336",
+      "c346",
+      "c358",
+      "c367",
+      "c372",
+      "c379",
+      "c388",
+      "c395",
+      "c400",
+      "c409",
+      "c419",
+      "c424",
+      "c429",
+      "c439",
+      "c447",
+      "c451",
+      "c458",
+      "c465",
+      "c476",
+      "c479",
+      "c484",
+      "c491",
+      "c496"
+    ],
+    "edge-8": [
+      "c005",
+      "c007",
+      "c009",
+      "c016",
+      "c019",
+      "c026",
+      "c029",
+      "c040",
+      "c046",
+      "c055",
+      "c061",
+      "c071",
+      "c077",
+      "c086",
+      "c094",
+      "c101",
+      "c111",
+      "c114",
+      "c120",
+      "c127",
+      "c133",
+      "c142",
+      "c151",
+      "c153",
+      "c160",
+      "c173",
+      "c180",
+      "c190",
+      "c195",
+      "c208",
+      "c216",
+      "c226",
+      "c229",
+      "c238",
+      "c244",
+      "c253",
+      "c258",
+      "c267",
+      "c273",
+      "c283",
+      "c287",
+      "c299",
+      "c305",
+      "c315",
+      "c316",
+      "c324",
+      "c334",
+      "c341",
+      "c349",
+      "c357",
+      "c359",
+      "c370",
+      "c374",
+      "c385",
+      "c392",
+      "c398",
+      "c405",
+      "c412",
+      "c416",
+      "c421",
+      "c432",
+      "c438",
+      "c445",
+      "c450",
+      "c455",
+      "c461",
+      "c467",
+      "c475",
+      "c482",
+      "c486",
+      "c495"
+    ]
+  },
+  "summary": {
+    "algo": "GAHRL-reimpl",
+    "num_containers": 500,
+    "num_nodes": 8,
+    "ACT": 683.895016666666,
+    "AMS": 1389.5333333333335,
+    "objective": 1036.7141749999998,
+    "downloaded_mb": 119627,
+    "reused_mb": 144191,
+    "reuse_rate": 0.5465548218847842,
+    "train_episodes": 80,
+    "seed": 42,
+    "note": "GAHRL-like reimplementation with GCN/FM-style encoder, actor resource proxy, and dueling Q placement. Final ACT/AMS use the same simulator metric as other baselines."
+  },
+  "node_details": {
+    "edge-1": {
+      "num_containers": 63,
+      "finish_time": 1361.7166666666665,
+      "downloaded_mb": 14803.0,
+      "reused_mb": 17763.0,
+      "final_cache_mb": 996.0,
+      "final_cache_layers": 27
+    },
+    "edge-2": {
+      "num_containers": 66,
+      "finish_time": 1295.15,
+      "downloaded_mb": 12012.0,
+      "reused_mb": 27314.0,
+      "final_cache_mb": 1003.0,
+      "final_cache_layers": 30
+    },
+    "edge-3": {
+      "num_containers": 61,
+      "finish_time": 1293.9666666666662,
+      "downloaded_mb": 15718.0,
+      "reused_mb": 12342.0,
+      "final_cache_mb": 1024.0,
+      "final_cache_layers": 8
+    },
+    "edge-4": {
+      "num_containers": 62,
+      "finish_time": 1286.6249999999998,
+      "downloaded_mb": 15170.0,
+      "reused_mb": 16417.0,
+      "final_cache_mb": 488.0,
+      "final_cache_layers": 45
+    },
+    "edge-5": {
+      "num_containers": 55,
+      "finish_time": 1312.0,
+      "downloaded_mb": 15780.0,
+      "reused_mb": 8983.0,
+      "final_cache_mb": 1023.0,
+      "final_cache_layers": 7
+    },
+    "edge-6": {
+      "num_containers": 58,
+      "finish_time": 1309.0499999999997,
+      "downloaded_mb": 15364.0,
+      "reused_mb": 12097.0,
+      "final_cache_mb": 290.0,
+      "final_cache_layers": 16
+    },
+    "edge-7": {
+      "num_containers": 64,
+      "finish_time": 1389.5333333333335,
+      "downloaded_mb": 17072.0,
+      "reused_mb": 29122.0,
+      "final_cache_mb": 690.0,
+      "final_cache_layers": 17
+    },
+    "edge-8": {
+      "num_containers": 71,
+      "finish_time": 1352.3500000000004,
+      "downloaded_mb": 13708.0,
+      "reused_mb": 20153.0,
+      "final_cache_mb": 1002.0,
+      "final_cache_layers": 34
+    }
+  },
+  "container_metrics": {
+    "c001": {
+      "node": "edge-1",
+      "start_time": 0.0,
+      "finish_time": 33.06666666666666,
+      "downloaded_mb": 1024.0,
+      "reused_mb": 0.0,
+      "download_time": 17.066666666666666,
+      "run_time": 16.0
+    },
+    "c002": {
+      "node": "edge-1",
+      "start_time": 33.06666666666666,
+      "finish_time": 53.06666666666666,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c006": {
+      "node": "edge-1",
+      "start_time": 53.06666666666666,
+      "finish_time": 73.06666666666666,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c010": {
+      "node": "edge-1",
+      "start_time": 73.06666666666666,
+      "finish_time": 90.95,
+      "downloaded_mb": 113.0,
+      "reused_mb": 1.0,
+      "download_time": 1.8833333333333333,
+      "run_time": 16.0
+    },
+    "c014": {
+      "node": "edge-1",
+      "start_time": 90.95,
+      "finish_time": 121.73333333333333,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 16.0
+    },
+    "c020": {
+      "node": "edge-1",
+      "start_time": 121.73333333333333,
+      "finish_time": 137.73333333333335,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c027": {
+      "node": "edge-1",
+      "start_time": 137.73333333333335,
+      "finish_time": 153.73333333333335,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c035": {
+      "node": "edge-1",
+      "start_time": 153.73333333333335,
+      "finish_time": 169.73333333333335,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c044": {
+      "node": "edge-1",
+      "start_time": 169.73333333333335,
+      "finish_time": 194.13333333333335,
+      "downloaded_mb": 504.0,
+      "reused_mb": 0.0,
+      "download_time": 8.4,
+      "run_time": 16.0
+    },
+    "c057": {
+      "node": "edge-1",
+      "start_time": 194.13333333333335,
+      "finish_time": 210.13333333333335,
+      "downloaded_mb": 0.0,
+      "reused_mb": 504.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c063": {
+      "node": "edge-1",
+      "start_time": 210.13333333333335,
+      "finish_time": 236.91666666666669,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 12.0
+    },
+    "c076": {
+      "node": "edge-1",
+      "start_time": 236.91666666666669,
+      "finish_time": 256.9166666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c085": {
+      "node": "edge-1",
+      "start_time": 256.9166666666667,
+      "finish_time": 268.9166666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c089": {
+      "node": "edge-1",
+      "start_time": 268.9166666666667,
+      "finish_time": 284.9166666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c097": {
+      "node": "edge-1",
+      "start_time": 284.9166666666667,
+      "finish_time": 311.53333333333336,
+      "downloaded_mb": 397.0,
+      "reused_mb": 0.0,
+      "download_time": 6.616666666666666,
+      "run_time": 20.0
+    },
+    "c107": {
+      "node": "edge-1",
+      "start_time": 311.53333333333336,
+      "finish_time": 346.3166666666667,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 20.0
+    },
+    "c118": {
+      "node": "edge-1",
+      "start_time": 346.3166666666667,
+      "finish_time": 358.3166666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c121": {
+      "node": "edge-1",
+      "start_time": 358.3166666666667,
+      "finish_time": 378.3166666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c130": {
+      "node": "edge-1",
+      "start_time": 378.3166666666667,
+      "finish_time": 396.28333333333336,
+      "downloaded_mb": 118.0,
+      "reused_mb": 0.0,
+      "download_time": 1.9666666666666666,
+      "run_time": 16.0
+    },
+    "c139": {
+      "node": "edge-1",
+      "start_time": 396.28333333333336,
+      "finish_time": 414.90000000000003,
+      "downloaded_mb": 397.0,
+      "reused_mb": 0.0,
+      "download_time": 6.616666666666666,
+      "run_time": 12.0
+    },
+    "c147": {
+      "node": "edge-1",
+      "start_time": 414.90000000000003,
+      "finish_time": 441.6833333333334,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 12.0
+    },
+    "c156": {
+      "node": "edge-1",
+      "start_time": 441.6833333333334,
+      "finish_time": 469.61666666666673,
+      "downloaded_mb": 476.0,
+      "reused_mb": 2.0,
+      "download_time": 7.933333333333334,
+      "run_time": 20.0
+    },
+    "c166": {
+      "node": "edge-1",
+      "start_time": 469.61666666666673,
+      "finish_time": 494.1333333333334,
+      "downloaded_mb": 391.0,
+      "reused_mb": 0.0,
+      "download_time": 6.516666666666667,
+      "run_time": 18.0
+    },
+    "c171": {
+      "node": "edge-1",
+      "start_time": 494.1333333333334,
+      "finish_time": 506.1333333333334,
+      "downloaded_mb": 0.0,
+      "reused_mb": 478.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c179": {
+      "node": "edge-1",
+      "start_time": 506.1333333333334,
+      "finish_time": 532.45,
+      "downloaded_mb": 259.0,
+      "reused_mb": 0.0,
+      "download_time": 4.316666666666666,
+      "run_time": 22.0
+    },
+    "c186": {
+      "node": "edge-1",
+      "start_time": 532.45,
+      "finish_time": 552.45,
+      "downloaded_mb": 0.0,
+      "reused_mb": 478.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c194": {
+      "node": "edge-1",
+      "start_time": 552.45,
+      "finish_time": 572.45,
+      "downloaded_mb": 0.0,
+      "reused_mb": 478.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c200": {
+      "node": "edge-1",
+      "start_time": 572.45,
+      "finish_time": 591.2333333333333,
+      "downloaded_mb": 47.0,
+      "reused_mb": 0.0,
+      "download_time": 0.7833333333333333,
+      "run_time": 18.0
+    },
+    "c209": {
+      "node": "edge-1",
+      "start_time": 591.2333333333333,
+      "finish_time": 613.95,
+      "downloaded_mb": 163.0,
+      "reused_mb": 28.0,
+      "download_time": 2.716666666666667,
+      "run_time": 20.0
+    },
+    "c217": {
+      "node": "edge-1",
+      "start_time": 613.95,
+      "finish_time": 625.95,
+      "downloaded_mb": 0.0,
+      "reused_mb": 478.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c223": {
+      "node": "edge-1",
+      "start_time": 625.95,
+      "finish_time": 645.95,
+      "downloaded_mb": 0.0,
+      "reused_mb": 478.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c228": {
+      "node": "edge-1",
+      "start_time": 645.95,
+      "finish_time": 661.6666666666667,
+      "downloaded_mb": 43.0,
+      "reused_mb": 0.0,
+      "download_time": 0.7166666666666667,
+      "run_time": 15.0
+    },
+    "c236": {
+      "node": "edge-1",
+      "start_time": 661.6666666666667,
+      "finish_time": 677.6666666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 478.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c241": {
+      "node": "edge-1",
+      "start_time": 677.6666666666667,
+      "finish_time": 697.6666666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 478.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c250": {
+      "node": "edge-1",
+      "start_time": 697.6666666666667,
+      "finish_time": 741.4833333333335,
+      "downloaded_mb": 229.0,
+      "reused_mb": 0.0,
+      "download_time": 3.816666666666667,
+      "run_time": 40.0
+    },
+    "c266": {
+      "node": "edge-1",
+      "start_time": 741.4833333333335,
+      "finish_time": 758.2166666666668,
+      "downloaded_mb": 284.0,
+      "reused_mb": 0.0,
+      "download_time": 4.733333333333333,
+      "run_time": 12.0
+    },
+    "c274": {
+      "node": "edge-1",
+      "start_time": 758.2166666666668,
+      "finish_time": 770.2166666666668,
+      "downloaded_mb": 0.0,
+      "reused_mb": 478.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c281": {
+      "node": "edge-1",
+      "start_time": 770.2166666666668,
+      "finish_time": 796.0500000000002,
+      "downloaded_mb": 350.0,
+      "reused_mb": 47.0,
+      "download_time": 5.833333333333333,
+      "run_time": 20.0
+    },
+    "c291": {
+      "node": "edge-1",
+      "start_time": 796.0500000000002,
+      "finish_time": 809.0500000000002,
+      "downloaded_mb": 60.0,
+      "reused_mb": 0.0,
+      "download_time": 1.0,
+      "run_time": 12.0
+    },
+    "c302": {
+      "node": "edge-1",
+      "start_time": 809.0500000000002,
+      "finish_time": 828.2000000000002,
+      "downloaded_mb": 189.0,
+      "reused_mb": 0.0,
+      "download_time": 3.15,
+      "run_time": 16.0
+    },
+    "c308": {
+      "node": "edge-1",
+      "start_time": 828.2000000000002,
+      "finish_time": 841.9500000000002,
+      "downloaded_mb": 105.0,
+      "reused_mb": 0.0,
+      "download_time": 1.75,
+      "run_time": 12.0
+    },
+    "c311": {
+      "node": "edge-1",
+      "start_time": 841.9500000000002,
+      "finish_time": 861.2500000000001,
+      "downloaded_mb": 438.0,
+      "reused_mb": 29.0,
+      "download_time": 7.3,
+      "run_time": 12.0
+    },
+    "c321": {
+      "node": "edge-1",
+      "start_time": 861.2500000000001,
+      "finish_time": 883.8166666666668,
+      "downloaded_mb": 394.0,
+      "reused_mb": 84.0,
+      "download_time": 6.566666666666666,
+      "run_time": 16.0
+    },
+    "c327": {
+      "node": "edge-1",
+      "start_time": 883.8166666666668,
+      "finish_time": 909.4500000000002,
+      "downloaded_mb": 338.0,
+      "reused_mb": 1.0,
+      "download_time": 5.633333333333334,
+      "run_time": 20.0
+    },
+    "c337": {
+      "node": "edge-1",
+      "start_time": 909.4500000000002,
+      "finish_time": 929.4500000000002,
+      "downloaded_mb": 0.0,
+      "reused_mb": 339.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c344": {
+      "node": "edge-1",
+      "start_time": 929.4500000000002,
+      "finish_time": 964.2333333333335,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 20.0
+    },
+    "c353": {
+      "node": "edge-1",
+      "start_time": 964.2333333333335,
+      "finish_time": 984.2333333333335,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c364": {
+      "node": "edge-1",
+      "start_time": 984.2333333333335,
+      "finish_time": 1028.4666666666667,
+      "downloaded_mb": 554.0,
+      "reused_mb": 0.0,
+      "download_time": 9.233333333333333,
+      "run_time": 35.0
+    },
+    "c378": {
+      "node": "edge-1",
+      "start_time": 1028.4666666666667,
+      "finish_time": 1048.5833333333333,
+      "downloaded_mb": 7.0,
+      "reused_mb": 0.0,
+      "download_time": 0.11666666666666667,
+      "run_time": 20.0
+    },
+    "c386": {
+      "node": "edge-1",
+      "start_time": 1048.5833333333333,
+      "finish_time": 1070.8999999999999,
+      "downloaded_mb": 259.0,
+      "reused_mb": 0.0,
+      "download_time": 4.316666666666666,
+      "run_time": 18.0
+    },
+    "c394": {
+      "node": "edge-1",
+      "start_time": 1070.8999999999999,
+      "finish_time": 1088.8166666666666,
+      "downloaded_mb": 115.0,
+      "reused_mb": 1.0,
+      "download_time": 1.9166666666666667,
+      "run_time": 16.0
+    },
+    "c399": {
+      "node": "edge-1",
+      "start_time": 1088.8166666666666,
+      "finish_time": 1105.1666666666665,
+      "downloaded_mb": 381.0,
+      "reused_mb": 0.0,
+      "download_time": 6.35,
+      "run_time": 10.0
+    },
+    "c408": {
+      "node": "edge-1",
+      "start_time": 1105.1666666666665,
+      "finish_time": 1127.783333333333,
+      "downloaded_mb": 397.0,
+      "reused_mb": 0.0,
+      "download_time": 6.616666666666666,
+      "run_time": 16.0
+    },
+    "c414": {
+      "node": "edge-1",
+      "start_time": 1127.783333333333,
+      "finish_time": 1139.783333333333,
+      "downloaded_mb": 0.0,
+      "reused_mb": 397.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c422": {
+      "node": "edge-1",
+      "start_time": 1139.783333333333,
+      "finish_time": 1164.2999999999997,
+      "downloaded_mb": 391.0,
+      "reused_mb": 0.0,
+      "download_time": 6.516666666666667,
+      "run_time": 18.0
+    },
+    "c433": {
+      "node": "edge-1",
+      "start_time": 1164.2999999999997,
+      "finish_time": 1201.7166666666665,
+      "downloaded_mb": 145.0,
+      "reused_mb": 0.0,
+      "download_time": 2.4166666666666665,
+      "run_time": 35.0
+    },
+    "c446": {
+      "node": "edge-1",
+      "start_time": 1201.7166666666665,
+      "finish_time": 1219.4666666666665,
+      "downloaded_mb": 105.0,
+      "reused_mb": 0.0,
+      "download_time": 1.75,
+      "run_time": 16.0
+    },
+    "c454": {
+      "node": "edge-1",
+      "start_time": 1219.4666666666665,
+      "finish_time": 1256.35,
+      "downloaded_mb": 113.0,
+      "reused_mb": 0.0,
+      "download_time": 1.8833333333333333,
+      "run_time": 35.0
+    },
+    "c464": {
+      "node": "edge-1",
+      "start_time": 1256.35,
+      "finish_time": 1266.35,
+      "downloaded_mb": 0.0,
+      "reused_mb": 391.0,
+      "download_time": 0.0,
+      "run_time": 10.0
+    },
+    "c470": {
+      "node": "edge-1",
+      "start_time": 1266.35,
+      "finish_time": 1296.2166666666665,
+      "downloaded_mb": 592.0,
+      "reused_mb": 1.0,
+      "download_time": 9.866666666666667,
+      "run_time": 20.0
+    },
+    "c480": {
+      "node": "edge-1",
+      "start_time": 1296.2166666666665,
+      "finish_time": 1319.7166666666665,
+      "downloaded_mb": 450.0,
+      "reused_mb": 28.0,
+      "download_time": 7.5,
+      "run_time": 16.0
+    },
+    "c489": {
+      "node": "edge-1",
+      "start_time": 1319.7166666666665,
+      "finish_time": 1338.9666666666665,
+      "downloaded_mb": 255.0,
+      "reused_mb": 136.0,
+      "download_time": 4.25,
+      "run_time": 15.0
+    },
+    "c499": {
+      "node": "edge-1",
+      "start_time": 1338.9666666666665,
+      "finish_time": 1361.7166666666665,
+      "downloaded_mb": 285.0,
+      "reused_mb": 1.0,
+      "download_time": 4.75,
+      "run_time": 18.0
+    },
+    "c023": {
+      "node": "edge-2",
+      "start_time": 0.0,
+      "finish_time": 18.3,
+      "downloaded_mb": 504.0,
+      "reused_mb": 0.0,
+      "download_time": 6.3,
+      "run_time": 12.0
+    },
+    "c024": {
+      "node": "edge-2",
+      "start_time": 18.3,
+      "finish_time": 44.275,
+      "downloaded_mb": 478.0,
+      "reused_mb": 0.0,
+      "download_time": 5.975,
+      "run_time": 20.0
+    },
+    "c032": {
+      "node": "edge-2",
+      "start_time": 44.275,
+      "finish_time": 62.8375,
+      "downloaded_mb": 285.0,
+      "reused_mb": 1.0,
+      "download_time": 3.5625,
+      "run_time": 15.0
+    },
+    "c037": {
+      "node": "edge-2",
+      "start_time": 62.8375,
+      "finish_time": 83.0625,
+      "downloaded_mb": 338.0,
+      "reused_mb": 1.0,
+      "download_time": 4.225,
+      "run_time": 16.0
+    },
+    "c047": {
+      "node": "edge-2",
+      "start_time": 83.0625,
+      "finish_time": 125.925,
+      "downloaded_mb": 229.0,
+      "reused_mb": 0.0,
+      "download_time": 2.8625,
+      "run_time": 40.0
+    },
+    "c056": {
+      "node": "edge-2",
+      "start_time": 125.925,
+      "finish_time": 160.925,
+      "downloaded_mb": 0.0,
+      "reused_mb": 229.0,
+      "download_time": 0.0,
+      "run_time": 35.0
+    },
+    "c068": {
+      "node": "edge-2",
+      "start_time": 160.925,
+      "finish_time": 180.925,
+      "downloaded_mb": 0.0,
+      "reused_mb": 478.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c073": {
+      "node": "edge-2",
+      "start_time": 180.925,
+      "finish_time": 200.925,
+      "downloaded_mb": 0.0,
+      "reused_mb": 229.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c081": {
+      "node": "edge-2",
+      "start_time": 200.925,
+      "finish_time": 212.925,
+      "downloaded_mb": 0.0,
+      "reused_mb": 478.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c088": {
+      "node": "edge-2",
+      "start_time": 212.925,
+      "finish_time": 232.47500000000002,
+      "downloaded_mb": 284.0,
+      "reused_mb": 0.0,
+      "download_time": 3.55,
+      "run_time": 16.0
+    },
+    "c095": {
+      "node": "edge-2",
+      "start_time": 232.47500000000002,
+      "finish_time": 245.05,
+      "downloaded_mb": 46.0,
+      "reused_mb": 0.0,
+      "download_time": 0.575,
+      "run_time": 12.0
+    },
+    "c100": {
+      "node": "edge-2",
+      "start_time": 245.05,
+      "finish_time": 269.7125,
+      "downloaded_mb": 373.0,
+      "reused_mb": 131.0,
+      "download_time": 4.6625,
+      "run_time": 20.0
+    },
+    "c108": {
+      "node": "edge-2",
+      "start_time": 269.7125,
+      "finish_time": 298.48749999999995,
+      "downloaded_mb": 1022.0,
+      "reused_mb": 2.0,
+      "download_time": 12.775,
+      "run_time": 16.0
+    },
+    "c116": {
+      "node": "edge-2",
+      "start_time": 298.48749999999995,
+      "finish_time": 314.7125,
+      "downloaded_mb": 338.0,
+      "reused_mb": 1.0,
+      "download_time": 4.225,
+      "run_time": 12.0
+    },
+    "c123": {
+      "node": "edge-2",
+      "start_time": 314.7125,
+      "finish_time": 326.7125,
+      "downloaded_mb": 0.0,
+      "reused_mb": 339.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c128": {
+      "node": "edge-2",
+      "start_time": 326.7125,
+      "finish_time": 343.67499999999995,
+      "downloaded_mb": 397.0,
+      "reused_mb": 0.0,
+      "download_time": 4.9625,
+      "run_time": 12.0
+    },
+    "c134": {
+      "node": "edge-2",
+      "start_time": 343.67499999999995,
+      "finish_time": 365.97499999999997,
+      "downloaded_mb": 504.0,
+      "reused_mb": 0.0,
+      "download_time": 6.3,
+      "run_time": 16.0
+    },
+    "c144": {
+      "node": "edge-2",
+      "start_time": 365.97499999999997,
+      "finish_time": 377.97499999999997,
+      "downloaded_mb": 0.0,
+      "reused_mb": 504.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c149": {
+      "node": "edge-2",
+      "start_time": 377.97499999999997,
+      "finish_time": 399.74999999999994,
+      "downloaded_mb": 142.0,
+      "reused_mb": 29.0,
+      "download_time": 1.775,
+      "run_time": 20.0
+    },
+    "c157": {
+      "node": "edge-2",
+      "start_time": 399.74999999999994,
+      "finish_time": 421.72499999999997,
+      "downloaded_mb": 158.0,
+      "reused_mb": 181.0,
+      "download_time": 1.975,
+      "run_time": 20.0
+    },
+    "c162": {
+      "node": "edge-2",
+      "start_time": 421.72499999999997,
+      "finish_time": 443.61249999999995,
+      "downloaded_mb": 151.0,
+      "reused_mb": 188.0,
+      "download_time": 1.8875,
+      "run_time": 20.0
+    },
+    "c168": {
+      "node": "edge-2",
+      "start_time": 443.61249999999995,
+      "finish_time": 463.61249999999995,
+      "downloaded_mb": 0.0,
+      "reused_mb": 504.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c178": {
+      "node": "edge-2",
+      "start_time": 463.61249999999995,
+      "finish_time": 490.69999999999993,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 16.0
+    },
+    "c185": {
+      "node": "edge-2",
+      "start_time": 490.69999999999993,
+      "finish_time": 510.69999999999993,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c193": {
+      "node": "edge-2",
+      "start_time": 510.69999999999993,
+      "finish_time": 522.6999999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c196": {
+      "node": "edge-2",
+      "start_time": 522.6999999999999,
+      "finish_time": 542.6999999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c206": {
+      "node": "edge-2",
+      "start_time": 542.6999999999999,
+      "finish_time": 559.275,
+      "downloaded_mb": 366.0,
+      "reused_mb": 2.0,
+      "download_time": 4.575,
+      "run_time": 12.0
+    },
+    "c214": {
+      "node": "edge-2",
+      "start_time": 559.275,
+      "finish_time": 589.8625,
+      "downloaded_mb": 47.0,
+      "reused_mb": 1.0,
+      "download_time": 0.5875,
+      "run_time": 30.0
+    },
+    "c222": {
+      "node": "edge-2",
+      "start_time": 589.8625,
+      "finish_time": 614.8625,
+      "downloaded_mb": 0.0,
+      "reused_mb": 48.0,
+      "download_time": 0.0,
+      "run_time": 25.0
+    },
+    "c235": {
+      "node": "edge-2",
+      "start_time": 614.8625,
+      "finish_time": 645.9499999999999,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 20.0
+    },
+    "c243": {
+      "node": "edge-2",
+      "start_time": 645.9499999999999,
+      "finish_time": 665.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c251": {
+      "node": "edge-2",
+      "start_time": 665.9499999999999,
+      "finish_time": 677.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c260": {
+      "node": "edge-2",
+      "start_time": 677.9499999999999,
+      "finish_time": 693.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c263": {
+      "node": "edge-2",
+      "start_time": 693.9499999999999,
+      "finish_time": 705.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c271": {
+      "node": "edge-2",
+      "start_time": 705.9499999999999,
+      "finish_time": 717.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c276": {
+      "node": "edge-2",
+      "start_time": 717.9499999999999,
+      "finish_time": 733.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c278": {
+      "node": "edge-2",
+      "start_time": 733.9499999999999,
+      "finish_time": 745.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c286": {
+      "node": "edge-2",
+      "start_time": 745.9499999999999,
+      "finish_time": 757.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c290": {
+      "node": "edge-2",
+      "start_time": 757.9499999999999,
+      "finish_time": 769.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c296": {
+      "node": "edge-2",
+      "start_time": 769.9499999999999,
+      "finish_time": 789.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c306": {
+      "node": "edge-2",
+      "start_time": 789.9499999999999,
+      "finish_time": 805.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c313": {
+      "node": "edge-2",
+      "start_time": 805.9499999999999,
+      "finish_time": 825.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c320": {
+      "node": "edge-2",
+      "start_time": 825.9499999999999,
+      "finish_time": 845.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c329": {
+      "node": "edge-2",
+      "start_time": 845.9499999999999,
+      "finish_time": 865.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c338": {
+      "node": "edge-2",
+      "start_time": 865.9499999999999,
+      "finish_time": 881.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c339": {
+      "node": "edge-2",
+      "start_time": 881.9499999999999,
+      "finish_time": 901.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c347": {
+      "node": "edge-2",
+      "start_time": 901.9499999999999,
+      "finish_time": 913.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c351": {
+      "node": "edge-2",
+      "start_time": 913.9499999999999,
+      "finish_time": 933.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c361": {
+      "node": "edge-2",
+      "start_time": 933.9499999999999,
+      "finish_time": 945.9499999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c365": {
+      "node": "edge-2",
+      "start_time": 945.9499999999999,
+      "finish_time": 966.2499999999999,
+      "downloaded_mb": 24.0,
+      "reused_mb": 1.0,
+      "download_time": 0.3,
+      "run_time": 20.0
+    },
+    "c375": {
+      "node": "edge-2",
+      "start_time": 966.2499999999999,
+      "finish_time": 998.2249999999999,
+      "downloaded_mb": 158.0,
+      "reused_mb": 0.0,
+      "download_time": 1.975,
+      "run_time": 30.0
+    },
+    "c384": {
+      "node": "edge-2",
+      "start_time": 998.2249999999999,
+      "finish_time": 1029.3125,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 20.0
+    },
+    "c397": {
+      "node": "edge-2",
+      "start_time": 1029.3125,
+      "finish_time": 1045.9375,
+      "downloaded_mb": 50.0,
+      "reused_mb": 0.0,
+      "download_time": 0.625,
+      "run_time": 16.0
+    },
+    "c401": {
+      "node": "edge-2",
+      "start_time": 1045.9375,
+      "finish_time": 1061.4875,
+      "downloaded_mb": 284.0,
+      "reused_mb": 0.0,
+      "download_time": 3.55,
+      "run_time": 12.0
+    },
+    "c407": {
+      "node": "edge-2",
+      "start_time": 1061.4875,
+      "finish_time": 1081.4875,
+      "downloaded_mb": 0.0,
+      "reused_mb": 284.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c417": {
+      "node": "edge-2",
+      "start_time": 1081.4875,
+      "finish_time": 1099.7875,
+      "downloaded_mb": 504.0,
+      "reused_mb": 0.0,
+      "download_time": 6.3,
+      "run_time": 12.0
+    },
+    "c426": {
+      "node": "edge-2",
+      "start_time": 1099.7875,
+      "finish_time": 1113.975,
+      "downloaded_mb": 175.0,
+      "reused_mb": 28.0,
+      "download_time": 2.1875,
+      "run_time": 12.0
+    },
+    "c431": {
+      "node": "edge-2",
+      "start_time": 1113.975,
+      "finish_time": 1141.0625,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 16.0
+    },
+    "c440": {
+      "node": "edge-2",
+      "start_time": 1141.0625,
+      "finish_time": 1158.025,
+      "downloaded_mb": 397.0,
+      "reused_mb": 0.0,
+      "download_time": 4.9625,
+      "run_time": 12.0
+    },
+    "c448": {
+      "node": "edge-2",
+      "start_time": 1158.025,
+      "finish_time": 1176.325,
+      "downloaded_mb": 504.0,
+      "reused_mb": 0.0,
+      "download_time": 6.3,
+      "run_time": 12.0
+    },
+    "c452": {
+      "node": "edge-2",
+      "start_time": 1176.325,
+      "finish_time": 1188.325,
+      "downloaded_mb": 0.0,
+      "reused_mb": 504.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c460": {
+      "node": "edge-2",
+      "start_time": 1188.325,
+      "finish_time": 1210.45,
+      "downloaded_mb": 170.0,
+      "reused_mb": 1.0,
+      "download_time": 2.125,
+      "run_time": 20.0
+    },
+    "c468": {
+      "node": "edge-2",
+      "start_time": 1210.45,
+      "finish_time": 1225.2125,
+      "downloaded_mb": 381.0,
+      "reused_mb": 0.0,
+      "download_time": 4.7625,
+      "run_time": 10.0
+    },
+    "c472": {
+      "node": "edge-2",
+      "start_time": 1225.2125,
+      "finish_time": 1265.2875000000001,
+      "downloaded_mb": 6.0,
+      "reused_mb": 28.0,
+      "download_time": 0.075,
+      "run_time": 40.0
+    },
+    "c487": {
+      "node": "edge-2",
+      "start_time": 1265.2875000000001,
+      "finish_time": 1277.2875000000001,
+      "downloaded_mb": 0.0,
+      "reused_mb": 46.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c494": {
+      "node": "edge-2",
+      "start_time": 1277.2875000000001,
+      "finish_time": 1295.15,
+      "downloaded_mb": 149.0,
+      "reused_mb": 0.0,
+      "download_time": 1.8625,
+      "run_time": 16.0
+    },
+    "c015": {
+      "node": "edge-3",
+      "start_time": 0.0,
+      "finish_time": 19.766666666666666,
+      "downloaded_mb": 286.0,
+      "reused_mb": 0.0,
+      "download_time": 4.766666666666667,
+      "run_time": 15.0
+    },
+    "c018": {
+      "node": "edge-3",
+      "start_time": 19.766666666666666,
+      "finish_time": 37.4,
+      "downloaded_mb": 338.0,
+      "reused_mb": 1.0,
+      "download_time": 5.633333333333334,
+      "run_time": 12.0
+    },
+    "c025": {
+      "node": "edge-3",
+      "start_time": 37.4,
+      "finish_time": 86.63333333333333,
+      "downloaded_mb": 554.0,
+      "reused_mb": 0.0,
+      "download_time": 9.233333333333333,
+      "run_time": 40.0
+    },
+    "c048": {
+      "node": "edge-3",
+      "start_time": 86.63333333333333,
+      "finish_time": 104.88333333333333,
+      "downloaded_mb": 15.0,
+      "reused_mb": 28.0,
+      "download_time": 0.25,
+      "run_time": 18.0
+    },
+    "c052": {
+      "node": "edge-3",
+      "start_time": 104.88333333333333,
+      "finish_time": 144.88333333333333,
+      "downloaded_mb": 0.0,
+      "reused_mb": 554.0,
+      "download_time": 0.0,
+      "run_time": 40.0
+    },
+    "c067": {
+      "node": "edge-3",
+      "start_time": 144.88333333333333,
+      "finish_time": 165.28333333333333,
+      "downloaded_mb": 504.0,
+      "reused_mb": 0.0,
+      "download_time": 8.4,
+      "run_time": 12.0
+    },
+    "c069": {
+      "node": "edge-3",
+      "start_time": 165.28333333333333,
+      "finish_time": 177.28333333333333,
+      "downloaded_mb": 0.0,
+      "reused_mb": 504.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c078": {
+      "node": "edge-3",
+      "start_time": 177.28333333333333,
+      "finish_time": 192.66666666666666,
+      "downloaded_mb": 203.0,
+      "reused_mb": 0.0,
+      "download_time": 3.3833333333333333,
+      "run_time": 12.0
+    },
+    "c084": {
+      "node": "edge-3",
+      "start_time": 192.66666666666666,
+      "finish_time": 214.96666666666667,
+      "downloaded_mb": 378.0,
+      "reused_mb": 1.0,
+      "download_time": 6.3,
+      "run_time": 16.0
+    },
+    "c093": {
+      "node": "edge-3",
+      "start_time": 214.96666666666667,
+      "finish_time": 263.3666666666667,
+      "downloaded_mb": 504.0,
+      "reused_mb": 50.0,
+      "download_time": 8.4,
+      "run_time": 40.0
+    },
+    "c106": {
+      "node": "edge-3",
+      "start_time": 263.3666666666667,
+      "finish_time": 278.8666666666667,
+      "downloaded_mb": 30.0,
+      "reused_mb": 361.0,
+      "download_time": 0.5,
+      "run_time": 15.0
+    },
+    "c113": {
+      "node": "edge-3",
+      "start_time": 278.8666666666667,
+      "finish_time": 298.8,
+      "downloaded_mb": 476.0,
+      "reused_mb": 2.0,
+      "download_time": 7.933333333333334,
+      "run_time": 12.0
+    },
+    "c122": {
+      "node": "edge-3",
+      "start_time": 298.8,
+      "finish_time": 335.3666666666667,
+      "downloaded_mb": 994.0,
+      "reused_mb": 30.0,
+      "download_time": 16.566666666666666,
+      "run_time": 20.0
+    },
+    "c135": {
+      "node": "edge-3",
+      "start_time": 335.3666666666667,
+      "finish_time": 351.3666666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c141": {
+      "node": "edge-3",
+      "start_time": 351.3666666666667,
+      "finish_time": 367.3666666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c150": {
+      "node": "edge-3",
+      "start_time": 367.3666666666667,
+      "finish_time": 388.8833333333333,
+      "downloaded_mb": 391.0,
+      "reused_mb": 0.0,
+      "download_time": 6.516666666666667,
+      "run_time": 15.0
+    },
+    "c158": {
+      "node": "edge-3",
+      "start_time": 388.8833333333333,
+      "finish_time": 405.06666666666666,
+      "downloaded_mb": 71.0,
+      "reused_mb": 1.0,
+      "download_time": 1.1833333333333333,
+      "run_time": 15.0
+    },
+    "c161": {
+      "node": "edge-3",
+      "start_time": 405.06666666666666,
+      "finish_time": 439.85,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 20.0
+    },
+    "c170": {
+      "node": "edge-3",
+      "start_time": 439.85,
+      "finish_time": 451.85,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c177": {
+      "node": "edge-3",
+      "start_time": 451.85,
+      "finish_time": 479.6166666666667,
+      "downloaded_mb": 466.0,
+      "reused_mb": 1.0,
+      "download_time": 7.766666666666667,
+      "run_time": 20.0
+    },
+    "c187": {
+      "node": "edge-3",
+      "start_time": 479.6166666666667,
+      "finish_time": 509.48333333333335,
+      "downloaded_mb": 592.0,
+      "reused_mb": 1.0,
+      "download_time": 9.866666666666667,
+      "run_time": 20.0
+    },
+    "c198": {
+      "node": "edge-3",
+      "start_time": 509.48333333333335,
+      "finish_time": 526.2333333333333,
+      "downloaded_mb": 285.0,
+      "reused_mb": 1.0,
+      "download_time": 4.75,
+      "run_time": 12.0
+    },
+    "c202": {
+      "node": "edge-3",
+      "start_time": 526.2333333333333,
+      "finish_time": 544.5833333333334,
+      "downloaded_mb": 381.0,
+      "reused_mb": 0.0,
+      "download_time": 6.35,
+      "run_time": 12.0
+    },
+    "c207": {
+      "node": "edge-3",
+      "start_time": 544.5833333333334,
+      "finish_time": 554.5833333333334,
+      "downloaded_mb": 0.0,
+      "reused_mb": 286.0,
+      "download_time": 0.0,
+      "run_time": 10.0
+    },
+    "c212": {
+      "node": "edge-3",
+      "start_time": 554.5833333333334,
+      "finish_time": 566.5833333333334,
+      "downloaded_mb": 0.0,
+      "reused_mb": 381.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c215": {
+      "node": "edge-3",
+      "start_time": 566.5833333333334,
+      "finish_time": 584.5833333333334,
+      "downloaded_mb": 0.0,
+      "reused_mb": 381.0,
+      "download_time": 0.0,
+      "run_time": 18.0
+    },
+    "c221": {
+      "node": "edge-3",
+      "start_time": 584.5833333333334,
+      "finish_time": 599.5833333333334,
+      "downloaded_mb": 0.0,
+      "reused_mb": 286.0,
+      "download_time": 0.0,
+      "run_time": 15.0
+    },
+    "c232": {
+      "node": "edge-3",
+      "start_time": 599.5833333333334,
+      "finish_time": 617.3333333333334,
+      "downloaded_mb": 105.0,
+      "reused_mb": 0.0,
+      "download_time": 1.75,
+      "run_time": 16.0
+    },
+    "c237": {
+      "node": "edge-3",
+      "start_time": 617.3333333333334,
+      "finish_time": 632.1666666666667,
+      "downloaded_mb": 170.0,
+      "reused_mb": 1.0,
+      "download_time": 2.8333333333333335,
+      "run_time": 12.0
+    },
+    "c245": {
+      "node": "edge-3",
+      "start_time": 632.1666666666667,
+      "finish_time": 644.1666666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 286.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c252": {
+      "node": "edge-3",
+      "start_time": 644.1666666666667,
+      "finish_time": 656.1666666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 171.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c256": {
+      "node": "edge-3",
+      "start_time": 656.1666666666667,
+      "finish_time": 676.5666666666667,
+      "downloaded_mb": 504.0,
+      "reused_mb": 0.0,
+      "download_time": 8.4,
+      "run_time": 12.0
+    },
+    "c259": {
+      "node": "edge-3",
+      "start_time": 676.5666666666667,
+      "finish_time": 688.5666666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 504.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c269": {
+      "node": "edge-3",
+      "start_time": 688.5666666666667,
+      "finish_time": 706.4166666666667,
+      "downloaded_mb": 171.0,
+      "reused_mb": 1.0,
+      "download_time": 2.85,
+      "run_time": 15.0
+    },
+    "c279": {
+      "node": "edge-3",
+      "start_time": 706.4166666666667,
+      "finish_time": 724.0833333333334,
+      "downloaded_mb": 340.0,
+      "reused_mb": 28.0,
+      "download_time": 5.666666666666667,
+      "run_time": 12.0
+    },
+    "c282": {
+      "node": "edge-3",
+      "start_time": 724.0833333333334,
+      "finish_time": 738.45,
+      "downloaded_mb": 142.0,
+      "reused_mb": 29.0,
+      "download_time": 2.3666666666666667,
+      "run_time": 12.0
+    },
+    "c292": {
+      "node": "edge-3",
+      "start_time": 738.45,
+      "finish_time": 759.3000000000001,
+      "downloaded_mb": 51.0,
+      "reused_mb": 0.0,
+      "download_time": 0.85,
+      "run_time": 20.0
+    },
+    "c303": {
+      "node": "edge-3",
+      "start_time": 759.3000000000001,
+      "finish_time": 790.0833333333334,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 16.0
+    },
+    "c310": {
+      "node": "edge-3",
+      "start_time": 790.0833333333334,
+      "finish_time": 806.0833333333334,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c319": {
+      "node": "edge-3",
+      "start_time": 806.0833333333334,
+      "finish_time": 826.0833333333334,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c326": {
+      "node": "edge-3",
+      "start_time": 826.0833333333334,
+      "finish_time": 842.8166666666667,
+      "downloaded_mb": 284.0,
+      "reused_mb": 0.0,
+      "download_time": 4.733333333333333,
+      "run_time": 12.0
+    },
+    "c332": {
+      "node": "edge-3",
+      "start_time": 842.8166666666667,
+      "finish_time": 858.85,
+      "downloaded_mb": 2.0,
+      "reused_mb": 0.0,
+      "download_time": 0.03333333333333333,
+      "run_time": 16.0
+    },
+    "c340": {
+      "node": "edge-3",
+      "start_time": 858.85,
+      "finish_time": 880.4833333333333,
+      "downloaded_mb": 338.0,
+      "reused_mb": 1.0,
+      "download_time": 5.633333333333334,
+      "run_time": 16.0
+    },
+    "c350": {
+      "node": "edge-3",
+      "start_time": 880.4833333333333,
+      "finish_time": 904.25,
+      "downloaded_mb": 466.0,
+      "reused_mb": 1.0,
+      "download_time": 7.766666666666667,
+      "run_time": 16.0
+    },
+    "c354": {
+      "node": "edge-3",
+      "start_time": 904.25,
+      "finish_time": 916.25,
+      "downloaded_mb": 0.0,
+      "reused_mb": 467.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c360": {
+      "node": "edge-3",
+      "start_time": 916.25,
+      "finish_time": 953.4166666666666,
+      "downloaded_mb": 130.0,
+      "reused_mb": 28.0,
+      "download_time": 2.1666666666666665,
+      "run_time": 35.0
+    },
+    "c373": {
+      "node": "edge-3",
+      "start_time": 953.4166666666666,
+      "finish_time": 970.1666666666666,
+      "downloaded_mb": 285.0,
+      "reused_mb": 1.0,
+      "download_time": 4.75,
+      "run_time": 12.0
+    },
+    "c381": {
+      "node": "edge-3",
+      "start_time": 970.1666666666666,
+      "finish_time": 996.2666666666667,
+      "downloaded_mb": 366.0,
+      "reused_mb": 2.0,
+      "download_time": 6.1,
+      "run_time": 20.0
+    },
+    "c389": {
+      "node": "edge-3",
+      "start_time": 996.2666666666667,
+      "finish_time": 1016.2666666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 339.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c393": {
+      "node": "edge-3",
+      "start_time": 1016.2666666666667,
+      "finish_time": 1036.2666666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 339.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c404": {
+      "node": "edge-3",
+      "start_time": 1036.2666666666667,
+      "finish_time": 1055.7666666666667,
+      "downloaded_mb": 450.0,
+      "reused_mb": 28.0,
+      "download_time": 7.5,
+      "run_time": 12.0
+    },
+    "c410": {
+      "node": "edge-3",
+      "start_time": 1055.7666666666667,
+      "finish_time": 1070.6166666666666,
+      "downloaded_mb": 171.0,
+      "reused_mb": 1.0,
+      "download_time": 2.85,
+      "run_time": 12.0
+    },
+    "c418": {
+      "node": "edge-3",
+      "start_time": 1070.6166666666666,
+      "finish_time": 1088.9666666666665,
+      "downloaded_mb": 381.0,
+      "reused_mb": 0.0,
+      "download_time": 6.35,
+      "run_time": 12.0
+    },
+    "c427": {
+      "node": "edge-3",
+      "start_time": 1088.9666666666665,
+      "finish_time": 1107.583333333333,
+      "downloaded_mb": 397.0,
+      "reused_mb": 0.0,
+      "download_time": 6.616666666666666,
+      "run_time": 12.0
+    },
+    "c435": {
+      "node": "edge-3",
+      "start_time": 1107.583333333333,
+      "finish_time": 1138.3666666666663,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 16.0
+    },
+    "c441": {
+      "node": "edge-3",
+      "start_time": 1138.3666666666663,
+      "finish_time": 1150.3666666666663,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c449": {
+      "node": "edge-3",
+      "start_time": 1150.3666666666663,
+      "finish_time": 1189.5999999999997,
+      "downloaded_mb": 554.0,
+      "reused_mb": 0.0,
+      "download_time": 9.233333333333333,
+      "run_time": 30.0
+    },
+    "c463": {
+      "node": "edge-3",
+      "start_time": 1189.5999999999997,
+      "finish_time": 1210.333333333333,
+      "downloaded_mb": 284.0,
+      "reused_mb": 0.0,
+      "download_time": 4.733333333333333,
+      "run_time": 16.0
+    },
+    "c469": {
+      "node": "edge-3",
+      "start_time": 1210.333333333333,
+      "finish_time": 1245.333333333333,
+      "downloaded_mb": 0.0,
+      "reused_mb": 554.0,
+      "download_time": 0.0,
+      "run_time": 35.0
+    },
+    "c485": {
+      "node": "edge-3",
+      "start_time": 1245.333333333333,
+      "finish_time": 1263.183333333333,
+      "downloaded_mb": 111.0,
+      "reused_mb": 0.0,
+      "download_time": 1.85,
+      "run_time": 16.0
+    },
+    "c493": {
+      "node": "edge-3",
+      "start_time": 1263.183333333333,
+      "finish_time": 1293.9666666666662,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 16.0
+    },
+    "c017": {
+      "node": "edge-4",
+      "start_time": 0.0,
+      "finish_time": 21.4125,
+      "downloaded_mb": 113.0,
+      "reused_mb": 0.0,
+      "download_time": 1.4125,
+      "run_time": 20.0
+    },
+    "c021": {
+      "node": "edge-4",
+      "start_time": 21.4125,
+      "finish_time": 58.337500000000006,
+      "downloaded_mb": 554.0,
+      "reused_mb": 0.0,
+      "download_time": 6.925,
+      "run_time": 30.0
+    },
+    "c038": {
+      "node": "edge-4",
+      "start_time": 58.337500000000006,
+      "finish_time": 76.6375,
+      "downloaded_mb": 504.0,
+      "reused_mb": 0.0,
+      "download_time": 6.3,
+      "run_time": 12.0
+    },
+    "c043": {
+      "node": "edge-4",
+      "start_time": 76.6375,
+      "finish_time": 94.025,
+      "downloaded_mb": 111.0,
+      "reused_mb": 0.0,
+      "download_time": 1.3875,
+      "run_time": 16.0
+    },
+    "c049": {
+      "node": "edge-4",
+      "start_time": 94.025,
+      "finish_time": 134.7625,
+      "downloaded_mb": 459.0,
+      "reused_mb": 95.0,
+      "download_time": 5.7375,
+      "run_time": 35.0
+    },
+    "c062": {
+      "node": "edge-4",
+      "start_time": 134.7625,
+      "finish_time": 159.5625,
+      "downloaded_mb": 1024.0,
+      "reused_mb": 0.0,
+      "download_time": 12.8,
+      "run_time": 12.0
+    },
+    "c066": {
+      "node": "edge-4",
+      "start_time": 159.5625,
+      "finish_time": 171.5625,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c075": {
+      "node": "edge-4",
+      "start_time": 171.5625,
+      "finish_time": 186.8,
+      "downloaded_mb": 259.0,
+      "reused_mb": 0.0,
+      "download_time": 3.2375,
+      "run_time": 12.0
+    },
+    "c082": {
+      "node": "edge-4",
+      "start_time": 186.8,
+      "finish_time": 211.025,
+      "downloaded_mb": 338.0,
+      "reused_mb": 1.0,
+      "download_time": 4.225,
+      "run_time": 20.0
+    },
+    "c090": {
+      "node": "edge-4",
+      "start_time": 211.025,
+      "finish_time": 223.025,
+      "downloaded_mb": 0.0,
+      "reused_mb": 259.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c096": {
+      "node": "edge-4",
+      "start_time": 223.025,
+      "finish_time": 235.05,
+      "downloaded_mb": 2.0,
+      "reused_mb": 0.0,
+      "download_time": 0.025,
+      "run_time": 12.0
+    },
+    "c099": {
+      "node": "edge-4",
+      "start_time": 235.05,
+      "finish_time": 256.675,
+      "downloaded_mb": 130.0,
+      "reused_mb": 28.0,
+      "download_time": 1.625,
+      "run_time": 20.0
+    },
+    "c104": {
+      "node": "edge-4",
+      "start_time": 256.675,
+      "finish_time": 282.5,
+      "downloaded_mb": 466.0,
+      "reused_mb": 1.0,
+      "download_time": 5.825,
+      "run_time": 20.0
+    },
+    "c115": {
+      "node": "edge-4",
+      "start_time": 282.5,
+      "finish_time": 309.5875,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 16.0
+    },
+    "c126": {
+      "node": "edge-4",
+      "start_time": 309.5875,
+      "finish_time": 324.92499999999995,
+      "downloaded_mb": 267.0,
+      "reused_mb": 0.0,
+      "download_time": 3.3375,
+      "run_time": 12.0
+    },
+    "c132": {
+      "node": "edge-4",
+      "start_time": 324.92499999999995,
+      "finish_time": 335.275,
+      "downloaded_mb": 28.0,
+      "reused_mb": 0.0,
+      "download_time": 0.35,
+      "run_time": 10.0
+    },
+    "c138": {
+      "node": "edge-4",
+      "start_time": 335.275,
+      "finish_time": 355.5,
+      "downloaded_mb": 338.0,
+      "reused_mb": 1.0,
+      "download_time": 4.225,
+      "run_time": 16.0
+    },
+    "c146": {
+      "node": "edge-4",
+      "start_time": 355.5,
+      "finish_time": 386.5875,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 20.0
+    },
+    "c152": {
+      "node": "edge-4",
+      "start_time": 386.5875,
+      "finish_time": 404.78749999999997,
+      "downloaded_mb": 176.0,
+      "reused_mb": 1.0,
+      "download_time": 2.2,
+      "run_time": 16.0
+    },
+    "c163": {
+      "node": "edge-4",
+      "start_time": 404.78749999999997,
+      "finish_time": 421.36249999999995,
+      "downloaded_mb": 366.0,
+      "reused_mb": 2.0,
+      "download_time": 4.575,
+      "run_time": 12.0
+    },
+    "c167": {
+      "node": "edge-4",
+      "start_time": 421.36249999999995,
+      "finish_time": 444.43749999999994,
+      "downloaded_mb": 566.0,
+      "reused_mb": 27.0,
+      "download_time": 7.075,
+      "run_time": 16.0
+    },
+    "c174": {
+      "node": "edge-4",
+      "start_time": 444.43749999999994,
+      "finish_time": 462.62499999999994,
+      "downloaded_mb": 175.0,
+      "reused_mb": 28.0,
+      "download_time": 2.1875,
+      "run_time": 16.0
+    },
+    "c182": {
+      "node": "edge-4",
+      "start_time": 462.62499999999994,
+      "finish_time": 482.17499999999995,
+      "downloaded_mb": 284.0,
+      "reused_mb": 0.0,
+      "download_time": 3.55,
+      "run_time": 16.0
+    },
+    "c188": {
+      "node": "edge-4",
+      "start_time": 482.17499999999995,
+      "finish_time": 518.8,
+      "downloaded_mb": 130.0,
+      "reused_mb": 28.0,
+      "download_time": 1.625,
+      "run_time": 35.0
+    },
+    "c199": {
+      "node": "edge-4",
+      "start_time": 518.8,
+      "finish_time": 531.3375,
+      "downloaded_mb": 43.0,
+      "reused_mb": 0.0,
+      "download_time": 0.5375,
+      "run_time": 12.0
+    },
+    "c204": {
+      "node": "edge-4",
+      "start_time": 531.3375,
+      "finish_time": 547.2125,
+      "downloaded_mb": 310.0,
+      "reused_mb": 29.0,
+      "download_time": 3.875,
+      "run_time": 12.0
+    },
+    "c205": {
+      "node": "edge-4",
+      "start_time": 547.2125,
+      "finish_time": 567.2125,
+      "downloaded_mb": 0.0,
+      "reused_mb": 158.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c224": {
+      "node": "edge-4",
+      "start_time": 567.2125,
+      "finish_time": 585.4499999999999,
+      "downloaded_mb": 259.0,
+      "reused_mb": 0.0,
+      "download_time": 3.2375,
+      "run_time": 15.0
+    },
+    "c227": {
+      "node": "edge-4",
+      "start_time": 585.4499999999999,
+      "finish_time": 598.2499999999999,
+      "downloaded_mb": 64.0,
+      "reused_mb": 0.0,
+      "download_time": 0.8,
+      "run_time": 12.0
+    },
+    "c233": {
+      "node": "edge-4",
+      "start_time": 598.2499999999999,
+      "finish_time": 640.0624999999999,
+      "downloaded_mb": 145.0,
+      "reused_mb": 0.0,
+      "download_time": 1.8125,
+      "run_time": 40.0
+    },
+    "c247": {
+      "node": "edge-4",
+      "start_time": 640.0624999999999,
+      "finish_time": 675.3124999999999,
+      "downloaded_mb": 20.0,
+      "reused_mb": 28.0,
+      "download_time": 0.25,
+      "run_time": 35.0
+    },
+    "c264": {
+      "node": "edge-4",
+      "start_time": 675.3124999999999,
+      "finish_time": 688.7874999999999,
+      "downloaded_mb": 118.0,
+      "reused_mb": 0.0,
+      "download_time": 1.475,
+      "run_time": 12.0
+    },
+    "c265": {
+      "node": "edge-4",
+      "start_time": 688.7874999999999,
+      "finish_time": 713.7874999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 48.0,
+      "download_time": 0.0,
+      "run_time": 25.0
+    },
+    "c280": {
+      "node": "edge-4",
+      "start_time": 713.7874999999999,
+      "finish_time": 736.8749999999999,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 12.0
+    },
+    "c288": {
+      "node": "edge-4",
+      "start_time": 736.8749999999999,
+      "finish_time": 752.8749999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c294": {
+      "node": "edge-4",
+      "start_time": 752.8749999999999,
+      "finish_time": 768.8749999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c300": {
+      "node": "edge-4",
+      "start_time": 768.8749999999999,
+      "finish_time": 788.8749999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c309": {
+      "node": "edge-4",
+      "start_time": 788.8749999999999,
+      "finish_time": 800.8749999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c318": {
+      "node": "edge-4",
+      "start_time": 800.8749999999999,
+      "finish_time": 820.4249999999998,
+      "downloaded_mb": 284.0,
+      "reused_mb": 0.0,
+      "download_time": 3.55,
+      "run_time": 16.0
+    },
+    "c325": {
+      "node": "edge-4",
+      "start_time": 820.4249999999998,
+      "finish_time": 842.2499999999999,
+      "downloaded_mb": 466.0,
+      "reused_mb": 1.0,
+      "download_time": 5.825,
+      "run_time": 16.0
+    },
+    "c333": {
+      "node": "edge-4",
+      "start_time": 842.2499999999999,
+      "finish_time": 859.0374999999999,
+      "downloaded_mb": 63.0,
+      "reused_mb": 0.0,
+      "download_time": 0.7875,
+      "run_time": 16.0
+    },
+    "c335": {
+      "node": "edge-4",
+      "start_time": 859.0374999999999,
+      "finish_time": 871.0374999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 467.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c343": {
+      "node": "edge-4",
+      "start_time": 871.0374999999999,
+      "finish_time": 894.1249999999999,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 12.0
+    },
+    "c348": {
+      "node": "edge-4",
+      "start_time": 894.1249999999999,
+      "finish_time": 910.1249999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c355": {
+      "node": "edge-4",
+      "start_time": 910.1249999999999,
+      "finish_time": 922.1249999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c362": {
+      "node": "edge-4",
+      "start_time": 922.1249999999999,
+      "finish_time": 934.1249999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c368": {
+      "node": "edge-4",
+      "start_time": 934.1249999999999,
+      "finish_time": 950.1249999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c369": {
+      "node": "edge-4",
+      "start_time": 950.1249999999999,
+      "finish_time": 966.1249999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c377": {
+      "node": "edge-4",
+      "start_time": 966.1249999999999,
+      "finish_time": 978.1249999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c380": {
+      "node": "edge-4",
+      "start_time": 978.1249999999999,
+      "finish_time": 994.1249999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c383": {
+      "node": "edge-4",
+      "start_time": 994.1249999999999,
+      "finish_time": 1006.1249999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c396": {
+      "node": "edge-4",
+      "start_time": 1006.1249999999999,
+      "finish_time": 1022.1249999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c403": {
+      "node": "edge-4",
+      "start_time": 1022.1249999999999,
+      "finish_time": 1049.5249999999999,
+      "downloaded_mb": 592.0,
+      "reused_mb": 1.0,
+      "download_time": 7.4,
+      "run_time": 20.0
+    },
+    "c413": {
+      "node": "edge-4",
+      "start_time": 1049.5249999999999,
+      "finish_time": 1071.5624999999998,
+      "downloaded_mb": 163.0,
+      "reused_mb": 28.0,
+      "download_time": 2.0375,
+      "run_time": 20.0
+    },
+    "c423": {
+      "node": "edge-4",
+      "start_time": 1071.5624999999998,
+      "finish_time": 1108.4874999999997,
+      "downloaded_mb": 554.0,
+      "reused_mb": 0.0,
+      "download_time": 6.925,
+      "run_time": 30.0
+    },
+    "c437": {
+      "node": "edge-4",
+      "start_time": 1108.4874999999997,
+      "finish_time": 1127.3999999999996,
+      "downloaded_mb": 553.0,
+      "reused_mb": 40.0,
+      "download_time": 6.9125,
+      "run_time": 12.0
+    },
+    "c444": {
+      "node": "edge-4",
+      "start_time": 1127.3999999999996,
+      "finish_time": 1168.1374999999996,
+      "downloaded_mb": 459.0,
+      "reused_mb": 95.0,
+      "download_time": 5.7375,
+      "run_time": 35.0
+    },
+    "c459": {
+      "node": "edge-4",
+      "start_time": 1168.1374999999996,
+      "finish_time": 1199.2249999999997,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 20.0
+    },
+    "c473": {
+      "node": "edge-4",
+      "start_time": 1199.2249999999997,
+      "finish_time": 1213.3499999999997,
+      "downloaded_mb": 170.0,
+      "reused_mb": 1.0,
+      "download_time": 2.125,
+      "run_time": 12.0
+    },
+    "c477": {
+      "node": "edge-4",
+      "start_time": 1213.3499999999997,
+      "finish_time": 1248.5999999999997,
+      "downloaded_mb": 20.0,
+      "reused_mb": 1.0,
+      "download_time": 0.25,
+      "run_time": 35.0
+    },
+    "c492": {
+      "node": "edge-4",
+      "start_time": 1248.5999999999997,
+      "finish_time": 1270.2499999999998,
+      "downloaded_mb": 132.0,
+      "reused_mb": 28.0,
+      "download_time": 1.65,
+      "run_time": 20.0
+    },
+    "c500": {
+      "node": "edge-4",
+      "start_time": 1270.2499999999998,
+      "finish_time": 1286.6249999999998,
+      "downloaded_mb": 30.0,
+      "reused_mb": 0.0,
+      "download_time": 0.375,
+      "run_time": 16.0
+    },
+    "c011": {
+      "node": "edge-5",
+      "start_time": 0.0,
+      "finish_time": 13.116666666666667,
+      "downloaded_mb": 67.0,
+      "reused_mb": 0.0,
+      "download_time": 1.1166666666666667,
+      "run_time": 12.0
+    },
+    "c013": {
+      "node": "edge-5",
+      "start_time": 13.116666666666667,
+      "finish_time": 39.43333333333334,
+      "downloaded_mb": 259.0,
+      "reused_mb": 0.0,
+      "download_time": 4.316666666666666,
+      "run_time": 22.0
+    },
+    "c030": {
+      "node": "edge-5",
+      "start_time": 39.43333333333334,
+      "finish_time": 54.583333333333336,
+      "downloaded_mb": 189.0,
+      "reused_mb": 0.0,
+      "download_time": 3.15,
+      "run_time": 12.0
+    },
+    "c033": {
+      "node": "edge-5",
+      "start_time": 54.583333333333336,
+      "finish_time": 69.53333333333333,
+      "downloaded_mb": 177.0,
+      "reused_mb": 0.0,
+      "download_time": 2.95,
+      "run_time": 12.0
+    },
+    "c039": {
+      "node": "edge-5",
+      "start_time": 69.53333333333333,
+      "finish_time": 83.28333333333333,
+      "downloaded_mb": 105.0,
+      "reused_mb": 0.0,
+      "download_time": 1.75,
+      "run_time": 12.0
+    },
+    "c045": {
+      "node": "edge-5",
+      "start_time": 83.28333333333333,
+      "finish_time": 98.03333333333333,
+      "downloaded_mb": 285.0,
+      "reused_mb": 1.0,
+      "download_time": 4.75,
+      "run_time": 10.0
+    },
+    "c051": {
+      "node": "edge-5",
+      "start_time": 98.03333333333333,
+      "finish_time": 123.2,
+      "downloaded_mb": 310.0,
+      "reused_mb": 29.0,
+      "download_time": 5.166666666666667,
+      "run_time": 20.0
+    },
+    "c058": {
+      "node": "edge-5",
+      "start_time": 123.2,
+      "finish_time": 139.18333333333334,
+      "downloaded_mb": 239.0,
+      "reused_mb": 28.0,
+      "download_time": 3.9833333333333334,
+      "run_time": 12.0
+    },
+    "c064": {
+      "node": "edge-5",
+      "start_time": 139.18333333333334,
+      "finish_time": 165.05,
+      "downloaded_mb": 592.0,
+      "reused_mb": 1.0,
+      "download_time": 9.866666666666667,
+      "run_time": 16.0
+    },
+    "c074": {
+      "node": "edge-5",
+      "start_time": 165.05,
+      "finish_time": 187.66666666666669,
+      "downloaded_mb": 397.0,
+      "reused_mb": 0.0,
+      "download_time": 6.616666666666666,
+      "run_time": 16.0
+    },
+    "c080": {
+      "node": "edge-5",
+      "start_time": 187.66666666666669,
+      "finish_time": 209.9666666666667,
+      "downloaded_mb": 378.0,
+      "reused_mb": 1.0,
+      "download_time": 6.3,
+      "run_time": 16.0
+    },
+    "c092": {
+      "node": "edge-5",
+      "start_time": 209.9666666666667,
+      "finish_time": 247.00000000000003,
+      "downloaded_mb": 1022.0,
+      "reused_mb": 2.0,
+      "download_time": 17.033333333333335,
+      "run_time": 20.0
+    },
+    "c102": {
+      "node": "edge-5",
+      "start_time": 247.00000000000003,
+      "finish_time": 267.0,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c109": {
+      "node": "edge-5",
+      "start_time": 267.0,
+      "finish_time": 303.8833333333333,
+      "downloaded_mb": 113.0,
+      "reused_mb": 0.0,
+      "download_time": 1.8833333333333333,
+      "run_time": 35.0
+    },
+    "c124": {
+      "node": "edge-5",
+      "start_time": 303.8833333333333,
+      "finish_time": 353.1166666666667,
+      "downloaded_mb": 554.0,
+      "reused_mb": 0.0,
+      "download_time": 9.233333333333333,
+      "run_time": 40.0
+    },
+    "c140": {
+      "node": "edge-5",
+      "start_time": 353.1166666666667,
+      "finish_time": 367.6,
+      "downloaded_mb": 149.0,
+      "reused_mb": 0.0,
+      "download_time": 2.4833333333333334,
+      "run_time": 12.0
+    },
+    "c143": {
+      "node": "edge-5",
+      "start_time": 367.6,
+      "finish_time": 402.6,
+      "downloaded_mb": 0.0,
+      "reused_mb": 554.0,
+      "download_time": 0.0,
+      "run_time": 35.0
+    },
+    "c159": {
+      "node": "edge-5",
+      "start_time": 402.6,
+      "finish_time": 437.3833333333334,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 20.0
+    },
+    "c169": {
+      "node": "edge-5",
+      "start_time": 437.3833333333334,
+      "finish_time": 453.3833333333334,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c176": {
+      "node": "edge-5",
+      "start_time": 453.3833333333334,
+      "finish_time": 469.3833333333334,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c183": {
+      "node": "edge-5",
+      "start_time": 469.3833333333334,
+      "finish_time": 508.6,
+      "downloaded_mb": 553.0,
+      "reused_mb": 1.0,
+      "download_time": 9.216666666666667,
+      "run_time": 30.0
+    },
+    "c197": {
+      "node": "edge-5",
+      "start_time": 508.6,
+      "finish_time": 543.6166666666667,
+      "downloaded_mb": 1.0,
+      "reused_mb": 553.0,
+      "download_time": 0.016666666666666666,
+      "run_time": 35.0
+    },
+    "c210": {
+      "node": "edge-5",
+      "start_time": 543.6166666666667,
+      "finish_time": 560.45,
+      "downloaded_mb": 50.0,
+      "reused_mb": 0.0,
+      "download_time": 0.8333333333333334,
+      "run_time": 16.0
+    },
+    "c213": {
+      "node": "edge-5",
+      "start_time": 560.45,
+      "finish_time": 572.45,
+      "downloaded_mb": 0.0,
+      "reused_mb": 50.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c225": {
+      "node": "edge-5",
+      "start_time": 572.45,
+      "finish_time": 599.2333333333333,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 12.0
+    },
+    "c230": {
+      "node": "edge-5",
+      "start_time": 599.2333333333333,
+      "finish_time": 623.9666666666667,
+      "downloaded_mb": 284.0,
+      "reused_mb": 0.0,
+      "download_time": 4.733333333333333,
+      "run_time": 20.0
+    },
+    "c239": {
+      "node": "edge-5",
+      "start_time": 623.9666666666667,
+      "finish_time": 646.1666666666667,
+      "downloaded_mb": 12.0,
+      "reused_mb": 0.0,
+      "download_time": 0.2,
+      "run_time": 22.0
+    },
+    "c249": {
+      "node": "edge-5",
+      "start_time": 646.1666666666667,
+      "finish_time": 672.95,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 12.0
+    },
+    "c257": {
+      "node": "edge-5",
+      "start_time": 672.95,
+      "finish_time": 691.8666666666667,
+      "downloaded_mb": 175.0,
+      "reused_mb": 28.0,
+      "download_time": 2.9166666666666665,
+      "run_time": 16.0
+    },
+    "c268": {
+      "node": "edge-5",
+      "start_time": 691.8666666666667,
+      "finish_time": 713.7333333333333,
+      "downloaded_mb": 592.0,
+      "reused_mb": 1.0,
+      "download_time": 9.866666666666667,
+      "run_time": 12.0
+    },
+    "c275": {
+      "node": "edge-5",
+      "start_time": 713.7333333333333,
+      "finish_time": 738.1833333333334,
+      "downloaded_mb": 267.0,
+      "reused_mb": 0.0,
+      "download_time": 4.45,
+      "run_time": 20.0
+    },
+    "c284": {
+      "node": "edge-5",
+      "start_time": 738.1833333333334,
+      "finish_time": 759.85,
+      "downloaded_mb": 340.0,
+      "reused_mb": 28.0,
+      "download_time": 5.666666666666667,
+      "run_time": 16.0
+    },
+    "c295": {
+      "node": "edge-5",
+      "start_time": 759.85,
+      "finish_time": 774.7666666666667,
+      "downloaded_mb": 175.0,
+      "reused_mb": 28.0,
+      "download_time": 2.9166666666666665,
+      "run_time": 12.0
+    },
+    "c298": {
+      "node": "edge-5",
+      "start_time": 774.7666666666667,
+      "finish_time": 790.7666666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 368.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c304": {
+      "node": "edge-5",
+      "start_time": 790.7666666666667,
+      "finish_time": 802.7666666666667,
+      "downloaded_mb": 0.0,
+      "reused_mb": 203.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c314": {
+      "node": "edge-5",
+      "start_time": 802.7666666666667,
+      "finish_time": 852.0,
+      "downloaded_mb": 554.0,
+      "reused_mb": 0.0,
+      "download_time": 9.233333333333333,
+      "run_time": 40.0
+    },
+    "c330": {
+      "node": "edge-5",
+      "start_time": 852.0,
+      "finish_time": 885.8166666666667,
+      "downloaded_mb": 229.0,
+      "reused_mb": 0.0,
+      "download_time": 3.816666666666667,
+      "run_time": 30.0
+    },
+    "c342": {
+      "node": "edge-5",
+      "start_time": 885.8166666666667,
+      "finish_time": 920.6,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 20.0
+    },
+    "c352": {
+      "node": "edge-5",
+      "start_time": 920.6,
+      "finish_time": 932.6,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c356": {
+      "node": "edge-5",
+      "start_time": 932.6,
+      "finish_time": 948.6,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c366": {
+      "node": "edge-5",
+      "start_time": 948.6,
+      "finish_time": 970.8000000000001,
+      "downloaded_mb": 12.0,
+      "reused_mb": 0.0,
+      "download_time": 0.2,
+      "run_time": 22.0
+    },
+    "c376": {
+      "node": "edge-5",
+      "start_time": 970.8000000000001,
+      "finish_time": 1007.1,
+      "downloaded_mb": 78.0,
+      "reused_mb": 28.0,
+      "download_time": 1.3,
+      "run_time": 35.0
+    },
+    "c387": {
+      "node": "edge-5",
+      "start_time": 1007.1,
+      "finish_time": 1028.9833333333333,
+      "downloaded_mb": 113.0,
+      "reused_mb": 1.0,
+      "download_time": 1.8833333333333333,
+      "run_time": 20.0
+    },
+    "c391": {
+      "node": "edge-5",
+      "start_time": 1028.9833333333333,
+      "finish_time": 1058.9833333333333,
+      "downloaded_mb": 0.0,
+      "reused_mb": 106.0,
+      "download_time": 0.0,
+      "run_time": 30.0
+    },
+    "c406": {
+      "node": "edge-5",
+      "start_time": 1058.9833333333333,
+      "finish_time": 1075.7333333333333,
+      "downloaded_mb": 285.0,
+      "reused_mb": 1.0,
+      "download_time": 4.75,
+      "run_time": 12.0
+    },
+    "c411": {
+      "node": "edge-5",
+      "start_time": 1075.7333333333333,
+      "finish_time": 1099.5,
+      "downloaded_mb": 466.0,
+      "reused_mb": 1.0,
+      "download_time": 7.766666666666667,
+      "run_time": 16.0
+    },
+    "c425": {
+      "node": "edge-5",
+      "start_time": 1099.5,
+      "finish_time": 1121.3666666666666,
+      "downloaded_mb": 592.0,
+      "reused_mb": 1.0,
+      "download_time": 9.866666666666667,
+      "run_time": 12.0
+    },
+    "c434": {
+      "node": "edge-5",
+      "start_time": 1121.3666666666666,
+      "finish_time": 1156.1499999999999,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 20.0
+    },
+    "c443": {
+      "node": "edge-5",
+      "start_time": 1156.1499999999999,
+      "finish_time": 1193.7833333333333,
+      "downloaded_mb": 158.0,
+      "reused_mb": 0.0,
+      "download_time": 2.6333333333333333,
+      "run_time": 35.0
+    },
+    "c456": {
+      "node": "edge-5",
+      "start_time": 1193.7833333333333,
+      "finish_time": 1210.8999999999999,
+      "downloaded_mb": 67.0,
+      "reused_mb": 0.0,
+      "download_time": 1.1166666666666667,
+      "run_time": 16.0
+    },
+    "c466": {
+      "node": "edge-5",
+      "start_time": 1210.8999999999999,
+      "finish_time": 1234.6666666666665,
+      "downloaded_mb": 466.0,
+      "reused_mb": 1.0,
+      "download_time": 7.766666666666667,
+      "run_time": 16.0
+    },
+    "c471": {
+      "node": "edge-5",
+      "start_time": 1234.6666666666665,
+      "finish_time": 1255.3333333333333,
+      "downloaded_mb": 40.0,
+      "reused_mb": 1.0,
+      "download_time": 0.6666666666666666,
+      "run_time": 20.0
+    },
+    "c481": {
+      "node": "edge-5",
+      "start_time": 1255.3333333333333,
+      "finish_time": 1273.2166666666667,
+      "downloaded_mb": 113.0,
+      "reused_mb": 1.0,
+      "download_time": 1.8833333333333333,
+      "run_time": 16.0
+    },
+    "c490": {
+      "node": "edge-5",
+      "start_time": 1273.2166666666667,
+      "finish_time": 1300.0,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 12.0
+    },
+    "c497": {
+      "node": "edge-5",
+      "start_time": 1300.0,
+      "finish_time": 1312.0,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c022": {
+      "node": "edge-6",
+      "start_time": 0.0,
+      "finish_time": 41.4125,
+      "downloaded_mb": 113.0,
+      "reused_mb": 0.0,
+      "download_time": 1.4125,
+      "run_time": 40.0
+    },
+    "c031": {
+      "node": "edge-6",
+      "start_time": 41.4125,
+      "finish_time": 53.5625,
+      "downloaded_mb": 12.0,
+      "reused_mb": 0.0,
+      "download_time": 0.15,
+      "run_time": 12.0
+    },
+    "c036": {
+      "node": "edge-6",
+      "start_time": 53.5625,
+      "finish_time": 74.525,
+      "downloaded_mb": 397.0,
+      "reused_mb": 0.0,
+      "download_time": 4.9625,
+      "run_time": 16.0
+    },
+    "c041": {
+      "node": "edge-6",
+      "start_time": 74.525,
+      "finish_time": 94.525,
+      "downloaded_mb": 0.0,
+      "reused_mb": 397.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c050": {
+      "node": "edge-6",
+      "start_time": 94.525,
+      "finish_time": 111.2625,
+      "downloaded_mb": 379.0,
+      "reused_mb": 0.0,
+      "download_time": 4.7375,
+      "run_time": 12.0
+    },
+    "c053": {
+      "node": "edge-6",
+      "start_time": 111.2625,
+      "finish_time": 125.125,
+      "downloaded_mb": 149.0,
+      "reused_mb": 0.0,
+      "download_time": 1.8625,
+      "run_time": 12.0
+    },
+    "c060": {
+      "node": "edge-6",
+      "start_time": 125.125,
+      "finish_time": 147.075,
+      "downloaded_mb": 476.0,
+      "reused_mb": 2.0,
+      "download_time": 5.95,
+      "run_time": 16.0
+    },
+    "c065": {
+      "node": "edge-6",
+      "start_time": 147.075,
+      "finish_time": 166.14999999999998,
+      "downloaded_mb": 566.0,
+      "reused_mb": 27.0,
+      "download_time": 7.075,
+      "run_time": 12.0
+    },
+    "c072": {
+      "node": "edge-6",
+      "start_time": 166.14999999999998,
+      "finish_time": 187.075,
+      "downloaded_mb": 394.0,
+      "reused_mb": 84.0,
+      "download_time": 4.925,
+      "run_time": 16.0
+    },
+    "c079": {
+      "node": "edge-6",
+      "start_time": 187.075,
+      "finish_time": 203.075,
+      "downloaded_mb": 0.0,
+      "reused_mb": 478.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c087": {
+      "node": "edge-6",
+      "start_time": 203.075,
+      "finish_time": 245.0,
+      "downloaded_mb": 554.0,
+      "reused_mb": 0.0,
+      "download_time": 6.925,
+      "run_time": 35.0
+    },
+    "c103": {
+      "node": "edge-6",
+      "start_time": 245.0,
+      "finish_time": 267.5625,
+      "downloaded_mb": 45.0,
+      "reused_mb": 1.0,
+      "download_time": 0.5625,
+      "run_time": 22.0
+    },
+    "c110": {
+      "node": "edge-6",
+      "start_time": 267.5625,
+      "finish_time": 289.3875,
+      "downloaded_mb": 466.0,
+      "reused_mb": 1.0,
+      "download_time": 5.825,
+      "run_time": 16.0
+    },
+    "c117": {
+      "node": "edge-6",
+      "start_time": 289.3875,
+      "finish_time": 311.3125,
+      "downloaded_mb": 154.0,
+      "reused_mb": 0.0,
+      "download_time": 1.925,
+      "run_time": 20.0
+    },
+    "c125": {
+      "node": "edge-6",
+      "start_time": 311.3125,
+      "finish_time": 331.5625,
+      "downloaded_mb": 20.0,
+      "reused_mb": 1.0,
+      "download_time": 0.25,
+      "run_time": 20.0
+    },
+    "c131": {
+      "node": "edge-6",
+      "start_time": 331.5625,
+      "finish_time": 352.4875,
+      "downloaded_mb": 394.0,
+      "reused_mb": 84.0,
+      "download_time": 4.925,
+      "run_time": 16.0
+    },
+    "c137": {
+      "node": "edge-6",
+      "start_time": 352.4875,
+      "finish_time": 368.4875,
+      "downloaded_mb": 0.0,
+      "reused_mb": 478.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c148": {
+      "node": "edge-6",
+      "start_time": 368.4875,
+      "finish_time": 390.3,
+      "downloaded_mb": 145.0,
+      "reused_mb": 0.0,
+      "download_time": 1.8125,
+      "run_time": 20.0
+    },
+    "c155": {
+      "node": "edge-6",
+      "start_time": 390.3,
+      "finish_time": 411.95,
+      "downloaded_mb": 132.0,
+      "reused_mb": 28.0,
+      "download_time": 1.65,
+      "run_time": 20.0
+    },
+    "c165": {
+      "node": "edge-6",
+      "start_time": 411.95,
+      "finish_time": 438.25,
+      "downloaded_mb": 504.0,
+      "reused_mb": 0.0,
+      "download_time": 6.3,
+      "run_time": 20.0
+    },
+    "c172": {
+      "node": "edge-6",
+      "start_time": 438.25,
+      "finish_time": 463.025,
+      "downloaded_mb": 1022.0,
+      "reused_mb": 2.0,
+      "download_time": 12.775,
+      "run_time": 12.0
+    },
+    "c181": {
+      "node": "edge-6",
+      "start_time": 463.025,
+      "finish_time": 483.025,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c189": {
+      "node": "edge-6",
+      "start_time": 483.025,
+      "finish_time": 501.15,
+      "downloaded_mb": 170.0,
+      "reused_mb": 1.0,
+      "download_time": 2.125,
+      "run_time": 16.0
+    },
+    "c191": {
+      "node": "edge-6",
+      "start_time": 501.15,
+      "finish_time": 541.2249999999999,
+      "downloaded_mb": 6.0,
+      "reused_mb": 28.0,
+      "download_time": 0.075,
+      "run_time": 40.0
+    },
+    "c211": {
+      "node": "edge-6",
+      "start_time": 541.2249999999999,
+      "finish_time": 568.6249999999999,
+      "downloaded_mb": 592.0,
+      "reused_mb": 1.0,
+      "download_time": 7.4,
+      "run_time": 20.0
+    },
+    "c220": {
+      "node": "edge-6",
+      "start_time": 568.6249999999999,
+      "finish_time": 605.2749999999999,
+      "downloaded_mb": 132.0,
+      "reused_mb": 28.0,
+      "download_time": 1.65,
+      "run_time": 35.0
+    },
+    "c234": {
+      "node": "edge-6",
+      "start_time": 605.2749999999999,
+      "finish_time": 627.0999999999999,
+      "downloaded_mb": 466.0,
+      "reused_mb": 1.0,
+      "download_time": 5.825,
+      "run_time": 16.0
+    },
+    "c242": {
+      "node": "edge-6",
+      "start_time": 627.0999999999999,
+      "finish_time": 639.5624999999999,
+      "downloaded_mb": 37.0,
+      "reused_mb": 0.0,
+      "download_time": 0.4625,
+      "run_time": 12.0
+    },
+    "c248": {
+      "node": "edge-6",
+      "start_time": 639.5624999999999,
+      "finish_time": 655.8124999999999,
+      "downloaded_mb": 340.0,
+      "reused_mb": 28.0,
+      "download_time": 4.25,
+      "run_time": 12.0
+    },
+    "c255": {
+      "node": "edge-6",
+      "start_time": 655.8124999999999,
+      "finish_time": 675.8124999999999,
+      "downloaded_mb": 0.0,
+      "reused_mb": 467.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c262": {
+      "node": "edge-6",
+      "start_time": 675.8124999999999,
+      "finish_time": 707.7374999999998,
+      "downloaded_mb": 554.0,
+      "reused_mb": 0.0,
+      "download_time": 6.925,
+      "run_time": 25.0
+    },
+    "c270": {
+      "node": "edge-6",
+      "start_time": 707.7374999999998,
+      "finish_time": 737.7374999999998,
+      "downloaded_mb": 0.0,
+      "reused_mb": 554.0,
+      "download_time": 0.0,
+      "run_time": 30.0
+    },
+    "c289": {
+      "node": "edge-6",
+      "start_time": 737.7374999999998,
+      "finish_time": 753.6124999999998,
+      "downloaded_mb": 310.0,
+      "reused_mb": 29.0,
+      "download_time": 3.875,
+      "run_time": 12.0
+    },
+    "c297": {
+      "node": "edge-6",
+      "start_time": 753.6124999999998,
+      "finish_time": 767.6499999999999,
+      "downloaded_mb": 163.0,
+      "reused_mb": 28.0,
+      "download_time": 2.0375,
+      "run_time": 12.0
+    },
+    "c307": {
+      "node": "edge-6",
+      "start_time": 767.6499999999999,
+      "finish_time": 798.7374999999998,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 20.0
+    },
+    "c317": {
+      "node": "edge-6",
+      "start_time": 798.7374999999998,
+      "finish_time": 818.7374999999998,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c323": {
+      "node": "edge-6",
+      "start_time": 818.7374999999998,
+      "finish_time": 843.3124999999999,
+      "downloaded_mb": 366.0,
+      "reused_mb": 2.0,
+      "download_time": 4.575,
+      "run_time": 20.0
+    },
+    "c331": {
+      "node": "edge-6",
+      "start_time": 843.3124999999999,
+      "finish_time": 885.2374999999998,
+      "downloaded_mb": 554.0,
+      "reused_mb": 0.0,
+      "download_time": 6.925,
+      "run_time": 35.0
+    },
+    "c345": {
+      "node": "edge-6",
+      "start_time": 885.2374999999998,
+      "finish_time": 925.2374999999998,
+      "downloaded_mb": 0.0,
+      "reused_mb": 554.0,
+      "download_time": 0.0,
+      "run_time": 40.0
+    },
+    "c363": {
+      "node": "edge-6",
+      "start_time": 925.2374999999998,
+      "finish_time": 949.0499999999998,
+      "downloaded_mb": 305.0,
+      "reused_mb": 63.0,
+      "download_time": 3.8125,
+      "run_time": 20.0
+    },
+    "c371": {
+      "node": "edge-6",
+      "start_time": 949.0499999999998,
+      "finish_time": 986.9124999999998,
+      "downloaded_mb": 229.0,
+      "reused_mb": 0.0,
+      "download_time": 2.8625,
+      "run_time": 35.0
+    },
+    "c382": {
+      "node": "edge-6",
+      "start_time": 986.9124999999998,
+      "finish_time": 1013.9999999999998,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 16.0
+    },
+    "c390": {
+      "node": "edge-6",
+      "start_time": 1013.9999999999998,
+      "finish_time": 1036.8624999999997,
+      "downloaded_mb": 229.0,
+      "reused_mb": 0.0,
+      "download_time": 2.8625,
+      "run_time": 20.0
+    },
+    "c402": {
+      "node": "edge-6",
+      "start_time": 1036.8624999999997,
+      "finish_time": 1064.2624999999998,
+      "downloaded_mb": 592.0,
+      "reused_mb": 1.0,
+      "download_time": 7.4,
+      "run_time": 20.0
+    },
+    "c415": {
+      "node": "edge-6",
+      "start_time": 1064.2624999999998,
+      "finish_time": 1082.0874999999999,
+      "downloaded_mb": 466.0,
+      "reused_mb": 1.0,
+      "download_time": 5.825,
+      "run_time": 12.0
+    },
+    "c420": {
+      "node": "edge-6",
+      "start_time": 1082.0874999999999,
+      "finish_time": 1095.4999999999998,
+      "downloaded_mb": 113.0,
+      "reused_mb": 1.0,
+      "download_time": 1.4125,
+      "run_time": 12.0
+    },
+    "c428": {
+      "node": "edge-6",
+      "start_time": 1095.4999999999998,
+      "finish_time": 1103.4999999999998,
+      "downloaded_mb": 0.0,
+      "reused_mb": 28.0,
+      "download_time": 0.0,
+      "run_time": 8.0
+    },
+    "c430": {
+      "node": "edge-6",
+      "start_time": 1103.4999999999998,
+      "finish_time": 1115.4999999999998,
+      "downloaded_mb": 0.0,
+      "reused_mb": 28.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c436": {
+      "node": "edge-6",
+      "start_time": 1115.4999999999998,
+      "finish_time": 1138.4124999999997,
+      "downloaded_mb": 553.0,
+      "reused_mb": 40.0,
+      "download_time": 6.9125,
+      "run_time": 16.0
+    },
+    "c442": {
+      "node": "edge-6",
+      "start_time": 1138.4124999999997,
+      "finish_time": 1156.0374999999997,
+      "downloaded_mb": 450.0,
+      "reused_mb": 28.0,
+      "download_time": 5.625,
+      "run_time": 12.0
+    },
+    "c453": {
+      "node": "edge-6",
+      "start_time": 1156.0374999999997,
+      "finish_time": 1187.1249999999998,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 20.0
+    },
+    "c457": {
+      "node": "edge-6",
+      "start_time": 1187.1249999999998,
+      "finish_time": 1203.1249999999998,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c462": {
+      "node": "edge-6",
+      "start_time": 1203.1249999999998,
+      "finish_time": 1223.1249999999998,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c474": {
+      "node": "edge-6",
+      "start_time": 1223.1249999999998,
+      "finish_time": 1235.1249999999998,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c478": {
+      "node": "edge-6",
+      "start_time": 1235.1249999999998,
+      "finish_time": 1251.1249999999998,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c483": {
+      "node": "edge-6",
+      "start_time": 1251.1249999999998,
+      "finish_time": 1267.1249999999998,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c488": {
+      "node": "edge-6",
+      "start_time": 1267.1249999999998,
+      "finish_time": 1287.1249999999998,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c498": {
+      "node": "edge-6",
+      "start_time": 1287.1249999999998,
+      "finish_time": 1309.0499999999997,
+      "downloaded_mb": 154.0,
+      "reused_mb": 0.0,
+      "download_time": 1.925,
+      "run_time": 20.0
+    },
+    "c003": {
+      "node": "edge-7",
+      "start_time": 0.0,
+      "finish_time": 21.883333333333333,
+      "downloaded_mb": 593.0,
+      "reused_mb": 0.0,
+      "download_time": 9.883333333333333,
+      "run_time": 12.0
+    },
+    "c004": {
+      "node": "edge-7",
+      "start_time": 21.883333333333333,
+      "finish_time": 43.4,
+      "downloaded_mb": 391.0,
+      "reused_mb": 0.0,
+      "download_time": 6.516666666666667,
+      "run_time": 15.0
+    },
+    "c008": {
+      "node": "edge-7",
+      "start_time": 43.4,
+      "finish_time": 87.63333333333333,
+      "downloaded_mb": 554.0,
+      "reused_mb": 0.0,
+      "download_time": 9.233333333333333,
+      "run_time": 35.0
+    },
+    "c012": {
+      "node": "edge-7",
+      "start_time": 87.63333333333333,
+      "finish_time": 115.13333333333333,
+      "downloaded_mb": 450.0,
+      "reused_mb": 28.0,
+      "download_time": 7.5,
+      "run_time": 20.0
+    },
+    "c028": {
+      "node": "edge-7",
+      "start_time": 115.13333333333333,
+      "finish_time": 152.16666666666666,
+      "downloaded_mb": 1022.0,
+      "reused_mb": 2.0,
+      "download_time": 17.033333333333335,
+      "run_time": 20.0
+    },
+    "c034": {
+      "node": "edge-7",
+      "start_time": 152.16666666666666,
+      "finish_time": 172.16666666666666,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c042": {
+      "node": "edge-7",
+      "start_time": 172.16666666666666,
+      "finish_time": 188.16666666666666,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c054": {
+      "node": "edge-7",
+      "start_time": 188.16666666666666,
+      "finish_time": 204.16666666666666,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c059": {
+      "node": "edge-7",
+      "start_time": 204.16666666666666,
+      "finish_time": 220.16666666666666,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c070": {
+      "node": "edge-7",
+      "start_time": 220.16666666666666,
+      "finish_time": 248.56666666666666,
+      "downloaded_mb": 504.0,
+      "reused_mb": 0.0,
+      "download_time": 8.4,
+      "run_time": 20.0
+    },
+    "c083": {
+      "node": "edge-7",
+      "start_time": 248.56666666666666,
+      "finish_time": 270.08333333333337,
+      "downloaded_mb": 391.0,
+      "reused_mb": 0.0,
+      "download_time": 6.516666666666667,
+      "run_time": 15.0
+    },
+    "c091": {
+      "node": "edge-7",
+      "start_time": 270.08333333333337,
+      "finish_time": 294.4333333333334,
+      "downloaded_mb": 381.0,
+      "reused_mb": 0.0,
+      "download_time": 6.35,
+      "run_time": 18.0
+    },
+    "c098": {
+      "node": "edge-7",
+      "start_time": 294.4333333333334,
+      "finish_time": 321.21666666666675,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 12.0
+    },
+    "c105": {
+      "node": "edge-7",
+      "start_time": 321.21666666666675,
+      "finish_time": 337.21666666666675,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c112": {
+      "node": "edge-7",
+      "start_time": 337.21666666666675,
+      "finish_time": 357.21666666666675,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c119": {
+      "node": "edge-7",
+      "start_time": 357.21666666666675,
+      "finish_time": 378.5666666666668,
+      "downloaded_mb": 381.0,
+      "reused_mb": 0.0,
+      "download_time": 6.35,
+      "run_time": 15.0
+    },
+    "c129": {
+      "node": "edge-7",
+      "start_time": 378.5666666666668,
+      "finish_time": 393.48333333333346,
+      "downloaded_mb": 175.0,
+      "reused_mb": 28.0,
+      "download_time": 2.9166666666666665,
+      "run_time": 12.0
+    },
+    "c136": {
+      "node": "edge-7",
+      "start_time": 393.48333333333346,
+      "finish_time": 415.7833333333335,
+      "downloaded_mb": 378.0,
+      "reused_mb": 1.0,
+      "download_time": 6.3,
+      "run_time": 16.0
+    },
+    "c145": {
+      "node": "edge-7",
+      "start_time": 415.7833333333335,
+      "finish_time": 450.56666666666683,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 20.0
+    },
+    "c154": {
+      "node": "edge-7",
+      "start_time": 450.56666666666683,
+      "finish_time": 476.4333333333335,
+      "downloaded_mb": 592.0,
+      "reused_mb": 1.0,
+      "download_time": 9.866666666666667,
+      "run_time": 16.0
+    },
+    "c164": {
+      "node": "edge-7",
+      "start_time": 476.4333333333335,
+      "finish_time": 511.21666666666687,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 20.0
+    },
+    "c175": {
+      "node": "edge-7",
+      "start_time": 511.21666666666687,
+      "finish_time": 530.9833333333336,
+      "downloaded_mb": 466.0,
+      "reused_mb": 1.0,
+      "download_time": 7.766666666666667,
+      "run_time": 12.0
+    },
+    "c184": {
+      "node": "edge-7",
+      "start_time": 530.9833333333336,
+      "finish_time": 557.7666666666669,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 12.0
+    },
+    "c192": {
+      "node": "edge-7",
+      "start_time": 557.7666666666669,
+      "finish_time": 585.5333333333335,
+      "downloaded_mb": 466.0,
+      "reused_mb": 1.0,
+      "download_time": 7.766666666666667,
+      "run_time": 20.0
+    },
+    "c201": {
+      "node": "edge-7",
+      "start_time": 585.5333333333335,
+      "finish_time": 607.4000000000002,
+      "downloaded_mb": 592.0,
+      "reused_mb": 1.0,
+      "download_time": 9.866666666666667,
+      "run_time": 12.0
+    },
+    "c203": {
+      "node": "edge-7",
+      "start_time": 607.4000000000002,
+      "finish_time": 623.4000000000002,
+      "downloaded_mb": 0.0,
+      "reused_mb": 593.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c218": {
+      "node": "edge-7",
+      "start_time": 623.4000000000002,
+      "finish_time": 639.7166666666669,
+      "downloaded_mb": 259.0,
+      "reused_mb": 0.0,
+      "download_time": 4.316666666666666,
+      "run_time": 12.0
+    },
+    "c219": {
+      "node": "edge-7",
+      "start_time": 639.7166666666669,
+      "finish_time": 661.7166666666669,
+      "downloaded_mb": 0.0,
+      "reused_mb": 259.0,
+      "download_time": 0.0,
+      "run_time": 22.0
+    },
+    "c231": {
+      "node": "edge-7",
+      "start_time": 661.7166666666669,
+      "finish_time": 686.4500000000003,
+      "downloaded_mb": 284.0,
+      "reused_mb": 0.0,
+      "download_time": 4.733333333333333,
+      "run_time": 20.0
+    },
+    "c240": {
+      "node": "edge-7",
+      "start_time": 686.4500000000003,
+      "finish_time": 717.2333333333336,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 16.0
+    },
+    "c246": {
+      "node": "edge-7",
+      "start_time": 717.2333333333336,
+      "finish_time": 729.2333333333336,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c254": {
+      "node": "edge-7",
+      "start_time": 729.2333333333336,
+      "finish_time": 749.2333333333336,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c261": {
+      "node": "edge-7",
+      "start_time": 749.2333333333336,
+      "finish_time": 765.2333333333336,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c272": {
+      "node": "edge-7",
+      "start_time": 765.2333333333336,
+      "finish_time": 781.2333333333336,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c277": {
+      "node": "edge-7",
+      "start_time": 781.2333333333336,
+      "finish_time": 801.2333333333336,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c285": {
+      "node": "edge-7",
+      "start_time": 801.2333333333336,
+      "finish_time": 821.2333333333336,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c293": {
+      "node": "edge-7",
+      "start_time": 821.2333333333336,
+      "finish_time": 837.2333333333336,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c301": {
+      "node": "edge-7",
+      "start_time": 837.2333333333336,
+      "finish_time": 857.2333333333336,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c312": {
+      "node": "edge-7",
+      "start_time": 857.2333333333336,
+      "finish_time": 873.6833333333336,
+      "downloaded_mb": 267.0,
+      "reused_mb": 0.0,
+      "download_time": 4.45,
+      "run_time": 12.0
+    },
+    "c322": {
+      "node": "edge-7",
+      "start_time": 873.6833333333336,
+      "finish_time": 901.316666666667,
+      "downloaded_mb": 158.0,
+      "reused_mb": 0.0,
+      "download_time": 2.6333333333333333,
+      "run_time": 25.0
+    },
+    "c328": {
+      "node": "edge-7",
+      "start_time": 901.316666666667,
+      "finish_time": 917.5333333333336,
+      "downloaded_mb": 13.0,
+      "reused_mb": 0.0,
+      "download_time": 0.21666666666666667,
+      "run_time": 16.0
+    },
+    "c336": {
+      "node": "edge-7",
+      "start_time": 917.5333333333336,
+      "finish_time": 943.4000000000003,
+      "downloaded_mb": 592.0,
+      "reused_mb": 1.0,
+      "download_time": 9.866666666666667,
+      "run_time": 16.0
+    },
+    "c346": {
+      "node": "edge-7",
+      "start_time": 943.4000000000003,
+      "finish_time": 969.066666666667,
+      "downloaded_mb": 340.0,
+      "reused_mb": 28.0,
+      "download_time": 5.666666666666667,
+      "run_time": 20.0
+    },
+    "c358": {
+      "node": "edge-7",
+      "start_time": 969.066666666667,
+      "finish_time": 1003.8500000000003,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 20.0
+    },
+    "c367": {
+      "node": "edge-7",
+      "start_time": 1003.8500000000003,
+      "finish_time": 1016.916666666667,
+      "downloaded_mb": 64.0,
+      "reused_mb": 0.0,
+      "download_time": 1.0666666666666667,
+      "run_time": 12.0
+    },
+    "c372": {
+      "node": "edge-7",
+      "start_time": 1016.916666666667,
+      "finish_time": 1046.7833333333335,
+      "downloaded_mb": 592.0,
+      "reused_mb": 1.0,
+      "download_time": 9.866666666666667,
+      "run_time": 20.0
+    },
+    "c379": {
+      "node": "edge-7",
+      "start_time": 1046.7833333333335,
+      "finish_time": 1062.7833333333335,
+      "downloaded_mb": 0.0,
+      "reused_mb": 593.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c388": {
+      "node": "edge-7",
+      "start_time": 1062.7833333333335,
+      "finish_time": 1082.8333333333335,
+      "downloaded_mb": 3.0,
+      "reused_mb": 0.0,
+      "download_time": 0.05,
+      "run_time": 20.0
+    },
+    "c395": {
+      "node": "edge-7",
+      "start_time": 1082.8333333333335,
+      "finish_time": 1100.466666666667,
+      "downloaded_mb": 338.0,
+      "reused_mb": 1.0,
+      "download_time": 5.633333333333334,
+      "run_time": 12.0
+    },
+    "c400": {
+      "node": "edge-7",
+      "start_time": 1100.466666666667,
+      "finish_time": 1117.5166666666669,
+      "downloaded_mb": 63.0,
+      "reused_mb": 0.0,
+      "download_time": 1.05,
+      "run_time": 16.0
+    },
+    "c409": {
+      "node": "edge-7",
+      "start_time": 1117.5166666666669,
+      "finish_time": 1148.3000000000002,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 14.783333333333333,
+      "run_time": 16.0
+    },
+    "c419": {
+      "node": "edge-7",
+      "start_time": 1148.3000000000002,
+      "finish_time": 1160.3000000000002,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c424": {
+      "node": "edge-7",
+      "start_time": 1160.3000000000002,
+      "finish_time": 1180.3000000000002,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c429": {
+      "node": "edge-7",
+      "start_time": 1180.3000000000002,
+      "finish_time": 1196.3000000000002,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c439": {
+      "node": "edge-7",
+      "start_time": 1196.3000000000002,
+      "finish_time": 1212.3000000000002,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c447": {
+      "node": "edge-7",
+      "start_time": 1212.3000000000002,
+      "finish_time": 1232.3000000000002,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c451": {
+      "node": "edge-7",
+      "start_time": 1232.3000000000002,
+      "finish_time": 1248.3000000000002,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c458": {
+      "node": "edge-7",
+      "start_time": 1248.3000000000002,
+      "finish_time": 1260.3000000000002,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c465": {
+      "node": "edge-7",
+      "start_time": 1260.3000000000002,
+      "finish_time": 1280.3000000000002,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c476": {
+      "node": "edge-7",
+      "start_time": 1280.3000000000002,
+      "finish_time": 1296.3000000000002,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c479": {
+      "node": "edge-7",
+      "start_time": 1296.3000000000002,
+      "finish_time": 1312.3000000000002,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c484": {
+      "node": "edge-7",
+      "start_time": 1312.3000000000002,
+      "finish_time": 1324.3000000000002,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c491": {
+      "node": "edge-7",
+      "start_time": 1324.3000000000002,
+      "finish_time": 1340.3000000000002,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c496": {
+      "node": "edge-7",
+      "start_time": 1340.3000000000002,
+      "finish_time": 1389.5333333333335,
+      "downloaded_mb": 554.0,
+      "reused_mb": 0.0,
+      "download_time": 9.233333333333333,
+      "run_time": 40.0
+    },
+    "c005": {
+      "node": "edge-8",
+      "start_time": 0.0,
+      "finish_time": 22.3875,
+      "downloaded_mb": 191.0,
+      "reused_mb": 0.0,
+      "download_time": 2.3875,
+      "run_time": 20.0
+    },
+    "c007": {
+      "node": "edge-8",
+      "start_time": 22.3875,
+      "finish_time": 46.625,
+      "downloaded_mb": 339.0,
+      "reused_mb": 0.0,
+      "download_time": 4.2375,
+      "run_time": 20.0
+    },
+    "c009": {
+      "node": "edge-8",
+      "start_time": 46.625,
+      "finish_time": 89.4875,
+      "downloaded_mb": 229.0,
+      "reused_mb": 0.0,
+      "download_time": 2.8625,
+      "run_time": 40.0
+    },
+    "c016": {
+      "node": "edge-8",
+      "start_time": 89.4875,
+      "finish_time": 121.9125,
+      "downloaded_mb": 994.0,
+      "reused_mb": 30.0,
+      "download_time": 12.425,
+      "run_time": 20.0
+    },
+    "c019": {
+      "node": "edge-8",
+      "start_time": 121.9125,
+      "finish_time": 133.9125,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c026": {
+      "node": "edge-8",
+      "start_time": 133.9125,
+      "finish_time": 153.9125,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c029": {
+      "node": "edge-8",
+      "start_time": 153.9125,
+      "finish_time": 165.9125,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c040": {
+      "node": "edge-8",
+      "start_time": 165.9125,
+      "finish_time": 185.9125,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c046": {
+      "node": "edge-8",
+      "start_time": 185.9125,
+      "finish_time": 197.9125,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c055": {
+      "node": "edge-8",
+      "start_time": 197.9125,
+      "finish_time": 209.9125,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c061": {
+      "node": "edge-8",
+      "start_time": 209.9125,
+      "finish_time": 225.9125,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c071": {
+      "node": "edge-8",
+      "start_time": 225.9125,
+      "finish_time": 238.7125,
+      "downloaded_mb": 64.0,
+      "reused_mb": 0.0,
+      "download_time": 0.8,
+      "run_time": 12.0
+    },
+    "c077": {
+      "node": "edge-8",
+      "start_time": 238.7125,
+      "finish_time": 269.8,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 20.0
+    },
+    "c086": {
+      "node": "edge-8",
+      "start_time": 269.8,
+      "finish_time": 285.8,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c094": {
+      "node": "edge-8",
+      "start_time": 285.8,
+      "finish_time": 302.7625,
+      "downloaded_mb": 397.0,
+      "reused_mb": 0.0,
+      "download_time": 4.9625,
+      "run_time": 12.0
+    },
+    "c101": {
+      "node": "edge-8",
+      "start_time": 302.7625,
+      "finish_time": 333.84999999999997,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 20.0
+    },
+    "c111": {
+      "node": "edge-8",
+      "start_time": 333.84999999999997,
+      "finish_time": 345.84999999999997,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c114": {
+      "node": "edge-8",
+      "start_time": 345.84999999999997,
+      "finish_time": 361.84999999999997,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c120": {
+      "node": "edge-8",
+      "start_time": 361.84999999999997,
+      "finish_time": 377.84999999999997,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c127": {
+      "node": "edge-8",
+      "start_time": 377.84999999999997,
+      "finish_time": 393.84999999999997,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c133": {
+      "node": "edge-8",
+      "start_time": 393.84999999999997,
+      "finish_time": 414.59999999999997,
+      "downloaded_mb": 60.0,
+      "reused_mb": 0.0,
+      "download_time": 0.75,
+      "run_time": 20.0
+    },
+    "c142": {
+      "node": "edge-8",
+      "start_time": 414.59999999999997,
+      "finish_time": 431.17499999999995,
+      "downloaded_mb": 46.0,
+      "reused_mb": 0.0,
+      "download_time": 0.575,
+      "run_time": 16.0
+    },
+    "c151": {
+      "node": "edge-8",
+      "start_time": 431.17499999999995,
+      "finish_time": 448.13749999999993,
+      "downloaded_mb": 397.0,
+      "reused_mb": 0.0,
+      "download_time": 4.9625,
+      "run_time": 12.0
+    },
+    "c153": {
+      "node": "edge-8",
+      "start_time": 448.13749999999993,
+      "finish_time": 462.2749999999999,
+      "downloaded_mb": 171.0,
+      "reused_mb": 1.0,
+      "download_time": 2.1375,
+      "run_time": 12.0
+    },
+    "c160": {
+      "node": "edge-8",
+      "start_time": 462.2749999999999,
+      "finish_time": 503.24999999999994,
+      "downloaded_mb": 78.0,
+      "reused_mb": 28.0,
+      "download_time": 0.975,
+      "run_time": 40.0
+    },
+    "c173": {
+      "node": "edge-8",
+      "start_time": 503.24999999999994,
+      "finish_time": 515.75,
+      "downloaded_mb": 40.0,
+      "reused_mb": 1.0,
+      "download_time": 0.5,
+      "run_time": 12.0
+    },
+    "c180": {
+      "node": "edge-8",
+      "start_time": 515.75,
+      "finish_time": 546.8375,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 20.0
+    },
+    "c190": {
+      "node": "edge-8",
+      "start_time": 546.8375,
+      "finish_time": 566.6,
+      "downloaded_mb": 381.0,
+      "reused_mb": 0.0,
+      "download_time": 4.7625,
+      "run_time": 15.0
+    },
+    "c195": {
+      "node": "edge-8",
+      "start_time": 566.6,
+      "finish_time": 597.6875,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 20.0
+    },
+    "c208": {
+      "node": "edge-8",
+      "start_time": 597.6875,
+      "finish_time": 617.6875,
+      "downloaded_mb": 0.0,
+      "reused_mb": 1024.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c216": {
+      "node": "edge-8",
+      "start_time": 617.6875,
+      "finish_time": 637.825,
+      "downloaded_mb": 11.0,
+      "reused_mb": 0.0,
+      "download_time": 0.1375,
+      "run_time": 20.0
+    },
+    "c226": {
+      "node": "edge-8",
+      "start_time": 637.825,
+      "finish_time": 664.125,
+      "downloaded_mb": 504.0,
+      "reused_mb": 0.0,
+      "download_time": 6.3,
+      "run_time": 20.0
+    },
+    "c229": {
+      "node": "edge-8",
+      "start_time": 664.125,
+      "finish_time": 676.125,
+      "downloaded_mb": 0.0,
+      "reused_mb": 504.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c238": {
+      "node": "edge-8",
+      "start_time": 676.125,
+      "finish_time": 688.125,
+      "downloaded_mb": 0.0,
+      "reused_mb": 504.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c244": {
+      "node": "edge-8",
+      "start_time": 688.125,
+      "finish_time": 704.375,
+      "downloaded_mb": 20.0,
+      "reused_mb": 5.0,
+      "download_time": 0.25,
+      "run_time": 16.0
+    },
+    "c253": {
+      "node": "edge-8",
+      "start_time": 704.375,
+      "finish_time": 727.775,
+      "downloaded_mb": 592.0,
+      "reused_mb": 1.0,
+      "download_time": 7.4,
+      "run_time": 16.0
+    },
+    "c258": {
+      "node": "edge-8",
+      "start_time": 727.775,
+      "finish_time": 749.5749999999999,
+      "downloaded_mb": 144.0,
+      "reused_mb": 0.0,
+      "download_time": 1.8,
+      "run_time": 20.0
+    },
+    "c267": {
+      "node": "edge-8",
+      "start_time": 749.5749999999999,
+      "finish_time": 769.4625,
+      "downloaded_mb": 391.0,
+      "reused_mb": 0.0,
+      "download_time": 4.8875,
+      "run_time": 15.0
+    },
+    "c273": {
+      "node": "edge-8",
+      "start_time": 769.4625,
+      "finish_time": 787.4625,
+      "downloaded_mb": 0.0,
+      "reused_mb": 391.0,
+      "download_time": 0.0,
+      "run_time": 18.0
+    },
+    "c283": {
+      "node": "edge-8",
+      "start_time": 787.4625,
+      "finish_time": 800.2624999999999,
+      "downloaded_mb": 64.0,
+      "reused_mb": 0.0,
+      "download_time": 0.8,
+      "run_time": 12.0
+    },
+    "c287": {
+      "node": "edge-8",
+      "start_time": 800.2624999999999,
+      "finish_time": 824.925,
+      "downloaded_mb": 373.0,
+      "reused_mb": 131.0,
+      "download_time": 4.6625,
+      "run_time": 20.0
+    },
+    "c299": {
+      "node": "edge-8",
+      "start_time": 824.925,
+      "finish_time": 843.3,
+      "downloaded_mb": 30.0,
+      "reused_mb": 361.0,
+      "download_time": 0.375,
+      "run_time": 18.0
+    },
+    "c305": {
+      "node": "edge-8",
+      "start_time": 843.3,
+      "finish_time": 856.0625,
+      "downloaded_mb": 61.0,
+      "reused_mb": 443.0,
+      "download_time": 0.7625,
+      "run_time": 12.0
+    },
+    "c315": {
+      "node": "edge-8",
+      "start_time": 856.0625,
+      "finish_time": 874.1875,
+      "downloaded_mb": 170.0,
+      "reused_mb": 1.0,
+      "download_time": 2.125,
+      "run_time": 16.0
+    },
+    "c316": {
+      "node": "edge-8",
+      "start_time": 874.1875,
+      "finish_time": 890.4,
+      "downloaded_mb": 17.0,
+      "reused_mb": 362.0,
+      "download_time": 0.2125,
+      "run_time": 16.0
+    },
+    "c324": {
+      "node": "edge-8",
+      "start_time": 890.4,
+      "finish_time": 912.9125,
+      "downloaded_mb": 201.0,
+      "reused_mb": 303.0,
+      "download_time": 2.5125,
+      "run_time": 20.0
+    },
+    "c334": {
+      "node": "edge-8",
+      "start_time": 912.9125,
+      "finish_time": 935.9875000000001,
+      "downloaded_mb": 566.0,
+      "reused_mb": 27.0,
+      "download_time": 7.075,
+      "run_time": 16.0
+    },
+    "c341": {
+      "node": "edge-8",
+      "start_time": 935.9875000000001,
+      "finish_time": 951.0125,
+      "downloaded_mb": 242.0,
+      "reused_mb": 137.0,
+      "download_time": 3.025,
+      "run_time": 12.0
+    },
+    "c349": {
+      "node": "edge-8",
+      "start_time": 951.0125,
+      "finish_time": 963.0125,
+      "downloaded_mb": 0.0,
+      "reused_mb": 379.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c357": {
+      "node": "edge-8",
+      "start_time": 963.0125,
+      "finish_time": 973.3875,
+      "downloaded_mb": 30.0,
+      "reused_mb": 361.0,
+      "download_time": 0.375,
+      "run_time": 10.0
+    },
+    "c359": {
+      "node": "edge-8",
+      "start_time": 973.3875,
+      "finish_time": 999.0125,
+      "downloaded_mb": 450.0,
+      "reused_mb": 28.0,
+      "download_time": 5.625,
+      "run_time": 20.0
+    },
+    "c370": {
+      "node": "edge-8",
+      "start_time": 999.0125,
+      "finish_time": 1019.0125,
+      "downloaded_mb": 0.0,
+      "reused_mb": 478.0,
+      "download_time": 0.0,
+      "run_time": 20.0
+    },
+    "c374": {
+      "node": "edge-8",
+      "start_time": 1019.0125,
+      "finish_time": 1049.0875,
+      "downloaded_mb": 6.0,
+      "reused_mb": 28.0,
+      "download_time": 0.075,
+      "run_time": 30.0
+    },
+    "c385": {
+      "node": "edge-8",
+      "start_time": 1049.0875,
+      "finish_time": 1072.1750000000002,
+      "downloaded_mb": 887.0,
+      "reused_mb": 137.0,
+      "download_time": 11.0875,
+      "run_time": 12.0
+    },
+    "c392": {
+      "node": "edge-8",
+      "start_time": 1072.1750000000002,
+      "finish_time": 1088.6375000000003,
+      "downloaded_mb": 37.0,
+      "reused_mb": 0.0,
+      "download_time": 0.4625,
+      "run_time": 16.0
+    },
+    "c398": {
+      "node": "edge-8",
+      "start_time": 1088.6375000000003,
+      "finish_time": 1103.5250000000003,
+      "downloaded_mb": 391.0,
+      "reused_mb": 0.0,
+      "download_time": 4.8875,
+      "run_time": 10.0
+    },
+    "c405": {
+      "node": "edge-8",
+      "start_time": 1103.5250000000003,
+      "finish_time": 1120.2750000000003,
+      "downloaded_mb": 60.0,
+      "reused_mb": 0.0,
+      "download_time": 0.75,
+      "run_time": 16.0
+    },
+    "c412": {
+      "node": "edge-8",
+      "start_time": 1120.2750000000003,
+      "finish_time": 1138.0750000000003,
+      "downloaded_mb": 144.0,
+      "reused_mb": 0.0,
+      "download_time": 1.8,
+      "run_time": 16.0
+    },
+    "c416": {
+      "node": "edge-8",
+      "start_time": 1138.0750000000003,
+      "finish_time": 1150.0750000000003,
+      "downloaded_mb": 0.0,
+      "reused_mb": 391.0,
+      "download_time": 0.0,
+      "run_time": 12.0
+    },
+    "c421": {
+      "node": "edge-8",
+      "start_time": 1150.0750000000003,
+      "finish_time": 1165.0750000000003,
+      "downloaded_mb": 0.0,
+      "reused_mb": 391.0,
+      "download_time": 0.0,
+      "run_time": 15.0
+    },
+    "c432": {
+      "node": "edge-8",
+      "start_time": 1165.0750000000003,
+      "finish_time": 1183.6375000000003,
+      "downloaded_mb": 285.0,
+      "reused_mb": 1.0,
+      "download_time": 3.5625,
+      "run_time": 15.0
+    },
+    "c438": {
+      "node": "edge-8",
+      "start_time": 1183.6375000000003,
+      "finish_time": 1203.7250000000004,
+      "downloaded_mb": 167.0,
+      "reused_mb": 5.0,
+      "download_time": 2.0875,
+      "run_time": 18.0
+    },
+    "c445": {
+      "node": "edge-8",
+      "start_time": 1203.7250000000004,
+      "finish_time": 1216.5250000000003,
+      "downloaded_mb": 64.0,
+      "reused_mb": 0.0,
+      "download_time": 0.8,
+      "run_time": 12.0
+    },
+    "c450": {
+      "node": "edge-8",
+      "start_time": 1216.5250000000003,
+      "finish_time": 1228.5875000000003,
+      "downloaded_mb": 5.0,
+      "reused_mb": 67.0,
+      "download_time": 0.0625,
+      "run_time": 12.0
+    },
+    "c455": {
+      "node": "edge-8",
+      "start_time": 1228.5875000000003,
+      "finish_time": 1246.9500000000003,
+      "downloaded_mb": 189.0,
+      "reused_mb": 0.0,
+      "download_time": 2.3625,
+      "run_time": 16.0
+    },
+    "c461": {
+      "node": "edge-8",
+      "start_time": 1246.9500000000003,
+      "finish_time": 1260.8125000000002,
+      "downloaded_mb": 149.0,
+      "reused_mb": 0.0,
+      "download_time": 1.8625,
+      "run_time": 12.0
+    },
+    "c467": {
+      "node": "edge-8",
+      "start_time": 1260.8125000000002,
+      "finish_time": 1276.1500000000003,
+      "downloaded_mb": 267.0,
+      "reused_mb": 0.0,
+      "download_time": 3.3375,
+      "run_time": 12.0
+    },
+    "c475": {
+      "node": "edge-8",
+      "start_time": 1276.1500000000003,
+      "finish_time": 1292.3625000000004,
+      "downloaded_mb": 17.0,
+      "reused_mb": 362.0,
+      "download_time": 0.2125,
+      "run_time": 16.0
+    },
+    "c482": {
+      "node": "edge-8",
+      "start_time": 1292.3625000000004,
+      "finish_time": 1310.3750000000005,
+      "downloaded_mb": 161.0,
+      "reused_mb": 28.0,
+      "download_time": 2.0125,
+      "run_time": 16.0
+    },
+    "c486": {
+      "node": "edge-8",
+      "start_time": 1310.3750000000005,
+      "finish_time": 1326.3750000000005,
+      "downloaded_mb": 0.0,
+      "reused_mb": 379.0,
+      "download_time": 0.0,
+      "run_time": 16.0
+    },
+    "c495": {
+      "node": "edge-8",
+      "start_time": 1326.3750000000005,
+      "finish_time": 1352.3500000000004,
+      "downloaded_mb": 78.0,
+      "reused_mb": 28.0,
+      "download_time": 0.975,
+      "run_time": 25.0
+    }
+  },
+  "assignment": {
+    "edge-1": [
+      "c001",
+      "c002",
+      "c006",
+      "c010",
+      "c014",
+      "c020",
+      "c027",
+      "c035",
+      "c044",
+      "c057",
+      "c063",
+      "c076",
+      "c085",
+      "c089",
+      "c097",
+      "c107",
+      "c118",
+      "c121",
+      "c130",
+      "c139",
+      "c147",
+      "c156",
+      "c166",
+      "c171",
+      "c179",
+      "c186",
+      "c194",
+      "c200",
+      "c209",
+      "c217",
+      "c223",
+      "c228",
+      "c236",
+      "c241",
+      "c250",
+      "c266",
+      "c274",
+      "c281",
+      "c291",
+      "c302",
+      "c308",
+      "c311",
+      "c321",
+      "c327",
+      "c337",
+      "c344",
+      "c353",
+      "c364",
+      "c378",
+      "c386",
+      "c394",
+      "c399",
+      "c408",
+      "c414",
+      "c422",
+      "c433",
+      "c446",
+      "c454",
+      "c464",
+      "c470",
+      "c480",
+      "c489",
+      "c499"
+    ],
+    "edge-2": [
+      "c023",
+      "c024",
+      "c032",
+      "c037",
+      "c047",
+      "c056",
+      "c068",
+      "c073",
+      "c081",
+      "c088",
+      "c095",
+      "c100",
+      "c108",
+      "c116",
+      "c123",
+      "c128",
+      "c134",
+      "c144",
+      "c149",
+      "c157",
+      "c162",
+      "c168",
+      "c178",
+      "c185",
+      "c193",
+      "c196",
+      "c206",
+      "c214",
+      "c222",
+      "c235",
+      "c243",
+      "c251",
+      "c260",
+      "c263",
+      "c271",
+      "c276",
+      "c278",
+      "c286",
+      "c290",
+      "c296",
+      "c306",
+      "c313",
+      "c320",
+      "c329",
+      "c338",
+      "c339",
+      "c347",
+      "c351",
+      "c361",
+      "c365",
+      "c375",
+      "c384",
+      "c397",
+      "c401",
+      "c407",
+      "c417",
+      "c426",
+      "c431",
+      "c440",
+      "c448",
+      "c452",
+      "c460",
+      "c468",
+      "c472",
+      "c487",
+      "c494"
+    ],
+    "edge-3": [
+      "c015",
+      "c018",
+      "c025",
+      "c048",
+      "c052",
+      "c067",
+      "c069",
+      "c078",
+      "c084",
+      "c093",
+      "c106",
+      "c113",
+      "c122",
+      "c135",
+      "c141",
+      "c150",
+      "c158",
+      "c161",
+      "c170",
+      "c177",
+      "c187",
+      "c198",
+      "c202",
+      "c207",
+      "c212",
+      "c215",
+      "c221",
+      "c232",
+      "c237",
+      "c245",
+      "c252",
+      "c256",
+      "c259",
+      "c269",
+      "c279",
+      "c282",
+      "c292",
+      "c303",
+      "c310",
+      "c319",
+      "c326",
+      "c332",
+      "c340",
+      "c350",
+      "c354",
+      "c360",
+      "c373",
+      "c381",
+      "c389",
+      "c393",
+      "c404",
+      "c410",
+      "c418",
+      "c427",
+      "c435",
+      "c441",
+      "c449",
+      "c463",
+      "c469",
+      "c485",
+      "c493"
+    ],
+    "edge-4": [
+      "c017",
+      "c021",
+      "c038",
+      "c043",
+      "c049",
+      "c062",
+      "c066",
+      "c075",
+      "c082",
+      "c090",
+      "c096",
+      "c099",
+      "c104",
+      "c115",
+      "c126",
+      "c132",
+      "c138",
+      "c146",
+      "c152",
+      "c163",
+      "c167",
+      "c174",
+      "c182",
+      "c188",
+      "c199",
+      "c204",
+      "c205",
+      "c224",
+      "c227",
+      "c233",
+      "c247",
+      "c264",
+      "c265",
+      "c280",
+      "c288",
+      "c294",
+      "c300",
+      "c309",
+      "c318",
+      "c325",
+      "c333",
+      "c335",
+      "c343",
+      "c348",
+      "c355",
+      "c362",
+      "c368",
+      "c369",
+      "c377",
+      "c380",
+      "c383",
+      "c396",
+      "c403",
+      "c413",
+      "c423",
+      "c437",
+      "c444",
+      "c459",
+      "c473",
+      "c477",
+      "c492",
+      "c500"
+    ],
+    "edge-5": [
+      "c011",
+      "c013",
+      "c030",
+      "c033",
+      "c039",
+      "c045",
+      "c051",
+      "c058",
+      "c064",
+      "c074",
+      "c080",
+      "c092",
+      "c102",
+      "c109",
+      "c124",
+      "c140",
+      "c143",
+      "c159",
+      "c169",
+      "c176",
+      "c183",
+      "c197",
+      "c210",
+      "c213",
+      "c225",
+      "c230",
+      "c239",
+      "c249",
+      "c257",
+      "c268",
+      "c275",
+      "c284",
+      "c295",
+      "c298",
+      "c304",
+      "c314",
+      "c330",
+      "c342",
+      "c352",
+      "c356",
+      "c366",
+      "c376",
+      "c387",
+      "c391",
+      "c406",
+      "c411",
+      "c425",
+      "c434",
+      "c443",
+      "c456",
+      "c466",
+      "c471",
+      "c481",
+      "c490",
+      "c497"
+    ],
+    "edge-6": [
+      "c022",
+      "c031",
+      "c036",
+      "c041",
+      "c050",
+      "c053",
+      "c060",
+      "c065",
+      "c072",
+      "c079",
+      "c087",
+      "c103",
+      "c110",
+      "c117",
+      "c125",
+      "c131",
+      "c137",
+      "c148",
+      "c155",
+      "c165",
+      "c172",
+      "c181",
+      "c189",
+      "c191",
+      "c211",
+      "c220",
+      "c234",
+      "c242",
+      "c248",
+      "c255",
+      "c262",
+      "c270",
+      "c289",
+      "c297",
+      "c307",
+      "c317",
+      "c323",
+      "c331",
+      "c345",
+      "c363",
+      "c371",
+      "c382",
+      "c390",
+      "c402",
+      "c415",
+      "c420",
+      "c428",
+      "c430",
+      "c436",
+      "c442",
+      "c453",
+      "c457",
+      "c462",
+      "c474",
+      "c478",
+      "c483",
+      "c488",
+      "c498"
+    ],
+    "edge-7": [
+      "c003",
+      "c004",
+      "c008",
+      "c012",
+      "c028",
+      "c034",
+      "c042",
+      "c054",
+      "c059",
+      "c070",
+      "c083",
+      "c091",
+      "c098",
+      "c105",
+      "c112",
+      "c119",
+      "c129",
+      "c136",
+      "c145",
+      "c154",
+      "c164",
+      "c175",
+      "c184",
+      "c192",
+      "c201",
+      "c203",
+      "c218",
+      "c219",
+      "c231",
+      "c240",
+      "c246",
+      "c254",
+      "c261",
+      "c272",
+      "c277",
+      "c285",
+      "c293",
+      "c301",
+      "c312",
+      "c322",
+      "c328",
+      "c336",
+      "c346",
+      "c358",
+      "c367",
+      "c372",
+      "c379",
+      "c388",
+      "c395",
+      "c400",
+      "c409",
+      "c419",
+      "c424",
+      "c429",
+      "c439",
+      "c447",
+      "c451",
+      "c458",
+      "c465",
+      "c476",
+      "c479",
+      "c484",
+      "c491",
+      "c496"
+    ],
+    "edge-8": [
+      "c005",
+      "c007",
+      "c009",
+      "c016",
+      "c019",
+      "c026",
+      "c029",
+      "c040",
+      "c046",
+      "c055",
+      "c061",
+      "c071",
+      "c077",
+      "c086",
+      "c094",
+      "c101",
+      "c111",
+      "c114",
+      "c120",
+      "c127",
+      "c133",
+      "c142",
+      "c151",
+      "c153",
+      "c160",
+      "c173",
+      "c180",
+      "c190",
+      "c195",
+      "c208",
+      "c216",
+      "c226",
+      "c229",
+      "c238",
+      "c244",
+      "c253",
+      "c258",
+      "c267",
+      "c273",
+      "c283",
+      "c287",
+      "c299",
+      "c305",
+      "c315",
+      "c316",
+      "c324",
+      "c334",
+      "c341",
+      "c349",
+      "c357",
+      "c359",
+      "c370",
+      "c374",
+      "c385",
+      "c392",
+      "c398",
+      "c405",
+      "c412",
+      "c416",
+      "c421",
+      "c432",
+      "c438",
+      "c445",
+      "c450",
+      "c455",
+      "c461",
+      "c467",
+      "c475",
+      "c482",
+      "c486",
+      "c495"
+    ]
+  },
+  "allocations": {
+    "edge-1": [
+      {
+        "cid": "c001",
+        "f": 1.0
+      },
+      {
+        "cid": "c002",
+        "f": 1.0
+      },
+      {
+        "cid": "c006",
+        "f": 1.0
+      },
+      {
+        "cid": "c010",
+        "f": 1.0
+      },
+      {
+        "cid": "c014",
+        "f": 1.0
+      },
+      {
+        "cid": "c020",
+        "f": 1.0
+      },
+      {
+        "cid": "c027",
+        "f": 1.0
+      },
+      {
+        "cid": "c035",
+        "f": 1.0
+      },
+      {
+        "cid": "c044",
+        "f": 1.0
+      },
+      {
+        "cid": "c057",
+        "f": 1.0
+      },
+      {
+        "cid": "c063",
+        "f": 1.0
+      },
+      {
+        "cid": "c076",
+        "f": 1.0
+      },
+      {
+        "cid": "c085",
+        "f": 1.0
+      },
+      {
+        "cid": "c089",
+        "f": 1.0
+      },
+      {
+        "cid": "c097",
+        "f": 1.0
+      },
+      {
+        "cid": "c107",
+        "f": 1.0
+      },
+      {
+        "cid": "c118",
+        "f": 1.0
+      },
+      {
+        "cid": "c121",
+        "f": 1.0
+      },
+      {
+        "cid": "c130",
+        "f": 1.0
+      },
+      {
+        "cid": "c139",
+        "f": 1.0
+      },
+      {
+        "cid": "c147",
+        "f": 1.0
+      },
+      {
+        "cid": "c156",
+        "f": 1.0
+      },
+      {
+        "cid": "c166",
+        "f": 1.0
+      },
+      {
+        "cid": "c171",
+        "f": 1.0
+      },
+      {
+        "cid": "c179",
+        "f": 1.0
+      },
+      {
+        "cid": "c186",
+        "f": 1.0
+      },
+      {
+        "cid": "c194",
+        "f": 1.0
+      },
+      {
+        "cid": "c200",
+        "f": 1.0
+      },
+      {
+        "cid": "c209",
+        "f": 1.0
+      },
+      {
+        "cid": "c217",
+        "f": 1.0
+      },
+      {
+        "cid": "c223",
+        "f": 1.0
+      },
+      {
+        "cid": "c228",
+        "f": 1.0
+      },
+      {
+        "cid": "c236",
+        "f": 1.0
+      },
+      {
+        "cid": "c241",
+        "f": 1.0
+      },
+      {
+        "cid": "c250",
+        "f": 1.0
+      },
+      {
+        "cid": "c266",
+        "f": 1.0
+      },
+      {
+        "cid": "c274",
+        "f": 1.0
+      },
+      {
+        "cid": "c281",
+        "f": 1.0
+      },
+      {
+        "cid": "c291",
+        "f": 1.0
+      },
+      {
+        "cid": "c302",
+        "f": 1.0
+      },
+      {
+        "cid": "c308",
+        "f": 1.0
+      },
+      {
+        "cid": "c311",
+        "f": 1.0
+      },
+      {
+        "cid": "c321",
+        "f": 1.0
+      },
+      {
+        "cid": "c327",
+        "f": 1.0
+      },
+      {
+        "cid": "c337",
+        "f": 1.0
+      },
+      {
+        "cid": "c344",
+        "f": 1.0
+      },
+      {
+        "cid": "c353",
+        "f": 1.0
+      },
+      {
+        "cid": "c364",
+        "f": 1.0
+      },
+      {
+        "cid": "c378",
+        "f": 1.0
+      },
+      {
+        "cid": "c386",
+        "f": 1.0
+      },
+      {
+        "cid": "c394",
+        "f": 1.0
+      },
+      {
+        "cid": "c399",
+        "f": 1.0
+      },
+      {
+        "cid": "c408",
+        "f": 1.0
+      },
+      {
+        "cid": "c414",
+        "f": 1.0
+      },
+      {
+        "cid": "c422",
+        "f": 1.0
+      },
+      {
+        "cid": "c433",
+        "f": 1.0
+      },
+      {
+        "cid": "c446",
+        "f": 1.0
+      },
+      {
+        "cid": "c454",
+        "f": 1.0
+      },
+      {
+        "cid": "c464",
+        "f": 1.0
+      },
+      {
+        "cid": "c470",
+        "f": 1.0
+      },
+      {
+        "cid": "c480",
+        "f": 1.0
+      },
+      {
+        "cid": "c489",
+        "f": 1.0
+      },
+      {
+        "cid": "c499",
+        "f": 1.0
+      }
+    ],
+    "edge-2": [
+      {
+        "cid": "c023",
+        "f": 0.05000000819563866
+      },
+      {
+        "cid": "c024",
+        "f": 0.05000000447034836
+      },
+      {
+        "cid": "c032",
+        "f": 0.050000011920928955
+      },
+      {
+        "cid": "c037",
+        "f": 0.05000000447034836
+      },
+      {
+        "cid": "c047",
+        "f": 0.05000000447034836
+      },
+      {
+        "cid": "c056",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c068",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c073",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c081",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c088",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c095",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c100",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c108",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c116",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c123",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c128",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c134",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c144",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c149",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c157",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c162",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c168",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c178",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c185",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c193",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c196",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c206",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c214",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c222",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c235",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c243",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c251",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c260",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c263",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c271",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c276",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c278",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c286",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c290",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c296",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c306",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c313",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c320",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c329",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c338",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c339",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c347",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c351",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c361",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c365",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c375",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c384",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c397",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c401",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c407",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c417",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c426",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c431",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c440",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c448",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c452",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c460",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c468",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c472",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c487",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c494",
+        "f": 0.05000000074505806
+      }
+    ],
+    "edge-3": [
+      {
+        "cid": "c015",
+        "f": 0.0500001534819603
+      },
+      {
+        "cid": "c018",
+        "f": 0.05000011995434761
+      },
+      {
+        "cid": "c025",
+        "f": 0.05000000819563866
+      },
+      {
+        "cid": "c048",
+        "f": 0.050000015646219254
+      },
+      {
+        "cid": "c052",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c067",
+        "f": 0.05000000447034836
+      },
+      {
+        "cid": "c069",
+        "f": 0.05000000447034836
+      },
+      {
+        "cid": "c078",
+        "f": 0.050000011920928955
+      },
+      {
+        "cid": "c084",
+        "f": 0.05000000447034836
+      },
+      {
+        "cid": "c093",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c106",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c113",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c122",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c135",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c141",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c150",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c158",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c161",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c170",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c177",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c187",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c198",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c202",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c207",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c212",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c215",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c221",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c232",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c237",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c245",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c252",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c256",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c259",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c269",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c279",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c282",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c292",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c303",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c310",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c319",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c326",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c332",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c340",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c350",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c354",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c360",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c373",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c381",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c389",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c393",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c404",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c410",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c418",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c427",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c435",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c441",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c449",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c463",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c469",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c485",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c493",
+        "f": 0.05000000074505806
+      }
+    ],
+    "edge-4": [
+      {
+        "cid": "c017",
+        "f": 0.05110670253634453
+      },
+      {
+        "cid": "c021",
+        "f": 0.05030486360192299
+      },
+      {
+        "cid": "c038",
+        "f": 0.050462234765291214
+      },
+      {
+        "cid": "c043",
+        "f": 0.05090358108282089
+      },
+      {
+        "cid": "c049",
+        "f": 0.050118930637836456
+      },
+      {
+        "cid": "c062",
+        "f": 0.05012890323996544
+      },
+      {
+        "cid": "c066",
+        "f": 0.0501144714653492
+      },
+      {
+        "cid": "c075",
+        "f": 0.050387073308229446
+      },
+      {
+        "cid": "c082",
+        "f": 0.05021549016237259
+      },
+      {
+        "cid": "c090",
+        "f": 0.05022090673446655
+      },
+      {
+        "cid": "c096",
+        "f": 0.05068325251340866
+      },
+      {
+        "cid": "c099",
+        "f": 0.05019843950867653
+      },
+      {
+        "cid": "c104",
+        "f": 0.050151873379945755
+      },
+      {
+        "cid": "c115",
+        "f": 0.05010337382555008
+      },
+      {
+        "cid": "c126",
+        "f": 0.050167955458164215
+      },
+      {
+        "cid": "c132",
+        "f": 0.050233904272317886
+      },
+      {
+        "cid": "c138",
+        "f": 0.05010131374001503
+      },
+      {
+        "cid": "c146",
+        "f": 0.0500345379114151
+      },
+      {
+        "cid": "c152",
+        "f": 0.050111062824726105
+      },
+      {
+        "cid": "c163",
+        "f": 0.050053469836711884
+      },
+      {
+        "cid": "c167",
+        "f": 0.05003608390688896
+      },
+      {
+        "cid": "c174",
+        "f": 0.050049446523189545
+      },
+      {
+        "cid": "c182",
+        "f": 0.05004458129405975
+      },
+      {
+        "cid": "c188",
+        "f": 0.05002214387059212
+      },
+      {
+        "cid": "c199",
+        "f": 0.05005685240030289
+      },
+      {
+        "cid": "c204",
+        "f": 0.05002046376466751
+      },
+      {
+        "cid": "c205",
+        "f": 0.05001583695411682
+      },
+      {
+        "cid": "c224",
+        "f": 0.050016649067401886
+      },
+      {
+        "cid": "c227",
+        "f": 0.05003064498305321
+      },
+      {
+        "cid": "c233",
+        "f": 0.05001004412770271
+      },
+      {
+        "cid": "c247",
+        "f": 0.050007835030555725
+      },
+      {
+        "cid": "c264",
+        "f": 0.050012338906526566
+      },
+      {
+        "cid": "c265",
+        "f": 0.05000483989715576
+      },
+      {
+        "cid": "c280",
+        "f": 0.05000375956296921
+      },
+      {
+        "cid": "c288",
+        "f": 0.05000290274620056
+      },
+      {
+        "cid": "c294",
+        "f": 0.05000235140323639
+      },
+      {
+        "cid": "c300",
+        "f": 0.050001781433820724
+      },
+      {
+        "cid": "c309",
+        "f": 0.05000223219394684
+      },
+      {
+        "cid": "c318",
+        "f": 0.05000271648168564
+      },
+      {
+        "cid": "c325",
+        "f": 0.0500015914440155
+      },
+      {
+        "cid": "c333",
+        "f": 0.050003647804260254
+      },
+      {
+        "cid": "c335",
+        "f": 0.05000103637576103
+      },
+      {
+        "cid": "c343",
+        "f": 0.050000958144664764
+      },
+      {
+        "cid": "c348",
+        "f": 0.050000596791505814
+      },
+      {
+        "cid": "c355",
+        "f": 0.05000064894556999
+      },
+      {
+        "cid": "c362",
+        "f": 0.05000055953860283
+      },
+      {
+        "cid": "c368",
+        "f": 0.05000027269124985
+      },
+      {
+        "cid": "c369",
+        "f": 0.05000023543834686
+      },
+      {
+        "cid": "c377",
+        "f": 0.050000254064798355
+      },
+      {
+        "cid": "c380",
+        "f": 0.050000205636024475
+      },
+      {
+        "cid": "c383",
+        "f": 0.050000257790088654
+      },
+      {
+        "cid": "c396",
+        "f": 0.05000016838312149
+      },
+      {
+        "cid": "c403",
+        "f": 0.05000025033950806
+      },
+      {
+        "cid": "c413",
+        "f": 0.050000276416540146
+      },
+      {
+        "cid": "c423",
+        "f": 0.05000011995434761
+      },
+      {
+        "cid": "c437",
+        "f": 0.05000017210841179
+      },
+      {
+        "cid": "c444",
+        "f": 0.05000005662441254
+      },
+      {
+        "cid": "c459",
+        "f": 0.050000064074993134
+      },
+      {
+        "cid": "c473",
+        "f": 0.05000009015202522
+      },
+      {
+        "cid": "c477",
+        "f": 0.050000064074993134
+      },
+      {
+        "cid": "c492",
+        "f": 0.050000037997961044
+      },
+      {
+        "cid": "c500",
+        "f": 0.050000060349702835
+      }
+    ],
+    "edge-5": [
+      {
+        "cid": "c011",
+        "f": 0.05000079423189163
+      },
+      {
+        "cid": "c013",
+        "f": 0.05000030994415283
+      },
+      {
+        "cid": "c030",
+        "f": 0.050000257790088654
+      },
+      {
+        "cid": "c033",
+        "f": 0.050000276416540146
+      },
+      {
+        "cid": "c039",
+        "f": 0.050000276416540146
+      },
+      {
+        "cid": "c045",
+        "f": 0.05000007897615433
+      },
+      {
+        "cid": "c051",
+        "f": 0.050000015646219254
+      },
+      {
+        "cid": "c058",
+        "f": 0.05000004544854164
+      },
+      {
+        "cid": "c064",
+        "f": 0.050000011920928955
+      },
+      {
+        "cid": "c074",
+        "f": 0.050000011920928955
+      },
+      {
+        "cid": "c080",
+        "f": 0.05000000819563866
+      },
+      {
+        "cid": "c092",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c102",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c109",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c124",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c140",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c143",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c159",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c169",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c176",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c183",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c197",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c210",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c213",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c225",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c230",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c239",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c249",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c257",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c268",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c275",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c284",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c295",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c298",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c304",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c314",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c330",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c342",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c352",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c356",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c366",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c376",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c387",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c391",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c406",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c411",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c425",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c434",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c443",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c456",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c466",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c471",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c481",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c490",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c497",
+        "f": 0.05000000074505806
+      }
+    ],
+    "edge-6": [
+      {
+        "cid": "c022",
+        "f": 0.050001826137304306
+      },
+      {
+        "cid": "c031",
+        "f": 0.05001061409711838
+      },
+      {
+        "cid": "c036",
+        "f": 0.05000438541173935
+      },
+      {
+        "cid": "c041",
+        "f": 0.05000147223472595
+      },
+      {
+        "cid": "c050",
+        "f": 0.050003476440906525
+      },
+      {
+        "cid": "c053",
+        "f": 0.05000438913702965
+      },
+      {
+        "cid": "c060",
+        "f": 0.05000028386712074
+      },
+      {
+        "cid": "c065",
+        "f": 0.05000019818544388
+      },
+      {
+        "cid": "c072",
+        "f": 0.05000012367963791
+      },
+      {
+        "cid": "c079",
+        "f": 0.05000003054738045
+      },
+      {
+        "cid": "c087",
+        "f": 0.050000060349702835
+      },
+      {
+        "cid": "c103",
+        "f": 0.050000034272670746
+      },
+      {
+        "cid": "c110",
+        "f": 0.05000004172325134
+      },
+      {
+        "cid": "c117",
+        "f": 0.050000082701444626
+      },
+      {
+        "cid": "c125",
+        "f": 0.05000002682209015
+      },
+      {
+        "cid": "c131",
+        "f": 0.050000011920928955
+      },
+      {
+        "cid": "c137",
+        "f": 0.05000000447034836
+      },
+      {
+        "cid": "c148",
+        "f": 0.05000000819563866
+      },
+      {
+        "cid": "c155",
+        "f": 0.05000000447034836
+      },
+      {
+        "cid": "c165",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c172",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c181",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c189",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c191",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c211",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c220",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c234",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c242",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c248",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c255",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c262",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c270",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c289",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c297",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c307",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c317",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c323",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c331",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c345",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c363",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c371",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c382",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c390",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c402",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c415",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c420",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c428",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c430",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c436",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c442",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c453",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c457",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c462",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c474",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c478",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c483",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c488",
+        "f": 0.05000000074505806
+      },
+      {
+        "cid": "c498",
+        "f": 0.05000000074505806
+      }
+    ],
+    "edge-7": [
+      {
+        "cid": "c003",
+        "f": 1.0
+      },
+      {
+        "cid": "c004",
+        "f": 1.0
+      },
+      {
+        "cid": "c008",
+        "f": 1.0
+      },
+      {
+        "cid": "c012",
+        "f": 1.0
+      },
+      {
+        "cid": "c028",
+        "f": 1.0
+      },
+      {
+        "cid": "c034",
+        "f": 1.0
+      },
+      {
+        "cid": "c042",
+        "f": 1.0
+      },
+      {
+        "cid": "c054",
+        "f": 1.0
+      },
+      {
+        "cid": "c059",
+        "f": 1.0
+      },
+      {
+        "cid": "c070",
+        "f": 1.0
+      },
+      {
+        "cid": "c083",
+        "f": 1.0
+      },
+      {
+        "cid": "c091",
+        "f": 1.0
+      },
+      {
+        "cid": "c098",
+        "f": 1.0
+      },
+      {
+        "cid": "c105",
+        "f": 1.0
+      },
+      {
+        "cid": "c112",
+        "f": 1.0
+      },
+      {
+        "cid": "c119",
+        "f": 1.0
+      },
+      {
+        "cid": "c129",
+        "f": 1.0
+      },
+      {
+        "cid": "c136",
+        "f": 1.0
+      },
+      {
+        "cid": "c145",
+        "f": 1.0
+      },
+      {
+        "cid": "c154",
+        "f": 1.0
+      },
+      {
+        "cid": "c164",
+        "f": 1.0
+      },
+      {
+        "cid": "c175",
+        "f": 1.0
+      },
+      {
+        "cid": "c184",
+        "f": 1.0
+      },
+      {
+        "cid": "c192",
+        "f": 1.0
+      },
+      {
+        "cid": "c201",
+        "f": 1.0
+      },
+      {
+        "cid": "c203",
+        "f": 1.0
+      },
+      {
+        "cid": "c218",
+        "f": 1.0
+      },
+      {
+        "cid": "c219",
+        "f": 1.0
+      },
+      {
+        "cid": "c231",
+        "f": 1.0
+      },
+      {
+        "cid": "c240",
+        "f": 1.0
+      },
+      {
+        "cid": "c246",
+        "f": 1.0
+      },
+      {
+        "cid": "c254",
+        "f": 1.0
+      },
+      {
+        "cid": "c261",
+        "f": 1.0
+      },
+      {
+        "cid": "c272",
+        "f": 1.0
+      },
+      {
+        "cid": "c277",
+        "f": 1.0
+      },
+      {
+        "cid": "c285",
+        "f": 1.0
+      },
+      {
+        "cid": "c293",
+        "f": 1.0
+      },
+      {
+        "cid": "c301",
+        "f": 1.0
+      },
+      {
+        "cid": "c312",
+        "f": 1.0
+      },
+      {
+        "cid": "c322",
+        "f": 1.0
+      },
+      {
+        "cid": "c328",
+        "f": 1.0
+      },
+      {
+        "cid": "c336",
+        "f": 1.0
+      },
+      {
+        "cid": "c346",
+        "f": 1.0
+      },
+      {
+        "cid": "c358",
+        "f": 1.0
+      },
+      {
+        "cid": "c367",
+        "f": 1.0
+      },
+      {
+        "cid": "c372",
+        "f": 1.0
+      },
+      {
+        "cid": "c379",
+        "f": 1.0
+      },
+      {
+        "cid": "c388",
+        "f": 1.0
+      },
+      {
+        "cid": "c395",
+        "f": 1.0
+      },
+      {
+        "cid": "c400",
+        "f": 1.0
+      },
+      {
+        "cid": "c409",
+        "f": 1.0
+      },
+      {
+        "cid": "c419",
+        "f": 1.0
+      },
+      {
+        "cid": "c424",
+        "f": 1.0
+      },
+      {
+        "cid": "c429",
+        "f": 1.0
+      },
+      {
+        "cid": "c439",
+        "f": 1.0
+      },
+      {
+        "cid": "c447",
+        "f": 1.0
+      },
+      {
+        "cid": "c451",
+        "f": 1.0
+      },
+      {
+        "cid": "c458",
+        "f": 1.0
+      },
+      {
+        "cid": "c465",
+        "f": 1.0
+      },
+      {
+        "cid": "c476",
+        "f": 1.0
+      },
+      {
+        "cid": "c479",
+        "f": 1.0
+      },
+      {
+        "cid": "c484",
+        "f": 1.0
+      },
+      {
+        "cid": "c491",
+        "f": 1.0
+      },
+      {
+        "cid": "c496",
+        "f": 1.0
+      }
+    ],
+    "edge-8": [
+      {
+        "cid": "c005",
+        "f": 0.9998736381530762
+      },
+      {
+        "cid": "c007",
+        "f": 0.999924898147583
+      },
+      {
+        "cid": "c009",
+        "f": 0.9999516606330872
+      },
+      {
+        "cid": "c016",
+        "f": 0.9999953508377075
+      },
+      {
+        "cid": "c019",
+        "f": 0.9999836683273315
+      },
+      {
+        "cid": "c026",
+        "f": 0.9999896883964539
+      },
+      {
+        "cid": "c029",
+        "f": 0.999983012676239
+      },
+      {
+        "cid": "c040",
+        "f": 0.9999933242797852
+      },
+      {
+        "cid": "c046",
+        "f": 0.9999908208847046
+      },
+      {
+        "cid": "c055",
+        "f": 0.9999938607215881
+      },
+      {
+        "cid": "c061",
+        "f": 0.9999961256980896
+      },
+      {
+        "cid": "c071",
+        "f": 0.999946653842926
+      },
+      {
+        "cid": "c077",
+        "f": 0.999999463558197
+      },
+      {
+        "cid": "c086",
+        "f": 0.9999983310699463
+      },
+      {
+        "cid": "c094",
+        "f": 0.9999874234199524
+      },
+      {
+        "cid": "c101",
+        "f": 0.9999996423721313
+      },
+      {
+        "cid": "c111",
+        "f": 0.9999995231628418
+      },
+      {
+        "cid": "c114",
+        "f": 0.9999995231628418
+      },
+      {
+        "cid": "c120",
+        "f": 0.9999995231628418
+      },
+      {
+        "cid": "c127",
+        "f": 0.9999997615814209
+      },
+      {
+        "cid": "c133",
+        "f": 0.9999971985816956
+      },
+      {
+        "cid": "c142",
+        "f": 0.9999964833259583
+      },
+      {
+        "cid": "c151",
+        "f": 0.9999991059303284
+      },
+      {
+        "cid": "c153",
+        "f": 0.9999983906745911
+      },
+      {
+        "cid": "c160",
+        "f": 0.9999998807907104
+      },
+      {
+        "cid": "c173",
+        "f": 0.9999987483024597
+      },
+      {
+        "cid": "c180",
+        "f": 1.0
+      },
+      {
+        "cid": "c190",
+        "f": 0.9999997615814209
+      },
+      {
+        "cid": "c195",
+        "f": 1.0
+      },
+      {
+        "cid": "c208",
+        "f": 1.0
+      },
+      {
+        "cid": "c216",
+        "f": 0.9999997615814209
+      },
+      {
+        "cid": "c226",
+        "f": 1.0
+      },
+      {
+        "cid": "c229",
+        "f": 1.0
+      },
+      {
+        "cid": "c238",
+        "f": 1.0
+      },
+      {
+        "cid": "c244",
+        "f": 0.9999998807907104
+      },
+      {
+        "cid": "c253",
+        "f": 1.0
+      },
+      {
+        "cid": "c258",
+        "f": 0.9999998807907104
+      },
+      {
+        "cid": "c267",
+        "f": 1.0
+      },
+      {
+        "cid": "c273",
+        "f": 1.0
+      },
+      {
+        "cid": "c283",
+        "f": 1.0
+      },
+      {
+        "cid": "c287",
+        "f": 1.0
+      },
+      {
+        "cid": "c299",
+        "f": 1.0
+      },
+      {
+        "cid": "c305",
+        "f": 1.0
+      },
+      {
+        "cid": "c315",
+        "f": 1.0
+      },
+      {
+        "cid": "c316",
+        "f": 1.0
+      },
+      {
+        "cid": "c324",
+        "f": 1.0
+      },
+      {
+        "cid": "c334",
+        "f": 1.0
+      },
+      {
+        "cid": "c341",
+        "f": 1.0
+      },
+      {
+        "cid": "c349",
+        "f": 1.0
+      },
+      {
+        "cid": "c357",
+        "f": 1.0
+      },
+      {
+        "cid": "c359",
+        "f": 1.0
+      },
+      {
+        "cid": "c370",
+        "f": 1.0
+      },
+      {
+        "cid": "c374",
+        "f": 1.0
+      },
+      {
+        "cid": "c385",
+        "f": 1.0
+      },
+      {
+        "cid": "c392",
+        "f": 1.0
+      },
+      {
+        "cid": "c398",
+        "f": 1.0
+      },
+      {
+        "cid": "c405",
+        "f": 1.0
+      },
+      {
+        "cid": "c412",
+        "f": 1.0
+      },
+      {
+        "cid": "c416",
+        "f": 1.0
+      },
+      {
+        "cid": "c421",
+        "f": 1.0
+      },
+      {
+        "cid": "c432",
+        "f": 1.0
+      },
+      {
+        "cid": "c438",
+        "f": 1.0
+      },
+      {
+        "cid": "c445",
+        "f": 1.0
+      },
+      {
+        "cid": "c450",
+        "f": 1.0
+      },
+      {
+        "cid": "c455",
+        "f": 1.0
+      },
+      {
+        "cid": "c461",
+        "f": 1.0
+      },
+      {
+        "cid": "c467",
+        "f": 1.0
+      },
+      {
+        "cid": "c475",
+        "f": 1.0
+      },
+      {
+        "cid": "c482",
+        "f": 1.0
+      },
+      {
+        "cid": "c486",
+        "f": 1.0
+      },
+      {
+        "cid": "c495",
+        "f": 1.0
+      }
+    ]
+  }
+}
