@@ -98,7 +98,6 @@ class FGDscrScheduler:
         max_best_response_rounds: int = 20,
         cache_policy: str = "pgdsf",
         order_policy: str = "dynamic_state",
-        disable_future_share: bool = False,
         algo_name: str = "FG-DSCR",
     ):
         self.layer_sizes_mb = dict(layer_sizes_mb)
@@ -127,7 +126,6 @@ class FGDscrScheduler:
         self.max_best_response_rounds = max_best_response_rounds
         self.cache_policy = cache_policy
         self.order_policy = order_policy
-        self.disable_future_share = disable_future_share
         self.greedy_load_factor = greedy_load_factor
         self.algo_name = algo_name
 
@@ -1035,16 +1033,7 @@ class FGDscrScheduler:
         if cid in future_remaining:
             future_remaining.remove(cid)
 
-        if getattr(self, "disable_future_share", False):
-
-
-            slot_future_cnt = {}
-
-
-        else:
-
-
-            slot_future_cnt = self.future_counts(future_remaining)
+        slot_future_cnt = self.future_counts(future_remaining)
 
         # 1) 当前复用收益
         reuse_mb = sum(self.layer_sizes_mb[l] for l in c.layers if l in cache)
@@ -1479,7 +1468,6 @@ def main():
     parser.add_argument("--k-pin", type=int, default=6)
     parser.add_argument("--cache-policy", type=str, default="pgdsf", choices=["pgdsf", "lru", "lfu"])
     parser.add_argument("--order-policy", type=str, default="dynamic_state", choices=["dynamic_state", "static_ilrsa", "arrival"])
-    parser.add_argument("--disable-future-share", action="store_true", help="Disable FutureShare term in dynamic ordering.")
 
     parser.add_argument("--max-best-response-rounds", type=int, default=20)
 
@@ -1506,7 +1494,6 @@ def main():
         k_pin=args.k_pin,
         cache_policy=args.cache_policy,
         order_policy=args.order_policy,
-        disable_future_share=args.disable_future_share,
         max_best_response_rounds=args.max_best_response_rounds,
         lambda_balance=args.lambda_balance,
         lambda_idle=args.lambda_idle,
