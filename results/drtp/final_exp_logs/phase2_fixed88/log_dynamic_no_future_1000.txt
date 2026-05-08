@@ -1,0 +1,14 @@
+{
+  "num_containers": 1000,
+  "num_nodes": 8,
+  "ACT": 1101.4675416666594,
+  "AMS": 2936.0333333333333,
+  "objective": 2018.7504374999962,
+  "pull_time": 243.25,
+  "downloaded_mb": 16584,
+  "reused_mb": 499097,
+  "cache_hit_mb": 499097,
+  "evicted_mb": 8680,
+  "reuse_rate": 0.9678405836166157,
+  "algo": "Dynamic-w/o-FutureShare"
+}

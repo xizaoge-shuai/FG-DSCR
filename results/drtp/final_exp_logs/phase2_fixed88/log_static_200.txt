@@ -1,0 +1,14 @@
+{
+  "num_containers": 200,
+  "num_nodes": 8,
+  "ACT": 236.0077708333331,
+  "AMS": 576.2333333333333,
+  "objective": 406.1205520833332,
+  "pull_time": 211.62499999999991,
+  "downloaded_mb": 14409,
+  "reused_mb": 94399,
+  "cache_hit_mb": 94399,
+  "evicted_mb": 6480,
+  "reuse_rate": 0.8675740754356297,
+  "algo": "Static-ILRSA-order"
+}

@@ -1,0 +1,11 @@
+{
+  "num_containers": 500,
+  "num_nodes": 8,
+  "ACT": 1839.4383583333356,
+  "AMS": 5268.866666666667,
+  "objective": 3554.152512500001,
+  "downloaded_mb": 22481,
+  "reused_mb": 247090,
+  "reuse_rate": 0.9166045309028048,
+  "algo": "LayerLocality-Greedy"
+}

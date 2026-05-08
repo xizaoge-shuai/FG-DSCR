@@ -22154,7 +22154,9 @@
       },
       "repo_capacity_mb": 1024,
       "bandwidth_mb_s": 60.0,
-      "initial_cache": []
+      "initial_cache": [],
+      "cache_capacity_mb": 1024,
+      "storage_capacity_mb": 1024
     },
     {
       "eid": "edge-2",
@@ -22165,7 +22167,9 @@
       },
       "repo_capacity_mb": 1024,
       "bandwidth_mb_s": 80.0,
-      "initial_cache": []
+      "initial_cache": [],
+      "cache_capacity_mb": 1024,
+      "storage_capacity_mb": 1024
     },
     {
       "eid": "edge-3",
@@ -22176,7 +22180,9 @@
       },
       "repo_capacity_mb": 1024,
       "bandwidth_mb_s": 60.0,
-      "initial_cache": []
+      "initial_cache": [],
+      "cache_capacity_mb": 1024,
+      "storage_capacity_mb": 1024
     },
     {
       "eid": "edge-4",
@@ -22187,7 +22193,9 @@
       },
       "repo_capacity_mb": 1024,
       "bandwidth_mb_s": 80.0,
-      "initial_cache": []
+      "initial_cache": [],
+      "cache_capacity_mb": 1024,
+      "storage_capacity_mb": 1024
     },
     {
       "eid": "edge-5",
@@ -22198,7 +22206,9 @@
       },
       "repo_capacity_mb": 1024,
       "bandwidth_mb_s": 60.0,
-      "initial_cache": []
+      "initial_cache": [],
+      "cache_capacity_mb": 1024,
+      "storage_capacity_mb": 1024
     },
     {
       "eid": "edge-6",
@@ -22209,7 +22219,9 @@
       },
       "repo_capacity_mb": 1024,
       "bandwidth_mb_s": 80.0,
-      "initial_cache": []
+      "initial_cache": [],
+      "cache_capacity_mb": 1024,
+      "storage_capacity_mb": 1024
     },
     {
       "eid": "edge-7",
@@ -22220,7 +22232,9 @@
       },
       "repo_capacity_mb": 1024,
       "bandwidth_mb_s": 60.0,
-      "initial_cache": []
+      "initial_cache": [],
+      "cache_capacity_mb": 1024,
+      "storage_capacity_mb": 1024
     },
     {
       "eid": "edge-8",
@@ -22231,7 +22245,9 @@
       },
       "repo_capacity_mb": 1024,
       "bandwidth_mb_s": 80.0,
-      "initial_cache": []
+      "initial_cache": [],
+      "cache_capacity_mb": 1024,
+      "storage_capacity_mb": 1024
     }
   ],
   "meta": {
@@ -22239,6 +22255,9 @@
     "num_nodes": 8,
     "seed": 42,
     "catalog_size": 88,
-    "note": "Generated from Docker Hub image layers + DRTP popularity profile"
+    "note": "Generated from Docker Hub image layers + DRTP popularity profile",
+    "generated_cache_mb": 1024,
+    "generated_request_size": 1000,
+    "generated_from": "cases/drtp_cache_sweep_88/drtp_img88_cache_1024mb_1000.json"
   }
 }

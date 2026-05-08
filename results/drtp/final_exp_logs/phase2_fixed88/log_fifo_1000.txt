@@ -1,0 +1,14 @@
+{
+  "num_containers": 1000,
+  "num_nodes": 8,
+  "ACT": 1228.132554166666,
+  "AMS": 3070.133333333333,
+  "objective": 2149.13294375,
+  "pull_time": 2146.8166666666734,
+  "downloaded_mb": 154376,
+  "reused_mb": 361305,
+  "cache_hit_mb": 361305,
+  "evicted_mb": 146903,
+  "reuse_rate": 0.7006366338880045,
+  "algo": "FIFO"
+}

@@ -1,0 +1,14 @@
+{
+  "num_containers": 500,
+  "num_nodes": 8,
+  "ACT": 618.6135750000022,
+  "AMS": 1492.416666666667,
+  "objective": 1055.5151208333345,
+  "pull_time": 1134.0916666666644,
+  "downloaded_mb": 81964,
+  "reused_mb": 187607,
+  "cache_hit_mb": 187607,
+  "evicted_mb": 74193,
+  "reuse_rate": 0.6959465224375025,
+  "algo": "Random-order"
+}

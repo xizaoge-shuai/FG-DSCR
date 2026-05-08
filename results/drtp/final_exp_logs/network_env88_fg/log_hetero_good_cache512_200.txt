@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/dxaj/ssd2/jzh/FG-DSCR/scripts/fg_dscr.py", line 1533, in <module>
+    main()
+  File "/home/dxaj/ssd2/jzh/FG-DSCR/scripts/fg_dscr.py", line 1520, in main
+    res = scheduler.run()
+  File "/home/dxaj/ssd2/jzh/FG-DSCR/scripts/fg_dscr.py", line 1353, in run
+    assign_map = self.best_response_assignment()
+  File "/home/dxaj/ssd2/jzh/FG-DSCR/scripts/fg_dscr.py", line 847, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/dxaj/ssd2/jzh/FG-DSCR/scripts/fg_dscr.py", line 811, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c166

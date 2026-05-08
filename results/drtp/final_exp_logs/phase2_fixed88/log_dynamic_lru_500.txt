@@ -1,0 +1,14 @@
+{
+  "num_containers": 500,
+  "num_nodes": 8,
+  "ACT": 569.0921000000026,
+  "AMS": 1422.3000000000002,
+  "objective": 995.6960500000014,
+  "pull_time": 245.00416666666663,
+  "downloaded_mb": 16440,
+  "reused_mb": 253131,
+  "cache_hit_mb": 253131,
+  "evicted_mb": 9773,
+  "reuse_rate": 0.9390142114693346,
+  "algo": "Dynamic+LRU"
+}

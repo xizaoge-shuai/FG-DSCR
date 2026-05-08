@@ -1,0 +1,11 @@
+{
+  "num_containers": 1000,
+  "num_nodes": 8,
+  "ACT": 1362.3853041666684,
+  "AMS": 2931.083333333332,
+  "objective": 2146.73431875,
+  "downloaded_mb": 245058,
+  "reused_mb": 270623,
+  "reuse_rate": 0.5247876109455264,
+  "algo": "Resource-Greedy"
+}

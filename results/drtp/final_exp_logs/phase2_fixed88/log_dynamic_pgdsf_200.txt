@@ -1,0 +1,14 @@
+{
+  "num_containers": 200,
+  "num_nodes": 8,
+  "ACT": 234.84935416666613,
+  "AMS": 576.2333333333333,
+  "objective": 405.5413437499997,
+  "pull_time": 211.6249999999999,
+  "downloaded_mb": 14409,
+  "reused_mb": 94399,
+  "cache_hit_mb": 94399,
+  "evicted_mb": 7790,
+  "reuse_rate": 0.8675740754356297,
+  "algo": "Dynamic+PGDSF"
+}

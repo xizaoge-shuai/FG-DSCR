@@ -1,0 +1,12 @@
+{
+  "algo": "LASA-reimpl",
+  "num_containers": 800,
+  "num_nodes": 8,
+  "ACT": 1369.8255468750056,
+  "AMS": 4798.9625,
+  "downloaded_mb": 14179,
+  "reused_mb": 402303,
+  "reuse_rate": 0.9659553113940098,
+  "objective": 3084.3940234375027,
+  "elapsed_s_internal": 9.692320108413696
+}
