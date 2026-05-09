@@ -1,0 +1,19 @@
+{
+  "algo": "LASA-paper-reimpl",
+  "num_containers": 700,
+  "num_nodes": 8,
+  "num_layer_groups": 97,
+  "num_unique_layers": 653,
+  "ACT": 1544.716952380952,
+  "AMS": 1898.3572916666635,
+  "downloaded_mb": 241625,
+  "reused_mb": 123675,
+  "cache_hit_mb": 123675,
+  "evicted_mb": 29519,
+  "reuse_rate": 0.33855735012318644,
+  "objective": 1721.5371220238078,
+  "elapsed_s_internal": 2.0139176845550537,
+  "alpha_lasa": 0.5,
+  "alpha_obj": 0.5,
+  "cache_policy": "lru"
+}

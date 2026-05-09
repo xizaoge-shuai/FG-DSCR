@@ -385,9 +385,12 @@ class FGDscrScheduler:
             if demand > node.resources.get(q, 0.0):
                 return False
 
-    # 镜像总大小不能超过节点缓存容量
-        if self.image_size(cid) > node.repo_capacity_mb:
-            return False
+    # cache/repo capacity only controls reusable layer retention.
+    # It should NOT be a hard deployment feasibility constraint.
+    # A container can still be pulled and started even if its image
+    # cannot be fully retained in the reusable cache.
+    # if self.image_size(cid) > node.repo_capacity_mb:
+    #     return False
 
         return True
 
@@ -924,6 +927,51 @@ class FGDscrScheduler:
             / max(size, 1e-8)
         )
 
+    def enforce_cache_capacity(
+        self,
+        cache_layers: Set[str],
+        priorities: Dict[str, float],
+        node: EdgeNode,
+    ) -> Tuple[Set[str], Set[str]]:
+        """
+        Force the reusable cache to satisfy node.repo_capacity_mb.
+
+        Important:
+        - repo_capacity_mb is only the reusable layer-cache budget.
+        - Layers larger than the cache budget can still be pulled for current deployment,
+          but they will not be retained for future reuse.
+        - cache=0 is a valid no-cache setting.
+        """
+        cap = int(node.repo_capacity_mb)
+
+        if cap <= 0:
+            return set(), set(cache_layers)
+
+        kept: Set[str] = set()
+        used = 0
+
+        def keep_key(l: str):
+            size = self.layer_sizes_mb[l]
+            pri = priorities.get(l, 0.0)
+            density = pri / max(size, 1e-8)
+            centrality = self.layer_centrality.get(l, 0)
+            # priority density first, then absolute priority, then centrality.
+            # Smaller size is preferred when other scores are close.
+            return (density, pri, centrality, -size, l)
+
+        for l in sorted(cache_layers, key=keep_key, reverse=True):
+            size = self.layer_sizes_mb[l]
+            if size > cap:
+                # This layer can be downloaded for current use, but cannot be retained.
+                continue
+            if used + size <= cap:
+                kept.add(l)
+                used += size
+
+        evicted = set(cache_layers) - kept
+        return kept, evicted
+
+
     def choose_eviction_set(
         self,
         cache_plus: Set[str],
@@ -1058,13 +1106,22 @@ class FGDscrScheduler:
         missing_layers = c.layers - cache
         pull_cost = sum(self.layer_sizes_mb[l] for l in missing_layers) / max(node.bandwidth_mb_s, 1e-8)
 
-        # 4) 先把当前镜像层加进缓存
+        # 4) Reusable cache admission.
+        #
+        # The current image layers are transiently available for this deployment,
+        # but they are NOT required to be fully retained in the reusable cache.
+        # This decouples deployment feasibility from cache capacity.
         cache_plus = set(cache) | set(c.layers)
 
-        # Pinned layers = 当前镜像层 + 未来 top-k 关键层
-        pinned = set(c.layers) | self.top_future_layers(future_remaining, self.k_pin)
+        # Future pinned layers are only soft hints. The final hard trimming below
+        # will still enforce repo_capacity_mb, so small caches remain feasible.
+        future_pinned = self.top_future_layers(future_remaining, self.k_pin)
+        pinned = {
+            l for l in future_pinned
+            if self.layer_sizes_mb[l] <= int(node.repo_capacity_mb)
+        }
 
-        # 层优先级
+        # Layer priorities for replacement/admission.
         priorities: Dict[str, float] = {}
         freq_scores: Dict[str, float] = {}
         for l in cache_plus:
@@ -1075,23 +1132,43 @@ class FGDscrScheduler:
                 clock=clock,
                 bandwidth=node.bandwidth_mb_s,
             )
-            # LFU 消融使用：历史频率 + 当前 slot 未来频率
             freq_scores[l] = hist_freq.get(l, 0) + self.beta_slot * slot_future_cnt.get(l, 0)
 
-        need_free = max(0, self.cache_size(cache_plus) - node.repo_capacity_mb)
-        evicted = self.choose_eviction_set(
-            cache_plus=cache_plus,
-            pinned=pinned,
-            need_free_mb=need_free,
-            priorities=priorities,
-            freq_scores=freq_scores,
-        )
+        if int(node.repo_capacity_mb) <= 0:
+            # no-cache setting: deployment still works, but nothing is retained.
+            evicted = set(cache_plus)
+            new_cache = set()
+            new_clock = clock
+        else:
+            need_free = max(0, self.cache_size(cache_plus) - int(node.repo_capacity_mb))
+            evicted = self.choose_eviction_set(
+                cache_plus=cache_plus,
+                pinned=pinned,
+                need_free_mb=need_free,
+                priorities=priorities,
+                freq_scores=freq_scores,
+            )
 
-        evict_loss = sum(priorities[l] for l in evicted)
-        new_cache = cache_plus - evicted
-        new_clock = clock
-        if evicted:
-            new_clock = max(clock, max(priorities[l] for l in evicted))
+            new_cache = cache_plus - evicted
+
+            # Final safety pass:
+            # if pinned layers or oversized current layers still make cache overflow,
+            # keep only the most valuable subset. This prevents cache size from
+            # exceeding repo_capacity_mb under small-cache settings.
+            if self.cache_size(new_cache) > int(node.repo_capacity_mb):
+                fitted_cache, forced_evicted = self.enforce_cache_capacity(
+                    cache_layers=new_cache,
+                    priorities=priorities,
+                    node=node,
+                )
+                new_cache = fitted_cache
+                evicted = set(evicted) | set(forced_evicted)
+
+            new_clock = clock
+            if evicted:
+                new_clock = max(clock, max(priorities.get(l, 0.0) for l in evicted))
+
+        evict_loss = sum(priorities.get(l, 0.0) for l in evicted)
 
         gain = (
             self.alpha1_reuse * reuse_mb

@@ -1,0 +1,26 @@
+{
+  "algo": "LASA-placement-only",
+  "num_containers": 400,
+  "num_nodes": 8,
+  "ACT": 783.9333020833374,
+  "AMS": 2784.8125,
+  "downloaded_mb": 14050,
+  "reused_mb": 195943,
+  "reuse_rate": 0.9330930078621669,
+  "objective": 1784.3729010416687,
+  "elapsed_s_internal": 2.1698477268218994
+}
+{
+  "algo": "LASA-cacheaware-replay",
+  "num_containers": 400,
+  "num_nodes": 8,
+  "ACT": 264.4190729166667,
+  "AMS": 1434.2624999999985,
+  "downloaded_mb": 178800,
+  "reused_mb": 31340,
+  "cache_hit_mb": 31340,
+  "evicted_mb": 22086,
+  "pull_time": 2385.5958333333324,
+  "reuse_rate": 0.14913866945845627,
+  "objective": 849.3407864583326
+}

@@ -1,0 +1,15 @@
+{
+  "algo": "LASA-cacheaware",
+  "num_containers": 700,
+  "num_nodes": 8,
+  "ACT": 259.0804226190475,
+  "AMS": 1503.3500000000024,
+  "downloaded_mb": 252621,
+  "reused_mb": 112928,
+  "cache_hit_mb": 112928,
+  "evicted_mb": 76088,
+  "pull_time": 3338.425000000008,
+  "reuse_rate": 0.3089271205775423,
+  "objective": 881.215211309525,
+  "alpha": 0.5
+}
