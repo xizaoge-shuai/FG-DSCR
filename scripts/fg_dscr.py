@@ -214,6 +214,21 @@ class FGDscrScheduler:
         self,
         assignment: Dict[str, str],
     ) -> Tuple[float, Dict[str, Dict]]:
+        """
+        Phase-1 potential with scale normalization.
+
+        The original implementation directly summed:
+            cong_term + frag_term + aff_term + task_load_term
+
+        However, these terms have very different scales:
+            cong_term:       D_j^2 / bandwidth, often 1e5~1e6
+            frag_term:       small shape-imbalance value, often O(1)
+            aff_term:        layer-size based reward, often 1e4
+            task_load_term:  already scaled by cong_scale
+
+        This version keeps congestion as the reference scale and normalizes
+        fragmentation, affinity, and load before aggregation.
+        """
         layer_cnts = self.node_layer_counts(assignment)
         node_counts = Counter(assignment.values())
 
@@ -224,61 +239,89 @@ class FGDscrScheduler:
         total_run_time = sum(c.run_time for c in self.containers.values())
         avg_run_per_node = total_run_time / num_nodes
 
-        # 先计算原始拥塞项，用它估计势函数量级。
-        # 这样 lambda_task_load 可以用 0.2 / 0.5 / 1.0 这种数值调参。
+        eps = 1e-9
+
         raw_cong_terms: Dict[str, float] = {}
-        for eid, node in self.nodes.items():
-            D_j = self.distinct_missing_size(eid, layer_cnts[eid])
-            raw_cong_terms[eid] = self.lambda_cong * (
-                (D_j ** 2) / max(node.bandwidth_mb_s, 1e-8)
-            )
+        raw_frag_terms: Dict[str, float] = {}
+        raw_aff_terms: Dict[str, float] = {}
+        raw_load_terms: Dict[str, float] = {}
+        aux: Dict[str, Dict] = {}
 
-        cong_scale = max(
-            sum(raw_cong_terms.values()) / max(num_nodes, 1),
-            1.0
-        )
-
-        total = 0.0
-        comps: Dict[str, Dict] = {}
-
+        # 1) First pass: collect raw components.
         for eid, node in self.nodes.items():
             m_j = node_counts.get(eid, 0)
             D_j = self.distinct_missing_size(eid, layer_cnts[eid])
             Frag_j = self.fragmentation_penalty(eid, assignment)
             Aff_j = self.affinity_gain(eid, layer_cnts[eid])
 
-            # 1) 缺失层下载 / 带宽拥塞项
-            cong_term = raw_cong_terms[eid]
+            raw_cong_terms[eid] = self.lambda_cong * (
+                (D_j ** 2) / max(node.bandwidth_mb_s, eps)
+            )
 
-            # 2) 资源碎片项
-            frag_term = self.lambda_frag * Frag_j
-
-            # 3) 层共享亲和项：共享越强，势函数越小
-            aff_term = - self.lambda_aff * Aff_j
-
-            # 4) 热点节点过载惩罚项
-            # 只惩罚超过软阈值的节点，不惩罚正常聚类。
-            # soft_limit = task_load_factor * 平均任务数。
-            load_ratio = m_j / max(avg_per_node, 1e-8)
+            load_ratio = m_j / max(avg_per_node, eps)
             soft_limit = self.task_load_factor * avg_per_node
             overload = max(0.0, m_j - soft_limit)
-            overload_ratio = overload / max(avg_per_node, 1e-8)
+            overload_ratio = overload / max(avg_per_node, eps)
 
             node_run_sum = sum(
                 self.containers[cid].run_time
                 for cid, ne in assignment.items()
                 if ne == eid
             )
-            run_ratio = node_run_sum / max(avg_run_per_node, 1e-8)
+            run_ratio = node_run_sum / max(avg_run_per_node, eps)
 
-            task_load_term = (
-                self.lambda_task_load
-                * cong_scale
-                * (overload_ratio ** self.task_load_power)
-                * run_ratio
-            )
+            raw_frag_terms[eid] = Frag_j
+            raw_aff_terms[eid] = Aff_j
+            raw_load_terms[eid] = (overload_ratio ** self.task_load_power) * run_ratio
 
-            # 旧的强均衡项保留为日志项，不参与势函数
+            aux[eid] = {
+                "m_j": m_j,
+                "D_j": D_j,
+                "Frag_j": Frag_j,
+                "Aff_j": Aff_j,
+                "load_ratio": load_ratio,
+                "soft_limit": soft_limit,
+                "overload": overload,
+                "overload_ratio": overload_ratio,
+                "node_run_sum": node_run_sum,
+                "run_ratio": run_ratio,
+            }
+
+        # 2) Reference scale.
+        # Use average congestion as the common scale so that all components
+        # contribute at comparable magnitudes.
+        cong_scale = max(
+            sum(abs(v) for v in raw_cong_terms.values()) / max(num_nodes, 1),
+            1.0
+        )
+
+        # 3) Component normalization scales.
+        # max-scale keeps each normalized component in roughly [0, 1].
+        frag_scale = max(max((abs(v) for v in raw_frag_terms.values()), default=0.0), eps)
+        aff_scale = max(max((abs(v) for v in raw_aff_terms.values()), default=0.0), eps)
+        load_scale = max(max((abs(v) for v in raw_load_terms.values()), default=0.0), eps)
+
+        total = 0.0
+        comps: Dict[str, Dict] = {}
+
+        for eid, node in self.nodes.items():
+            raw_cong = raw_cong_terms[eid]
+            raw_frag = raw_frag_terms[eid]
+            raw_aff = raw_aff_terms[eid]
+            raw_load = raw_load_terms[eid]
+
+            frag_norm = raw_frag / frag_scale
+            aff_norm = raw_aff / aff_scale
+            load_norm = raw_load / load_scale if load_scale > eps else 0.0
+
+            # Congestion remains the reference term.
+            cong_term = raw_cong
+
+            # Other terms are normalized and then mapped to the same scale.
+            frag_term = self.lambda_frag * cong_scale * frag_norm
+            aff_term = - self.lambda_aff * cong_scale * aff_norm
+            task_load_term = self.lambda_task_load * cong_scale * load_norm
+
             balance_term = 0.0
             idle_term = 0.0
 
@@ -286,23 +329,35 @@ class FGDscrScheduler:
             total += node_val
 
             comps[eid] = {
-                "m_j": m_j,
-                "D_j": D_j,
-                "Frag_j": Frag_j,
-                "Aff_j": Aff_j,
+                **aux[eid],
+
+                # scaled terms used by the actual potential
                 "cong_term": cong_term,
                 "frag_term": frag_term,
                 "aff_term": aff_term,
                 "task_load_term": task_load_term,
-                "load_ratio": load_ratio,
-                "soft_limit": soft_limit,
-                "overload": overload,
-                "overload_ratio": overload_ratio,
-                "node_run_sum": node_run_sum,
-                "run_ratio": run_ratio,
+                "node_potential": node_val,
+
+                # normalized terms for plotting/debugging
+                "cong_norm": raw_cong / max(cong_scale, eps),
+                "frag_norm": frag_norm,
+                "aff_norm": aff_norm,
+                "load_norm": load_norm,
+
+                # raw terms for interpretation
+                "raw_cong_term": raw_cong,
+                "raw_frag_term": raw_frag,
+                "raw_aff_term": raw_aff,
+                "raw_load_term": raw_load,
+
+                # scales
+                "cong_scale": cong_scale,
+                "frag_scale": frag_scale,
+                "aff_scale": aff_scale,
+                "load_scale": load_scale,
+
                 "balance_term": balance_term,
                 "idle_term": idle_term,
-                "node_potential": node_val,
             }
 
         return total, comps
@@ -1549,7 +1604,7 @@ def main():
 
     # Phase 1 势函数消融项
     parser.add_argument("--lambda-cong", type=float, default=1.0)
-    parser.add_argument("--lambda-frag", type=float, default=1.0)
+    parser.add_argument("--lambda-frag", type=float, default=0.1)
     parser.add_argument("--lambda-aff", type=float, default=0.2)
 
     # Phase 2 排序/缓存替换消融项
