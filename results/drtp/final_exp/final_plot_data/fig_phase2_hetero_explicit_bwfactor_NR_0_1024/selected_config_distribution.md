@@ -1,0 +1,27 @@
+| cache_mb | selected_config | count |
+|---:|---|---:|
+| 0 | explicit_bwcache_eta10 | 1 |
+| 0 | explicit_bwfactor_eta10_gamma13 | 12 |
+| 0 | old_base_pgdsf_dynamic | 5 |
+| 128 | explicit_bwcache_eta10 | 5 |
+| 128 | explicit_bwfactor_eta10_gamma13 | 10 |
+| 128 | old_base_pgdsf_dynamic | 3 |
+| 256 | explicit_bwfactor_eta10_gamma13 | 16 |
+| 256 | old_base_pgdsf_dynamic | 2 |
+| 384 | explicit_bwcache_eta10 | 4 |
+| 384 | explicit_bwfactor_eta10_gamma13 | 10 |
+| 384 | old_base_pgdsf_dynamic | 4 |
+| 512 | explicit_bwfactor_eta10_gamma13 | 14 |
+| 512 | old_base_pgdsf_dynamic | 4 |
+| 640 | explicit_bwcache_eta10 | 3 |
+| 640 | explicit_bwfactor_eta10_gamma13 | 12 |
+| 640 | old_base_pgdsf_dynamic | 3 |
+| 768 | explicit_bwcache_eta10 | 3 |
+| 768 | explicit_bwfactor_eta10_gamma13 | 12 |
+| 768 | old_base_pgdsf_dynamic | 3 |
+| 896 | explicit_bwcache_eta10 | 4 |
+| 896 | explicit_bwfactor_eta10_gamma13 | 10 |
+| 896 | old_base_pgdsf_dynamic | 4 |
+| 1024 | explicit_bwcache_eta10 | 3 |
+| 1024 | explicit_bwfactor_eta10_gamma13 | 8 |
+| 1024 | old_base_pgdsf_dynamic | 7 |
