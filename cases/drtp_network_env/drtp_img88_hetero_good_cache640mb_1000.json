@@ -22275,6 +22275,7 @@
       150,
       120
     ],
-    "generated_from": "cases/drtp_cache_sweep_88/drtp_img88_cache_640mb_1000.json"
+    "generated_from": "cases/drtp_cache_sweep_88/drtp_img88_cache_640mb_1000.json",
+    "generated_cache_mb": 640
   }
 }

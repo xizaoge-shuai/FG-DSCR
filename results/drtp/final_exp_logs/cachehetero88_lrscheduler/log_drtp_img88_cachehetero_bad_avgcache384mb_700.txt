@@ -1,0 +1,13 @@
+{
+  "algo": "LRScheduler-inspired",
+  "num_containers": 700,
+  "num_nodes": 8,
+  "ACT": 1101.9107428571408,
+  "AMS": 2295.859999999999,
+  "downloaded_mb": 288124,
+  "reused_mb": 77425,
+  "reuse_rate": 0.2118047101756536,
+  "objective": 1698.8853714285701,
+  "prefetch_mb": 0,
+  "count_prefetch_in_downloaded": false
+}
