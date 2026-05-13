@@ -74,7 +74,6 @@ class FGDscrScheduler:
         greedy_load_factor: float = 0.0,
     # Phase 1 weights
         lambda_cong: float = 1.0,
-        bw_gamma: float = 1.0,
         lambda_frag: float = 1.0,
         lambda_aff: float = 0.2,
         # lambda_balance: float = 0.0,
@@ -98,8 +97,6 @@ class FGDscrScheduler:
         unit_mb: int = 50,
         max_best_response_rounds: int = 20,
         cache_policy: str = "pgdsf",
-        cache_bw_eta: float = 0.0,
-        cache_bw_ref: float = 100.0,
         order_policy: str = "dynamic_state",
         disable_future_share: bool = False,
         algo_name: str = "FG-DSCR",
@@ -108,7 +105,6 @@ class FGDscrScheduler:
         self.alpha_obj = alpha_obj
 
         self.lambda_cong = lambda_cong
-        self.bw_gamma = bw_gamma
         self.lambda_frag = lambda_frag
         self.lambda_aff = lambda_aff
         self.lambda_balance = lambda_balance
@@ -130,8 +126,6 @@ class FGDscrScheduler:
         self.unit_mb = max(unit_mb, 1)
         self.max_best_response_rounds = max_best_response_rounds
         self.cache_policy = cache_policy
-        self.cache_bw_eta = cache_bw_eta
-        self.cache_bw_ref = cache_bw_ref
         self.order_policy = order_policy
         self.disable_future_share = disable_future_share
         self.greedy_load_factor = greedy_load_factor
@@ -261,7 +255,7 @@ class FGDscrScheduler:
             Aff_j = self.affinity_gain(eid, layer_cnts[eid])
 
             raw_cong_terms[eid] = self.lambda_cong * (
-                (D_j ** 2) / (max(node.bandwidth_mb_s, eps) ** max(getattr(self, "bw_gamma", 1.0), eps))
+                (D_j ** 2) / max(node.bandwidth_mb_s, eps)
             )
 
             load_ratio = m_j / max(avg_per_node, eps)
@@ -981,11 +975,7 @@ class FGDscrScheduler:
         f_hist = hist_freq.get(layer, 0)
         f_slot = slot_future_cnt.get(layer, 0)
         size = self.layer_sizes_mb[layer]
-        bw = max(bandwidth, 1e-8)
-        bw_ref = max(getattr(self, "cache_bw_ref", 100.0), 1e-8)
-        bw_eta = max(getattr(self, "cache_bw_eta", 0.0), 0.0)
-        bw_factor = (bw_ref / bw) ** bw_eta
-        cost_redl = (size / bw) * bw_factor
+        cost_redl = size / max(bandwidth, 1e-8)
         centrality = self.layer_centrality.get(layer, 1)
         return clock + (
             ((f_hist + self.beta_slot * f_slot) * cost_redl * (1.0 + self.rho_centrality * centrality))
@@ -1614,18 +1604,12 @@ def main():
 
     # Phase 1 势函数消融项
     parser.add_argument("--lambda-cong", type=float, default=1.0)
-    parser.add_argument("--bw-gamma", type=float, default=1.0,
-                        help="Bandwidth exponent for Phase-1 congestion term: D_j^2 / bandwidth^gamma.")
     parser.add_argument("--lambda-frag", type=float, default=0.1)
     parser.add_argument("--lambda-aff", type=float, default=0.2)
 
     # Phase 2 排序/缓存替换消融项
     parser.add_argument("--k-pin", type=int, default=6)
     parser.add_argument("--cache-policy", type=str, default="pgdsf", choices=["pgdsf", "lru", "lfu"])
-    parser.add_argument("--cache-bw-eta", type=float, default=0.0,
-                        help="Bandwidth-aware exponent for cache priority. 0 disables it.")
-    parser.add_argument("--cache-bw-ref", type=float, default=100.0,
-                        help="Reference bandwidth used in cache bandwidth factor.")
     parser.add_argument("--order-policy", type=str, default="dynamic_state", choices=["dynamic_state", "static_ilrsa", "arrival"])
     parser.add_argument("--disable-future-share", action="store_true", help="Disable FutureShare term in dynamic ordering.")
 
@@ -1649,13 +1633,10 @@ def main():
         unit_mb=args.unit_mb,
         algo_name=args.algo_name,
         lambda_cong=args.lambda_cong,
-        bw_gamma=args.bw_gamma,
         lambda_frag=args.lambda_frag,
         lambda_aff=args.lambda_aff,
         k_pin=args.k_pin,
         cache_policy=args.cache_policy,
-        cache_bw_eta=args.cache_bw_eta,
-        cache_bw_ref=args.cache_bw_ref,
         order_policy=args.order_policy,
         disable_future_share=args.disable_future_share,
         max_best_response_rounds=args.max_best_response_rounds,
