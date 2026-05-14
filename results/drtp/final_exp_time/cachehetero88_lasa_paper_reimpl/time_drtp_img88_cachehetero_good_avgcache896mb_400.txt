@@ -1,18 +1,18 @@
-	Command being timed: "nice -n 10 ionice -c 2 -n 7 python3 -u scripts/run_lasa_reimpl.py --case cases/drtp_cache_hetero88/drtp_img88_cachehetero_good_avgcache896mb_400.json --out results/drtp/final_exp/cachehetero88_lasa_paper_reimpl/drtp_img88_cachehetero_good_avgcache896mb_400.json --alpha 0.5 --cache-policy lru --algo-name LASA-paper-reimpl"
-	User time (seconds): 6.87
-	System time (seconds): 0.01
+	Command being timed: "nice -n 10 ionice -c 2 -n 7 python3 -u scripts/run_lasa_reimpl.py --case cases/drtp_cache_hetero88/drtp_img88_cachehetero_good_avgcache896mb_400.json --out results/drtp/final_exp/cachehetero88_lasa_paper_reimpl/drtp_img88_cachehetero_good_avgcache896mb_400.json --alpha 0.5 --cache-policy lru --algo-name LASA-paper-reimpl --enforce-resource-capacity"
+	User time (seconds): 2.01
+	System time (seconds): 0.00
 	Percent of CPU this job got: 99%
-	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:06.91
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.02
 	Average shared text size (kbytes): 0
 	Average unshared data size (kbytes): 0
 	Average stack size (kbytes): 0
 	Average total size (kbytes): 0
-	Maximum resident set size (kbytes): 13356
+	Maximum resident set size (kbytes): 13396
 	Average resident set size (kbytes): 0
 	Major (requiring I/O) page faults: 0
-	Minor (reclaiming a frame) page faults: 2442
+	Minor (reclaiming a frame) page faults: 2458
 	Voluntary context switches: 1
-	Involuntary context switches: 942
+	Involuntary context switches: 203
 	Swaps: 0
 	File system inputs: 0
 	File system outputs: 208

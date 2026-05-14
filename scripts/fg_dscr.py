@@ -84,6 +84,8 @@ class FGDscrScheduler:
         lambda_task_load: float = 0.03,
         task_load_power: float = 2.0,
         task_load_factor: float = 1.8,
+        lambda_cache_core: float = 0.0,
+        cache_core_ratio: float = 0.90,
     # Phase 2 weights
         alpha1_reuse: float = 1.0,
         alpha2_future: float = 0.15,
@@ -97,6 +99,10 @@ class FGDscrScheduler:
         beam_width: int = 4,
         unit_mb: int = 50,
         max_best_response_rounds: int = 20,
+        phase1_neighbor_mode: str = "full",
+        move_topk_per_node: int = 8,
+        swap_topk_per_node: int = 6,
+        block_seed_topk_per_node: int = 5,
         cache_policy: str = "pgdsf",
         cache_bw_eta: float = 0.0,
         cache_bw_ref: float = 100.0,
@@ -117,6 +123,8 @@ class FGDscrScheduler:
         self.lambda_task_load = lambda_task_load
         self.task_load_power = task_load_power
         self.task_load_factor = task_load_factor
+        self.lambda_cache_core = lambda_cache_core
+        self.cache_core_ratio = cache_core_ratio
         self.alpha1_reuse = alpha1_reuse
         self.alpha2_future = alpha2_future
         self.alpha3_pull = alpha3_pull
@@ -129,6 +137,10 @@ class FGDscrScheduler:
         self.beam_width = beam_width
         self.unit_mb = max(unit_mb, 1)
         self.max_best_response_rounds = max_best_response_rounds
+        self.phase1_neighbor_mode = phase1_neighbor_mode
+        self.move_topk_per_node = move_topk_per_node
+        self.swap_topk_per_node = swap_topk_per_node
+        self.block_seed_topk_per_node = block_seed_topk_per_node
         self.cache_policy = cache_policy
         self.cache_bw_eta = cache_bw_eta
         self.cache_bw_ref = cache_bw_ref
@@ -328,10 +340,26 @@ class FGDscrScheduler:
             aff_term = - self.lambda_aff * cong_scale * aff_norm
             task_load_term = self.lambda_task_load * cong_scale * load_norm
 
+            # Cache-capacity-aware placement penalty.
+            # In cache-heterogeneous settings, small-cache nodes should not
+            # receive a large weighted core layer working set.
+            cache_cap = float(getattr(node, "repo_capacity_mb", 0.0))
+            if cache_cap > 0:
+                cache_core_mb = self.weighted_core_layer_size(
+                    layer_cnts[eid],
+                    getattr(self, "cache_core_ratio", 0.90),
+                )
+                cache_core_pressure = max(0.0, cache_core_mb / max(cache_cap, eps) - 1.0) ** 2
+            else:
+                cache_core_mb = 0.0
+                cache_core_pressure = 0.0
+
+            cache_core_term = self.lambda_cache_core * cong_scale * cache_core_pressure
+
             balance_term = 0.0
             idle_term = 0.0
 
-            node_val = cong_term + frag_term + aff_term + task_load_term
+            node_val = cong_term + frag_term + aff_term + task_load_term + cache_core_term
             total += node_val
 
             comps[eid] = {
@@ -342,6 +370,9 @@ class FGDscrScheduler:
                 "frag_term": frag_term,
                 "aff_term": aff_term,
                 "task_load_term": task_load_term,
+                "cache_core_term": cache_core_term,
+                "cache_core_mb": cache_core_mb,
+                "cache_core_pressure": cache_core_pressure,
                 "node_potential": node_val,
 
                 # normalized terms for plotting/debugging
@@ -464,6 +495,41 @@ class FGDscrScheduler:
             for l in self.containers[cid].layers:
                 cnts[eid][l] += 1
         return cnts
+
+    def weighted_core_layer_size(self, layer_cnt: Counter, ratio: float) -> float:
+        """
+        Weighted core layer working-set size for cache-heterogeneous placement.
+
+        weight(l) = count(l) * size(l).
+        We sort layers by weight and accumulate layer sizes until the selected
+        layers cover ratio of total weighted demand.
+        """
+        ratio = min(max(float(ratio), 0.0), 1.0)
+
+        items = []
+        for l, cnt in layer_cnt.items():
+            size = float(self.layer_sizes_mb.get(l, self.layer_sizes_mb.get(str(l), 0.0)))
+            weight = float(cnt) * size
+            if size > 0 and weight > 0:
+                items.append((weight, size, str(l)))
+
+        if not items:
+            return 0.0
+
+        items.sort(reverse=True)
+        total_weight = sum(x[0] for x in items)
+        target = ratio * total_weight
+
+        acc_weight = 0.0
+        core_mb = 0.0
+
+        for weight, size, _ in items:
+            acc_weight += weight
+            core_mb += size
+            if acc_weight >= target:
+                break
+
+        return core_mb
 
     def distinct_missing_size(self, eid: str, layer_cnt: Counter) -> int:
         node = self.nodes[eid]
@@ -919,17 +985,30 @@ class FGDscrScheduler:
 
             candidates = []
 
-            move_trial, move_tag = self._best_move_neighbor(assignment)
+            mode = getattr(self, "phase1_neighbor_mode", "full")
+
+            move_trial, move_tag = self._best_move_neighbor(
+                assignment,
+                move_topk_per_node=getattr(self, "move_topk_per_node", 8),
+            )
             if move_trial is not None:
                 candidates.append((self.potential(move_trial), move_trial, move_tag))
 
-            swap_trial, swap_tag = self._best_swap_neighbor(assignment)
-            if swap_trial is not None:
-                candidates.append((self.potential(swap_trial), swap_trial, swap_tag))
+            if mode in ("move_swap", "full"):
+                swap_trial, swap_tag = self._best_swap_neighbor(
+                    assignment,
+                    swap_topk_per_node=getattr(self, "swap_topk_per_node", 6),
+                )
+                if swap_trial is not None:
+                    candidates.append((self.potential(swap_trial), swap_trial, swap_tag))
 
-            block_trial, block_tag = self._best_block_neighbor(assignment)
-            if block_trial is not None:
-                candidates.append((self.potential(block_trial), block_trial, block_tag))
+            if mode == "full":
+                block_trial, block_tag = self._best_block_neighbor(
+                    assignment,
+                    seed_topk_per_node=getattr(self, "block_seed_topk_per_node", 5),
+                )
+                if block_trial is not None:
+                    candidates.append((self.potential(block_trial), block_trial, block_tag))
 
             if not candidates:
                 self.log_phase1_state(rounds, assignment, f"no_improve_round_{rounds}")
@@ -1630,6 +1709,10 @@ def main():
     parser.add_argument("--disable-future-share", action="store_true", help="Disable FutureShare term in dynamic ordering.")
 
     parser.add_argument("--max-best-response-rounds", type=int, default=20)
+    parser.add_argument("--phase1-neighbor-mode", type=str, default="full", choices=["move", "move_swap", "full"])
+    parser.add_argument("--move-topk-per-node", type=int, default=8)
+    parser.add_argument("--swap-topk-per-node", type=int, default=6)
+    parser.add_argument("--block-seed-topk-per-node", type=int, default=5)
 
     # 下面三个默认是0，只加日志不改算法行为
     parser.add_argument("--lambda-balance", type=float, default=0.0)
@@ -1637,6 +1720,10 @@ def main():
     parser.add_argument("--theta-cong-count", type=float, default=0.0)
     parser.add_argument("--greedy-load-factor", type=float, default=0.0)
     parser.add_argument("--lambda-task-load", type=float, default=0.03)
+    parser.add_argument("--lambda-cache-core", type=float, default=0.0,
+                        help="Penalty weight for weighted-core layer working set over cache capacity.")
+    parser.add_argument("--cache-core-ratio", type=float, default=0.90,
+                        help="Weighted layer demand coverage ratio for cache-core penalty.")
     parser.add_argument("--task-load-power", type=float, default=2.0)
     parser.add_argument("--task-load-factor", type=float, default=1.8)
     args = parser.parse_args()
@@ -1659,11 +1746,17 @@ def main():
         order_policy=args.order_policy,
         disable_future_share=args.disable_future_share,
         max_best_response_rounds=args.max_best_response_rounds,
+        phase1_neighbor_mode=args.phase1_neighbor_mode,
+        move_topk_per_node=args.move_topk_per_node,
+        swap_topk_per_node=args.swap_topk_per_node,
+        block_seed_topk_per_node=args.block_seed_topk_per_node,
         lambda_balance=args.lambda_balance,
         lambda_idle=args.lambda_idle,
         theta_cong_count=args.theta_cong_count,
         greedy_load_factor=args.greedy_load_factor,
         lambda_task_load=args.lambda_task_load,
+        lambda_cache_core=args.lambda_cache_core,
+        cache_core_ratio=args.cache_core_ratio,
         task_load_power=args.task_load_power,
         task_load_factor=args.task_load_factor,
     )
