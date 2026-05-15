@@ -1,0 +1,6 @@
+[OK] wrote scripts/fg_dscr_online_norm.py
+[OK] Online-Norm V2 patches applied:
+  - phase1 potential_components replaced
+  - phase2 score_candidate uses capacity-aware future
+  - phase2 beam ordering uses online-normalized gain
+  - CLI --online-norm added

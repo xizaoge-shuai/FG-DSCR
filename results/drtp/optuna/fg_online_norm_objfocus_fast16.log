@@ -1,0 +1,526 @@
+[INFO] cases = 16
+[INFO] base_dir = results/drtp/final_exp/cacheonly_dg_0_1024_fg
+[INFO] out_root = results/drtp/optuna/fg_online_norm_objfocus_fast16_runs
+[INFO] study_name = fg_online_norm_objfocus_fast16
+[INFO] storage = sqlite:///results/drtp/optuna/fg_online_norm_objfocus_fast16.db
+[INFO] reuse_penalty = 800.0
+[INFO] download_penalty = 120.0
+[BASE] {
+  "objective": 931.6536577690972,
+  "reuse_rate": 0.3833194443251172,
+  "downloaded_mb": 145399.625,
+  "ACT": 656.9233637152778,
+  "AMS": 1206.3839518229167
+}
+[I 2026-05-15 19:42:41,224] A new study created in RDB with name: fg_online_norm_objfocus_fast16
+[INFO] cases = 16
+[INFO] base_dir = results/drtp/final_exp/cacheonly_dg_0_1024_fg
+[INFO] out_root = results/drtp/optuna/fg_online_norm_objfocus_fast16_runs
+[INFO] study_name = fg_online_norm_objfocus_fast16
+[INFO] storage = sqlite:///results/drtp/optuna/fg_online_norm_objfocus_fast16.db
+[INFO] reuse_penalty = 800.0
+[INFO] download_penalty = 120.0
+[BASE] {
+  "objective": 931.6536577690972,
+  "reuse_rate": 0.3833194443251172,
+  "downloaded_mb": 145399.625,
+  "ACT": 656.9233637152778,
+  "AMS": 1206.3839518229167
+}
+[I 2026-05-15 19:44:48,034] Using an existing study with name 'fg_online_norm_objfocus_fast16' instead of creating a new one.
+====================================================================================================
+[TRIAL] 1
+score = 1234.0611927511486
+metrics = {
+  "avg_objective": 1004.2782840711805,
+  "avg_reuse_rate": 0.15237441735654175,
+  "avg_downloaded_mb": 199957.0625,
+  "avg_ACT": 680.1568611111109,
+  "avg_AMS": 1328.3997070312496,
+  "reuse_drop": 0.23094502696857547,
+  "download_inc_ratio": 0.37522405920923113
+}
+params = {
+  "lambda_cong": 0.21616466594500888,
+  "lambda_frag": 0.09510755474627634,
+  "lambda_aff": 1.1335719424357857,
+  "lambda_task_load": 0.0822803999619549,
+  "alpha1_reuse": 0.460419992924997,
+  "alpha2_future": 0.2391131042229871,
+  "alpha3_pull": 0.402820187804636,
+  "alpha4_evict": 0.06845441397099113,
+  "greedy_load_factor": 1.3984006776595828
+}
+[I 2026-05-15 19:57:46,788] Trial 1 finished with value: 1234.0611927511486 and parameters: {'lambda_cong': 0.21616466594500888, 'lambda_frag': 0.09510755474627634, 'lambda_aff': 1.1335719424357857, 'lambda_task_load': 0.0822803999619549, 'alpha1_reuse': 0.460419992924997, 'alpha2_future': 0.2391131042229871, 'alpha3_pull': 0.402820187804636, 'alpha4_evict': 0.06845441397099113, 'greedy_load_factor': 1.3984006776595828}. Best is trial 1 with value: 1234.0611927511486.
+====================================================================================================
+[TRIAL] 2
+score = 1185.2681667959203
+metrics = {
+  "avg_objective": 1167.320115885417,
+  "avg_reuse_rate": 0.36455050516977133,
+  "avg_downloaded_mb": 148953.3125,
+  "avg_ACT": 1131.4200169270837,
+  "avg_AMS": 1203.2202148437502,
+  "reuse_drop": 0.018768939155345887,
+  "download_inc_ratio": 0.024440829885221504
+}
+params = {
+  "lambda_cong": 1.7967494588561725,
+  "lambda_frag": 0.19571353637150213,
+  "lambda_aff": 0.05340454699453894,
+  "lambda_task_load": 0.1992251637093233,
+  "alpha1_reuse": 0.5278764474502092,
+  "alpha2_future": 0.5192625995627863,
+  "alpha3_pull": 0.31682273038374725,
+  "alpha4_evict": 0.0611340578518471,
+  "greedy_load_factor": 2.4450486671058576
+}
+[I 2026-05-15 20:08:38,083] Trial 2 finished with value: 1185.2681667959203 and parameters: {'lambda_cong': 1.7967494588561725, 'lambda_frag': 0.19571353637150213, 'lambda_aff': 0.05340454699453894, 'lambda_task_load': 0.1992251637093233, 'alpha1_reuse': 0.5278764474502092, 'alpha2_future': 0.5192625995627863, 'alpha3_pull': 0.31682273038374725, 'alpha4_evict': 0.0611340578518471, 'greedy_load_factor': 2.4450486671058576}. Best is trial 2 with value: 1185.2681667959203.
+====================================================================================================
+[TRIAL] 3
+score = 1225.2710341675627
+metrics = {
+  "avg_objective": 1000.8748016493054,
+  "avg_reuse_rate": 0.1580234449409423,
+  "avg_downloaded_mb": 198906.0,
+  "avg_ACT": 675.532611111111,
+  "avg_AMS": 1326.2169921874997,
+  "reuse_drop": 0.2252959993841749,
+  "download_inc_ratio": 0.36799527509097774
+}
+params = {
+  "lambda_cong": 0.33535209492905466,
+  "lambda_frag": 0.012461362524229152,
+  "lambda_aff": 1.3030053231421288,
+  "lambda_task_load": 0.17782641273690114,
+  "alpha1_reuse": 0.6758082346288982,
+  "alpha2_future": 0.44726351449091134,
+  "alpha3_pull": 0.6907790201998815,
+  "alpha4_evict": 0.1209269690870129,
+  "greedy_load_factor": 1.277528073242402
+}
+[I 2026-05-15 20:21:23,080] Trial 3 finished with value: 1225.2710341675627 and parameters: {'lambda_cong': 0.33535209492905466, 'lambda_frag': 0.012461362524229152, 'lambda_aff': 1.3030053231421288, 'lambda_task_load': 0.17782641273690114, 'alpha1_reuse': 0.6758082346288982, 'alpha2_future': 0.44726351449091134, 'alpha3_pull': 0.6907790201998815, 'alpha4_evict': 0.1209269690870129, 'greedy_load_factor': 1.277528073242402}. Best is trial 2 with value: 1185.2681667959203.
+====================================================================================================
+[TRIAL] 4
+score = 1007.0880102952356
+metrics = {
+  "avg_objective": 977.0091545138889,
+  "avg_reuse_rate": 0.3522568912834838,
+  "avg_downloaded_mb": 151735.1875,
+  "avg_ACT": 718.736603298611,
+  "avg_AMS": 1235.2817057291668,
+  "reuse_drop": 0.03106255304163341,
+  "download_inc_ratio": 0.0435734445669994
+}
+params = {
+  "lambda_cong": 0.7735334980794343,
+  "lambda_frag": 0.058755191787780554,
+  "lambda_aff": 0.14785030139729538,
+  "lambda_task_load": 0.0035153415124346446,
+  "alpha1_reuse": 0.35345906876621436,
+  "alpha2_future": 0.6415431785975618,
+  "alpha3_pull": 0.11663794402268832,
+  "alpha4_evict": 0.12858407266718358,
+  "greedy_load_factor": 1.2397563164177696
+}
+[I 2026-05-15 20:29:57,493] Trial 4 finished with value: 1007.0880102952356 and parameters: {'lambda_cong': 0.7735334980794343, 'lambda_frag': 0.058755191787780554, 'lambda_aff': 0.14785030139729538, 'lambda_task_load': 0.0035153415124346446, 'alpha1_reuse': 0.35345906876621436, 'alpha2_future': 0.6415431785975618, 'alpha3_pull': 0.11663794402268832, 'alpha4_evict': 0.12858407266718358, 'greedy_load_factor': 1.2397563164177696}. Best is trial 4 with value: 1007.0880102952356.
+====================================================================================================
+[TRIAL] 5
+score = 1186.8024610316832
+metrics = {
+  "avg_objective": 1131.9018270399306,
+  "avg_reuse_rate": 0.3272980945910389,
+  "avg_downloaded_mb": 157617.5,
+  "avg_ACT": 1011.9569092881942,
+  "avg_AMS": 1251.8467447916667,
+  "reuse_drop": 0.056021349734078296,
+  "download_inc_ratio": 0.08402961837074889
+}
+params = {
+  "lambda_cong": 0.25884519613466617,
+  "lambda_frag": 0.7205617244138385,
+  "lambda_aff": 0.4910059897156427,
+  "lambda_task_load": 0.054183355615888766,
+  "alpha1_reuse": 0.5276673981091832,
+  "alpha2_future": 0.17283838440154564,
+  "alpha3_pull": 0.23354326498812839,
+  "alpha4_evict": 0.08744014168508332,
+  "greedy_load_factor": 1.8005630779206683
+}
+[I 2026-05-15 20:37:44,952] Trial 5 finished with value: 1186.8024610316832 and parameters: {'lambda_cong': 0.25884519613466617, 'lambda_frag': 0.7205617244138385, 'lambda_aff': 0.4910059897156427, 'lambda_task_load': 0.054183355615888766, 'alpha1_reuse': 0.5276673981091832, 'alpha2_future': 0.17283838440154564, 'alpha3_pull': 0.23354326498812839, 'alpha4_evict': 0.08744014168508332, 'greedy_load_factor': 1.8005630779206683}. Best is trial 4 with value: 1007.0880102952356.
+====================================================================================================
+[TRIAL] 6
+score = 1185.8505579207956
+metrics = {
+  "avg_objective": 992.6594600694443,
+  "avg_reuse_rate": 0.18854778758146337,
+  "avg_downloaded_mb": 190684.0625,
+  "avg_ACT": 673.2913810763888,
+  "avg_AMS": 1312.0275390624997,
+  "reuse_drop": 0.19477165674365385,
+  "download_inc_ratio": 0.31144810380356897
+}
+params = {
+  "lambda_cong": 0.48628544836443527,
+  "lambda_frag": 0.02909758246819341,
+  "lambda_aff": 0.978624473723314,
+  "lambda_task_load": 0.14153662871443914,
+  "alpha1_reuse": 0.6023167193119761,
+  "alpha2_future": 0.2865100264451874,
+  "alpha3_pull": 0.26817615229835645,
+  "alpha4_evict": 0.27897331525800584,
+  "greedy_load_factor": 2.172304389674498
+}
+[I 2026-05-15 20:49:28,466] Trial 6 finished with value: 1185.8505579207956 and parameters: {'lambda_cong': 0.48628544836443527, 'lambda_frag': 0.02909758246819341, 'lambda_aff': 0.978624473723314, 'lambda_task_load': 0.14153662871443914, 'alpha1_reuse': 0.6023167193119761, 'alpha2_future': 0.2865100264451874, 'alpha3_pull': 0.26817615229835645, 'alpha4_evict': 0.27897331525800584, 'greedy_load_factor': 2.172304389674498}. Best is trial 4 with value: 1007.0880102952356.
+====================================================================================================
+[TRIAL] 7
+score = 1038.9967411330233
+metrics = {
+  "avg_objective": 1026.3315167100695,
+  "avg_reuse_rate": 0.3702616700905007,
+  "avg_downloaded_mb": 148088.3125,
+  "avg_ACT": 828.5095503472221,
+  "avg_AMS": 1224.1534830729167,
+  "reuse_drop": 0.013057774234616515,
+  "download_inc_ratio": 0.018491708627171494
+}
+params = {
+  "lambda_cong": 0.7795887114087633,
+  "lambda_frag": 0.5960046594001535,
+  "lambda_aff": 0.613681719904416,
+  "lambda_task_load": 0.0035667069876449855,
+  "alpha1_reuse": 0.5700341751868327,
+  "alpha2_future": 0.4816386392704952,
+  "alpha3_pull": 0.24429495435057208,
+  "alpha4_evict": 0.15815011271699544,
+  "greedy_load_factor": 1.333545288835071
+}
+[I 2026-05-15 20:56:22,601] Trial 7 finished with value: 1038.9967411330233 and parameters: {'lambda_cong': 0.7795887114087633, 'lambda_frag': 0.5960046594001535, 'lambda_aff': 0.613681719904416, 'lambda_task_load': 0.0035667069876449855, 'alpha1_reuse': 0.5700341751868327, 'alpha2_future': 0.4816386392704952, 'alpha3_pull': 0.24429495435057208, 'alpha4_evict': 0.15815011271699544, 'greedy_load_factor': 1.333545288835071}. Best is trial 4 with value: 1007.0880102952356.
+====================================================================================================
+[TRIAL] 8
+score = 1010.1225340553817
+metrics = {
+  "avg_objective": 966.0288617621528,
+  "avg_reuse_rate": 0.3377492105959349,
+  "avg_downloaded_mb": 154653.6875,
+  "avg_ACT": 689.1520920138888,
+  "avg_AMS": 1242.9056315104167,
+  "reuse_drop": 0.04557023372918234,
+  "download_inc_ratio": 0.06364571091569184
+}
+params = {
+  "lambda_cong": 0.308162397311671,
+  "lambda_frag": 0.3314205698514744,
+  "lambda_aff": 0.3692611663129753,
+  "lambda_task_load": 0.17356451180456553,
+  "alpha1_reuse": 0.15989555358276672,
+  "alpha2_future": 0.2315526773535836,
+  "alpha3_pull": 0.3838277491817507,
+  "alpha4_evict": 0.15580153188136242,
+  "greedy_load_factor": 1.1068565333960523
+}
+[I 2026-05-15 21:05:13,489] Trial 8 finished with value: 1010.1225340553817 and parameters: {'lambda_cong': 0.308162397311671, 'lambda_frag': 0.3314205698514744, 'lambda_aff': 0.3692611663129753, 'lambda_task_load': 0.17356451180456553, 'alpha1_reuse': 0.15989555358276672, 'alpha2_future': 0.2315526773535836, 'alpha3_pull': 0.3838277491817507, 'alpha4_evict': 0.15580153188136242, 'greedy_load_factor': 1.1068565333960523}. Best is trial 4 with value: 1007.0880102952356.
+====================================================================================================
+[TRIAL] 9
+score = 1258.0098680610793
+metrics = {
+  "avg_objective": 990.454568142361,
+  "avg_reuse_rate": 0.11526725475667651,
+  "avg_downloaded_mb": 209755.375,
+  "avg_ACT": 634.1317925347222,
+  "avg_AMS": 1346.77734375,
+  "reuse_drop": 0.2680521895684407,
+  "download_inc_ratio": 0.4426129021997134
+}
+params = {
+  "lambda_cong": 1.0796703735189526,
+  "lambda_frag": 0.0345298900321296,
+  "lambda_aff": 1.4259842584247644,
+  "lambda_task_load": 0.17585610481837022,
+  "alpha1_reuse": 0.2754488409199285,
+  "alpha2_future": 0.2756429799444105,
+  "alpha3_pull": 0.4776071571800334,
+  "alpha4_evict": 0.23763687843383727,
+  "greedy_load_factor": 1.6186926061014768
+}
+[I 2026-05-15 21:21:10,464] Trial 9 finished with value: 1258.0098680610793 and parameters: {'lambda_cong': 1.0796703735189526, 'lambda_frag': 0.0345298900321296, 'lambda_aff': 1.4259842584247644, 'lambda_task_load': 0.17585610481837022, 'alpha1_reuse': 0.2754488409199285, 'alpha2_future': 0.2756429799444105, 'alpha3_pull': 0.4776071571800334, 'alpha4_evict': 0.23763687843383727, 'greedy_load_factor': 1.6186926061014768}. Best is trial 4 with value: 1007.0880102952356.
+====================================================================================================
+[TRIAL] 10
+score = 1135.7001576008606
+metrics = {
+  "avg_objective": 1134.1663754340282,
+  "avg_reuse_rate": 0.3814022166165766,
+  "avg_downloaded_mb": 145162.125,
+  "avg_ACT": 1018.1476271701387,
+  "avg_AMS": 1250.185123697917,
+  "reuse_drop": 0.0019172277085406364,
+  "download_inc_ratio": 0.0
+}
+params = {
+  "lambda_cong": 1.8700818351060224,
+  "lambda_frag": 0.2590371761766192,
+  "lambda_aff": 1.169705927024564,
+  "lambda_task_load": 0.18431289221023556,
+  "alpha1_reuse": 0.381157136763985,
+  "alpha2_future": 0.5344721961439854,
+  "alpha3_pull": 0.13627015746411308,
+  "alpha4_evict": 0.09694570963428988,
+  "greedy_load_factor": 2.3927018948170415
+}
+[I 2026-05-15 21:25:42,872] Trial 10 finished with value: 1135.7001576008606 and parameters: {'lambda_cong': 1.8700818351060224, 'lambda_frag': 0.2590371761766192, 'lambda_aff': 1.169705927024564, 'lambda_task_load': 0.18431289221023556, 'alpha1_reuse': 0.381157136763985, 'alpha2_future': 0.5344721961439854, 'alpha3_pull': 0.13627015746411308, 'alpha4_evict': 0.09694570963428988, 'greedy_load_factor': 2.3927018948170415}. Best is trial 4 with value: 1007.0880102952356.
+====================================================================================================
+[TRIAL] 11
+score = 1203.3922643453736
+metrics = {
+  "avg_objective": 1143.6708869357637,
+  "avg_reuse_rate": 0.322804472399977,
+  "avg_downloaded_mb": 159102.8125,
+  "avg_ACT": 1025.9483493923608,
+  "avg_AMS": 1261.3934244791667,
+  "reuse_drop": 0.060514971925140215,
+  "download_inc_ratio": 0.09424499891248
+}
+params = {
+  "lambda_cong": 1.0748724727836232,
+  "lambda_frag": 0.06204246620899226,
+  "lambda_aff": 0.1266356860246042,
+  "lambda_task_load": 0.0006215691353325462,
+  "alpha1_reuse": 0.2495448985281346,
+  "alpha2_future": 0.6531955481513634,
+  "alpha3_pull": 0.07137339268383222,
+  "alpha4_evict": 0.006510573586807664,
+  "greedy_load_factor": 1.8535351178838475
+}
+[I 2026-05-15 21:32:03,625] Trial 11 finished with value: 1203.3922643453736 and parameters: {'lambda_cong': 1.0748724727836232, 'lambda_frag': 0.06204246620899226, 'lambda_aff': 0.1266356860246042, 'lambda_task_load': 0.0006215691353325462, 'alpha1_reuse': 0.2495448985281346, 'alpha2_future': 0.6531955481513634, 'alpha3_pull': 0.07137339268383222, 'alpha4_evict': 0.006510573586807664, 'greedy_load_factor': 1.8535351178838475}. Best is trial 4 with value: 1007.0880102952356.
+====================================================================================================
+[TRIAL] 12
+score = 987.5477961990547
+metrics = {
+  "avg_objective": 954.1093250868057,
+  "avg_reuse_rate": 0.35008950855074417,
+  "avg_downloaded_mb": 153705.0,
+  "avg_ACT": 669.6200173611111,
+  "avg_AMS": 1238.5986328125,
+  "reuse_drop": 0.033229935774373054,
+  "download_inc_ratio": 0.05712102077292153
+}
+params = {
+  "lambda_cong": 0.5520247955671029,
+  "lambda_frag": 0.18544447336668968,
+  "lambda_aff": 0.19358956099547475,
+  "lambda_task_load": 0.12538271971374518,
+  "alpha1_reuse": 0.07129113279510274,
+  "alpha2_future": 0.6880682507452102,
+  "alpha3_pull": 0.5271257234884663,
+  "alpha4_evict": 0.18368683628830726,
+  "greedy_load_factor": 1.0779047282704046
+}
+[I 2026-05-15 21:40:47,107] Trial 12 finished with value: 987.5477961990547 and parameters: {'lambda_cong': 0.5520247955671029, 'lambda_frag': 0.18544447336668968, 'lambda_aff': 0.19358956099547475, 'lambda_task_load': 0.12538271971374518, 'alpha1_reuse': 0.07129113279510274, 'alpha2_future': 0.6880682507452102, 'alpha3_pull': 0.5271257234884663, 'alpha4_evict': 0.18368683628830726, 'greedy_load_factor': 1.0779047282704046}. Best is trial 12 with value: 987.5477961990547.
+====================================================================================================
+[TRIAL] 13
+score = 979.3764050299575
+metrics = {
+  "avg_objective": 942.956501953125,
+  "avg_reuse_rate": 0.34641197938231044,
+  "avg_downloaded_mb": 153752.75,
+  "avg_ACT": 647.1051588541666,
+  "avg_AMS": 1238.8078450520836,
+  "reuse_drop": 0.03690746494280678,
+  "download_inc_ratio": 0.057449426021559544
+}
+params = {
+  "lambda_cong": 0.5253678933497246,
+  "lambda_frag": 0.1312603276200841,
+  "lambda_aff": 0.179787009099046,
+  "lambda_task_load": 0.11679831577664641,
+  "alpha1_reuse": 0.08412760906268531,
+  "alpha2_future": 0.6967617411971605,
+  "alpha3_pull": 0.5564403277660733,
+  "alpha4_evict": 0.20396422224669455,
+  "greedy_load_factor": 1.0613543456494143
+}
+[I 2026-05-15 21:49:37,878] Trial 13 finished with value: 979.3764050299575 and parameters: {'lambda_cong': 0.5253678933497246, 'lambda_frag': 0.1312603276200841, 'lambda_aff': 0.179787009099046, 'lambda_task_load': 0.11679831577664641, 'alpha1_reuse': 0.08412760906268531, 'alpha2_future': 0.6967617411971605, 'alpha3_pull': 0.5564403277660733, 'alpha4_evict': 0.20396422224669455, 'greedy_load_factor': 1.0613543456494143}. Best is trial 13 with value: 979.3764050299575.
+====================================================================================================
+[TRIAL] 14
+score = 974.3178107933122
+metrics = {
+  "avg_objective": 947.5961597222224,
+  "avg_reuse_rate": 0.35693904147747135,
+  "avg_downloaded_mb": 152205.9375,
+  "avg_ACT": 658.6915056423611,
+  "avg_AMS": 1236.5008138020833,
+  "reuse_drop": 0.026380402847645867,
+  "download_inc_ratio": 0.04681107327477633
+}
+params = {
+  "lambda_cong": 0.4629027034843985,
+  "lambda_frag": 0.162114766276413,
+  "lambda_aff": 0.18148133442494854,
+  "lambda_task_load": 0.12149332220053617,
+  "alpha1_reuse": 0.05723491391567358,
+  "alpha2_future": 0.6943547642808352,
+  "alpha3_pull": 0.5593049441300355,
+  "alpha4_evict": 0.206495256842529,
+  "greedy_load_factor": 1.0723256636125305
+}
+[I 2026-05-15 21:58:20,722] Trial 14 finished with value: 974.3178107933122 and parameters: {'lambda_cong': 0.4629027034843985, 'lambda_frag': 0.162114766276413, 'lambda_aff': 0.18148133442494854, 'lambda_task_load': 0.12149332220053617, 'alpha1_reuse': 0.05723491391567358, 'alpha2_future': 0.6943547642808352, 'alpha3_pull': 0.5593049441300355, 'alpha4_evict': 0.206495256842529, 'greedy_load_factor': 1.0723256636125305}. Best is trial 14 with value: 974.3178107933122.
+====================================================================================================
+[TRIAL] 15
+score = 1145.210166979808
+metrics = {
+  "avg_objective": 1093.1471786024304,
+  "avg_reuse_rate": 0.33003724890636976,
+  "avg_downloaded_mb": 156834.375,
+  "avg_ACT": 940.711805121528,
+  "avg_AMS": 1245.5825520833332,
+  "reuse_drop": 0.05328219541874746,
+  "download_inc_ratio": 0.0786436003531646
+}
+params = {
+  "lambda_cong": 0.41886349932853406,
+  "lambda_frag": 0.1263891197349926,
+  "lambda_aff": 0.08618425623365619,
+  "lambda_task_load": 0.0997921270396704,
+  "alpha1_reuse": 0.05419644179031987,
+  "alpha2_future": 0.07667795363775481,
+  "alpha3_pull": 0.5917122123742058,
+  "alpha4_evict": 0.214893808718158,
+  "greedy_load_factor": 1.5500489298399207
+}
+[I 2026-05-15 22:09:46,659] Trial 15 finished with value: 1145.210166979808 and parameters: {'lambda_cong': 0.41886349932853406, 'lambda_frag': 0.1263891197349926, 'lambda_aff': 0.08618425623365619, 'lambda_task_load': 0.0997921270396704, 'alpha1_reuse': 0.05419644179031987, 'alpha2_future': 0.07667795363775481, 'alpha3_pull': 0.5917122123742058, 'alpha4_evict': 0.214893808718158, 'greedy_load_factor': 1.5500489298399207}. Best is trial 14 with value: 974.3178107933122.
+====================================================================================================
+[TRIAL] 16
+score = 977.8594900876735
+metrics = {
+  "avg_objective": 942.6924644097222,
+  "avg_reuse_rate": 0.34677705429196304,
+  "avg_downloaded_mb": 152588.5625,
+  "avg_ACT": 647.8889327256944,
+  "avg_AMS": 1237.4959960937501,
+  "reuse_drop": 0.03654239003315418,
+  "download_inc_ratio": 0.04944261376189932
+}
+params = {
+  "lambda_cong": 0.6991589366857164,
+  "lambda_frag": 0.45131840529090284,
+  "lambda_aff": 0.24739921592444045,
+  "lambda_task_load": 0.1342156894195521,
+  "alpha1_reuse": 0.1648094521853622,
+  "alpha2_future": 0.5796622681140332,
+  "alpha3_pull": 0.6601238173118031,
+  "alpha4_evict": 0.28966582265566454,
+  "greedy_load_factor": 1.0541840790320252
+}
+[I 2026-05-15 22:18:24,608] Trial 16 finished with value: 977.8594900876735 and parameters: {'lambda_cong': 0.6991589366857164, 'lambda_frag': 0.45131840529090284, 'lambda_aff': 0.24739921592444045, 'lambda_task_load': 0.1342156894195521, 'alpha1_reuse': 0.1648094521853622, 'alpha2_future': 0.5796622681140332, 'alpha3_pull': 0.6601238173118031, 'alpha4_evict': 0.28966582265566454, 'greedy_load_factor': 1.0541840790320252}. Best is trial 14 with value: 974.3178107933122.
+====================================================================================================
+[TRIAL] 17
+score = 1088.5102501114302
+metrics = {
+  "avg_objective": 1058.2751736111109,
+  "avg_reuse_rate": 0.35275855236104975,
+  "avg_downloaded_mb": 152410.75,
+  "avg_ACT": 875.5039605034722,
+  "avg_AMS": 1241.04638671875,
+  "reuse_drop": 0.03056089196406747,
+  "download_inc_ratio": 0.048219691075544385
+}
+params = {
+  "lambda_cong": 0.7128504737047292,
+  "lambda_frag": 0.4144359453948709,
+  "lambda_aff": 0.25851086714880334,
+  "lambda_task_load": 0.14681700487942098,
+  "alpha1_reuse": 0.17345751665336817,
+  "alpha2_future": 0.5733297083120328,
+  "alpha3_pull": 0.6963688552520785,
+  "alpha4_evict": 0.2863872294095741,
+  "greedy_load_factor": 1.569912878256831
+}
+[I 2026-05-15 22:26:27,002] Trial 17 finished with value: 1088.5102501114302 and parameters: {'lambda_cong': 0.7128504737047292, 'lambda_frag': 0.4144359453948709, 'lambda_aff': 0.25851086714880334, 'lambda_task_load': 0.14681700487942098, 'alpha1_reuse': 0.17345751665336817, 'alpha2_future': 0.5733297083120328, 'alpha3_pull': 0.6963688552520785, 'alpha4_evict': 0.2863872294095741, 'greedy_load_factor': 1.569912878256831}. Best is trial 14 with value: 974.3178107933122.
+====================================================================================================
+[TRIAL] 18
+score = 1285.356083178307
+metrics = {
+  "avg_objective": 1236.8518072916663,
+  "avg_reuse_rate": 0.3335779256931564,
+  "avg_downloaded_mb": 155954.5,
+  "avg_ACT": 1222.3384778645832,
+  "avg_AMS": 1251.36513671875,
+  "reuse_drop": 0.0497415186319608,
+  "download_inc_ratio": 0.07259217484226661
+}
+params = {
+  "lambda_cong": 1.0313608510527859,
+  "lambda_frag": 0.4460401278684867,
+  "lambda_aff": 0.09457337649567092,
+  "lambda_task_load": 0.044349440136618415,
+  "alpha1_reuse": 0.15958236818338078,
+  "alpha2_future": 0.39360549757921803,
+  "alpha3_pull": 0.6225559329924019,
+  "alpha4_evict": 0.24986364696793656,
+  "greedy_load_factor": 2.020482842645821
+}
+[I 2026-05-15 22:34:41,541] Trial 18 finished with value: 1285.356083178307 and parameters: {'lambda_cong': 1.0313608510527859, 'lambda_frag': 0.4460401278684867, 'lambda_aff': 0.09457337649567092, 'lambda_task_load': 0.044349440136618415, 'alpha1_reuse': 0.15958236818338078, 'alpha2_future': 0.39360549757921803, 'alpha3_pull': 0.6225559329924019, 'alpha4_evict': 0.24986364696793656, 'greedy_load_factor': 2.020482842645821}. Best is trial 14 with value: 974.3178107933122.
+====================================================================================================
+[TRIAL] 19
+score = 1074.9092220746636
+metrics = {
+  "avg_objective": 1041.9592645399307,
+  "avg_reuse_rate": 0.3492457967029511,
+  "avg_downloaded_mb": 152295.25,
+  "avg_ACT": 842.6453845486112,
+  "avg_AMS": 1241.27314453125,
+  "reuse_drop": 0.03407364762216614,
+  "download_inc_ratio": 0.04742532864166603
+}
+params = {
+  "lambda_cong": 0.3986083999103817,
+  "lambda_frag": 0.988795453896836,
+  "lambda_aff": 0.2996741016717797,
+  "lambda_task_load": 0.08412143747202852,
+  "alpha1_reuse": 0.22264711842924204,
+  "alpha2_future": 0.5884830347173473,
+  "alpha3_pull": 0.46522514253041697,
+  "alpha4_evict": 0.2551411536029791,
+  "greedy_load_factor": 1.466790630723119
+}
+[I 2026-05-15 22:41:45,897] Trial 19 finished with value: 1074.9092220746636 and parameters: {'lambda_cong': 0.3986083999103817, 'lambda_frag': 0.988795453896836, 'lambda_aff': 0.2996741016717797, 'lambda_task_load': 0.08412143747202852, 'alpha1_reuse': 0.22264711842924204, 'alpha2_future': 0.5884830347173473, 'alpha3_pull': 0.46522514253041697, 'alpha4_evict': 0.2551411536029791, 'greedy_load_factor': 1.466790630723119}. Best is trial 14 with value: 974.3178107933122.
+====================================================================================================
+[TRIAL] 20
+score = 1005.8763127889118
+metrics = {
+  "avg_objective": 965.7738906249999,
+  "avg_reuse_rate": 0.34162590794027026,
+  "avg_downloaded_mb": 153575.4375,
+  "avg_ACT": 690.8373320312498,
+  "avg_AMS": 1240.7104492187498,
+  "reuse_drop": 0.04169353638484696,
+  "download_inc_ratio": 0.05622994213361967
+}
+params = {
+  "lambda_cong": 1.3967080323045666,
+  "lambda_frag": 0.1944944666645361,
+  "lambda_aff": 0.5283519811338341,
+  "lambda_task_load": 0.12299917208236558,
+  "alpha1_reuse": 0.32486599847894043,
+  "alpha2_future": 0.606285889159726,
+  "alpha3_pull": 0.6330500562127825,
+  "alpha4_evict": 0.1886046633277552,
+  "greedy_load_factor": 1.1719701126517739
+}
+[I 2026-05-15 22:49:40,696] Trial 20 finished with value: 1005.8763127889118 and parameters: {'lambda_cong': 1.3967080323045666, 'lambda_frag': 0.1944944666645361, 'lambda_aff': 0.5283519811338341, 'lambda_task_load': 0.12299917208236558, 'alpha1_reuse': 0.32486599847894043, 'alpha2_future': 0.606285889159726, 'alpha3_pull': 0.6330500562127825, 'alpha4_evict': 0.1886046633277552, 'greedy_load_factor': 1.1719701126517739}. Best is trial 14 with value: 974.3178107933122.
+====================================================================================================
+[BEST]
+best_score = 974.3178107933122
+best_params =
+{
+  "lambda_cong": 0.4629027034843985,
+  "lambda_frag": 0.162114766276413,
+  "lambda_aff": 0.18148133442494854,
+  "lambda_task_load": 0.12149332220053617,
+  "alpha1_reuse": 0.05723491391567358,
+  "alpha2_future": 0.6943547642808352,
+  "alpha3_pull": 0.5593049441300355,
+  "alpha4_evict": 0.206495256842529,
+  "greedy_load_factor": 1.0723256636125305
+}
+[OK] wrote results/drtp/optuna/fg_online_norm_objfocus_fast16_runs/best_params.json

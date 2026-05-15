@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_online_norm.py", line 1864, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_online_norm.py", line 1851, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_online_norm.py", line 1647, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_online_norm.py", line 1002, in best_response_assignment
+    swap_trial, swap_tag = self._best_swap_neighbor(
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_online_norm.py", line 834, in _best_swap_neighbor
+    new_phi = self.potential(trial)
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_online_norm.py", line 591, in potential
+    total, _ = self.potential_components(assignment)
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_online_norm.py", line 289, in potential_components
+    layer_cnts = self.node_layer_counts(assignment)
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_online_norm.py", line 500, in node_layer_counts
+    cnts[eid][l] += 1
+  File "/home/zhjia/miniconda3/envs/fg/lib/python3.10/collections/__init__.py", line 579, in __missing__
+    def __missing__(self, key):
+KeyboardInterrupt

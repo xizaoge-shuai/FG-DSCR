@@ -10,3 +10,4 @@
 [I 2026-05-14 23:20:24,710] Trial 8 pruned. 
 [I 2026-05-14 23:20:34,511] Trial 9 pruned. 
 [I 2026-05-14 23:21:03,035] Trial 10 pruned. 
+[I 2026-05-15 19:30:24,312] Using an existing study with name 'fg_phase1_overall_cacheonly' instead of creating a new one.

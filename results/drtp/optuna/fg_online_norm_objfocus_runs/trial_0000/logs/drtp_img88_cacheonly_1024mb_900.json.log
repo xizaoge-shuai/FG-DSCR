@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_online_norm.py", line 1864, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_online_norm.py", line 1851, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_online_norm.py", line 1669, in run
+    ordered_seq = self.order_node(cids, self.nodes[eid])
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_online_norm.py", line 1367, in order_node
+    return self.order_node_with_beam(cids, node)
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_online_norm.py", line 1447, in order_node_with_beam
+    gain_raw, new_cache, _, new_clock = self.score_candidate(
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_online_norm.py", line 1292, in score_candidate
+    evicted = self.choose_eviction_set(
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_online_norm.py", line 1202, in choose_eviction_set
+    if val < dp[nw]:
+KeyboardInterrupt

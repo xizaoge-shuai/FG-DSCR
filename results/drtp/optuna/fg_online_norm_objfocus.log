@@ -1,0 +1,31 @@
+python3: can't open file '/home/zhjia/FG-DSCR/tools/optuna_tune_fg_online_norm.py': [Errno 2] No such file or directory
+[INFO] cases = 24
+[INFO] base_dir = results/drtp/final_exp/cacheonly_dg_0_1024_fg
+[INFO] out_root = results/drtp/optuna/fg_online_norm_objfocus_runs
+[INFO] study_name = fg_online_norm_objfocus_cacheonly
+[INFO] storage = sqlite:///results/drtp/optuna/fg_online_norm_objfocus_cacheonly.db
+[INFO] reuse_penalty = 800.0
+[INFO] download_penalty = 120.0
+[BASE] {
+  "objective": 1239.0256353202165,
+  "reuse_rate": 0.39259616239123246,
+  "downloaded_mb": 187967.0,
+  "ACT": 877.0188053626547,
+  "AMS": 1601.0324652777779
+}
+[I 2026-05-15 19:31:06,979] A new study created in RDB with name: fg_online_norm_objfocus_cacheonly
+[INFO] cases = 24
+[INFO] base_dir = results/drtp/final_exp/cacheonly_dg_0_1024_fg
+[INFO] out_root = results/drtp/optuna/fg_online_norm_objfocus_runs
+[INFO] study_name = fg_online_norm_objfocus_cacheonly
+[INFO] storage = sqlite:///results/drtp/optuna/fg_online_norm_objfocus_cacheonly.db
+[INFO] reuse_penalty = 800.0
+[INFO] download_penalty = 120.0
+[BASE] {
+  "objective": 1239.0256353202165,
+  "reuse_rate": 0.39259616239123246,
+  "downloaded_mb": 187967.0,
+  "ACT": 877.0188053626547,
+  "AMS": 1601.0324652777779
+}
+[I 2026-05-15 19:36:36,720] Using an existing study with name 'fg_online_norm_objfocus_cacheonly' instead of creating a new one.
