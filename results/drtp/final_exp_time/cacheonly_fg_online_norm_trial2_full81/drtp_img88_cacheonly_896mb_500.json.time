@@ -1,0 +1,23 @@
+	Command being timed: "python3 -u scripts/fg_dscr_online_norm.py --case cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_500.json --out results/drtp/final_exp/cacheonly_fg_online_norm_trial2_full81/drtp_img88_cacheonly_896mb_500.json --beam 1 --cache-policy pgdsf --order-policy dynamic_state --algo-name FG-DSCR-GC-OnlineNorm-trial2-Full81 --online-norm --lambda-cong 0.3363711263929212 --lambda-frag 0.015083169859921206 --lambda-aff 0.2647843131409252 --lambda-task-load 0.1546769021394696 --alpha1-reuse 0.49337452237350254 --alpha2-future 0.6103918616249673 --alpha3-pull 0.34499924763016665 --alpha4-evict 0.17083198845819506 --greedy-load-factor 1.0576446069894745"
+	User time (seconds): 70.05
+	System time (seconds): 0.03
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:10.12
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20392
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 6558
+	Voluntary context switches: 1
+	Involuntary context switches: 7259
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 1496
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
