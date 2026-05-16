@@ -1,0 +1,23 @@
+	Command being timed: "python3 -u scripts/fg_dscr.py --case cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_1000.json --out results/drtp/final_exp/cacheonly_fg_phase1_validbest_full81/drtp_img88_cacheonly_0mb_1000.json --beam 1 --lambda-cong 0.6877172495876589 --lambda-frag 0.7851759613930136 --lambda-aff 0.39934756431671947 --lambda-task-load 0.5142344384136116 --cache-policy pgdsf --order-policy dynamic_state --greedy-load-factor 0.973931655089634 --algo-name FG-DSCR-GC-Phase1ValidBest-Full81 --theta-cong-count 0.046450412719997725 --lambda-cache-core 0.0 --cache-core-ratio 0.90 --bw-gamma 1.0 --cache-bw-eta 0.0 --cache-bw-ref 100"
+	User time (seconds): 135.13
+	System time (seconds): 0.01
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:15.19
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 22348
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 4715
+	Voluntary context switches: 1
+	Involuntary context switches: 13715
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 2784
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

@@ -1,0 +1,75 @@
+[INFO] cases = 81
+[INFO] base_dir = results/drtp/final_exp/cacheonly_dg_0_1024_fg
+[INFO] base_obj = 1259.0302552627336
+[INFO] base_downloaded = 203179.71604938273
+[INFO] base_frag = 1.5003987290220402
+[INFO] frag_penalty = 0.2
+[INFO] download_penalty = 0.1
+[I 2026-05-16 21:14:53,132] A new study created in RDB with name: fg_phase1_fragaware_v2_full81_cacheonly
+[Trial 0] case 1/81: drtp_img88_cacheonly_0mb_1000
+[Trial 0] done 1/81: obj=2354.832, frag=1.500389, reuse=0.000000, download=515681.0
+[Trial 0] case 2/81: drtp_img88_cacheonly_0mb_200
+[Trial 0] done 2/81: obj=461.260, frag=1.500379, reuse=0.000000, download=108808.0
+[Trial 0] case 3/81: drtp_img88_cacheonly_0mb_300
+[Trial 0] done 3/81: obj=699.745, frag=1.500399, reuse=0.000000, download=156264.0
+[Trial 0] case 4/81: drtp_img88_cacheonly_0mb_400
+[Trial 0] done 4/81: obj=928.590, frag=1.500400, reuse=0.000000, download=209993.0
+[Trial 0] case 5/81: drtp_img88_cacheonly_0mb_500
+[Trial 0] done 5/81: obj=1194.846, frag=1.500459, reuse=0.000000, download=269571.0
+[Trial 0] case 6/81: drtp_img88_cacheonly_0mb_600
+[Trial 0] done 6/81: obj=1388.653, frag=1.500396, reuse=0.000000, download=318200.0
+[Trial 0] case 7/81: drtp_img88_cacheonly_0mb_700
+[Trial 0] done 7/81: obj=1641.208, frag=1.500397, reuse=0.000000, download=365300.0
+[Trial 0] case 8/81: drtp_img88_cacheonly_0mb_800
+[Trial 0] done 8/81: obj=1871.354, frag=1.500402, reuse=0.000000, download=416482.0
+[Trial 0] case 9/81: drtp_img88_cacheonly_0mb_900
+[Trial 0] done 9/81: obj=2110.657, frag=1.500389, reuse=0.000000, download=463788.0
+[Trial 0] case 10/81: drtp_img88_cacheonly_1024mb_1000
+[Trial 0] done 10/81: obj=1675.946, frag=1.500389, reuse=0.940007, download=30937.0
+[Trial 0] case 11/81: drtp_img88_cacheonly_1024mb_200
+[Trial 0] done 11/81: obj=337.449, frag=1.500379, reuse=0.850461, download=16271.0
+[Trial 0] case 12/81: drtp_img88_cacheonly_1024mb_300
+[Trial 0] done 12/81: obj=517.697, frag=1.500399, reuse=0.891165, download=17007.0
+[Trial 0] case 13/81: drtp_img88_cacheonly_1024mb_400
+[Trial 0] done 13/81: obj=674.542, frag=1.500400, reuse=0.911297, download=18627.0
+[Trial 0] case 14/81: drtp_img88_cacheonly_1024mb_500
+[Trial 0] done 14/81: obj=837.998, frag=1.500459, reuse=0.934192, download=17740.0
+[Trial 0] case 15/81: drtp_img88_cacheonly_1024mb_600
+[Trial 0] done 15/81: obj=993.341, frag=1.500396, reuse=0.930405, download=22145.0
+[Trial 0] case 16/81: drtp_img88_cacheonly_1024mb_700
+[Trial 0] done 16/81: obj=1173.001, frag=1.500397, reuse=0.930838, download=25265.0
+[Trial 0] case 17/81: drtp_img88_cacheonly_1024mb_800
+[Trial 0] done 17/81: obj=1331.139, frag=1.500402, reuse=0.946286, download=22371.0
+[Trial 0] case 18/81: drtp_img88_cacheonly_1024mb_900
+[Trial 0] done 18/81: obj=1503.226, frag=1.500389, reuse=0.937515, download=28980.0
+[Trial 0] case 19/81: drtp_img88_cacheonly_128mb_1000
+[Trial 0] done 19/81: obj=2303.029, frag=1.500389, reuse=0.071996, download=478554.0
+[Trial 0] case 20/81: drtp_img88_cacheonly_128mb_200
+[Trial 0] done 20/81: obj=451.689, frag=1.500379, reuse=0.058176, download=102478.0
+[Trial 0] case 21/81: drtp_img88_cacheonly_128mb_300
+[Trial 0] done 21/81: obj=686.762, frag=1.500399, reuse=0.064820, download=146135.0
+[Trial 0] case 22/81: drtp_img88_cacheonly_128mb_400
+[Trial 0] done 22/81: obj=909.064, frag=1.500400, reuse=0.066893, download=195946.0
+[Trial 0] case 23/81: drtp_img88_cacheonly_128mb_500
+[Trial 0] done 23/81: obj=1165.569, frag=1.500459, reuse=0.072927, download=249912.0
+[Trial 0] case 24/81: drtp_img88_cacheonly_128mb_600
+[Trial 0] done 24/81: obj=1360.322, frag=1.500396, reuse=0.064513, download=297672.0
+[Trial 0] case 25/81: drtp_img88_cacheonly_128mb_700
+[Trial 0] done 25/81: obj=1605.822, frag=1.500397, reuse=0.068631, download=340229.0
+[Trial 0] case 26/81: drtp_img88_cacheonly_128mb_800
+[Trial 0] done 26/81: obj=1828.499, frag=1.500402, reuse=0.074099, download=385621.0
+[Trial 0] case 27/81: drtp_img88_cacheonly_128mb_900
+[Trial 0] done 27/81: obj=2065.201, frag=1.500389, reuse=0.072977, download=429942.0
+[Trial 0] case 28/81: drtp_img88_cacheonly_256mb_1000
+[Trial 0] done 28/81: obj=2230.753, frag=1.500389, reuse=0.174272, download=425812.0
+[Trial 0] case 29/81: drtp_img88_cacheonly_256mb_200
+[Trial 0] done 29/81: obj=439.166, frag=1.500379, reuse=0.141699, download=93390.0
+[Trial 0] case 30/81: drtp_img88_cacheonly_256mb_300
+[Trial 0] done 30/81: obj=667.256, frag=1.500399, reuse=0.156133, download=131866.0
+[Trial 0] case 31/81: drtp_img88_cacheonly_256mb_400
+[Trial 0] done 31/81: obj=882.312, frag=1.500400, reuse=0.165677, download=175202.0
+[Trial 0] case 32/81: drtp_img88_cacheonly_256mb_500
+[Trial 0] done 32/81: obj=1134.639, frag=1.500459, reuse=0.161004, download=226169.0
+[Trial 0] case 33/81: drtp_img88_cacheonly_256mb_600
+[Trial 0] done 33/81: obj=1317.402, frag=1.500396, reuse=0.163759, download=266092.0
+[Trial 0] case 34/81: drtp_img88_cacheonly_256mb_700
