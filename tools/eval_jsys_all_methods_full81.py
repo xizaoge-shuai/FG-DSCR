@@ -27,6 +27,12 @@ METHOD_DIRS = {
     "OnlineNorm-trial12": [
         "results/drtp/final_exp/cacheonly_fg_online_norm_trial12_full81",
     ],
+    "Joint-Jsys-trial11": [
+        "results/drtp/optuna/fg_phase1_joint_jsys_full81_runs/trial_0011",
+    ],
+    "Joint-Jsys-trial6": [
+        "results/drtp/optuna/fg_phase1_joint_jsys_full81_runs/trial_0006",
+    ],
 }
 
 def first_existing(paths):
@@ -430,7 +436,7 @@ def main():
 
     rows = {}
 
-    for name in ["FG-DSCR-GC", "GAHRL-inspired", "ORR-inspired", "ILR-SA", "LASA-reimpl"]:
+    for name in ["FG-DSCR-GC", "GAHRL-inspired", "ORR-inspired", "ILR-SA", "LASA-reimpl", "OnlineNorm-switch-req>=700", "Joint-Jsys-trial11", "Joint-Jsys-trial6"]:
         root = resolved.get(name)
         if not root:
             rows[name] = None

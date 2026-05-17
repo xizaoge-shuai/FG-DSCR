@@ -1,0 +1,6 @@
+# J_sys with Joint trials full81
+
+weights: {'ACT': 0.3, 'AMS': 0.2, 'frag': 0.2, 'downloaded': 0.2, 'load_var': 0.1}
+
+| method | cases | missing | J_sys | J_sys_impr_vs_FG | old_obj | old_obj_impr_vs_FG | ACT_ratio | AMS_ratio | frag_ratio | download_ratio | load_ratio | ACT | AMS | downloaded | reuse | load_var |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
