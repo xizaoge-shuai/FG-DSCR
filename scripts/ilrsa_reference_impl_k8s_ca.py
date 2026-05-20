@@ -1,0 +1,605 @@
+from __future__ import annotations
+from dataclasses import dataclass
+from typing import Dict, List, Set, Tuple
+from functools import lru_cache
+import json
+import math
+import random
+import argparse
+
+
+@dataclass
+class Container:
+    cid: str
+    layers: Set[str]
+    resources: Dict[str, float]
+    run_time: float  # 秒
+
+
+@dataclass
+class EdgeNode:
+    eid: str
+    resources: Dict[str, float]
+    repo_capacity_mb: int
+    bandwidth_mb_s: float
+
+
+@dataclass
+class QueueStats:
+    act: float
+    ams: float
+    completion_times: List[float]
+    downloaded_mb: int
+    reused_mb: int
+
+
+@dataclass
+class ILRSAResult:
+    assignment: Dict[str, List[str]]
+    ordered_queues: Dict[str, List[str]]
+    summary: Dict[str, float]
+    node_details: Dict[str, dict]
+
+
+class ILRSA:
+    """
+    ILR-SA 参考复现实现
+    1) Phase-1: greedy 节点部署
+    2) Phase-2: Hamiltonian path + decomposition
+    3) Phase-3: image layer update by future value
+    """
+
+    def __init__(
+        self,
+        layer_sizes_mb: Dict[str, int],
+        alpha: float = 0.5,
+        exact_threshold: int = 12,
+        random_seed: int = 42,
+        phase1_random_eviction: bool = True,
+        cache_knapsack: str = "exact",   # exact / greedy
+        knapsack_unit_mb: int = 50,      # exact 背包时的容量缩放单位
+        lambda_ca: float = 1000.0,
+    ):
+        self.layer_sizes_mb = dict(layer_sizes_mb)
+        self.alpha = alpha
+        self.exact_threshold = exact_threshold
+        self.rng = random.Random(random_seed)
+        self.phase1_random_eviction = phase1_random_eviction
+        self.cache_knapsack = cache_knapsack
+        self.knapsack_unit_mb = max(knapsack_unit_mb, 1)
+        self.lambda_ca = float(lambda_ca)
+        self.ca_triggered: List[str] = []
+
+    # =========================
+    # 基础工具
+    # =========================
+
+    def image_size(self, c: Container) -> int:
+        return sum(self.layer_sizes_mb[l] for l in c.layers)
+
+    def overlap(self, a: Container, b: Container) -> int:
+        return sum(self.layer_sizes_mb[l] for l in (a.layers & b.layers))
+
+    def feasible(self, c: Container, node: EdgeNode) -> bool:
+        """
+        Deployment feasibility should not be constrained by repo_capacity_mb.
+        repo_capacity_mb is only the reusable layer-cache budget.
+        """
+        # [PATCHED] Do not reject a container only because its image is larger than cache.
+        return True
+    def feasible_k8s(self, c: Container, node: EdgeNode, current_queue: List[Container]) -> bool:
+        used = {"cpu": 0.0, "mem": 0.0, "disk": 0.0}
+        for old in current_queue:
+            for q, v in old.resources.items():
+                used[q] = used.get(q, 0.0) + float(v)
+
+        for q, demand in c.resources.items():
+            cap = float(node.resources.get(q, 0.0))
+            if used.get(q, 0.0) + float(demand) > cap + 1e-9:
+                return False
+        return True
+
+    def future_layer_value(self, layer: str, future_queue: List[Container]) -> int:
+        size = self.layer_sizes_mb[layer]
+        return sum(size for c in future_queue if layer in c.layers)
+
+    # =========================
+    # Phase 3: 镜像层更新
+    # =========================
+
+    def _knapsack_exact(self, items: List[Tuple[str, int, int]], capacity_mb: int) -> Set[str]:
+        """
+        items: [(layer_id, size_mb, value)]
+        exact knapsack，先按 knapsack_unit_mb 做容量缩放
+        """
+        unit = self.knapsack_unit_mb
+        cap = capacity_mb // unit
+        scaled = [(lid, max(1, size // unit), value) for lid, size, value in items]
+
+        dp = [0] * (cap + 1)
+        choose: List[Set[str]] = [set() for _ in range(cap + 1)]
+
+        for lid, w, val in scaled:
+            for c in range(cap, w - 1, -1):
+                nv = dp[c - w] + val
+                if nv > dp[c]:
+                    dp[c] = nv
+                    choose[c] = set(choose[c - w])
+                    choose[c].add(lid)
+
+        best_c = max(range(cap + 1), key=lambda x: dp[x])
+        return choose[best_c]
+
+    def _knapsack_greedy(self, items: List[Tuple[str, int, int]], capacity_mb: int) -> Set[str]:
+        items = sorted(items, key=lambda x: (x[2] / max(x[1], 1), x[2]), reverse=True)
+        keep = set()
+        used = 0
+        for lid, size, val in items:
+            if used + size <= capacity_mb:
+                keep.add(lid)
+                used += size
+        return keep
+
+    def update_layers_runtime(
+        self,
+        current_cache: Set[str],
+        current: Container,
+        future_queue: List[Container],
+        node: EdgeNode,
+    ) -> Set[str]:
+        """
+        Runtime cache update for reusable layer cache.
+    
+        Important:
+        - repo_capacity_mb is only the reusable layer-cache budget.
+        - The currently executed container image does not have to be pinned after execution.
+        - Therefore, the returned cache must always satisfy node.repo_capacity_mb.
+        - If repo_capacity_mb == 0, the cache must be empty.
+        """
+        cap = int(node.repo_capacity_mb)
+        if cap <= 0:
+            return set()
+    
+        # after_pull_cache is passed as current_cache by simulate_queue.
+        # We select a subset of all currently available layers according to future reuse value.
+        items = []
+        for lid in current_cache:
+            size = self.layer_sizes_mb[lid]
+            if size <= cap:
+                items.append((lid, size, self.future_layer_value(lid, future_queue)))
+    
+        if not items:
+            return set()
+    
+        if self.cache_knapsack == "exact":
+            keep = self._knapsack_exact(items, cap)
+        else:
+            keep = self._knapsack_greedy(items, cap)
+    
+        # Safety guard: exact knapsack may use scaled sizes, so enforce actual capacity.
+        used = 0
+        safe_keep = set()
+        for lid in sorted(keep, key=lambda x: self.future_layer_value(x, future_queue), reverse=True):
+            size = self.layer_sizes_mb[lid]
+            if used + size <= cap:
+                safe_keep.add(lid)
+                used += size
+    
+        return safe_keep
+    # =========================
+    # 单节点顺序仿真
+    # =========================
+
+    def simulate_queue(
+        self,
+        queue: List[Container],
+        node: EdgeNode,
+        random_eviction: bool = False,
+    ) -> QueueStats:
+        """
+        单节点顺序队列仿真
+        - 下载时间 = 缺失层大小 / 带宽
+        - 完成时间用于 ACT / AMS
+        - random_eviction=True 时，用于 Phase-1 的粗粒度 simulated scheduling
+        """
+        cache: Set[str] = set()
+        t = 0.0
+        completion_times = []
+        total_downloaded = 0
+        total_reused = 0
+
+        for i, c in enumerate(queue):
+            reusable = cache & c.layers
+            missing = c.layers - cache
+
+            reused_mb = sum(self.layer_sizes_mb[l] for l in reusable)
+            download_mb = sum(self.layer_sizes_mb[l] for l in missing)
+
+            total_reused += reused_mb
+            total_downloaded += download_mb
+
+            download_time = download_mb / max(node.bandwidth_mb_s, 1e-8)
+            t += download_time + c.run_time
+            completion_times.append(t)
+
+            after_pull_cache = set(cache) | set(c.layers)
+
+            if random_eviction:
+                # Phase-1 coarse simulation: randomly keep a subset of available layers
+                # under the actual reusable cache capacity.
+                cap = int(node.repo_capacity_mb)
+                if cap <= 0:
+                    cache = set()
+                else:
+                    pool = list(after_pull_cache)
+                    self.rng.shuffle(pool)
+                    kept = set()
+                    used = 0
+                    for lid in pool:
+                        size = self.layer_sizes_mb[lid]
+                        if used + size <= cap:
+                            kept.add(lid)
+                            used += size
+                    cache = kept
+            else:
+                future_queue = queue[i + 1:]
+                cache = self.update_layers_runtime(after_pull_cache, c, future_queue, node)
+
+        act = sum(completion_times) / max(len(completion_times), 1)
+        ams = max(completion_times) if completion_times else 0.0
+
+        return QueueStats(
+            act=act,
+            ams=ams,
+            completion_times=completion_times,
+            downloaded_mb=total_downloaded,
+            reused_mb=total_reused,
+        )
+
+    # =========================
+    # Phase 1: 节点部署
+    # =========================
+
+    def deploy_phase1(self, containers: List[Container], nodes: List[EdgeNode]) -> Dict[str, List[Container]]:
+        """
+        对应论文 Algorithm 1：
+        按输入顺序逐个容器尝试放到每个可行节点，
+        对该节点当前队列 + 当前容器做粗粒度 simulated scheduling，
+        计算 alpha*ACT + (1-alpha)*AMS，选最优节点。
+        """
+        assign: Dict[str, List[Container]] = {n.eid: [] for n in nodes}
+
+        for c in containers:
+            candidates = []
+            for n in nodes:
+                if (not self.feasible(c, n)) or (not self.feasible_k8s(c, n, assign[n.eid])):
+                    continue
+
+                trial_queue = assign[n.eid] + [c]
+                qstats = self.simulate_queue(
+                    trial_queue,
+                    n,
+                    random_eviction=self.phase1_random_eviction,
+                )
+                score = self.alpha * qstats.act + (1.0 - self.alpha) * qstats.ams
+                candidates.append((score, n.eid))
+
+            if not candidates:
+                self.ca_triggered.append(c.cid)
+                continue
+
+            _, best_eid = min(candidates, key=lambda x: x[0])
+            assign[best_eid].append(c)
+
+        return assign
+
+    # =========================
+    # Phase 2: 队列排序
+    # =========================
+
+    def _exact_hamiltonian_path(self, queue: List[Container]) -> List[Container]:
+        """
+        最大权 Hamiltonian path 的精确 DP
+        """
+        n = len(queue)
+        if n <= 1:
+            return queue[:]
+
+        w = [[0] * n for _ in range(n)]
+        for i in range(n):
+            for j in range(n):
+                if i != j:
+                    w[i][j] = self.overlap(queue[i], queue[j])
+
+        @lru_cache(None)
+        def dp(mask: int, last: int):
+            if mask == (1 << last):
+                return 0, [last]
+
+            best_val = -1
+            best_path = None
+            pmask = mask ^ (1 << last)
+
+            for prev in range(n):
+                if pmask & (1 << prev):
+                    val, path = dp(pmask, prev)
+                    val += w[prev][last]
+                    if val > best_val:
+                        best_val = val
+                        best_path = path + [last]
+
+            return best_val, best_path
+
+        full = (1 << n) - 1
+        best = (-1, None)
+        for last in range(n):
+            cand = dp(full, last)
+            if cand[0] > best[0]:
+                best = cand
+
+        return [queue[i] for i in best[1]]
+
+    def _group_queue(self, queue: List[Container]) -> List[List[Container]]:
+        """
+        对应论文 Algorithm 2 的分组思路：
+        从未分组容器中取第一个为 anchor，
+        再取 sqrt(N)-1 个与其 overlap 最大的未分组容器。
+        """
+        n = len(queue)
+        if n == 0:
+            return []
+
+        group_size = max(1, math.ceil(math.sqrt(n)))
+        ungrouped = queue[:]
+        groups: List[List[Container]] = []
+
+        while ungrouped:
+            anchor = ungrouped[0]
+            rest = ungrouped[1:]
+            rest = sorted(rest, key=lambda x: self.overlap(anchor, x), reverse=True)
+            group = [anchor] + rest[: group_size - 1]
+
+            gids = {c.cid for c in group}
+            ungrouped = [c for c in ungrouped if c.cid not in gids]
+            groups.append(group)
+
+        return groups
+
+    def _compose_group_paths(self, group_paths: List[List[Container]]) -> List[Container]:
+        """
+        把 group 内 path 作为 super-node。
+        每个 super-node 有两个方向（原向 / 反向），
+        通过 DP 最大化组间 bridge overlap。
+        """
+        g = len(group_paths)
+        if g == 0:
+            return []
+        if g == 1:
+            return group_paths[0]
+
+        oriented = {(i, 0): group_paths[i] for i in range(g)}
+        oriented.update({(i, 1): list(reversed(group_paths[i])) for i in range(g)})
+
+        def bridge(i: int, oi: int, j: int, oj: int) -> int:
+            left = oriented[(i, oi)]
+            right = oriented[(j, oj)]
+            return self.overlap(left[-1], right[0])
+
+        @lru_cache(None)
+        def dp(mask: int, last: int, ori: int):
+            if mask == (1 << last):
+                return 0, [(last, ori)]
+
+            best_val = -1
+            best_trace = None
+            pmask = mask ^ (1 << last)
+
+            for prev in range(g):
+                if pmask & (1 << prev):
+                    for pori in (0, 1):
+                        val, trace = dp(pmask, prev, pori)
+                        val += bridge(prev, pori, last, ori)
+                        if val > best_val:
+                            best_val = val
+                            best_trace = trace + [(last, ori)]
+
+            return best_val, best_trace
+
+        full = (1 << g) - 1
+        best_val = -1
+        best_trace = None
+
+        for last in range(g):
+            for ori in (0, 1):
+                val, trace = dp(full, last, ori)
+                if val > best_val:
+                    best_val = val
+                    best_trace = trace
+
+        final_queue: List[Container] = []
+        for gid, ori in best_trace:
+            final_queue.extend(oriented[(gid, ori)])
+
+        return final_queue
+
+    def sequence_phase2(self, queue: List[Container]) -> List[Container]:
+        """
+        Phase 2:
+        - 小队列：exact Hamiltonian path
+        - 大队列：decomposition
+        """
+        n = len(queue)
+        if n <= 1:
+            return queue[:]
+
+        if n <= self.exact_threshold:
+            return self._exact_hamiltonian_path(queue)
+
+        groups = self._group_queue(queue)
+        group_paths = []
+
+        for grp in groups:
+            if len(grp) <= self.exact_threshold:
+                group_paths.append(self._exact_hamiltonian_path(grp))
+            else:
+                # 递归分解
+                group_paths.append(self.sequence_phase2(grp))
+
+        return self._compose_group_paths(group_paths)
+
+    # =========================
+    # 整体运行
+    # =========================
+
+    def run(self, containers: List[Container], nodes: List[EdgeNode]) -> ILRSAResult:
+        self.ca_triggered = []
+        total_requested = len(containers)
+        assign = self.deploy_phase1(containers, nodes)
+
+        ordered: Dict[str, List[Container]] = {}
+        node_details: Dict[str, dict] = {}
+
+        total_act_sum = 0.0
+        total_reused = 0
+        total_downloaded = 0
+        total_makespan = 0.0
+        total_num = 0
+
+        for node in nodes:
+            q = assign[node.eid]
+            q_sorted = self.sequence_phase2(q)
+            ordered[node.eid] = q_sorted
+
+            stats = self.simulate_queue(q_sorted, node, random_eviction=False)
+
+            total_act_sum += sum(stats.completion_times)
+            total_reused += stats.reused_mb
+            total_downloaded += stats.downloaded_mb
+            total_makespan += stats.ams
+            total_num += len(q_sorted)
+
+            node_details[node.eid] = {
+                "queue": [c.cid for c in q_sorted],
+                "act": stats.act,
+                "ams": stats.ams,
+                "downloaded_mb": stats.downloaded_mb,
+                "reused_mb": stats.reused_mb,
+                "completion_times": stats.completion_times,
+            }
+
+        ACT = total_act_sum / max(total_num, 1)
+        AMS = total_makespan / max(len(nodes), 1)
+
+        objective_base = self.alpha * ACT + (1.0 - self.alpha) * AMS
+        ca_triggered = len(self.ca_triggered)
+        ca_rate = ca_triggered / max(total_requested, 1)
+        ca_penalty = self.lambda_ca * ca_rate
+        objective_ca = objective_base + ca_penalty
+
+        summary = {
+            "num_containers": total_requested,
+            "num_scheduled_containers": total_num,
+            "num_assigned": total_num,
+            "ca_triggered": ca_triggered,
+            "ca_rate": ca_rate,
+            "ca_penalty": ca_penalty,
+            "lambda_ca": self.lambda_ca,
+            "num_nodes": len(nodes),
+            "ACT": ACT,
+            "AMS": AMS,
+            "downloaded_mb": total_downloaded,
+            "reused_mb": total_reused,
+            "reuse_rate": total_reused / max(total_reused + total_downloaded, 1),
+            "objective_without_ca_penalty": objective_base,
+            "objective_ca": objective_ca,
+            "objective": objective_ca,
+        }
+
+        return ILRSAResult(
+            assignment={k: [c.cid for c in v] for k, v in assign.items()},
+            ordered_queues={k: [c.cid for c in v] for k, v in ordered.items()},
+            summary=summary,
+            node_details=node_details,
+        )
+
+
+# =========================
+# 数据读写
+# =========================
+
+def load_case_from_json(path: str):
+    with open(path, "r", encoding="utf-8") as f:
+        obj = json.load(f)
+
+    layer_sizes = obj["layer_sizes_mb"]
+
+    containers = [
+        Container(
+            cid=x["cid"],
+            layers=set(x["layers"]),
+            resources=x["resources"],
+            run_time=float(x["run_time"]),
+        )
+        for x in obj["containers"]
+    ]
+
+    nodes = [
+        EdgeNode(
+            eid=x["eid"],
+            resources=x["resources"],
+            repo_capacity_mb=int(x["repo_capacity_mb"]),
+            bandwidth_mb_s=float(x["bandwidth_mb_s"]),
+        )
+        for x in obj["nodes"]
+    ]
+
+    return containers, nodes, layer_sizes
+
+
+def save_result_json(res: ILRSAResult, path: str):
+    out = {
+        "assignment": res.assignment,
+        "ordered_queues": res.ordered_queues,
+        "summary": res.summary,
+        "node_details": res.node_details,
+    }
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(out, f, indent=2, ensure_ascii=False)
+
+
+# =========================
+# main
+# =========================
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--case", type=str, required=True)
+    parser.add_argument("--out", type=str, default="ilrsa_result.json")
+    parser.add_argument("--alpha", type=float, default=0.5)
+    parser.add_argument("--exact-threshold", type=int, default=12)
+    parser.add_argument("--knapsack", type=str, default="exact", choices=["exact", "greedy"])
+    parser.add_argument("--knapsack-unit-mb", type=int, default=50)
+    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--lambda-ca", type=float, default=1000.0)
+    args = parser.parse_args()
+
+    containers, nodes, layer_sizes = load_case_from_json(args.case)
+
+    solver = ILRSA(
+        layer_sizes_mb=layer_sizes,
+        alpha=args.alpha,
+        exact_threshold=args.exact_threshold,
+        cache_knapsack=args.knapsack,
+        knapsack_unit_mb=args.knapsack_unit_mb,
+        random_seed=args.seed,
+        lambda_ca=args.lambda_ca,
+    )
+
+    res = solver.run(containers, nodes)
+    save_result_json(res, args.out)
+
+    print(json.dumps({
+        "summary": res.summary,
+        "assignment": res.assignment,
+        "ordered_queues": res.ordered_queues,
+    }, indent=2, ensure_ascii=False))

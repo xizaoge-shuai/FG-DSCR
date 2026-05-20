@@ -1,0 +1,44 @@
+{
+  "algo": "ORR-inspired-LGreedy",
+  "num_containers": 500,
+  "num_scheduled_containers": 90,
+  "num_assigned": 90,
+  "ca_triggered": 410,
+  "ca_rate": 0.82,
+  "ca_penalty": 820.0,
+  "lambda_ca": 1000.0,
+  "num_nodes": 8,
+  "ACT": 126.5574074074074,
+  "AMS": 260.65,
+  "downloaded_mb": 17513,
+  "reused_mb": 33053,
+  "reuse_rate": 0.6536605624332555,
+  "objective_without_ca_penalty": 193.60370370370367,
+  "objective_ca": 1013.6037037037037,
+  "objective": 1013.6037037037037,
+  "prefetch_mb": 0,
+  "count_prefetch_in_downloaded": false
+}
+	Command being timed: "scripts/k8s_ca_figs/run_one_k8s_ca.sh orr results/drtp/k8s_ca_figs/cases/fig2_cache/case_cache1536_req500.json results/drtp/k8s_ca_figs/fig2_cache/orr_cache1536_req500.json"
+	User time (seconds): 0.07
+	System time (seconds): 0.00
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.08
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 13184
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 2809
+	Voluntary context switches: 7
+	Involuntary context switches: 9
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 72
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

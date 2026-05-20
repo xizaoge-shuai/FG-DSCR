@@ -1,0 +1,275 @@
+{
+  "summary": {
+    "num_containers": 200,
+    "num_scheduled_containers": 98,
+    "num_assigned": 98,
+    "ca_triggered": 102,
+    "ca_rate": 0.51,
+    "ca_penalty": 510.0,
+    "lambda_ca": 1000.0,
+    "num_nodes": 8,
+    "ACT": 137.87725340136055,
+    "AMS": 247.353125,
+    "downloaded_mb": 21716,
+    "reused_mb": 33246,
+    "reuse_rate": 0.6048906517230086,
+    "objective_without_ca_penalty": 192.61518920068028,
+    "objective_ca": 702.6151892006803,
+    "objective": 702.6151892006803
+  },
+  "assignment": {
+    "edge-1": [
+      "c005",
+      "c013",
+      "c020",
+      "c028",
+      "c035",
+      "c045",
+      "c052",
+      "c062",
+      "c074",
+      "c082",
+      "c090",
+      "c091",
+      "c113"
+    ],
+    "edge-2": [
+      "c001",
+      "c009",
+      "c014",
+      "c021",
+      "c031",
+      "c039",
+      "c046",
+      "c055",
+      "c061",
+      "c073",
+      "c080",
+      "c087",
+      "c094",
+      "c099"
+    ],
+    "edge-3": [
+      "c006",
+      "c015",
+      "c019",
+      "c027",
+      "c037",
+      "c044",
+      "c050",
+      "c057",
+      "c063",
+      "c069",
+      "c079",
+      "c092"
+    ],
+    "edge-4": [
+      "c002",
+      "c010",
+      "c017",
+      "c025",
+      "c034",
+      "c041",
+      "c049",
+      "c058",
+      "c067",
+      "c072",
+      "c078",
+      "c086",
+      "c095"
+    ],
+    "edge-5": [
+      "c007",
+      "c018",
+      "c026",
+      "c038",
+      "c048",
+      "c056",
+      "c064",
+      "c076",
+      "c083",
+      "c088"
+    ],
+    "edge-6": [
+      "c003",
+      "c016",
+      "c024",
+      "c029",
+      "c032",
+      "c042",
+      "c053",
+      "c065",
+      "c070",
+      "c077",
+      "c085",
+      "c097",
+      "c109"
+    ],
+    "edge-7": [
+      "c008",
+      "c011",
+      "c022",
+      "c033",
+      "c040",
+      "c054",
+      "c059",
+      "c068",
+      "c075",
+      "c081",
+      "c089"
+    ],
+    "edge-8": [
+      "c004",
+      "c012",
+      "c023",
+      "c030",
+      "c036",
+      "c043",
+      "c047",
+      "c051",
+      "c060",
+      "c066",
+      "c071",
+      "c084"
+    ]
+  },
+  "ordered_queues": {
+    "edge-1": [
+      "c091",
+      "c082",
+      "c074",
+      "c062",
+      "c052",
+      "c028",
+      "c020",
+      "c013",
+      "c113",
+      "c045",
+      "c035",
+      "c005",
+      "c090"
+    ],
+    "edge-2": [
+      "c021",
+      "c014",
+      "c055",
+      "c009",
+      "c046",
+      "c073",
+      "c080",
+      "c087",
+      "c099",
+      "c094",
+      "c039",
+      "c031",
+      "c061",
+      "c001"
+    ],
+    "edge-3": [
+      "c050",
+      "c044",
+      "c015",
+      "c092",
+      "c027",
+      "c079",
+      "c069",
+      "c063",
+      "c057",
+      "c037",
+      "c019",
+      "c006"
+    ],
+    "edge-4": [
+      "c041",
+      "c072",
+      "c078",
+      "c086",
+      "c095",
+      "c049",
+      "c017",
+      "c010",
+      "c002",
+      "c067",
+      "c058",
+      "c034",
+      "c025"
+    ],
+    "edge-5": [
+      "c088",
+      "c076",
+      "c056",
+      "c038",
+      "c026",
+      "c083",
+      "c064",
+      "c048",
+      "c018",
+      "c007"
+    ],
+    "edge-6": [
+      "c109",
+      "c097",
+      "c085",
+      "c077",
+      "c070",
+      "c042",
+      "c065",
+      "c032",
+      "c024",
+      "c053",
+      "c029",
+      "c016",
+      "c003"
+    ],
+    "edge-7": [
+      "c059",
+      "c040",
+      "c033",
+      "c081",
+      "c089",
+      "c068",
+      "c022",
+      "c054",
+      "c075",
+      "c011",
+      "c008"
+    ],
+    "edge-8": [
+      "c043",
+      "c023",
+      "c071",
+      "c084",
+      "c066",
+      "c060",
+      "c051",
+      "c047",
+      "c036",
+      "c030",
+      "c012",
+      "c004"
+    ]
+  }
+}
+	Command being timed: "scripts/k8s_ca_figs/run_one_k8s_ca.sh ilrsa results/drtp/k8s_ca_figs/cases/fig2_cache/case_cache2048_req200.json results/drtp/k8s_ca_figs/fig2_cache/ilrsa_cache2048_req200.json"
+	User time (seconds): 0.34
+	System time (seconds): 0.03
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.37
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 32648
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 7798
+	Voluntary context switches: 8
+	Involuntary context switches: 38
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 32
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

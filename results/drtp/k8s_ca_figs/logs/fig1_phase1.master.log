@@ -1,0 +1,21 @@
+nohup: ignoring input
+[FIG1] method=fg req=200
+[FIG1] method=wo_frag req=200
+[FIG1] method=fg req=300
+[FIG1] method=wo_frag req=300
+[FIG1] method=fg req=400
+[FIG1] method=wo_frag req=400
+[FIG1] method=fg req=500
+[FIG1] method=wo_frag req=500
+[FIG1] method=fg req=600
+[FIG1] method=wo_frag req=600
+[FIG1] method=fg req=700
+[FIG1] method=wo_frag req=700
+[FIG1] method=fg req=800
+[FIG1] method=wo_frag req=800
+[FIG1] method=fg req=900
+[FIG1] method=wo_frag req=900
+[FIG1] method=fg req=1000
+[FIG1] method=wo_frag req=1000
+written results/drtp/k8s_ca_figs/summaries/fig1_phase1_summary.csv rows 18
+written results/drtp/k8s_ca_figs/summaries/fig1_phase1_potential_terms.csv rows 18

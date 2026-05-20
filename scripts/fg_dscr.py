@@ -86,6 +86,9 @@ class FGDscrScheduler:
         task_load_factor: float = 1.8,
         lambda_cache_core: float = 0.0,
         cache_core_ratio: float = 0.90,
+        lambda_fail: float = 0.0,
+        hard_resource_filter: bool = False,
+        init_order: str = "image_resource",
     # Phase 2 weights
         alpha1_reuse: float = 1.0,
         alpha2_future: float = 0.15,
@@ -125,6 +128,11 @@ class FGDscrScheduler:
         self.task_load_factor = task_load_factor
         self.lambda_cache_core = lambda_cache_core
         self.cache_core_ratio = cache_core_ratio
+        self.lambda_fail = lambda_fail
+        self.hard_resource_filter = hard_resource_filter
+        self.init_order = init_order
+        self.failed_container_ids: List[str] = []
+        self.total_requested_containers = 0
         self.alpha1_reuse = alpha1_reuse
         self.alpha2_future = alpha2_future
         self.alpha3_pull = alpha3_pull
@@ -173,6 +181,7 @@ class FGDscrScheduler:
     def set_data(self, containers: List[Container], nodes: List[EdgeNode]):
         self.containers = {c.cid: c for c in containers}
         self.nodes = {n.eid: n for n in nodes}
+        self.total_requested_containers = len(containers)
 
         cnt = Counter()
         for c in containers:
@@ -250,11 +259,11 @@ class FGDscrScheduler:
         layer_cnts = self.node_layer_counts(assignment)
         node_counts = Counter(assignment.values())
 
-        total_num = len(self.containers)
+        total_num = max(len(assignment), 1)
         num_nodes = max(len(self.nodes), 1)
         avg_per_node = total_num / num_nodes
 
-        total_run_time = sum(c.run_time for c in self.containers.values())
+        total_run_time = sum(self.containers[cid].run_time for cid in assignment)
         avg_run_per_node = total_run_time / num_nodes
 
         eps = 1e-9
@@ -471,18 +480,22 @@ class FGDscrScheduler:
         node = self.nodes[eid]
         c = self.containers[cid]
 
-    # 只检查单镜像是否能在该节点上运行
-    # 不再把同一时间片已分配到该节点的所有镜像资源直接累加
+        if getattr(self, "hard_resource_filter", False):
+            # Kubernetes-style hard Filter:
+            # already assigned resource usage on this node + current container request
+            # must not exceed node capacity in every resource dimension.
+            used = self.aggregate_resource_usage(eid, assignment)
+            for q, demand in c.resources.items():
+                cap = node.resources.get(q, 0.0)
+                if used.get(q, 0.0) + demand > cap + 1e-9:
+                    return False
+            return True
+
+        # Legacy sequential-queue mode:
+        # only check whether a single container can run on this node.
         for q, demand in c.resources.items():
             if demand > node.resources.get(q, 0.0):
                 return False
-
-    # cache/repo capacity only controls reusable layer retention.
-    # It should NOT be a hard deployment feasibility constraint.
-    # A container can still be pulled and started even if its image
-    # cannot be fully retained in the reusable cache.
-    # if self.image_size(cid) > node.repo_capacity_mb:
-    #     return False
 
         return True
 
@@ -545,35 +558,52 @@ class FGDscrScheduler:
         assignment: Dict[str, str],
     ) -> float:
         """
-        顺序队列模型下，不再把“已分配镜像资源总和”当作并发占用。
-        这里改成“需求形状失衡惩罚”：
-        - 看分到该节点的镜像，在 cpu/mem/disk 三维上的平均归一化需求是否过于偏斜
-        - 越偏斜，说明后续更容易形成资源碎片化倾向
+        K8s-style residual resource fragmentation.
+
+        Under hard resource filtering, containers assigned to the same node
+        consume cumulative CPU/mem/disk requests. Fragmentation is measured
+        by the imbalance of residual resource ratios after placement.
+
+        Example:
+          remaining = (50% CPU, 5% MEM, 60% DISK) -> highly fragmented
+          remaining = (30% CPU, 32% MEM, 28% DISK) -> less fragmented
         """
         node = self.nodes[eid]
         cids = [cid for cid, ne in assignment.items() if ne == eid]
-
         if not cids:
             return 0.0
 
-        prof = []
+        used = self.aggregate_resource_usage(eid, assignment)
+
+        residual_ratios = []
+        pressure_ratios = []
         tiny_gap_pen = 0.0
 
         for q, cap in node.resources.items():
-            vals = [
-                self.containers[cid].resources.get(q, 0.0) / max(cap, 1e-8)
-                for cid in cids
-            ]
-            avg_q = sum(vals) / len(vals)
-            prof.append(avg_q)
+            cap = max(float(cap), 1e-8)
+            u = float(used.get(q, 0.0))
 
-        # 如果某一维长期非常低，说明该节点上这类资源利用结构不均衡
-            if 0.0 < avg_q < self.tiny_gap_thresholds.get(q, 0.15):
+            # hard-filter should prevent this, but keep a large guard penalty
+            if u > cap + 1e-9:
+                return 1e12 + (u - cap) * 1e9
+
+            pressure = u / cap
+            residual = max(0.0, cap - u) / cap
+
+            pressure_ratios.append(pressure)
+            residual_ratios.append(residual)
+
+            # A small positive remaining ratio is often unusable by future pods.
+            if 0.0 < residual < self.tiny_gap_thresholds.get(q, 0.15):
                 tiny_gap_pen += 0.5
 
-        mean_p = sum(prof) / len(prof)
-        var_p = sum((x - mean_p) ** 2 for x in prof) / len(prof)
-        return var_p + tiny_gap_pen
+        mean_res = sum(residual_ratios) / max(len(residual_ratios), 1)
+        var_res = sum((x - mean_res) ** 2 for x in residual_ratios) / max(len(residual_ratios), 1)
+
+        mean_press = sum(pressure_ratios) / max(len(pressure_ratios), 1)
+        var_press = sum((x - mean_press) ** 2 for x in pressure_ratios) / max(len(pressure_ratios), 1)
+
+        return var_res + 0.5 * var_press + tiny_gap_pen
 
     def affinity_gain(self, eid: str, layer_cnt: Counter) -> float:
         # 层共享亲和：sum s_l * log(1+n_jl)
@@ -914,17 +944,47 @@ class FGDscrScheduler:
 
         soft_cap = ceil(greedy_load_factor * N / M)
         """
-        # 大镜像、重资源优先
+        # Initial container order.
+        # image_resource: legacy behavior, large image + heavy resource first.
+        # arrival: preserve original case order, closer to online K8s scheduling.
+        # resource_desc: dominant normalized resource demand first.
+        # resource_asc: small resource demand first, often schedules more pods under CA penalty.
         cids = list(self.containers.keys())
-        cids.sort(
-            key=lambda cid: (
-                self.image_size(cid),
-                sum(self.containers[cid].resources.values())
-            ),
-            reverse=True
-        )
+        init_order = getattr(self, "init_order", "image_resource")
+
+        if init_order == "image_resource":
+            cids.sort(
+                key=lambda cid: (
+                    self.image_size(cid),
+                    sum(self.containers[cid].resources.values())
+                ),
+                reverse=True
+            )
+        elif init_order == "arrival":
+            pass
+        elif init_order in ("resource_desc", "resource_asc"):
+            max_cap = {}
+            for q in ["cpu", "mem", "disk"]:
+                max_cap[q] = max(
+                    (float(n.resources.get(q, 0.0)) for n in self.nodes.values()),
+                    default=1.0
+                )
+                max_cap[q] = max(max_cap[q], 1e-9)
+
+            def rkey(cid):
+                c = self.containers[cid]
+                ratios = [
+                    float(c.resources.get(q, 0.0)) / max_cap[q]
+                    for q in ["cpu", "mem", "disk"]
+                ]
+                return (max(ratios), sum(ratios), self.image_size(cid))
+
+            cids.sort(key=rkey, reverse=(init_order == "resource_desc"))
+        else:
+            raise ValueError(f"Unknown init_order={init_order}")
 
         assignment: Dict[str, str] = {}
+        self.failed_container_ids = []
 
         avg_load = len(cids) / max(len(self.nodes), 1)
         soft_cap = None
@@ -938,6 +998,9 @@ class FGDscrScheduler:
                     feasible_eids.append(eid)
 
             if not feasible_eids:
+                if getattr(self, "hard_resource_filter", False):
+                    self.failed_container_ids.append(cid)
+                    continue
                 raise ValueError(f"No feasible node for container {cid}")
 
             # 关键改动：
@@ -966,6 +1029,9 @@ class FGDscrScheduler:
                     best_eid = eid
 
             if best_eid is None:
+                if getattr(self, "hard_resource_filter", False):
+                    self.failed_container_ids.append(cid)
+                    continue
                 raise ValueError(f"No feasible node for container {cid}")
 
             assignment[cid] = best_eid
@@ -1620,20 +1686,32 @@ class FGDscrScheduler:
 
         ACT = total_completion_sum / max(total_num, 1)
         AMS = total_makespan / max(len(self.nodes), 1)
-        objective = self.alpha_obj * ACT + (1.0 - self.alpha_obj) * AMS
+        objective_base = self.alpha_obj * ACT + (1.0 - self.alpha_obj) * AMS
+        num_failed = len(getattr(self, "failed_container_ids", []))
+        total_requested = max(getattr(self, "total_requested_containers", total_num), total_num + num_failed, 1)
+        fail_rate = num_failed / max(total_requested, 1)
+        fail_penalty_value = self.lambda_fail * fail_rate
+        objective = objective_base + fail_penalty_value
 
         out = {
             "assignment": node_to_cids,
             "ordered_queues": ordered,
+            "failed_containers": list(getattr(self, "failed_container_ids", [])),
             "summary": {
                 "algo": self.algo_name,
-                "num_containers": total_num,
+                "num_containers": total_requested,
+                "num_assigned": total_num,
+                "num_failed": num_failed,
+                "fail_rate": fail_rate,
                 "num_nodes": len(self.nodes),
                 "ACT": ACT,
                 "AMS": AMS,
                 "downloaded_mb": total_downloaded,
                 "reused_mb": total_reused,
                 "reuse_rate": total_reused / max(total_reused + total_downloaded, 1),
+                "objective_base": objective_base,
+                "fail_penalty": fail_penalty_value,
+                "lambda_fail": self.lambda_fail,
                 "objective": objective,
             },
             "node_details": node_details,
@@ -1690,6 +1768,12 @@ def main():
     parser.add_argument("--beam", type=int, default=4)
     parser.add_argument("--unit-mb", type=int, default=50)
     parser.add_argument("--algo-name", type=str, default="FG-DSCR")
+    parser.add_argument("--init-order", type=str, default="image_resource",
+                        choices=["image_resource", "arrival", "resource_desc", "resource_asc"])
+    parser.add_argument("--hard-resource-filter", action="store_true",
+                        help="Enable Kubernetes-style cumulative CPU/mem/disk hard resource filtering.")
+    parser.add_argument("--lambda-fail", type=float, default=0.0,
+                        help="Penalty coefficient added as lambda_fail * fail_rate to objective.")
 
     # Phase 1 势函数消融项
     parser.add_argument("--lambda-cong", type=float, default=1.0)
@@ -1735,6 +1819,9 @@ def main():
         beam_width=args.beam,
         unit_mb=args.unit_mb,
         algo_name=args.algo_name,
+        init_order=args.init_order,
+        hard_resource_filter=args.hard_resource_filter,
+        lambda_fail=args.lambda_fail,
         lambda_cong=args.lambda_cong,
         bw_gamma=args.bw_gamma,
         lambda_frag=args.lambda_frag,
