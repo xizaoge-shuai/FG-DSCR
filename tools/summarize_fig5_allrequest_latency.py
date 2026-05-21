@@ -232,25 +232,95 @@ def service_time_from_metric(m, bw):
         return d / bw
     return 0.0
 
+
+def normalize_container_metrics(raw):
+    """
+    Normalize container_metrics into list[dict].
+
+    Compatible formats:
+    1) list[dict]
+    2) list[str]
+    3) dict[cid] = dict
+    4) dict[node_id] = list[dict]
+    5) dict[node_id] = list[cid]
+    6) dict[cid] = node_id
+    """
+    out = []
+
+    if isinstance(raw, list):
+        for item in raw:
+            if isinstance(item, dict):
+                out.append(item)
+            elif isinstance(item, str):
+                out.append({"cid": item})
+        return out
+
+    if isinstance(raw, dict):
+        for k, v in raw.items():
+            key = str(k)
+
+            if isinstance(v, dict):
+                item = dict(v)
+
+                # 如果 key 是 cid，则补 cid
+                if "cid" not in item and not key.startswith("edge-"):
+                    item["cid"] = key
+
+                # 如果 key 是 node_id，则补 node_id
+                if "node_id" not in item and key.startswith("edge-"):
+                    item["node_id"] = key
+
+                out.append(item)
+
+            elif isinstance(v, list):
+                # 常见格式：node_id -> [metric dicts] 或 node_id -> [cid]
+                for elem in v:
+                    if isinstance(elem, dict):
+                        item = dict(elem)
+                        if "node_id" not in item:
+                            item["node_id"] = key
+                        out.append(item)
+                    elif isinstance(elem, str):
+                        out.append({"node_id": key, "cid": elem})
+
+            elif isinstance(v, str):
+                # 可能是 cid -> node_id
+                out.append({"cid": key, "node_id": v})
+
+        return out
+
+    return out
+
+
 def edge_completion_times(case, result):
     """
-    对已放在原有边缘节点上的容器估计完成时间。
-    优先读取 container_metrics 里的完成时间；
-    若没有，则按每个节点上的顺序累加 service_time。
+    Estimate completion time for containers placed on existing edge nodes.
+
+    Priority:
+    1) If container_metrics contains completion/finish/end time, use it directly.
+    2) Else replay node queues by accumulating service_time estimated from metrics.
+    3) Else fallback to assignment replay using image_size / node_bandwidth.
     """
     nodes = get_nodes(case)
     bw_map = {eid: node_bandwidth(n) for eid, n in nodes.items()}
 
-    metrics = result.get("container_metrics", [])
+    raw_metrics = result.get("container_metrics", [])
+    metrics = normalize_container_metrics(raw_metrics)
+
     times = {}
 
-    # 如果 metrics 中已经有 completion/finish/end，则直接使用
+    # 1) 如果 metrics 中已经有 completion/finish/end，则直接使用
     direct_keys = ["completion_time", "finish_time", "end_time"]
     has_direct = False
+
     for m in metrics:
+        if not isinstance(m, dict):
+            continue
+
         cid = m.get("cid")
         if cid is None:
             continue
+
         for k in direct_keys:
             if k in m:
                 try:
@@ -263,35 +333,67 @@ def edge_completion_times(case, result):
     if has_direct and times:
         return times
 
-    # 否则按 node 内顺序 replay
+    # 2) 否则按 node 内顺序 replay，累计 service_time
     by_node = defaultdict(list)
+
     for m in metrics:
+        if not isinstance(m, dict):
+            continue
+
         eid = str(m.get("node_id") or m.get("eid") or m.get("node") or "")
         cid = m.get("cid")
+
         if not eid or cid is None:
             continue
+
         by_node[eid].append(m)
 
     for eid, ms in by_node.items():
         cur = 0.0
         bw = bw_map.get(eid, 100.0)
+
         for m in ms:
             cid = str(m.get("cid"))
             st = service_time_from_metric(m, bw)
             cur += st
             times[cid] = cur
 
-    # 如果没有 container_metrics，则从 assignment 粗略 replay
-    if not times:
-        assignment = get_assignment(result)
-        for eid, cids in assignment.items():
-            cur = 0.0
-            bw = bw_map.get(str(eid), 100.0)
-            for cid in cids:
-                cur += 0.0
-                times[str(cid)] = cur
+    if times:
+        return times
+
+    # 3) fallback：如果没有 container_metrics，就用 assignment + image_size / bandwidth 粗略 replay
+    assignment = get_assignment(result)
+    layer_sizes = build_layer_sizes(case)
+    cid_layers = get_container_layers(case)
+
+    all_cids = []
+    for c in case.get("containers", []):
+        cid = c.get("cid")
+        if cid is not None:
+            all_cids.append(str(cid))
+
+    all_sizes = []
+    for cid in all_cids:
+        sz = sum(float(layer_sizes.get(lid, 0.0)) for lid in cid_layers.get(cid, []))
+        if sz > 0:
+            all_sizes.append(sz)
+
+    fallback_size = sum(all_sizes) / len(all_sizes) if all_sizes else 0.0
+
+    for eid, cids in assignment.items():
+        eid = str(eid)
+        cur = 0.0
+        bw = bw_map.get(eid, 100.0)
+
+        for cid in cids:
+            cid = str(cid)
+            img_mb = container_image_size_mb(case, cid, cid_layers, layer_sizes, fallback_size)
+            st = img_mb / bw if bw > 0 else 0.0
+            cur += st
+            times[cid] = cur
 
     return times
+
 
 def mean_positive(vals):
     xs = [float(x) for x in vals if float(x) > 0]
@@ -350,6 +452,40 @@ for p in sorted(RES_DIR.glob("*.json")):
     completion_times = []
     missing_edge_time = 0
 
+    # CA edge-like model:
+    # For CA-triggered containers, use T_i^CA = T_provision + T_i^edge_like.
+    # Since a CA container is not replayed on the original cluster, we estimate
+    # T_i^edge_like from the empirical completion-time distribution of edge-scheduled containers.
+    edge_ref_values = []
+    for ecid in edge_cids:
+        if ecid in edge_times:
+            try:
+                edge_ref_values.append(float(edge_times[ecid]))
+            except Exception:
+                pass
+
+    edge_ref_values = sorted(x for x in edge_ref_values if x >= 0)
+
+    if not edge_ref_values:
+        # Fallback: use summary ACT if no per-container edge time exists.
+        fallback_edge_t = float(s.get("ACT", 0.0))
+        edge_ref_values = [fallback_edge_t]
+
+    ca_seen = 0
+    n_ca = max(1, len(ca_cids))
+
+    def edge_like_time_for_ca(idx):
+        # Deterministic quantile mapping:
+        # CA containers are mapped to the empirical edge completion-time distribution.
+        if len(edge_ref_values) == 1:
+            return edge_ref_values[0]
+        q = (idx + 0.5) / n_ca
+        pos = q * (len(edge_ref_values) - 1)
+        lo = int(pos)
+        hi = min(lo + 1, len(edge_ref_values) - 1)
+        w = pos - lo
+        return edge_ref_values[lo] * (1 - w) + edge_ref_values[hi] * w
+
     for cid in all_cids:
         if cid in edge_cids:
             t = edge_times.get(cid, None)
@@ -358,9 +494,10 @@ for p in sorted(RES_DIR.glob("*.json")):
                 t = float(s.get("ACT", 0.0))
             completion_times.append(float(t))
         else:
-            img_mb = container_image_size_mb(case, cid, cid_layers, layer_sizes, fallback_size)
-            cold_pull = img_mb / ca_bw if ca_bw > 0 else 0.0
-            t_ca = CA_PROVISION_SEC + cold_pull + CA_START_SEC
+            # T_i^CA = T_provision + T_i^edge_like
+            t_edge_like = edge_like_time_for_ca(ca_seen)
+            ca_seen += 1
+            t_ca = CA_PROVISION_SEC + t_edge_like
             completion_times.append(t_ca)
 
     act_all = sum(completion_times) / len(completion_times) if completion_times else 0.0
@@ -520,7 +657,8 @@ print("RES_DIR =", RES_DIR)
 print("OUT =", OUT)
 print("CA_PROVISION_SEC =", CA_PROVISION_SEC)
 print("CA_START_SEC =", CA_START_SEC)
-print("CA_BW_MBPS =", CA_BW_MBPS_ENV if CA_BW_MBPS_ENV else "mean_node_bandwidth")
+print("CA_MODEL = edge_like: T_CA = CA_PROVISION_SEC + T_edge_like")
+print("CA_BW_MBPS = not used in edge_like mode")
 print("mean_delay_all =", mean_delay)
 print("mean_ca_rate =", mean_ca)
 print("mean_frag =", mean_frag)
