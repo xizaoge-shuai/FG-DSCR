@@ -6,6 +6,7 @@ from pathlib import Path
 from collections import defaultdict
 
 ROOT = Path("results/drtp/k8s_same_scale")
+CASE_DIR = Path(os.environ.get("CASE_DIR", "cases/drtp_cache_only_sweep_88"))
 RES_DIR = ROOT / os.environ.get("FIG5_RES_DIR", "fig5_overall_no_fgor")
 OUT = ROOT / os.environ.get("OUT_DIR", "tables_allrequest_fig5")
 OUT.mkdir(parents=True, exist_ok=True)
@@ -407,7 +408,7 @@ for p in sorted(RES_DIR.glob("*.json")):
         continue
 
     req = int(m.group(1))
-    case_path = Path(f"cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_{req}.json")
+    case_path = CASE_DIR / f"drtp_img88_cacheonly_1024mb_{req}.json"
     if not case_path.exists():
         print("[MISSING CASE]", case_path)
         continue

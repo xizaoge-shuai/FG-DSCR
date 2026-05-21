@@ -1,0 +1,20 @@
+{
+  "algo": "LASA-reimpl-K8s",
+  "num_containers": 200,
+  "num_scheduled_containers": 90,
+  "num_assigned": 90,
+  "ca_triggered": 110,
+  "ca_rate": 0.55,
+  "ca_penalty": 550.0,
+  "lambda_ca": 1000.0,
+  "num_nodes": 8,
+  "ACT": 121.46226851851847,
+  "AMS": 248.16666666666663,
+  "downloaded_mb": 12692,
+  "reused_mb": 7512,
+  "reuse_rate": 0.3718075628588398,
+  "objective_without_ca_penalty": 184.81446759259256,
+  "objective_ca": 734.8144675925926,
+  "objective": 734.8144675925926,
+  "elapsed_s_internal": 0.8634035587310791
+}

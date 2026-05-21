@@ -1,0 +1,664 @@
+import json
+import math
+import os
+import re
+from pathlib import Path
+from collections import defaultdict
+
+ROOT = Path("results/drtp/k8s_same_scale")
+RES_DIR = ROOT / os.environ.get("FIG5_RES_DIR", "fig5_overall_no_fgor")
+OUT = ROOT / os.environ.get("OUT_DIR", "tables_allrequest_fig5")
+OUT.mkdir(parents=True, exist_ok=True)
+
+CA_PROVISION_SEC = float(os.environ.get("CA_PROVISION_SEC", "0"))
+CA_START_SEC = float(os.environ.get("CA_START_SEC", "0"))
+CA_BW_MBPS_ENV = os.environ.get("CA_BW_MBPS", "").strip()
+
+METHODS = ["ILR-SA", "LRScheduler", "GAHRL", "ORR", "LASA", "FG-DSCR-GC"]
+
+def load_json(p):
+    with open(p, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def method_name(fn, s):
+    algo = str(s.get("algo", ""))
+
+    if "ILR" in algo or fn.startswith("ilrsa"):
+        return "ILR-SA"
+    if "LRScheduler" in algo or fn.startswith("lrs"):
+        return "LRScheduler"
+    if "GAHRL" in algo or fn.startswith("gahrl"):
+        return "GAHRL"
+    if "ORR" in algo or fn.startswith("orr"):
+        return "ORR"
+    if "LASA" in algo or fn.startswith("lasa"):
+        return "LASA"
+    if fn.startswith("fg_orig") or "orig" in algo:
+        return "FG-orig"
+    if fn.startswith("fg_") or fn.startswith("fg.") or "selected" in algo:
+        return "FG-DSCR-GC"
+
+    return fn
+
+def get_assignment(result):
+    if isinstance(result.get("assignment"), dict):
+        return result["assignment"]
+    if isinstance(result.get("assignments"), dict):
+        return result["assignments"]
+    return {}
+
+def get_nodes(case):
+    return {str(n.get("eid")): n for n in case.get("nodes", [])}
+
+def node_bandwidth(n):
+    for k in ["bandwidth_mb_s", "bandwidth", "bw", "net_bw", "network_bw"]:
+        if k in n:
+            try:
+                v = float(n[k])
+                if v > 0:
+                    return v
+            except Exception:
+                pass
+    return 100.0
+
+def build_layer_sizes(case):
+    sizes = {}
+
+    for key in ["layer_sizes_mb", "layer_sizes", "layers_size", "layer_size"]:
+        obj = case.get(key)
+        if isinstance(obj, dict):
+            for k, v in obj.items():
+                try:
+                    sizes[str(k)] = float(v)
+                except Exception:
+                    pass
+
+    layers = case.get("layers")
+    if isinstance(layers, list):
+        for x in layers:
+            if isinstance(x, dict):
+                lid = x.get("id") or x.get("layer_id") or x.get("lid") or x.get("name")
+                sz = x.get("size_mb") or x.get("size") or x.get("mb")
+                if lid is not None and sz is not None:
+                    try:
+                        sizes[str(lid)] = float(sz)
+                    except Exception:
+                        pass
+
+    return sizes
+
+def get_container_layers(case):
+    cid_layers = {}
+
+    images = {}
+    for key in ["images", "image_catalog", "catalog"]:
+        obj = case.get(key)
+        if isinstance(obj, dict):
+            for k, v in obj.items():
+                images[str(k)] = v
+
+    for c in case.get("containers", []):
+        cid = c.get("cid") or c.get("id") or c.get("name")
+        if cid is None:
+            continue
+        cid = str(cid)
+
+        layers = None
+        for key in ["layers", "layer_ids", "image_layers", "required_layers"]:
+            if isinstance(c.get(key), list):
+                layers = c.get(key)
+                break
+
+        if layers is None:
+            img = c.get("image") or c.get("image_id") or c.get("repo") or c.get("image_name")
+            if img is not None and str(img) in images:
+                im = images[str(img)]
+                if isinstance(im, dict):
+                    for key in ["layers", "layer_ids", "image_layers"]:
+                        if isinstance(im.get(key), list):
+                            layers = im.get(key)
+                            break
+                elif isinstance(im, list):
+                    layers = im
+
+        if layers is None:
+            layers = []
+
+        norm_layers = []
+        for x in layers:
+            if isinstance(x, dict):
+                lid = x.get("id") or x.get("layer_id") or x.get("lid") or x.get("name")
+                if lid is not None:
+                    norm_layers.append(str(lid))
+            else:
+                norm_layers.append(str(x))
+
+        cid_layers[cid] = norm_layers
+
+    return cid_layers
+
+def container_direct_size(c):
+    for k in ["image_size_mb", "size_mb", "total_size_mb", "image_mb"]:
+        if k in c:
+            try:
+                v = float(c[k])
+                if v > 0:
+                    return v
+            except Exception:
+                pass
+    return 0.0
+
+def container_image_size_mb(case, cid, cid_layers, layer_sizes, fallback_mean):
+    containers = {str(c.get("cid")): c for c in case.get("containers", [])}
+    c = containers.get(str(cid))
+
+    s = 0.0
+    for lid in cid_layers.get(str(cid), []):
+        s += float(layer_sizes.get(str(lid), 0.0))
+
+    if s > 0:
+        return s
+
+    if c is not None:
+        d = container_direct_size(c)
+        if d > 0:
+            return d
+
+    return fallback_mean
+
+def percentile(vals, q):
+    if not vals:
+        return 0.0
+    xs = sorted(vals)
+    if len(xs) == 1:
+        return xs[0]
+    pos = (len(xs) - 1) * q / 100.0
+    lo = math.floor(pos)
+    hi = math.ceil(pos)
+    if lo == hi:
+        return xs[lo]
+    w = pos - lo
+    return xs[lo] * (1 - w) + xs[hi] * w
+
+def fragmentation_score(case, result):
+    assignment = get_assignment(result)
+    containers = {str(c.get("cid")): c for c in case.get("containers", [])}
+    nodes = get_nodes(case)
+
+    vals = []
+    for eid, cids in assignment.items():
+        eid = str(eid)
+        if eid not in nodes:
+            continue
+
+        caps = nodes[eid].get("resources", {})
+        pressures = []
+
+        for r, cap in caps.items():
+            cap = float(cap)
+            if cap <= 0:
+                continue
+
+            used = 0.0
+            for cid in cids:
+                c = containers.get(str(cid))
+                if c is not None:
+                    used += float(c.get("resources", {}).get(r, 0.0))
+
+            pressures.append(used / cap)
+
+        if pressures:
+            avg_p = sum(pressures) / len(pressures)
+            vals.append(sum(abs(x - avg_p) for x in pressures) / len(pressures))
+
+    return sum(vals) / len(vals) if vals else 0.0
+
+def service_time_from_metric(m, bw):
+    for k in [
+        "completion_time", "finish_time", "end_time",
+        "service_time", "duration", "latency",
+        "pull_time", "download_time", "time"
+    ]:
+        if k in m:
+            try:
+                v = float(m[k])
+                if v >= 0:
+                    return v
+            except Exception:
+                pass
+
+    d = float(m.get("downloaded_mb", 0.0))
+    if bw > 0:
+        return d / bw
+    return 0.0
+
+
+def normalize_container_metrics(raw):
+    """
+    Normalize container_metrics into list[dict].
+
+    Compatible formats:
+    1) list[dict]
+    2) list[str]
+    3) dict[cid] = dict
+    4) dict[node_id] = list[dict]
+    5) dict[node_id] = list[cid]
+    6) dict[cid] = node_id
+    """
+    out = []
+
+    if isinstance(raw, list):
+        for item in raw:
+            if isinstance(item, dict):
+                out.append(item)
+            elif isinstance(item, str):
+                out.append({"cid": item})
+        return out
+
+    if isinstance(raw, dict):
+        for k, v in raw.items():
+            key = str(k)
+
+            if isinstance(v, dict):
+                item = dict(v)
+
+                # 如果 key 是 cid，则补 cid
+                if "cid" not in item and not key.startswith("edge-"):
+                    item["cid"] = key
+
+                # 如果 key 是 node_id，则补 node_id
+                if "node_id" not in item and key.startswith("edge-"):
+                    item["node_id"] = key
+
+                out.append(item)
+
+            elif isinstance(v, list):
+                # 常见格式：node_id -> [metric dicts] 或 node_id -> [cid]
+                for elem in v:
+                    if isinstance(elem, dict):
+                        item = dict(elem)
+                        if "node_id" not in item:
+                            item["node_id"] = key
+                        out.append(item)
+                    elif isinstance(elem, str):
+                        out.append({"node_id": key, "cid": elem})
+
+            elif isinstance(v, str):
+                # 可能是 cid -> node_id
+                out.append({"cid": key, "node_id": v})
+
+        return out
+
+    return out
+
+
+def edge_completion_times(case, result):
+    """
+    Estimate completion time for containers placed on existing edge nodes.
+
+    Priority:
+    1) If container_metrics contains completion/finish/end time, use it directly.
+    2) Else replay node queues by accumulating service_time estimated from metrics.
+    3) Else fallback to assignment replay using image_size / node_bandwidth.
+    """
+    nodes = get_nodes(case)
+    bw_map = {eid: node_bandwidth(n) for eid, n in nodes.items()}
+
+    raw_metrics = result.get("container_metrics", [])
+    metrics = normalize_container_metrics(raw_metrics)
+
+    times = {}
+
+    # 1) 如果 metrics 中已经有 completion/finish/end，则直接使用
+    direct_keys = ["completion_time", "finish_time", "end_time"]
+    has_direct = False
+
+    for m in metrics:
+        if not isinstance(m, dict):
+            continue
+
+        cid = m.get("cid")
+        if cid is None:
+            continue
+
+        for k in direct_keys:
+            if k in m:
+                try:
+                    times[str(cid)] = float(m[k])
+                    has_direct = True
+                    break
+                except Exception:
+                    pass
+
+    if has_direct and times:
+        return times
+
+    # 2) 否则按 node 内顺序 replay，累计 service_time
+    by_node = defaultdict(list)
+
+    for m in metrics:
+        if not isinstance(m, dict):
+            continue
+
+        eid = str(m.get("node_id") or m.get("eid") or m.get("node") or "")
+        cid = m.get("cid")
+
+        if not eid or cid is None:
+            continue
+
+        by_node[eid].append(m)
+
+    for eid, ms in by_node.items():
+        cur = 0.0
+        bw = bw_map.get(eid, 100.0)
+
+        for m in ms:
+            cid = str(m.get("cid"))
+            st = service_time_from_metric(m, bw)
+            cur += st
+            times[cid] = cur
+
+    if times:
+        return times
+
+    # 3) fallback：如果没有 container_metrics，就用 assignment + image_size / bandwidth 粗略 replay
+    assignment = get_assignment(result)
+    layer_sizes = build_layer_sizes(case)
+    cid_layers = get_container_layers(case)
+
+    all_cids = []
+    for c in case.get("containers", []):
+        cid = c.get("cid")
+        if cid is not None:
+            all_cids.append(str(cid))
+
+    all_sizes = []
+    for cid in all_cids:
+        sz = sum(float(layer_sizes.get(lid, 0.0)) for lid in cid_layers.get(cid, []))
+        if sz > 0:
+            all_sizes.append(sz)
+
+    fallback_size = sum(all_sizes) / len(all_sizes) if all_sizes else 0.0
+
+    for eid, cids in assignment.items():
+        eid = str(eid)
+        cur = 0.0
+        bw = bw_map.get(eid, 100.0)
+
+        for cid in cids:
+            cid = str(cid)
+            img_mb = container_image_size_mb(case, cid, cid_layers, layer_sizes, fallback_size)
+            st = img_mb / bw if bw > 0 else 0.0
+            cur += st
+            times[cid] = cur
+
+    return times
+
+
+def mean_positive(vals):
+    xs = [float(x) for x in vals if float(x) > 0]
+    return sum(xs) / len(xs) if xs else 1.0
+
+rows = []
+
+for p in sorted(RES_DIR.glob("*.json")):
+    m = re.search(r"req(\d+)", p.name)
+    if not m:
+        continue
+
+    req = int(m.group(1))
+    case_path = Path(f"cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_{req}.json")
+    if not case_path.exists():
+        print("[MISSING CASE]", case_path)
+        continue
+
+    result = load_json(p)
+    case = load_json(case_path)
+    s = result.get("summary", {})
+
+    method = method_name(p.name, s)
+    if method == "FG-orig" or method not in METHODS:
+        continue
+
+    containers = case.get("containers", [])
+    all_cids = [str(c.get("cid")) for c in containers if c.get("cid") is not None]
+    n_total = len(all_cids)
+
+    assignment = get_assignment(result)
+    edge_cids = set()
+    for eid, cids in assignment.items():
+        for cid in cids:
+            edge_cids.add(str(cid))
+
+    ca_cids = [cid for cid in all_cids if cid not in edge_cids]
+
+    nodes = get_nodes(case)
+    bw_vals = [node_bandwidth(n) for n in nodes.values()]
+    mean_bw = sum(bw_vals) / len(bw_vals) if bw_vals else 100.0
+    ca_bw = float(CA_BW_MBPS_ENV) if CA_BW_MBPS_ENV else mean_bw
+
+    layer_sizes = build_layer_sizes(case)
+    cid_layers = get_container_layers(case)
+
+    all_sizes = []
+    for cid in all_cids:
+        sz = sum(layer_sizes.get(lid, 0.0) for lid in cid_layers.get(cid, []))
+        if sz > 0:
+            all_sizes.append(sz)
+    fallback_size = sum(all_sizes) / len(all_sizes) if all_sizes else 0.0
+
+    edge_times = edge_completion_times(case, result)
+
+    completion_times = []
+    missing_edge_time = 0
+
+    # CA edge-like model:
+    # For CA-triggered containers, use T_i^CA = T_provision + T_i^edge_like.
+    # Since a CA container is not replayed on the original cluster, we estimate
+    # T_i^edge_like from the empirical completion-time distribution of edge-scheduled containers.
+    edge_ref_values = []
+    for ecid in edge_cids:
+        if ecid in edge_times:
+            try:
+                edge_ref_values.append(float(edge_times[ecid]))
+            except Exception:
+                pass
+
+    edge_ref_values = sorted(x for x in edge_ref_values if x >= 0)
+
+    if not edge_ref_values:
+        # Fallback: use summary ACT if no per-container edge time exists.
+        fallback_edge_t = float(s.get("ACT", 0.0))
+        edge_ref_values = [fallback_edge_t]
+
+    ca_seen = 0
+    n_ca = max(1, len(ca_cids))
+
+    def edge_like_time_for_ca(idx):
+        # Deterministic quantile mapping:
+        # CA containers are mapped to the empirical edge completion-time distribution.
+        if len(edge_ref_values) == 1:
+            return edge_ref_values[0]
+        q = (idx + 0.5) / n_ca
+        pos = q * (len(edge_ref_values) - 1)
+        lo = int(pos)
+        hi = min(lo + 1, len(edge_ref_values) - 1)
+        w = pos - lo
+        return edge_ref_values[lo] * (1 - w) + edge_ref_values[hi] * w
+
+    for cid in all_cids:
+        if cid in edge_cids:
+            t = edge_times.get(cid, None)
+            if t is None:
+                missing_edge_time += 1
+                t = float(s.get("ACT", 0.0))
+            completion_times.append(float(t))
+        else:
+            # T_i^CA = T_provision + T_i^edge_like
+            t_edge_like = edge_like_time_for_ca(ca_seen)
+            ca_seen += 1
+            t_ca = CA_PROVISION_SEC + t_edge_like
+            completion_times.append(t_ca)
+
+    act_all = sum(completion_times) / len(completion_times) if completion_times else 0.0
+    p95_all = percentile(completion_times, 95)
+    cms_all = max(completion_times) if completion_times else 0.0
+    delay_all = 0.5 * act_all + 0.5 * p95_all
+
+    ca = len(ca_cids)
+    ca_rate = ca / n_total if n_total > 0 else 0.0
+
+    rows.append({
+        "requests": req,
+        "method": method,
+        "n_total": n_total,
+        "edge_scheduled": len(edge_cids),
+        "CA": ca,
+        "CA_rate": ca_rate,
+        "ACT_edge_summary": float(s.get("ACT", 0.0)),
+        "AMS_edge_summary": float(s.get("AMS", 0.0)),
+        "ACT_all": act_all,
+        "P95_all": p95_all,
+        "CMS_all": cms_all,
+        "Delay_all": delay_all,
+        "frag_score": fragmentation_score(case, result),
+        "downloaded_mb": float(s.get("downloaded_mb", 0.0)),
+        "reuse_rate": float(s.get("reuse_rate", 0.0)),
+        "missing_edge_time": missing_edge_time,
+    })
+
+mean_delay = mean_positive([r["Delay_all"] for r in rows])
+mean_ca = mean_positive([r["CA_rate"] for r in rows])
+mean_frag = mean_positive([r["frag_score"] for r in rows])
+
+for r in rows:
+    r["Delay_all_norm"] = r["Delay_all"] / mean_delay if mean_delay > 0 else 0.0
+    r["CA_norm"] = r["CA_rate"] / mean_ca if mean_ca > 0 else 0.0
+    r["Frag_norm"] = r["frag_score"] / mean_frag if mean_frag > 0 else 0.0
+    r["Obj_Final"] = r["Delay_all_norm"] + r["CA_norm"] + r["Frag_norm"]
+
+def avg(xs):
+    return sum(xs) / len(xs) if xs else 0.0
+
+def write(path, lines):
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print("written", path)
+
+def method_order(m):
+    return METHODS.index(m) if m in METHODS else 99
+
+def write_matrix(key, title, filename, fmt="{:.3f}"):
+    reqs = sorted(set(r["requests"] for r in rows))
+    lines = [f"## {title}", ""]
+    lines.append("| requests | " + " | ".join(METHODS) + " |")
+    lines.append("|---:|" + "|".join(["---:"] * len(METHODS)) + "|")
+    for req in reqs:
+        vals = []
+        for method in METHODS:
+            hit = [r for r in rows if r["requests"] == req and r["method"] == method]
+            vals.append("" if not hit else fmt.format(hit[0][key]))
+        lines.append(f"| {req} | " + " | ".join(vals) + " |")
+    write(OUT / filename, lines)
+
+write_matrix("Obj_Final", "Fig.5 All-request: Normalized Final Objective", "fig5_allrequest_obj_matrix.md")
+write_matrix("Delay_all_norm", "Fig.5 All-request: Delay_all_norm", "fig5_allrequest_delay_norm_matrix.md")
+write_matrix("ACT_all", "Fig.5 All-request: ACT_all", "fig5_allrequest_act_all_matrix.md")
+write_matrix("P95_all", "Fig.5 All-request: P95_all", "fig5_allrequest_p95_all_matrix.md")
+write_matrix("CMS_all", "Fig.5 All-request: CMS_all", "fig5_allrequest_cms_all_matrix.md")
+write_matrix("CA_norm", "Fig.5 All-request: CA_norm", "fig5_allrequest_ca_norm_matrix.md")
+write_matrix("Frag_norm", "Fig.5 All-request: Frag_norm", "fig5_allrequest_frag_norm_matrix.md")
+
+# Detail
+lines = [
+    "## Fig.5 All-request Detail",
+    "",
+    "| requests | method | n_total | edge_scheduled | CA | CA_rate | ACT_edge_summary | AMS_edge_summary | ACT_all | P95_all | CMS_all | Delay_all | Delay_all_norm | CA_norm | frag_score | Frag_norm | Obj_Final | downloaded_mb | reuse_rate | missing_edge_time |",
+    "|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+]
+for r in sorted(rows, key=lambda x: (x["requests"], method_order(x["method"]))):
+    lines.append(
+        f"| {r['requests']} | {r['method']} | {r['n_total']} | {r['edge_scheduled']} | "
+        f"{r['CA']} | {r['CA_rate']:.4f} | {r['ACT_edge_summary']:.3f} | {r['AMS_edge_summary']:.3f} | "
+        f"{r['ACT_all']:.3f} | {r['P95_all']:.3f} | {r['CMS_all']:.3f} | {r['Delay_all']:.3f} | "
+        f"{r['Delay_all_norm']:.3f} | {r['CA_norm']:.3f} | {r['frag_score']:.6f} | {r['Frag_norm']:.3f} | "
+        f"{r['Obj_Final']:.3f} | {r['downloaded_mb']:.0f} | {r['reuse_rate']:.6f} | {r['missing_edge_time']} |"
+    )
+write(OUT / "fig5_allrequest_detail.md", lines)
+
+# Average
+acc = defaultdict(list)
+for r in rows:
+    acc[r["method"]].append(r)
+
+avg_rows = []
+for method, rs in acc.items():
+    avg_rows.append({
+        "method": method,
+        "Obj_Final": avg([x["Obj_Final"] for x in rs]),
+        "Delay_all_norm": avg([x["Delay_all_norm"] for x in rs]),
+        "CA_norm": avg([x["CA_norm"] for x in rs]),
+        "Frag_norm": avg([x["Frag_norm"] for x in rs]),
+        "ACT_all": avg([x["ACT_all"] for x in rs]),
+        "P95_all": avg([x["P95_all"] for x in rs]),
+        "CMS_all": avg([x["CMS_all"] for x in rs]),
+        "CA_rate": avg([x["CA_rate"] for x in rs]),
+        "frag_score": avg([x["frag_score"] for x in rs]),
+        "edge_scheduled_rate": avg([x["edge_scheduled"] / x["n_total"] for x in rs if x["n_total"] > 0]),
+        "downloaded_mb": avg([x["downloaded_mb"] for x in rs]),
+        "reuse_rate": avg([x["reuse_rate"] for x in rs]),
+        "n": len(rs),
+    })
+
+avg_rows.sort(key=lambda x: x["Obj_Final"])
+fg = next((x for x in avg_rows if x["method"] == "FG-DSCR-GC"), avg_rows[0])
+fg_obj = fg["Obj_Final"]
+
+lines = [
+    "## Fig.5 All-request Average and Improvement",
+    "",
+    "| method | Avg Obj_Final ↓ | Avg Delay_all_norm ↓ | Avg CA_norm ↓ | Avg Frag_norm ↓ | Avg ACT_all | Avg P95_all | Avg CMS_all | Avg CA_rate | Avg frag_score | Avg edge_scheduled_rate | Avg downloaded_mb | Avg reuse_rate | improvement vs FG-DSCR-GC | n |",
+    "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+]
+for x in avg_rows:
+    if x["method"] == "FG-DSCR-GC":
+        imp = "0.00%"
+    else:
+        imp_val = (x["Obj_Final"] - fg_obj) / x["Obj_Final"] * 100 if x["Obj_Final"] > 0 else 0.0
+        imp = f"{imp_val:.2f}%"
+    lines.append(
+        f"| {x['method']} | {x['Obj_Final']:.3f} | {x['Delay_all_norm']:.3f} | "
+        f"{x['CA_norm']:.3f} | {x['Frag_norm']:.3f} | {x['ACT_all']:.3f} | "
+        f"{x['P95_all']:.3f} | {x['CMS_all']:.3f} | {x['CA_rate']:.4f} | "
+        f"{x['frag_score']:.6f} | {x['edge_scheduled_rate']:.4f} | "
+        f"{x['downloaded_mb']:.1f} | {x['reuse_rate']:.6f} | {imp} | {x['n']} |"
+    )
+write(OUT / "fig5_allrequest_average_improvement.md", lines)
+
+combined = []
+for fn in [
+    "fig5_allrequest_average_improvement.md",
+    "fig5_allrequest_obj_matrix.md",
+    "fig5_allrequest_delay_norm_matrix.md",
+    "fig5_allrequest_act_all_matrix.md",
+    "fig5_allrequest_p95_all_matrix.md",
+    "fig5_allrequest_cms_all_matrix.md",
+    "fig5_allrequest_ca_norm_matrix.md",
+    "fig5_allrequest_frag_norm_matrix.md",
+    "fig5_allrequest_detail.md",
+]:
+    p = OUT / fn
+    if p.exists():
+        combined.append(p.read_text(encoding="utf-8"))
+
+write(OUT / "fig5_allrequest_all_tables.md", ["\n\n".join(combined)])
+
+print()
+print("RES_DIR =", RES_DIR)
+print("OUT =", OUT)
+print("CA_PROVISION_SEC =", CA_PROVISION_SEC)
+print("CA_START_SEC =", CA_START_SEC)
+print("CA_MODEL = edge_like: T_CA = CA_PROVISION_SEC + T_edge_like")
+print("CA_BW_MBPS = not used in edge_like mode")
+print("mean_delay_all =", mean_delay)
+print("mean_ca_rate =", mean_ca)
+print("mean_frag =", mean_frag)
