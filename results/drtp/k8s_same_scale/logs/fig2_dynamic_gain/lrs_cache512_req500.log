@@ -1,0 +1,28 @@
+{
+  "algo": "LRScheduler-source-inspired",
+  "num_containers": 500,
+  "num_scheduled_containers": 92,
+  "num_assigned": 92,
+  "ca_triggered": 408,
+  "ca_rate": 0.816,
+  "ca_penalty": 816.0,
+  "lambda_ca": 1000.0,
+  "num_nodes": 8,
+  "ACT": 160.49447463768115,
+  "AMS": 368.6625,
+  "downloaded_mb": 45996,
+  "reused_mb": 5094,
+  "reuse_rate": 0.09970640046975925,
+  "objective_without_ca_penalty": 264.5784873188406,
+  "objective_ca": 1080.5784873188406,
+  "objective": 1080.5784873188406,
+  "params": {
+    "layer_mb_threshold": 10.0,
+    "std_threshold": 0.16,
+    "cpu_threshold": 0.6,
+    "high_weight": 2.0,
+    "low_weight": 0.5,
+    "plugin_weight_layer": 2.0,
+    "plugin_weight_resource": 1.0
+  }
+}
