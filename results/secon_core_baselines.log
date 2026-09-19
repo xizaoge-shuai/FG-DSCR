@@ -1,0 +1,130 @@
+bash: line 513: warning: here-document at line 1 delimited by end-of-file (wanted `PY')
+
+CORE BASELINE MATRIX
+same placement / same source selection / finite cache
+D-LEASE: rho=0.50, lambda=1.00
+
+CACHE WAN METHOD       MEAN_s    P95_s  REGISTRY  PEER   EVICT  REFUSED
+ 0.5x  10 Cloud-FIFO    942.40  1573.20     16167      0    8590     4101
+ 0.5x  10 Cloud-SJF    1066.90  1567.60     16167      0    8643     4101
+ 0.5x  10 P2P-SJF       904.22  1312.59     13713   2454    8643     4101
+ 0.5x  10 C-LRU         811.08  1189.33     12313   3854    8643     4101
+ 0.5x  10 L-LRU         794.62  1311.45     13808   2359    8424     4101
+ 0.5x  10 L-LEASE       776.66  1221.48     12940   3227    8571     4101
+ 0.5x  10 D-LEASE       791.93  1161.22     12914   3253    8490     4101
+ 0.5x  30 Cloud-FIFO    314.13   524.40     16167      0    8590     4101
+ 0.5x  30 Cloud-SJF     355.63   522.53     16167      0    8643     4101
+ 0.5x  30 P2P-SJF       300.73   439.92     13789   2378    8643     4101
+ 0.5x  30 C-LRU         270.42   396.11     12313   3854    8643     4101
+ 0.5x  30 L-LRU         264.61   437.14     13808   2359    8424     4101
+ 0.5x  30 L-LEASE       258.84   407.24     12940   3227    8571     4101
+ 0.5x  30 D-LEASE       263.72   390.53     12749   3418    8550     4101
+ 0.5x 100 Cloud-FIFO     94.28   157.46     16167      0    8590     4101
+ 0.5x 100 Cloud-SJF     106.74   156.76     16167      0    8643     4101
+ 0.5x 100 P2P-SJF        88.67   130.54     13658   2509    8643     4101
+ 0.5x 100 C-LRU          81.69   118.99     12313   3854    8643     4101
+ 0.5x 100 L-LRU          79.65   131.67     13859   2308    8426     4101
+ 0.5x 100 L-LEASE        77.59   122.28     12940   3227    8571     4101
+ 0.5x 100 D-LEASE        79.16   118.36     12749   3418    8527     4101
+ 1.0x  10 Cloud-FIFO    942.40  1573.20     16167      0   10212        0
+ 1.0x  10 Cloud-SJF    1066.90  1567.60     16167      0    8802        0
+ 1.0x  10 P2P-SJF       875.49  1262.60     12626   3541    8802        0
+ 1.0x  10 C-LRU         714.89   956.26      9452   6715    8802        0
+ 1.0x  10 L-LRU         673.23   995.57     10873   5294    9901        0
+ 1.0x  10 L-LEASE       665.30   920.47      9452   6715    7684     1774
+ 1.0x  10 D-LEASE       665.30   920.47      9452   6715    7684     1774
+ 1.0x  30 Cloud-FIFO    314.13   524.40     16167      0   10212        0
+ 1.0x  30 Cloud-SJF     355.63   522.53     16167      0    8802        0
+ 1.0x  30 P2P-SJF       298.11   430.07     12902   3265    8802        0
+ 1.0x  30 C-LRU         241.24   333.16      9452   6715    8802        0
+ 1.0x  30 L-LRU         226.14   328.53     10873   5294    9901        0
+ 1.0x  30 L-LEASE       223.86   313.72      9452   6715    7573     1774
+ 1.0x  30 D-LEASE       223.86   313.72      9452   6715    7573     1774
+ 1.0x 100 Cloud-FIFO     94.28   157.46     16167      0   10212        0
+ 1.0x 100 Cloud-SJF     106.74   156.76     16167      0    8802        0
+ 1.0x 100 P2P-SJF        88.16   128.31     12771   3396    8802        0
+ 1.0x 100 C-LRU          75.30   112.82      9452   6715    8802        0
+ 1.0x 100 L-LRU          70.97   103.21     10473   5694    8507      202
+ 1.0x 100 L-LEASE        70.60   103.21      9654   6513    8626      202
+ 1.0x 100 D-LEASE        70.61   103.21      9654   6513    8626      202
+ 2.0x  10 Cloud-FIFO    942.40  1573.20     16167      0    1512        0
+ 2.0x  10 Cloud-SJF    1066.90  1567.60     16167      0    1190        0
+ 2.0x  10 P2P-SJF       875.49  1262.60     12626   3541    1190        0
+ 2.0x  10 C-LRU         714.89   956.26      9452   6715    1190        0
+ 2.0x  10 L-LRU         666.42   952.04      9653   6514    1152        0
+ 2.0x  10 L-LEASE       665.30   920.47      9452   6715    1080        0
+ 2.0x  10 D-LEASE       665.30   920.47      9452   6715    1080        0
+ 2.0x  30 Cloud-FIFO    314.13   524.40     16167      0    1512        0
+ 2.0x  30 Cloud-SJF     355.63   522.53     16167      0    1190        0
+ 2.0x  30 P2P-SJF       298.11   430.07     12902   3265    1190        0
+ 2.0x  30 C-LRU         241.24   333.16      9452   6715    1190        0
+ 2.0x  30 L-LRU         223.86   313.72      9452   6715    1080        0
+ 2.0x  30 L-LEASE       223.86   313.72      9452   6715    1080        0
+ 2.0x  30 D-LEASE       223.86   313.72      9452   6715    1080        0
+ 2.0x 100 Cloud-FIFO     94.28   157.46     16167      0    1512        0
+ 2.0x 100 Cloud-SJF     106.74   156.76     16167      0    1190        0
+ 2.0x 100 P2P-SJF        88.16   128.31     12771   3396    1190        0
+ 2.0x 100 C-LRU          75.30   112.82      9452   6715    1190        0
+ 2.0x 100 L-LRU          70.60   103.21      9654   6513    1080        0
+ 2.0x 100 L-LEASE        70.60   103.21      9654   6513    1080        0
+ 2.0x 100 D-LEASE        70.60   103.21      9654   6513    1080        0
+
+========== Proposed D-LEASE vs C-LRU ==========
+cache=0.5x WAN= 10  mean=  +2.36%  p95=  +2.36%  registry=  +4.88%
+cache=0.5x WAN= 30  mean=  +2.48%  p95=  +1.41%  registry=  +3.54%
+cache=0.5x WAN=100  mean=  +3.10%  p95=  +0.53%  registry=  +3.54%
+cache=1.0x WAN= 10  mean=  +6.94%  p95=  +3.74%  registry=  +0.00%
+cache=1.0x WAN= 30  mean=  +7.20%  p95=  +5.84%  registry=  +0.00%
+cache=1.0x WAN=100  mean=  +6.24%  p95=  +8.51%  registry=  +2.14%
+cache=2.0x WAN= 10  mean=  +6.94%  p95=  +3.74%  registry=  +0.00%
+cache=2.0x WAN= 30  mean=  +7.20%  p95=  +5.84%  registry=  +0.00%
+cache=2.0x WAN=100  mean=  +6.24%  p95=  +8.51%  registry=  +2.14%
+
+========== Ablation: each added mechanism ==========
+cache=0.5x WAN= 10
+  C-LRU   -> L-LRU   : mean= +2.03% p95=-10.27% registry_save=-12.14%
+  L-LRU   -> L-LEASE : mean= +2.26% p95= +6.86% registry_save= +6.29%
+  L-LEASE -> D-LEASE : mean= -1.97% p95= +4.93% registry_save= +0.20%
+cache=0.5x WAN= 30
+  C-LRU   -> L-LRU   : mean= +2.15% p95=-10.36% registry_save=-12.14%
+  L-LRU   -> L-LEASE : mean= +2.18% p95= +6.84% registry_save= +6.29%
+  L-LEASE -> D-LEASE : mean= -1.89% p95= +4.10% registry_save= +1.48%
+cache=0.5x WAN=100
+  C-LRU   -> L-LRU   : mean= +2.51% p95=-10.66% registry_save=-12.56%
+  L-LRU   -> L-LEASE : mean= +2.58% p95= +7.13% registry_save= +6.63%
+  L-LEASE -> D-LEASE : mean= -2.02% p95= +3.21% registry_save= +1.48%
+cache=1.0x WAN= 10
+  C-LRU   -> L-LRU   : mean= +5.83% p95= -4.11% registry_save=-15.03%
+  L-LRU   -> L-LEASE : mean= +1.18% p95= +7.54% registry_save=+13.07%
+  L-LEASE -> D-LEASE : mean= +0.00% p95= +0.00% registry_save= +0.00%
+cache=1.0x WAN= 30
+  C-LRU   -> L-LRU   : mean= +6.26% p95= +1.39% registry_save=-15.03%
+  L-LRU   -> L-LEASE : mean= +1.01% p95= +4.51% registry_save=+13.07%
+  L-LEASE -> D-LEASE : mean= +0.00% p95= +0.00% registry_save= +0.00%
+cache=1.0x WAN=100
+  C-LRU   -> L-LRU   : mean= +5.76% p95= +8.51% registry_save=-10.80%
+  L-LRU   -> L-LEASE : mean= +0.52% p95= -0.00% registry_save= +7.82%
+  L-LEASE -> D-LEASE : mean= -0.01% p95= +0.00% registry_save= +0.00%
+cache=2.0x WAN= 10
+  C-LRU   -> L-LRU   : mean= +6.78% p95= +0.44% registry_save= -2.13%
+  L-LRU   -> L-LEASE : mean= +0.17% p95= +3.32% registry_save= +2.08%
+  L-LEASE -> D-LEASE : mean= +0.00% p95= +0.00% registry_save= +0.00%
+cache=2.0x WAN= 30
+  C-LRU   -> L-LRU   : mean= +7.20% p95= +5.84% registry_save= +0.00%
+  L-LRU   -> L-LEASE : mean= +0.00% p95= +0.00% registry_save= +0.00%
+  L-LEASE -> D-LEASE : mean= +0.00% p95= +0.00% registry_save= +0.00%
+cache=2.0x WAN=100
+  C-LRU   -> L-LRU   : mean= +6.24% p95= +8.51% registry_save= -2.14%
+  L-LRU   -> L-LEASE : mean= +0.00% p95= +0.00% registry_save= +0.00%
+  L-LEASE -> D-LEASE : mean= +0.00% p95= +0.00% registry_save= +0.00%
+
+========== Pareto check ==========
+cache=0.5x WAN= 10 -> PASS (mean=+2.36% p95=+2.36% reg=+4.88%)
+cache=0.5x WAN= 30 -> PASS (mean=+2.48% p95=+1.41% reg=+3.54%)
+cache=0.5x WAN=100 -> PASS (mean=+3.10% p95=+0.53% reg=+3.54%)
+cache=1.0x WAN= 10 -> PASS (mean=+6.94% p95=+3.74% reg=+0.00%)
+cache=1.0x WAN= 30 -> PASS (mean=+7.20% p95=+5.84% reg=+0.00%)
+cache=1.0x WAN=100 -> PASS (mean=+6.24% p95=+8.51% reg=+2.14%)
+cache=2.0x WAN= 10 -> PASS (mean=+6.94% p95=+3.74% reg=+0.00%)
+cache=2.0x WAN= 30 -> PASS (mean=+7.20% p95=+5.84% reg=+0.00%)
+cache=2.0x WAN=100 -> PASS (mean=+6.24% p95=+8.51% reg=+2.14%)
