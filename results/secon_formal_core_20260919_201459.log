@@ -1,0 +1,1174 @@
+nohup: ignoring input
+
+[1/45] drtp_img88_cacheonly_1024mb_200__seed1__cache0.5
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=100, accepted=94
+  WAN=10  cloud_fifo  mean=911.12 p95=1449.10 registry=15351
+  WAN=10  cloud_sjf   mean=942.52 p95=1426.70 registry=15351
+  WAN=10  p2p_sjf     mean=795.18 p95=1246.55 registry=13518
+  WAN=10  c_lru       mean=601.04 p95=1043.10 registry=11318
+  WAN=10  l_lru       mean=602.20 p95=1109.10 registry=11978
+  WAN=10  l_lease     mean=575.12 p95=1048.40 registry=11371
+  WAN=10  d_lease     mean=573.34 p95=1048.40 registry=11371
+  WAN=30  cloud_fifo  mean=303.71 p95=483.03 registry=15351
+  WAN=30  cloud_sjf   mean=314.17 p95=475.57 registry=15351
+  WAN=30  p2p_sjf     mean=265.27 p95=415.79 registry=13516
+  WAN=30  c_lru       mean=200.64 p95=347.70 registry=11318
+  WAN=30  l_lru       mean=198.81 p95=367.57 registry=11913
+  WAN=30  l_lease     mean=195.87 p95=362.63 registry=11765
+  WAN=30  d_lease     mean=188.97 p95=319.93 registry=11371
+  WAN=100 cloud_fifo  mean=91.21 p95=144.91 registry=15351
+  WAN=100 cloud_sjf   mean=94.37 p95=142.67 registry=15351
+  WAN=100 p2p_sjf     mean=79.35 p95=124.57 registry=13449
+  WAN=100 c_lru       mean=61.65 p95=112.76 registry=11105
+  WAN=100 l_lru       mean=62.70 p95=121.69 registry=12185
+  WAN=100 l_lease     mean=58.97 p95=102.60 registry=11784
+  WAN=100 d_lease     mean=58.14 p95=99.50 registry=11390
+
+[2/45] drtp_img88_cacheonly_1024mb_200__seed1__cache1
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=100, accepted=94
+  WAN=10  cloud_fifo  mean=917.94 p95=1734.10 registry=18382
+  WAN=10  cloud_sjf   mean=905.55 p95=1734.10 registry=18382
+  WAN=10  p2p_sjf     mean=630.07 p95=1210.00 registry=12100
+  WAN=10  c_lru       mean=393.79 p95=620.12 registry=5871
+  WAN=10  l_lru       mean=386.81 p95=603.31 registry=6394
+  WAN=10  l_lease     mean=370.37 p95=570.82 registry=5360
+  WAN=10  d_lease     mean=363.97 p95=567.96 registry=5360
+  WAN=30  cloud_fifo  mean=305.98 p95=578.03 registry=18382
+  WAN=30  cloud_sjf   mean=301.85 p95=578.03 registry=18382
+  WAN=30  p2p_sjf     mean=207.16 p95=411.71 registry=12546
+  WAN=30  c_lru       mean=137.91 p95=230.83 registry=5996
+  WAN=30  l_lru       mean=138.15 p95=233.11 registry=5951
+  WAN=30  l_lease     mean=133.46 p95=225.13 registry=5360
+  WAN=30  d_lease     mean=130.91 p95=224.14 registry=5360
+  WAN=100 cloud_fifo  mean=91.83 p95=173.41 registry=18382
+  WAN=100 cloud_sjf   mean=90.62 p95=173.41 registry=18382
+  WAN=100 p2p_sjf     mean=62.63 p95=124.41 registry=11769
+  WAN=100 c_lru       mean=46.43 p95=99.74 registry=5843
+  WAN=100 l_lru       mean=45.63 p95=91.98 registry=6105
+  WAN=100 l_lease     mean=43.86 p95=88.26 registry=5361
+  WAN=100 d_lease     mean=42.99 p95=88.19 registry=5361
+
+[3/45] drtp_img88_cacheonly_1024mb_200__seed1__cache2
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=100, accepted=95
+  WAN=10  cloud_fifo  mean=205.08 p95=878.50 registry=9293
+  WAN=10  cloud_sjf   mean=162.71 p95=885.10 registry=9293
+  WAN=10  p2p_sjf     mean=32.14 p95=177.24 registry=1877
+  WAN=10  c_lru       mean=27.61 p95=153.45 registry=1746
+  WAN=10  l_lru       mean=26.60 p95=153.37 registry=1746
+  WAN=10  l_lease     mean=23.76 p95=121.84 registry=1391
+  WAN=10  d_lease     mean=23.76 p95=121.84 registry=1391
+  WAN=30  cloud_fifo  mean=68.36 p95=292.83 registry=9293
+  WAN=30  cloud_sjf   mean=54.24 p95=295.03 registry=9293
+  WAN=30  p2p_sjf     mean=11.69 p95=53.53 registry=1726
+  WAN=30  c_lru       mean=10.70 p95=51.46 registry=1746
+  WAN=30  l_lru       mean=10.34 p95=51.44 registry=1746
+  WAN=30  l_lease     mean=9.46 p95=46.26 registry=1391
+  WAN=30  d_lease     mean=9.46 p95=46.26 registry=1391
+  WAN=100 cloud_fifo  mean=20.56 p95=87.85 registry=9293
+  WAN=100 cloud_sjf   mean=16.30 p95=88.51 registry=9293
+  WAN=100 p2p_sjf     mean=5.34 p95=28.10 registry=2612
+  WAN=100 c_lru       mean=5.03 p95=26.13 registry=1817
+  WAN=100 l_lru       mean=5.13 p95=26.36 registry=1391
+  WAN=100 l_lease     mean=4.82 p95=26.36 registry=1391
+  WAN=100 d_lease     mean=4.82 p95=26.36 registry=1391
+
+[4/45] drtp_img88_cacheonly_1024mb_200__seed2__cache0.5
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=100, accepted=97
+  WAN=10  cloud_fifo  mean=979.10 p95=1799.10 registry=18463
+  WAN=10  cloud_sjf   mean=1097.35 p95=1799.10 registry=18463
+  WAN=10  p2p_sjf     mean=864.48 p95=1478.23 registry=14955
+  WAN=10  c_lru       mean=715.05 p95=1388.30 registry=13883
+  WAN=10  l_lru       mean=735.11 p95=1491.10 registry=14911
+  WAN=10  l_lease     mean=701.84 p95=1423.50 registry=14235
+  WAN=10  d_lease     mean=698.46 p95=1415.70 registry=14157
+  WAN=30  cloud_fifo  mean=326.37 p95=599.70 registry=18463
+  WAN=30  cloud_sjf   mean=365.78 p95=599.70 registry=18463
+  WAN=30  p2p_sjf     mean=288.59 p95=492.42 registry=14955
+  WAN=30  c_lru       mean=238.90 p95=462.77 registry=13883
+  WAN=30  l_lru       mean=245.08 p95=497.03 registry=14911
+  WAN=30  l_lease     mean=234.22 p95=474.50 registry=14235
+  WAN=30  d_lease     mean=232.03 p95=471.90 registry=14157
+  WAN=100 cloud_fifo  mean=97.92 p95=179.91 registry=18463
+  WAN=100 cloud_sjf   mean=109.74 p95=179.91 registry=18463
+  WAN=100 p2p_sjf     mean=87.69 p95=149.18 registry=15159
+  WAN=100 c_lru       mean=74.25 p95=155.74 registry=13869
+  WAN=100 l_lru       mean=75.39 p95=165.36 registry=14831
+  WAN=100 l_lease     mean=72.13 p95=158.16 registry=14235
+  WAN=100 d_lease     mean=71.51 p95=157.43 registry=14157
+
+[5/45] drtp_img88_cacheonly_1024mb_200__seed2__cache1
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=100, accepted=97
+  WAN=10  cloud_fifo  mean=771.37 p95=1419.70 registry=14945
+  WAN=10  cloud_sjf   mean=793.11 p95=1423.90 registry=14945
+  WAN=10  p2p_sjf     mean=596.76 p95=1052.64 registry=11554
+  WAN=10  c_lru       mean=466.22 p95=736.25 registry=6919
+  WAN=10  l_lru       mean=445.02 p95=736.12 registry=7424
+  WAN=10  l_lease     mean=429.72 p95=697.18 registry=6824
+  WAN=10  d_lease     mean=429.72 p95=697.18 registry=6824
+  WAN=30  cloud_fifo  mean=257.12 p95=473.23 registry=14945
+  WAN=30  cloud_sjf   mean=264.37 p95=474.63 registry=14945
+  WAN=30  p2p_sjf     mean=199.38 p95=349.43 registry=11554
+  WAN=30  c_lru       mean=159.13 p95=257.24 registry=6919
+  WAN=30  l_lru       mean=153.85 p95=259.94 registry=7096
+  WAN=30  l_lease     mean=149.48 p95=257.06 registry=6824
+  WAN=30  d_lease     mean=149.48 p95=257.06 registry=6824
+  WAN=100 cloud_fifo  mean=77.17 p95=141.97 registry=14945
+  WAN=100 cloud_sjf   mean=79.35 p95=142.39 registry=14945
+  WAN=100 p2p_sjf     mean=62.05 p95=124.74 registry=12443
+  WAN=100 c_lru       mean=52.51 p95=98.90 registry=6919
+  WAN=100 l_lru       mean=52.13 p95=106.36 registry=7097
+  WAN=100 l_lease     mean=50.03 p95=102.87 registry=6824
+  WAN=100 d_lease     mean=50.03 p95=102.87 registry=6824
+
+[6/45] drtp_img88_cacheonly_1024mb_200__seed2__cache2
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=100, accepted=96
+  WAN=10  cloud_fifo  mean=267.20 p95=927.70 registry=9432
+  WAN=10  cloud_sjf   mean=232.09 p95=927.70 registry=9432
+  WAN=10  p2p_sjf     mean=82.57 p95=282.85 registry=3086
+  WAN=10  c_lru       mean=78.42 p95=271.65 registry=2974
+  WAN=10  l_lru       mean=75.27 p95=256.44 registry=3042
+  WAN=10  l_lease     mean=61.38 p95=216.38 registry=2637
+  WAN=10  d_lease     mean=61.38 p95=216.38 registry=2637
+  WAN=30  cloud_fifo  mean=89.07 p95=309.23 registry=9432
+  WAN=30  cloud_sjf   mean=77.36 p95=309.23 registry=9432
+  WAN=30  p2p_sjf     mean=28.14 p95=98.59 registry=2992
+  WAN=30  c_lru       mean=27.21 p95=96.42 registry=2927
+  WAN=30  l_lru       mean=26.84 p95=93.48 registry=3036
+  WAN=30  l_lease     mean=22.34 p95=79.05 registry=2637
+  WAN=30  d_lease     mean=22.34 p95=79.05 registry=2637
+  WAN=100 cloud_fifo  mean=26.73 p95=92.77 registry=9432
+  WAN=100 cloud_sjf   mean=23.22 p95=92.77 registry=9432
+  WAN=100 p2p_sjf     mean=9.14 p95=34.95 registry=3524
+  WAN=100 c_lru       mean=9.32 p95=34.95 registry=2637
+  WAN=100 l_lru       mean=8.97 p95=33.69 registry=2862
+  WAN=100 l_lease     mean=8.94 p95=33.69 registry=2637
+  WAN=100 d_lease     mean=8.94 p95=33.69 registry=2637
+
+[7/45] drtp_img88_cacheonly_1024mb_200__seed3__cache0.5
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=100, accepted=97
+  WAN=10  cloud_fifo  mean=971.86 p95=1576.10 registry=16344
+  WAN=10  cloud_sjf   mean=979.89 p95=1579.10 registry=16344
+  WAN=10  p2p_sjf     mean=793.07 p95=1408.61 registry=14214
+  WAN=10  c_lru       mean=634.23 p95=1220.10 registry=13088
+  WAN=10  l_lru       mean=650.57 p95=1321.70 registry=14104
+  WAN=10  l_lease     mean=636.87 p95=1293.80 registry=13825
+  WAN=10  d_lease     mean=639.29 p95=1293.80 registry=13825
+  WAN=30  cloud_fifo  mean=323.95 p95=525.37 registry=16344
+  WAN=30  cloud_sjf   mean=326.63 p95=526.37 registry=16344
+  WAN=30  p2p_sjf     mean=264.50 p95=468.89 registry=14214
+  WAN=30  c_lru       mean=218.14 p95=413.40 registry=13289
+  WAN=30  l_lru       mean=216.93 p95=440.57 registry=14104
+  WAN=30  l_lease     mean=212.32 p95=431.27 registry=13825
+  WAN=30  d_lease     mean=213.11 p95=431.27 registry=13825
+  WAN=100 cloud_fifo  mean=97.26 p95=157.61 registry=16344
+  WAN=100 cloud_sjf   mean=98.03 p95=157.91 registry=16344
+  WAN=100 p2p_sjf     mean=79.54 p95=140.12 registry=14237
+  WAN=100 c_lru       mean=69.87 p95=145.50 registry=13482
+  WAN=100 l_lru       mean=67.68 p95=151.72 registry=14044
+  WAN=100 l_lease     mean=66.64 p95=149.58 registry=13825
+  WAN=100 d_lease     mean=66.87 p95=149.61 registry=13825
+
+[8/45] drtp_img88_cacheonly_1024mb_200__seed3__cache1
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=100, accepted=96
+  WAN=10  cloud_fifo  mean=828.12 p95=1522.30 registry=16390
+  WAN=10  cloud_sjf   mean=836.11 p95=1484.30 registry=16390
+  WAN=10  p2p_sjf     mean=687.41 p95=1327.65 registry=13827
+  WAN=10  c_lru       mean=429.25 p95=669.62 registry=6164
+  WAN=10  l_lru       mean=412.78 p95=646.61 registry=6426
+  WAN=10  l_lease     mean=409.09 p95=642.38 registry=6056
+  WAN=10  d_lease     mean=409.09 p95=642.38 registry=6056
+  WAN=30  cloud_fifo  mean=276.04 p95=507.43 registry=16390
+  WAN=30  cloud_sjf   mean=278.70 p95=494.77 registry=16390
+  WAN=30  p2p_sjf     mean=228.74 p95=440.67 registry=13827
+  WAN=30  c_lru       mean=147.01 p95=243.16 registry=6164
+  WAN=30  l_lru       mean=146.32 p95=250.25 registry=6426
+  WAN=30  l_lease     mean=143.50 p95=241.28 registry=6056
+  WAN=30  d_lease     mean=143.50 p95=241.28 registry=6056
+  WAN=100 cloud_fifo  mean=83.05 p95=152.23 registry=16390
+  WAN=100 cloud_sjf   mean=83.71 p95=148.43 registry=16390
+  WAN=100 p2p_sjf     mean=66.97 p95=129.53 registry=13567
+  WAN=100 c_lru       mean=50.52 p95=102.75 registry=6164
+  WAN=100 l_lru       mean=47.60 p95=96.16 registry=6117
+  WAN=100 l_lease     mean=47.26 p95=95.53 registry=6056
+  WAN=100 d_lease     mean=47.26 p95=95.53 registry=6056
+
+[9/45] drtp_img88_cacheonly_1024mb_200__seed3__cache2
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=100, accepted=97
+  WAN=10  cloud_fifo  mean=128.27 p95=599.60 registry=6433
+  WAN=10  cloud_sjf   mean=121.57 p95=583.40 registry=6433
+  WAN=10  p2p_sjf     mean=52.89 p95=238.63 registry=3167
+  WAN=10  c_lru       mean=51.97 p95=236.87 registry=2781
+  WAN=10  l_lru       mean=44.61 p95=216.59 registry=2556
+  WAN=10  l_lease     mean=43.30 p95=202.69 registry=2185
+  WAN=10  d_lease     mean=43.30 p95=202.69 registry=2185
+  WAN=30  cloud_fifo  mean=42.76 p95=199.87 registry=6433
+  WAN=30  cloud_sjf   mean=40.52 p95=194.47 registry=6433
+  WAN=30  p2p_sjf     mean=16.93 p95=73.10 registry=3167
+  WAN=30  c_lru       mean=17.26 p95=72.70 registry=2876
+  WAN=30  l_lru       mean=17.06 p95=77.73 registry=2444
+  WAN=30  l_lease     mean=15.06 p95=69.61 registry=2185
+  WAN=30  d_lease     mean=15.06 p95=69.61 registry=2185
+  WAN=100 cloud_fifo  mean=12.83 p95=59.96 registry=6433
+  WAN=100 cloud_sjf   mean=12.16 p95=58.34 registry=6433
+  WAN=100 p2p_sjf     mean=6.22 p95=28.27 registry=3184
+  WAN=100 c_lru       mean=5.88 p95=25.87 registry=2542
+  WAN=100 l_lru       mean=5.67 p95=25.72 registry=2539
+  WAN=100 l_lease     mean=5.08 p95=23.97 registry=2185
+  WAN=100 d_lease     mean=5.08 p95=23.97 registry=2185
+
+[10/45] drtp_img88_cacheonly_1024mb_200__seed4__cache0.5
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=100, accepted=93
+  WAN=10  cloud_fifo  mean=1023.68 p95=1710.00 registry=17813
+  WAN=10  cloud_sjf   mean=1044.31 p95=1749.70 registry=17813
+  WAN=10  p2p_sjf     mean=806.69 p95=1447.47 registry=14746
+  WAN=10  c_lru       mean=668.75 p95=1282.20 registry=13709
+  WAN=10  l_lru       mean=655.44 p95=1417.80 registry=14178
+  WAN=10  l_lease     mean=628.30 p95=1360.30 registry=13603
+  WAN=10  d_lease     mean=628.30 p95=1360.30 registry=13603
+  WAN=30  cloud_fifo  mean=341.23 p95=570.00 registry=17813
+  WAN=30  cloud_sjf   mean=348.10 p95=583.23 registry=17813
+  WAN=30  p2p_sjf     mean=269.84 p95=484.30 registry=14779
+  WAN=30  c_lru       mean=223.53 p95=432.93 registry=13875
+  WAN=30  l_lru       mean=222.72 p95=481.97 registry=14459
+  WAN=30  l_lease     mean=209.75 p95=453.43 registry=13603
+  WAN=30  d_lease     mean=209.75 p95=453.43 registry=13603
+  WAN=100 cloud_fifo  mean=102.38 p95=171.00 registry=17813
+  WAN=100 cloud_sjf   mean=104.46 p95=174.97 registry=17813
+  WAN=100 p2p_sjf     mean=81.24 p95=146.07 registry=14802
+  WAN=100 c_lru       mean=68.68 p95=141.93 registry=13686
+  WAN=100 l_lru       mean=68.66 p95=162.07 registry=14193
+  WAN=100 l_lease     mean=66.00 p95=156.03 registry=13603
+  WAN=100 d_lease     mean=66.01 p95=156.03 registry=13603
+
+[11/45] drtp_img88_cacheonly_1024mb_200__seed4__cache1
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=100, accepted=93
+  WAN=10  cloud_fifo  mean=835.57 p95=1487.80 registry=15314
+  WAN=10  cloud_sjf   mean=821.61 p95=1510.00 registry=15314
+  WAN=10  p2p_sjf     mean=607.33 p95=1215.76 registry=12346
+  WAN=10  c_lru       mean=438.12 p95=705.35 registry=6610
+  WAN=10  l_lru       mean=412.98 p95=678.90 registry=6789
+  WAN=10  l_lease     mean=394.30 p95=643.50 registry=6435
+  WAN=10  d_lease     mean=374.71 p95=599.81 registry=5882
+  WAN=30  cloud_fifo  mean=278.52 p95=495.93 registry=15314
+  WAN=30  cloud_sjf   mean=273.87 p95=503.33 registry=15314
+  WAN=30  p2p_sjf     mean=202.64 p95=406.03 registry=12346
+  WAN=30  c_lru       mean=149.96 p95=258.03 registry=6610
+  WAN=30  l_lru       mean=143.87 p95=250.08 registry=6789
+  WAN=30  l_lease     mean=137.47 p95=237.85 registry=6435
+  WAN=30  d_lease     mean=131.38 p95=228.22 registry=5882
+  WAN=100 cloud_fifo  mean=83.58 p95=148.78 registry=15314
+  WAN=100 cloud_sjf   mean=82.19 p95=151.00 registry=15314
+  WAN=100 p2p_sjf     mean=61.66 p95=123.22 registry=12415
+  WAN=100 c_lru       mean=49.11 p95=104.11 registry=6667
+  WAN=100 l_lru       mean=46.60 p95=97.97 registry=6802
+  WAN=100 l_lease     mean=45.01 p95=95.14 registry=6435
+  WAN=100 d_lease     mean=43.19 p95=93.32 registry=5882
+
+[12/45] drtp_img88_cacheonly_1024mb_200__seed4__cache2
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=100, accepted=94
+  WAN=10  cloud_fifo  mean=252.16 p95=1007.70 registry=10468
+  WAN=10  cloud_sjf   mean=238.69 p95=1007.70 registry=10468
+  WAN=10  p2p_sjf     mean=87.20 p95=297.50 registry=2975
+  WAN=10  c_lru       mean=75.48 p95=242.37 registry=2590
+  WAN=10  l_lru       mean=85.02 p95=287.28 registry=3116
+  WAN=10  l_lease     mean=67.07 p95=225.90 registry=2259
+  WAN=10  d_lease     mean=67.07 p95=225.90 registry=2259
+  WAN=30  cloud_fifo  mean=84.05 p95=335.90 registry=10468
+  WAN=30  cloud_sjf   mean=79.56 p95=335.90 registry=10468
+  WAN=30  p2p_sjf     mean=30.32 p95=100.59 registry=2974
+  WAN=30  c_lru       mean=26.59 p95=90.01 registry=2590
+  WAN=30  l_lru       mean=28.23 p95=93.88 registry=2700
+  WAN=30  l_lease     mean=23.70 p95=81.61 registry=2259
+  WAN=30  d_lease     mean=23.70 p95=81.61 registry=2259
+  WAN=100 cloud_fifo  mean=25.22 p95=100.77 registry=10468
+  WAN=100 cloud_sjf   mean=23.87 p95=100.77 registry=10468
+  WAN=100 p2p_sjf     mean=10.50 p95=39.72 registry=4084
+  WAN=100 c_lru       mean=9.45 p95=37.13 registry=2816
+  WAN=100 l_lru       mean=9.66 p95=35.61 registry=2700
+  WAN=100 l_lease     mean=8.70 p95=31.97 registry=2259
+  WAN=100 d_lease     mean=8.70 p95=31.97 registry=2259
+
+[13/45] drtp_img88_cacheonly_1024mb_200__seed5__cache0.5
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=100, accepted=96
+  WAN=10  cloud_fifo  mean=967.35 p95=1740.90 registry=18018
+  WAN=10  cloud_sjf   mean=1016.32 p95=1691.70 registry=18018
+  WAN=10  p2p_sjf     mean=837.07 p95=1485.35 registry=15368
+  WAN=10  c_lru       mean=677.95 p95=1377.60 registry=13776
+  WAN=10  l_lru       mean=713.15 p95=1313.00 registry=14017
+  WAN=10  l_lease     mean=659.80 p95=1212.30 registry=13010
+  WAN=10  d_lease     mean=659.80 p95=1212.30 registry=13010
+  WAN=30  cloud_fifo  mean=322.45 p95=580.30 registry=18018
+  WAN=30  cloud_sjf   mean=338.77 p95=563.90 registry=18018
+  WAN=30  p2p_sjf     mean=276.52 p95=494.29 registry=15266
+  WAN=30  c_lru       mean=228.91 p95=462.10 registry=13863
+  WAN=30  l_lru       mean=228.45 p95=468.03 registry=14041
+  WAN=30  l_lease     mean=212.76 p95=433.67 registry=13010
+  WAN=30  d_lease     mean=212.76 p95=433.67 registry=13010
+  WAN=100 cloud_fifo  mean=96.76 p95=174.09 registry=18018
+  WAN=100 cloud_sjf   mean=101.66 p95=169.17 registry=18018
+  WAN=100 p2p_sjf     mean=80.88 p95=145.21 registry=15061
+  WAN=100 c_lru       mean=72.48 p95=161.55 registry=13891
+  WAN=100 l_lru       mean=72.22 p95=164.12 registry=14422
+  WAN=100 l_lease     mean=66.07 p95=154.70 registry=13319
+  WAN=100 d_lease     mean=66.07 p95=154.70 registry=13319
+
+[14/45] drtp_img88_cacheonly_1024mb_200__seed5__cache1
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=100, accepted=97
+  WAN=10  cloud_fifo  mean=907.94 p95=1507.40 registry=15406
+  WAN=10  cloud_sjf   mean=839.89 p95=1471.60 registry=15406
+  WAN=10  p2p_sjf     mean=653.22 p95=1191.60 registry=11916
+  WAN=10  c_lru       mean=457.84 p95=681.75 registry=6603
+  WAN=10  l_lru       mean=435.42 p95=674.05 registry=7226
+  WAN=10  l_lease     mean=411.62 p95=607.99 registry=5959
+  WAN=10  d_lease     mean=411.62 p95=607.99 registry=5959
+  WAN=30  cloud_fifo  mean=302.65 p95=502.47 registry=15406
+  WAN=30  cloud_sjf   mean=279.96 p95=490.53 registry=15406
+  WAN=30  p2p_sjf     mean=217.65 p95=396.93 registry=11908
+  WAN=30  c_lru       mean=161.95 p95=257.09 registry=6595
+  WAN=30  l_lru       mean=152.50 p95=239.88 registry=6832
+  WAN=30  l_lease     mean=146.70 p95=232.20 registry=5959
+  WAN=30  d_lease     mean=146.70 p95=232.20 registry=5959
+  WAN=100 cloud_fifo  mean=90.82 p95=150.74 registry=15406
+  WAN=100 cloud_sjf   mean=84.01 p95=147.16 registry=15406
+  WAN=100 p2p_sjf     mean=62.66 p95=112.98 registry=11228
+  WAN=100 c_lru       mean=51.11 p95=92.01 registry=6474
+  WAN=100 l_lru       mean=51.89 p95=103.41 registry=6968
+  WAN=100 l_lease     mean=50.09 p95=100.98 registry=6042
+  WAN=100 d_lease     mean=50.09 p95=100.98 registry=6042
+
+[15/45] drtp_img88_cacheonly_1024mb_200__seed5__cache2
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=100, accepted=96
+  WAN=10  cloud_fifo  mean=131.02 p95=575.00 registry=6156
+  WAN=10  cloud_sjf   mean=113.34 p95=580.60 registry=6156
+  WAN=10  p2p_sjf     mean=48.56 p95=212.92 registry=2254
+  WAN=10  c_lru       mean=38.89 p95=164.89 registry=1859
+  WAN=10  l_lru       mean=45.19 p95=224.81 registry=2263
+  WAN=10  l_lease     mean=40.66 p95=165.34 registry=1658
+  WAN=10  d_lease     mean=40.66 p95=165.34 registry=1658
+  WAN=30  cloud_fifo  mean=43.67 p95=191.67 registry=6156
+  WAN=30  cloud_sjf   mean=37.78 p95=193.53 registry=6156
+  WAN=30  p2p_sjf     mean=16.78 p95=69.36 registry=2254
+  WAN=30  c_lru       mean=14.36 p95=55.27 registry=1859
+  WAN=30  l_lru       mean=15.62 p95=71.29 registry=2248
+  WAN=30  l_lease     mean=14.56 p95=60.62 registry=1658
+  WAN=30  d_lease     mean=14.56 p95=60.62 registry=1658
+  WAN=100 cloud_fifo  mean=13.13 p95=57.50 registry=6156
+  WAN=100 cloud_sjf   mean=11.41 p95=58.06 registry=6156
+  WAN=100 p2p_sjf     mean=5.76 p95=26.20 registry=2248
+  WAN=100 c_lru       mean=5.42 p95=25.44 registry=2084
+  WAN=100 l_lru       mean=5.48 p95=26.50 registry=2219
+  WAN=100 l_lease     mean=5.45 p95=26.47 registry=1961
+  WAN=100 d_lease     mean=5.45 p95=26.47 registry=1961
+
+[16/45] drtp_img88_cacheonly_1024mb_500__seed1__cache0.5
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=250, accepted=134
+  WAN=10  cloud_fifo  mean=860.02 p95=1467.20 registry=15683
+  WAN=10  cloud_sjf   mean=883.41 p95=1550.20 registry=15683
+  WAN=10  p2p_sjf     mean=758.49 p95=1410.31 registry=14142
+  WAN=10  c_lru       mean=624.28 p95=1188.00 registry=12767
+  WAN=10  l_lru       mean=619.69 p95=1250.20 registry=13389
+  WAN=10  l_lease     mean=592.53 p95=1189.80 registry=12785
+  WAN=10  d_lease     mean=596.46 p95=1200.00 registry=12887
+  WAN=30  cloud_fifo  mean=286.67 p95=489.07 registry=15683
+  WAN=30  cloud_sjf   mean=294.47 p95=516.73 registry=15683
+  WAN=30  p2p_sjf     mean=252.81 p95=470.31 registry=14142
+  WAN=30  c_lru       mean=208.45 p95=396.00 registry=12767
+  WAN=30  l_lru       mean=206.58 p95=416.73 registry=13389
+  WAN=30  l_lease     mean=197.56 p95=396.60 registry=12785
+  WAN=30  d_lease     mean=198.83 p95=400.00 registry=12887
+  WAN=100 cloud_fifo  mean=86.01 p95=146.72 registry=15683
+  WAN=100 cloud_sjf   mean=88.36 p95=155.02 registry=15683
+  WAN=100 p2p_sjf     mean=75.08 p95=139.00 registry=13910
+  WAN=100 c_lru       mean=63.62 p95=130.29 registry=12785
+  WAN=100 l_lru       mean=63.21 p95=136.79 registry=13485
+  WAN=100 l_lease     mean=59.60 p95=128.78 registry=12689
+  WAN=100 d_lease     mean=60.80 p95=130.78 registry=12889
+
+[17/45] drtp_img88_cacheonly_1024mb_500__seed1__cache1
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=250, accepted=131
+  WAN=10  cloud_fifo  mean=702.08 p95=1320.30 registry=14396
+  WAN=10  cloud_sjf   mean=802.10 p95=1363.10 registry=14396
+  WAN=10  p2p_sjf     mean=551.75 p95=948.79 registry=10263
+  WAN=10  c_lru       mean=443.47 p95=702.90 registry=7279
+  WAN=10  l_lru       mean=418.26 p95=670.04 registry=7845
+  WAN=10  l_lease     mean=397.60 p95=634.74 registry=6503
+  WAN=10  d_lease     mean=380.53 p95=587.96 registry=6046
+  WAN=30  cloud_fifo  mean=234.03 p95=440.10 registry=14396
+  WAN=30  cloud_sjf   mean=267.37 p95=454.37 registry=14396
+  WAN=30  p2p_sjf     mean=184.07 p95=313.56 registry=10263
+  WAN=30  c_lru       mean=150.27 p95=246.49 registry=7279
+  WAN=30  l_lru       mean=142.95 p95=232.60 registry=7888
+  WAN=30  l_lease     mean=133.89 p95=217.47 registry=6503
+  WAN=30  d_lease     mean=130.08 p95=211.89 registry=6046
+  WAN=100 cloud_fifo  mean=70.22 p95=132.03 registry=14396
+  WAN=100 cloud_sjf   mean=80.24 p95=136.31 registry=14396
+  WAN=100 p2p_sjf     mean=55.75 p95=94.31 registry=10276
+  WAN=100 c_lru       mean=48.93 p95=93.88 registry=7330
+  WAN=100 l_lru       mean=45.41 p95=82.16 registry=8084
+  WAN=100 l_lease     mean=42.91 p95=74.90 registry=6666
+  WAN=100 d_lease     mean=43.04 p95=74.91 registry=6496
+
+[18/45] drtp_img88_cacheonly_1024mb_500__seed1__cache2
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=250, accepted=134
+  WAN=10  cloud_fifo  mean=85.55 p95=405.90 registry=4318
+  WAN=10  cloud_sjf   mean=87.50 p95=426.00 registry=4318
+  WAN=10  p2p_sjf     mean=59.57 p95=328.51 registry=3327
+  WAN=10  c_lru       mean=59.57 p95=328.51 registry=3327
+  WAN=10  l_lru       mean=61.15 p95=332.03 registry=3362
+  WAN=10  l_lease     mean=55.37 p95=305.43 registry=3096
+  WAN=10  d_lease     mean=55.37 p95=305.43 registry=3096
+  WAN=30  cloud_fifo  mean=28.52 p95=135.30 registry=4318
+  WAN=30  cloud_sjf   mean=29.17 p95=142.00 registry=4318
+  WAN=30  p2p_sjf     mean=19.97 p95=109.51 registry=3327
+  WAN=30  c_lru       mean=19.97 p95=109.51 registry=3327
+  WAN=30  l_lru       mean=20.42 p95=110.70 registry=3362
+  WAN=30  l_lease     mean=18.55 p95=101.83 registry=3096
+  WAN=30  d_lease     mean=18.55 p95=101.83 registry=3096
+  WAN=100 cloud_fifo  mean=8.56 p95=40.59 registry=4318
+  WAN=100 cloud_sjf   mean=8.76 p95=42.60 registry=4318
+  WAN=100 p2p_sjf     mean=6.21 p95=33.19 registry=3362
+  WAN=100 c_lru       mean=6.21 p95=33.19 registry=3362
+  WAN=100 l_lru       mean=6.14 p95=33.23 registry=3362
+  WAN=100 l_lease     mean=5.66 p95=30.57 registry=3096
+  WAN=100 d_lease     mean=5.66 p95=30.57 registry=3096
+
+[19/45] drtp_img88_cacheonly_1024mb_500__seed2__cache0.5
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=250, accepted=131
+  WAN=10  cloud_fifo  mean=864.04 p95=1485.40 registry=16078
+  WAN=10  cloud_sjf   mean=890.27 p95=1486.60 registry=16078
+  WAN=10  p2p_sjf     mean=727.85 p95=1287.77 registry=14013
+  WAN=10  c_lru       mean=610.54 p95=1153.50 registry=12422
+  WAN=10  l_lru       mean=558.94 p95=1128.50 registry=13059
+  WAN=10  l_lease     mean=551.08 p95=1091.50 registry=12689
+  WAN=10  d_lease     mean=552.03 p95=1091.50 registry=12689
+  WAN=30  cloud_fifo  mean=288.01 p95=495.13 registry=16078
+  WAN=30  cloud_sjf   mean=296.76 p95=495.53 registry=16078
+  WAN=30  p2p_sjf     mean=244.19 p95=433.68 registry=14144
+  WAN=30  c_lru       mean=203.55 p95=384.50 registry=12422
+  WAN=30  l_lru       mean=186.39 p95=376.17 registry=13059
+  WAN=30  l_lease     mean=182.36 p95=363.83 registry=12689
+  WAN=30  d_lease     mean=176.33 p95=337.57 registry=11901
+  WAN=100 cloud_fifo  mean=86.50 p95=148.54 registry=16078
+  WAN=100 cloud_sjf   mean=89.11 p95=148.66 registry=16078
+  WAN=100 p2p_sjf     mean=72.99 p95=131.26 registry=13838
+  WAN=100 c_lru       mean=62.61 p95=125.45 registry=12431
+  WAN=100 l_lru       mean=59.52 p95=119.57 registry=13645
+  WAN=100 l_lease     mean=55.32 p95=110.09 registry=12689
+  WAN=100 d_lease     mean=54.16 p95=104.94 registry=11901
+
+[20/45] drtp_img88_cacheonly_1024mb_500__seed2__cache1
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=250, accepted=133
+  WAN=10  cloud_fifo  mean=635.94 p95=1269.10 registry=13302
+  WAN=10  cloud_sjf   mean=588.41 p95=1236.10 registry=13302
+  WAN=10  p2p_sjf     mean=417.42 p95=1001.46 registry=10103
+  WAN=10  c_lru       mean=327.43 p95=675.91 registry=6493
+  WAN=10  l_lru       mean=310.57 p95=640.25 registry=7721
+  WAN=10  l_lease     mean=199.76 p95=479.21 registry=5666
+  WAN=10  d_lease     mean=199.76 p95=479.21 registry=5666
+  WAN=30  cloud_fifo  mean=211.98 p95=423.03 registry=13302
+  WAN=30  cloud_sjf   mean=196.14 p95=412.03 registry=13302
+  WAN=30  p2p_sjf     mean=139.50 p95=333.77 registry=10103
+  WAN=30  c_lru       mean=111.92 p95=244.21 registry=6528
+  WAN=30  l_lru       mean=70.59 p95=179.82 registry=6750
+  WAN=30  l_lease     mean=67.73 p95=154.97 registry=5666
+  WAN=30  d_lease     mean=67.81 p95=154.96 registry=5666
+  WAN=100 cloud_fifo  mean=63.62 p95=126.91 registry=13302
+  WAN=100 cloud_sjf   mean=58.86 p95=123.61 registry=13302
+  WAN=100 p2p_sjf     mean=41.64 p95=98.25 registry=9957
+  WAN=100 c_lru       mean=35.76 p95=90.60 registry=7374
+  WAN=100 l_lru       mean=23.22 p95=58.86 registry=7186
+  WAN=100 l_lease     mean=22.35 p95=53.56 registry=5484
+  WAN=100 d_lease     mean=22.84 p95=53.57 registry=5635
+
+[21/45] drtp_img88_cacheonly_1024mb_500__seed2__cache2
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=250, accepted=131
+  WAN=10  cloud_fifo  mean=132.86 p95=558.80 registry=6920
+  WAN=10  cloud_sjf   mean=122.85 p95=533.00 registry=6920
+  WAN=10  p2p_sjf     mean=52.31 p95=260.99 registry=2761
+  WAN=10  c_lru       mean=47.64 p95=229.28 registry=2335
+  WAN=10  l_lru       mean=50.99 p95=243.01 registry=2590
+  WAN=10  l_lease     mean=48.65 p95=227.06 registry=2335
+  WAN=10  d_lease     mean=48.65 p95=227.06 registry=2335
+  WAN=30  cloud_fifo  mean=44.29 p95=186.27 registry=6920
+  WAN=30  cloud_sjf   mean=40.95 p95=177.67 registry=6920
+  WAN=30  p2p_sjf     mean=17.41 p95=85.12 registry=2677
+  WAN=30  c_lru       mean=15.93 p95=77.06 registry=2335
+  WAN=30  l_lru       mean=17.27 p95=80.08 registry=2608
+  WAN=30  l_lease     mean=16.57 p95=75.51 registry=2335
+  WAN=30  d_lease     mean=16.57 p95=75.51 registry=2335
+  WAN=100 cloud_fifo  mean=13.32 p95=55.88 registry=6920
+  WAN=100 cloud_sjf   mean=12.32 p95=53.30 registry=6920
+  WAN=100 p2p_sjf     mean=5.41 p95=26.16 registry=2671
+  WAN=100 c_lru       mean=5.10 p95=24.73 registry=2370
+  WAN=100 l_lru       mean=5.62 p95=26.68 registry=2825
+  WAN=100 l_lease     mean=5.35 p95=25.11 registry=2335
+  WAN=100 d_lease     mean=5.35 p95=25.11 registry=2335
+
+[22/45] drtp_img88_cacheonly_1024mb_500__seed3__cache0.5
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=250, accepted=126
+  WAN=10  cloud_fifo  mean=834.11 p95=1425.70 registry=14688
+  WAN=10  cloud_sjf   mean=835.22 p95=1441.90 registry=14688
+  WAN=10  p2p_sjf     mean=707.39 p95=1280.73 registry=12927
+  WAN=10  c_lru       mean=601.23 p95=1153.20 registry=11532
+  WAN=10  l_lru       mean=563.66 p95=1100.80 registry=11895
+  WAN=10  l_lease     mean=511.35 p95=1011.40 registry=11001
+  WAN=10  d_lease     mean=511.35 p95=1011.40 registry=11001
+  WAN=30  cloud_fifo  mean=278.04 p95=475.23 registry=14688
+  WAN=30  cloud_sjf   mean=278.41 p95=480.63 registry=14688
+  WAN=30  p2p_sjf     mean=229.83 p95=414.29 registry=12556
+  WAN=30  c_lru       mean=200.64 p95=384.40 registry=11532
+  WAN=30  l_lru       mean=188.95 p95=359.43 registry=11670
+  WAN=30  l_lease     mean=173.56 p95=337.13 registry=11001
+  WAN=30  d_lease     mean=173.56 p95=337.13 registry=11001
+  WAN=100 cloud_fifo  mean=83.43 p95=142.57 registry=14688
+  WAN=100 cloud_sjf   mean=83.54 p95=144.19 registry=14688
+  WAN=100 p2p_sjf     mean=69.88 p95=125.50 registry=12702
+  WAN=100 c_lru       mean=62.46 p95=133.24 registry=11307
+  WAN=100 l_lru       mean=59.74 p95=135.65 registry=11719
+  WAN=100 l_lease     mean=55.85 p95=128.48 registry=11001
+  WAN=100 d_lease     mean=55.85 p95=128.48 registry=11001
+
+[23/45] drtp_img88_cacheonly_1024mb_500__seed3__cache1
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=250, accepted=131
+  WAN=10  cloud_fifo  mean=643.57 p95=1329.50 registry=14310
+  WAN=10  cloud_sjf   mean=645.72 p95=1320.10 registry=14310
+  WAN=10  p2p_sjf     mean=433.00 p95=811.92 registry=8642
+  WAN=10  c_lru       mean=347.62 p95=596.37 registry=6720
+  WAN=10  l_lru       mean=342.15 p95=601.89 registry=6795
+  WAN=10  l_lease     mean=310.97 p95=536.97 registry=5788
+  WAN=10  d_lease     mean=310.97 p95=536.97 registry=5788
+  WAN=30  cloud_fifo  mean=214.52 p95=443.17 registry=14310
+  WAN=30  cloud_sjf   mean=215.24 p95=440.03 registry=14310
+  WAN=30  p2p_sjf     mean=144.14 p95=270.66 registry=8621
+  WAN=30  c_lru       mean=117.07 p95=208.22 registry=6699
+  WAN=30  l_lru       mean=116.26 p95=211.96 registry=6795
+  WAN=30  l_lease     mean=106.36 p95=194.03 registry=5788
+  WAN=30  d_lease     mean=106.36 p95=194.03 registry=5788
+  WAN=100 cloud_fifo  mean=64.44 p95=132.95 registry=14310
+  WAN=100 cloud_sjf   mean=64.61 p95=132.01 registry=14310
+  WAN=100 p2p_sjf     mean=43.34 p95=83.54 registry=8591
+  WAN=100 c_lru       mean=38.10 p95=75.63 registry=6706
+  WAN=100 l_lru       mean=38.02 p95=79.39 registry=6795
+  WAN=100 l_lease     mean=34.29 p95=67.91 registry=5788
+  WAN=100 d_lease     mean=34.29 p95=67.91 registry=5788
+
+[24/45] drtp_img88_cacheonly_1024mb_500__seed3__cache2
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=250, accepted=131
+  WAN=10  cloud_fifo  mean=94.54 p95=491.40 registry=5459
+  WAN=10  cloud_sjf   mean=83.10 p95=433.50 registry=5459
+  WAN=10  p2p_sjf     mean=47.41 p95=230.88 registry=2350
+  WAN=10  c_lru       mean=43.48 p95=215.01 registry=2233
+  WAN=10  l_lru       mean=44.25 p95=227.41 registry=2345
+  WAN=10  l_lease     mean=42.22 p95=216.21 registry=2233
+  WAN=10  d_lease     mean=42.22 p95=216.21 registry=2233
+  WAN=30  cloud_fifo  mean=31.51 p95=163.80 registry=5459
+  WAN=30  cloud_sjf   mean=27.70 p95=144.50 registry=5459
+  WAN=30  p2p_sjf     mean=16.19 p95=78.30 registry=2349
+  WAN=30  c_lru       mean=14.99 p95=74.43 registry=2233
+  WAN=30  l_lru       mean=15.12 p95=78.17 registry=2345
+  WAN=30  l_lease     mean=14.58 p95=74.27 registry=2233
+  WAN=30  d_lease     mean=14.58 p95=74.27 registry=2233
+  WAN=100 cloud_fifo  mean=9.46 p95=49.14 registry=5459
+  WAN=100 cloud_sjf   mean=8.31 p95=43.35 registry=5459
+  WAN=100 p2p_sjf     mean=5.24 p95=25.32 registry=2401
+  WAN=100 c_lru       mean=5.05 p95=24.52 registry=2345
+  WAN=100 l_lru       mean=4.90 p95=23.72 registry=2345
+  WAN=100 l_lease     mean=4.90 p95=23.72 registry=2233
+  WAN=100 d_lease     mean=4.90 p95=23.72 registry=2233
+
+[25/45] drtp_img88_cacheonly_1024mb_500__seed4__cache0.5
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=250, accepted=132
+  WAN=10  cloud_fifo  mean=864.80 p95=1521.50 registry=16429
+  WAN=10  cloud_sjf   mean=903.30 p95=1611.10 registry=16429
+  WAN=10  p2p_sjf     mean=748.32 p95=1384.25 registry=13902
+  WAN=10  c_lru       mean=598.06 p95=1176.30 registry=12650
+  WAN=10  l_lru       mean=595.77 p95=1296.40 registry=13851
+  WAN=10  l_lease     mean=537.80 p95=1137.30 registry=12260
+  WAN=10  d_lease     mean=537.51 p95=1137.30 registry=12260
+  WAN=30  cloud_fifo  mean=288.27 p95=507.17 registry=16429
+  WAN=30  cloud_sjf   mean=301.10 p95=537.03 registry=16429
+  WAN=30  p2p_sjf     mean=248.97 p95=462.06 registry=13896
+  WAN=30  c_lru       mean=200.85 p95=394.13 registry=12711
+  WAN=30  l_lru       mean=199.00 p95=434.30 registry=13916
+  WAN=30  l_lease     mean=179.12 p95=379.10 registry=12260
+  WAN=30  d_lease     mean=179.00 p95=379.10 registry=12260
+  WAN=100 cloud_fifo  mean=86.49 p95=152.15 registry=16429
+  WAN=100 cloud_sjf   mean=90.35 p95=161.11 registry=16429
+  WAN=100 p2p_sjf     mean=74.39 p95=138.31 registry=13893
+  WAN=100 c_lru       mean=62.60 p95=128.40 registry=12914
+  WAN=100 l_lru       mean=59.00 p95=139.87 registry=13629
+  WAN=100 l_lease     mean=55.19 p95=128.95 registry=12511
+  WAN=100 d_lease     mean=55.12 p95=128.95 registry=12511
+
+[26/45] drtp_img88_cacheonly_1024mb_500__seed4__cache1
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=250, accepted=131
+  WAN=10  cloud_fifo  mean=757.93 p95=1474.40 registry=16047
+  WAN=10  cloud_sjf   mean=771.54 p95=1397.80 registry=16047
+  WAN=10  p2p_sjf     mean=598.75 p95=1203.34 registry=13045
+  WAN=10  c_lru       mean=439.87 p95=805.28 registry=7698
+  WAN=10  l_lru       mean=409.91 p95=781.40 registry=8185
+  WAN=10  l_lease     mean=388.00 p95=711.04 registry=7342
+  WAN=10  d_lease     mean=382.93 p95=674.50 registry=6789
+  WAN=30  cloud_fifo  mean=252.64 p95=491.47 registry=16047
+  WAN=30  cloud_sjf   mean=257.18 p95=465.93 registry=16047
+  WAN=30  p2p_sjf     mean=199.40 p95=398.07 registry=13045
+  WAN=30  c_lru       mean=151.14 p95=294.30 registry=7698
+  WAN=30  l_lru       mean=138.75 p95=262.99 registry=7984
+  WAN=30  l_lease     mean=132.39 p95=238.08 registry=7342
+  WAN=30  d_lease     mean=132.21 p95=244.95 registry=6789
+  WAN=100 cloud_fifo  mean=75.81 p95=147.44 registry=16047
+  WAN=100 cloud_sjf   mean=77.18 p95=139.78 registry=16047
+  WAN=100 p2p_sjf     mean=59.51 p95=115.14 registry=12178
+  WAN=100 c_lru       mean=47.56 p95=94.67 registry=7698
+  WAN=100 l_lru       mean=44.03 p95=81.72 registry=8185
+  WAN=100 l_lease     mean=42.08 p95=78.63 registry=7895
+  WAN=100 d_lease     mean=41.71 p95=78.67 registry=6789
+
+[27/45] drtp_img88_cacheonly_1024mb_500__seed4__cache2
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=250, accepted=132
+  WAN=10  cloud_fifo  mean=107.43 p95=522.90 registry=5587
+  WAN=10  cloud_sjf   mean=98.10 p95=490.80 registry=5587
+  WAN=10  p2p_sjf     mean=62.04 p95=316.77 registry=3518
+  WAN=10  c_lru       mean=50.01 p95=224.97 registry=2587
+  WAN=10  l_lru       mean=43.54 p95=228.05 registry=2621
+  WAN=10  l_lease     mean=42.85 p95=224.65 registry=2587
+  WAN=10  d_lease     mean=42.85 p95=224.65 registry=2587
+  WAN=30  cloud_fifo  mean=35.81 p95=174.30 registry=5587
+  WAN=30  cloud_sjf   mean=32.70 p95=163.60 registry=5587
+  WAN=30  p2p_sjf     mean=20.50 p95=106.42 registry=3477
+  WAN=30  c_lru       mean=16.84 p95=74.25 registry=2587
+  WAN=30  l_lru       mean=14.56 p95=74.89 registry=2621
+  WAN=30  l_lease     mean=14.34 p95=73.76 registry=2587
+  WAN=30  d_lease     mean=14.34 p95=73.76 registry=2587
+  WAN=100 cloud_fifo  mean=10.76 p95=52.29 registry=5587
+  WAN=100 cloud_sjf   mean=9.82 p95=49.08 registry=5587
+  WAN=100 p2p_sjf     mean=5.77 p95=28.44 registry=3253
+  WAN=100 c_lru       mean=5.33 p95=25.35 registry=2621
+  WAN=100 l_lru       mean=4.35 p95=22.71 registry=2621
+  WAN=100 l_lease     mean=4.28 p95=22.37 registry=2587
+  WAN=100 d_lease     mean=4.28 p95=22.37 registry=2587
+
+[28/45] drtp_img88_cacheonly_1024mb_500__seed5__cache0.5
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=250, accepted=133
+  WAN=10  cloud_fifo  mean=806.96 p95=1470.00 registry=16503
+  WAN=10  cloud_sjf   mean=958.87 p95=1527.80 registry=16503
+  WAN=10  p2p_sjf     mean=789.13 p95=1212.60 registry=13013
+  WAN=10  c_lru       mean=650.73 p95=1056.60 registry=11453
+  WAN=10  l_lru       mean=627.64 p95=1227.30 registry=13160
+  WAN=10  l_lease     mean=567.34 p95=1063.30 registry=11520
+  WAN=10  d_lease     mean=580.45 p95=1100.60 registry=11893
+  WAN=30  cloud_fifo  mean=268.99 p95=490.00 registry=16503
+  WAN=30  cloud_sjf   mean=319.62 p95=509.27 registry=16503
+  WAN=30  p2p_sjf     mean=262.98 p95=404.20 registry=13013
+  WAN=30  c_lru       mean=217.19 p95=352.20 registry=11453
+  WAN=30  l_lru       mean=209.13 p95=409.10 registry=13160
+  WAN=30  l_lease     mean=189.29 p95=354.43 registry=11520
+  WAN=30  d_lease     mean=194.66 p95=360.17 registry=11692
+  WAN=100 cloud_fifo  mean=80.73 p95=147.00 registry=16503
+  WAN=100 cloud_sjf   mean=95.94 p95=152.78 registry=16503
+  WAN=100 p2p_sjf     mean=78.29 p95=124.37 registry=13321
+  WAN=100 c_lru       mean=67.27 p95=113.36 registry=11576
+  WAN=100 l_lru       mean=61.91 p95=121.68 registry=12942
+  WAN=100 l_lease     mean=58.19 p95=111.82 registry=11825
+  WAN=100 d_lease     mean=58.82 p95=113.17 registry=11997
+
+[29/45] drtp_img88_cacheonly_1024mb_500__seed5__cache1
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=250, accepted=131
+  WAN=10  cloud_fifo  mean=629.67 p95=1289.50 registry=13942
+  WAN=10  cloud_sjf   mean=630.85 p95=1214.50 registry=13942
+  WAN=10  p2p_sjf     mean=474.69 p95=971.79 registry=9768
+  WAN=10  c_lru       mean=389.12 p95=686.90 registry=7422
+  WAN=10  l_lru       mean=332.49 p95=682.94 registry=7101
+  WAN=10  l_lease     mean=288.16 p95=577.89 registry=5897
+  WAN=10  d_lease     mean=288.16 p95=577.89 registry=5897
+  WAN=30  cloud_fifo  mean=209.89 p95=429.83 registry=13942
+  WAN=30  cloud_sjf   mean=210.28 p95=404.83 registry=13942
+  WAN=30  p2p_sjf     mean=158.80 p95=323.59 registry=9764
+  WAN=30  c_lru       mean=133.94 p95=240.68 registry=6867
+  WAN=30  l_lru       mean=113.32 p95=236.57 registry=7097
+  WAN=30  l_lease     mean=99.51 p95=198.58 registry=6450
+  WAN=30  d_lease     mean=99.51 p95=198.58 registry=6450
+  WAN=100 cloud_fifo  mean=62.99 p95=128.95 registry=13942
+  WAN=100 cloud_sjf   mean=63.11 p95=121.45 registry=13942
+  WAN=100 p2p_sjf     mean=48.53 p95=98.13 registry=9764
+  WAN=100 c_lru       mean=44.13 p95=90.13 registry=6867
+  WAN=100 l_lru       mean=37.85 p95=85.24 registry=7650
+  WAN=100 l_lease     mean=32.80 p95=73.83 registry=6450
+  WAN=100 d_lease     mean=32.80 p95=73.83 registry=6450
+
+[30/45] drtp_img88_cacheonly_1024mb_500__seed5__cache2
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=250, accepted=132
+  WAN=10  cloud_fifo  mean=96.71 p95=537.20 registry=6261
+  WAN=10  cloud_sjf   mean=103.49 p95=502.20 registry=6261
+  WAN=10  p2p_sjf     mean=45.24 p95=262.58 registry=2946
+  WAN=10  c_lru       mean=45.24 p95=262.58 registry=2946
+  WAN=10  l_lru       mean=37.65 p95=209.47 registry=2946
+  WAN=10  l_lease     mean=37.24 p95=209.47 registry=2687
+  WAN=10  d_lease     mean=37.24 p95=209.47 registry=2687
+  WAN=30  cloud_fifo  mean=32.24 p95=179.07 registry=6261
+  WAN=30  cloud_sjf   mean=34.50 p95=167.40 registry=6261
+  WAN=30  p2p_sjf     mean=15.48 p95=87.03 registry=2946
+  WAN=30  c_lru       mean=15.48 p95=87.03 registry=2946
+  WAN=30  l_lru       mean=12.90 p95=73.08 registry=2946
+  WAN=30  l_lease     mean=12.79 p95=73.08 registry=2687
+  WAN=30  d_lease     mean=12.79 p95=73.08 registry=2687
+  WAN=100 cloud_fifo  mean=9.67 p95=53.72 registry=6261
+  WAN=100 cloud_sjf   mean=10.35 p95=50.22 registry=6261
+  WAN=100 p2p_sjf     mean=5.74 p95=27.40 registry=3146
+  WAN=100 c_lru       mean=5.74 p95=27.40 registry=3146
+  WAN=100 l_lru       mean=4.25 p95=20.95 registry=2946
+  WAN=100 l_lease     mean=4.24 p95=20.95 registry=2687
+  WAN=100 d_lease     mean=4.24 p95=20.95 registry=2687
+
+[31/45] drtp_img88_cacheonly_1024mb_1000__seed1__cache0.5
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=500, accepted=155
+  WAN=10  cloud_fifo  mean=841.25 p95=1384.90 registry=14956
+  WAN=10  cloud_sjf   mean=835.11 p95=1418.50 registry=14956
+  WAN=10  p2p_sjf     mean=662.04 p95=1178.87 registry=11821
+  WAN=10  c_lru       mean=583.13 p95=1005.30 registry=10940
+  WAN=10  l_lru       mean=566.23 p95=1130.70 registry=12194
+  WAN=10  l_lease     mean=532.61 p95=1002.40 registry=10911
+  WAN=10  d_lease     mean=532.61 p95=1002.40 registry=10911
+  WAN=30  cloud_fifo  mean=280.42 p95=461.63 registry=14956
+  WAN=30  cloud_sjf   mean=278.37 p95=472.83 registry=14956
+  WAN=30  p2p_sjf     mean=220.59 p95=391.67 registry=11821
+  WAN=30  c_lru       mean=194.41 p95=334.17 registry=10912
+  WAN=30  l_lru       mean=188.65 p95=376.90 registry=12194
+  WAN=30  l_lease     mean=177.57 p95=334.13 registry=10911
+  WAN=30  d_lease     mean=177.57 p95=334.13 registry=10911
+  WAN=100 cloud_fifo  mean=84.17 p95=138.49 registry=14956
+  WAN=100 cloud_sjf   mean=83.59 p95=141.85 registry=14956
+  WAN=100 p2p_sjf     mean=65.30 p95=113.34 registry=11567
+  WAN=100 c_lru       mean=59.26 p95=109.02 registry=10912
+  WAN=100 l_lru       mean=56.98 p95=118.91 registry=11978
+  WAN=100 l_lease     mean=53.90 p95=108.25 registry=10912
+  WAN=100 d_lease     mean=53.90 p95=108.25 registry=10912
+
+[32/45] drtp_img88_cacheonly_1024mb_1000__seed1__cache1
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=500, accepted=155
+  WAN=10  cloud_fifo  mean=615.40 p95=1423.30 registry=14886
+  WAN=10  cloud_sjf   mean=724.07 p95=1423.30 registry=14886
+  WAN=10  p2p_sjf     mean=510.49 p95=981.65 registry=9937
+  WAN=10  c_lru       mean=426.51 p95=726.41 registry=6998
+  WAN=10  l_lru       mean=367.42 p95=694.07 registry=7329
+  WAN=10  l_lease     mean=351.10 p95=608.99 registry=5853
+  WAN=10  d_lease     mean=351.10 p95=608.99 registry=5853
+  WAN=30  cloud_fifo  mean=205.13 p95=474.43 registry=14886
+  WAN=30  cloud_sjf   mean=241.36 p95=474.43 registry=14886
+  WAN=30  p2p_sjf     mean=170.31 p95=326.64 registry=9937
+  WAN=30  c_lru       mean=144.08 p95=259.88 registry=6998
+  WAN=30  l_lru       mean=122.89 p95=236.04 registry=7355
+  WAN=30  l_lease     mean=119.03 p95=219.35 registry=5853
+  WAN=30  d_lease     mean=119.03 p95=219.35 registry=5853
+  WAN=100 cloud_fifo  mean=61.56 p95=142.33 registry=14886
+  WAN=100 cloud_sjf   mean=72.45 p95=142.33 registry=14886
+  WAN=100 p2p_sjf     mean=51.32 p95=97.40 registry=9946
+  WAN=100 c_lru       mean=44.75 p95=97.82 registry=6999
+  WAN=100 l_lru       mean=38.31 p95=80.13 registry=7676
+  WAN=100 l_lease     mean=36.69 p95=69.19 registry=6740
+  WAN=100 d_lease     mean=36.69 p95=69.19 registry=6740
+
+[33/45] drtp_img88_cacheonly_1024mb_1000__seed1__cache2
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=500, accepted=155
+  WAN=10  cloud_fifo  mean=76.78 p95=465.40 registry=6484
+  WAN=10  cloud_sjf   mean=67.07 p95=368.20 registry=6484
+  WAN=10  p2p_sjf     mean=27.63 p95=165.91 registry=1829
+  WAN=10  c_lru       mean=23.13 p95=142.80 registry=1428
+  WAN=10  l_lru       mean=23.23 p95=142.50 registry=1425
+  WAN=10  l_lease     mean=23.23 p95=142.50 registry=1425
+  WAN=10  d_lease     mean=23.23 p95=142.50 registry=1425
+  WAN=30  cloud_fifo  mean=25.59 p95=155.13 registry=6484
+  WAN=30  cloud_sjf   mean=22.36 p95=122.73 registry=6484
+  WAN=30  p2p_sjf     mean=8.93 p95=56.20 registry=1686
+  WAN=30  c_lru       mean=8.12 p95=47.60 registry=1428
+  WAN=30  l_lru       mean=8.20 p95=47.50 registry=1425
+  WAN=30  l_lease     mean=8.20 p95=47.50 registry=1425
+  WAN=30  d_lease     mean=8.20 p95=47.50 registry=1425
+  WAN=100 cloud_fifo  mean=7.70 p95=46.54 registry=6484
+  WAN=100 cloud_sjf   mean=6.72 p95=36.82 registry=6484
+  WAN=100 p2p_sjf     mean=3.20 p95=18.05 registry=2328
+  WAN=100 c_lru       mean=2.98 p95=16.12 registry=1533
+  WAN=100 l_lru       mean=3.03 p95=17.19 registry=1530
+  WAN=100 l_lease     mean=2.96 p95=17.19 registry=1425
+  WAN=100 d_lease     mean=2.96 p95=17.19 registry=1425
+
+[34/45] drtp_img88_cacheonly_1024mb_1000__seed2__cache0.5
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=500, accepted=154
+  WAN=10  cloud_fifo  mean=870.50 p95=1515.90 registry=15929
+  WAN=10  cloud_sjf   mean=846.80 p95=1473.90 registry=15929
+  WAN=10  p2p_sjf     mean=692.96 p95=1322.03 registry=13453
+  WAN=10  c_lru       mean=643.73 p95=1306.90 registry=13069
+  WAN=10  l_lru       mean=582.84 p95=1294.70 registry=12947
+  WAN=10  l_lease     mean=561.09 p95=1242.90 registry=12429
+  WAN=10  d_lease     mean=561.09 p95=1242.90 registry=12429
+  WAN=30  cloud_fifo  mean=290.17 p95=505.30 registry=15929
+  WAN=30  cloud_sjf   mean=282.27 p95=491.30 registry=15929
+  WAN=30  p2p_sjf     mean=230.68 p95=438.82 registry=13453
+  WAN=30  c_lru       mean=214.55 p95=435.63 registry=13069
+  WAN=30  l_lru       mean=194.66 p95=436.83 registry=13105
+  WAN=30  l_lease     mean=186.65 p95=414.30 registry=12429
+  WAN=30  d_lease     mean=186.65 p95=414.30 registry=12429
+  WAN=100 cloud_fifo  mean=87.17 p95=151.67 registry=15929
+  WAN=100 cloud_sjf   mean=84.78 p95=147.39 registry=15929
+  WAN=100 p2p_sjf     mean=68.18 p95=128.95 registry=13338
+  WAN=100 c_lru       mean=65.77 p95=146.74 registry=12889
+  WAN=100 l_lru       mean=60.35 p95=151.09 registry=13222
+  WAN=100 l_lease     mean=58.03 p95=144.78 registry=12429
+  WAN=100 d_lease     mean=58.03 p95=144.78 registry=12429
+
+[35/45] drtp_img88_cacheonly_1024mb_1000__seed2__cache1
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=500, accepted=155
+  WAN=10  cloud_fifo  mean=793.26 p95=1412.80 registry=15512
+  WAN=10  cloud_sjf   mean=771.65 p95=1415.50 registry=15512
+  WAN=10  p2p_sjf     mean=514.43 p95=902.32 registry=9152
+  WAN=10  c_lru       mean=448.54 p95=652.25 registry=6502
+  WAN=10  l_lru       mean=426.26 p95=691.98 registry=7726
+  WAN=10  l_lease     mean=410.34 p95=659.23 registry=6395
+  WAN=10  d_lease     mean=410.34 p95=659.23 registry=6395
+  WAN=30  cloud_fifo  mean=264.42 p95=470.93 registry=15512
+  WAN=30  cloud_sjf   mean=257.22 p95=471.83 registry=15512
+  WAN=30  p2p_sjf     mean=168.37 p95=295.62 registry=8999
+  WAN=30  c_lru       mean=152.00 p95=239.13 registry=6456
+  WAN=30  l_lru       mean=144.61 p95=245.64 registry=7177
+  WAN=30  l_lease     mean=140.44 p95=240.53 registry=6395
+  WAN=30  d_lease     mean=140.44 p95=240.53 registry=6395
+  WAN=100 cloud_fifo  mean=79.36 p95=141.28 registry=15512
+  WAN=100 cloud_sjf   mean=77.18 p95=141.55 registry=15512
+  WAN=100 p2p_sjf     mean=51.74 p95=90.96 registry=8969
+  WAN=100 c_lru       mean=48.11 p95=79.60 registry=6456
+  WAN=100 l_lru       mean=47.89 p95=93.07 registry=7214
+  WAN=100 l_lease     mean=44.61 p95=79.32 registry=6395
+  WAN=100 d_lease     mean=44.61 p95=79.32 registry=6395
+
+[36/45] drtp_img88_cacheonly_1024mb_1000__seed2__cache2
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=500, accepted=158
+  WAN=10  cloud_fifo  mean=115.51 p95=640.50 registry=7565
+  WAN=10  cloud_sjf   mean=106.69 p95=635.40 registry=7565
+  WAN=10  p2p_sjf     mean=49.99 p95=284.34 registry=2944
+  WAN=10  c_lru       mean=50.55 p95=272.96 registry=2742
+  WAN=10  l_lru       mean=49.40 p95=259.60 registry=2596
+  WAN=10  l_lease     mean=45.44 p95=237.10 registry=2371
+  WAN=10  d_lease     mean=45.44 p95=237.10 registry=2371
+  WAN=30  cloud_fifo  mean=38.50 p95=213.50 registry=7565
+  WAN=30  cloud_sjf   mean=35.56 p95=211.80 registry=7565
+  WAN=30  p2p_sjf     mean=17.04 p95=93.07 registry=2944
+  WAN=30  c_lru       mean=15.94 p95=89.55 registry=2742
+  WAN=30  l_lru       mean=15.68 p95=79.03 registry=2371
+  WAN=30  l_lease     mean=15.68 p95=79.03 registry=2371
+  WAN=30  d_lease     mean=15.68 p95=79.03 registry=2371
+  WAN=100 cloud_fifo  mean=11.71 p95=64.05 registry=7565
+  WAN=100 cloud_sjf   mean=10.77 p95=63.54 registry=7565
+  WAN=100 p2p_sjf     mean=5.44 p95=27.90 registry=2921
+  WAN=100 c_lru       mean=5.11 p95=25.44 registry=2742
+  WAN=100 l_lru       mean=5.32 p95=28.48 registry=2893
+  WAN=100 l_lease     mean=5.28 p95=27.23 registry=2650
+  WAN=100 d_lease     mean=5.28 p95=27.23 registry=2650
+
+[37/45] drtp_img88_cacheonly_1024mb_1000__seed3__cache0.5
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=500, accepted=157
+  WAN=10  cloud_fifo  mean=848.25 p95=1488.00 registry=15602
+  WAN=10  cloud_sjf   mean=818.47 p95=1477.80 registry=15602
+  WAN=10  p2p_sjf     mean=684.56 p95=1263.71 registry=13298
+  WAN=10  c_lru       mean=626.20 p95=1285.10 registry=12851
+  WAN=10  l_lru       mean=585.50 p95=1329.80 registry=13298
+  WAN=10  l_lease     mean=563.35 p95=1288.90 registry=12889
+  WAN=10  d_lease     mean=561.53 p95=1279.10 registry=12791
+  WAN=30  cloud_fifo  mean=282.75 p95=496.00 registry=15602
+  WAN=30  cloud_sjf   mean=272.82 p95=492.60 registry=15602
+  WAN=30  p2p_sjf     mean=228.04 p95=420.99 registry=13298
+  WAN=30  c_lru       mean=208.59 p95=428.37 registry=12851
+  WAN=30  l_lru       mean=194.95 p95=443.27 registry=13298
+  WAN=30  l_lease     mean=187.55 p95=429.63 registry=12889
+  WAN=30  d_lease     mean=186.97 p95=426.37 registry=12791
+  WAN=100 cloud_fifo  mean=84.83 p95=148.80 registry=15602
+  WAN=100 cloud_sjf   mean=81.87 p95=147.78 registry=15602
+  WAN=100 p2p_sjf     mean=67.30 p95=125.50 registry=13159
+  WAN=100 c_lru       mean=62.87 p95=139.53 registry=12806
+  WAN=100 l_lru       mean=59.08 p95=144.27 registry=13317
+  WAN=100 l_lease     mean=56.93 p95=141.49 registry=12889
+  WAN=100 d_lease     mean=56.78 p95=140.51 registry=12791
+
+[38/45] drtp_img88_cacheonly_1024mb_1000__seed3__cache1
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=500, accepted=158
+  WAN=10  cloud_fifo  mean=655.75 p95=1465.20 registry=16062
+  WAN=10  cloud_sjf   mean=681.45 p95=1566.00 registry=16062
+  WAN=10  p2p_sjf     mean=496.37 p95=1206.65 registry=12421
+  WAN=10  c_lru       mean=409.43 p95=780.67 registry=7625
+  WAN=10  l_lru       mean=370.86 p95=813.67 registry=8434
+  WAN=10  l_lease     mean=347.98 p95=731.18 registry=7069
+  WAN=10  d_lease     mean=347.89 p95=731.18 registry=7069
+  WAN=30  cloud_fifo  mean=218.58 p95=488.40 registry=16062
+  WAN=30  cloud_sjf   mean=227.15 p95=522.00 registry=16062
+  WAN=30  p2p_sjf     mean=166.97 p95=405.07 registry=12477
+  WAN=30  c_lru       mean=138.92 p95=279.73 registry=7680
+  WAN=30  l_lru       mean=126.04 p95=294.41 registry=8195
+  WAN=30  l_lease     mean=118.79 p95=267.38 registry=7069
+  WAN=30  d_lease     mean=118.74 p95=267.38 registry=7069
+  WAN=100 cloud_fifo  mean=65.58 p95=146.52 registry=16062
+  WAN=100 cloud_sjf   mean=68.15 p95=156.60 registry=16062
+  WAN=100 p2p_sjf     mean=49.70 p95=123.46 registry=12294
+  WAN=100 c_lru       mean=44.28 p95=105.61 registry=7547
+  WAN=100 l_lru       mean=40.18 p95=103.92 registry=8199
+  WAN=100 l_lease     mean=38.04 p95=99.37 registry=7073
+  WAN=100 d_lease     mean=38.04 p95=99.37 registry=7073
+
+[39/45] drtp_img88_cacheonly_1024mb_1000__seed3__cache2
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=500, accepted=156
+  WAN=10  cloud_fifo  mean=63.34 p95=385.30 registry=5318
+  WAN=10  cloud_sjf   mean=70.18 p95=335.50 registry=5318
+  WAN=10  p2p_sjf     mean=26.83 p95=191.34 registry=2307
+  WAN=10  c_lru       mean=24.98 p95=178.60 registry=1935
+  WAN=10  l_lru       mean=23.90 p95=178.02 registry=1935
+  WAN=10  l_lease     mean=23.13 p95=171.77 registry=1763
+  WAN=10  d_lease     mean=23.13 p95=171.77 registry=1763
+  WAN=30  cloud_fifo  mean=21.11 p95=128.43 registry=5318
+  WAN=30  cloud_sjf   mean=23.39 p95=111.83 registry=5318
+  WAN=30  p2p_sjf     mean=9.39 p95=63.43 registry=2306
+  WAN=30  c_lru       mean=8.89 p95=60.11 registry=1934
+  WAN=30  l_lru       mean=8.25 p95=61.57 registry=1934
+  WAN=30  l_lease     mean=8.07 p95=57.48 registry=1763
+  WAN=30  d_lease     mean=8.07 p95=57.48 registry=1763
+  WAN=100 cloud_fifo  mean=6.37 p95=38.53 registry=5318
+  WAN=100 cloud_sjf   mean=7.04 p95=33.55 registry=5318
+  WAN=100 p2p_sjf     mean=3.41 p95=19.83 registry=2157
+  WAN=100 c_lru       mean=3.41 p95=19.83 registry=2156
+  WAN=100 l_lru       mean=2.97 p95=19.35 registry=2156
+  WAN=100 l_lease     mean=2.83 p95=17.86 registry=1868
+  WAN=100 d_lease     mean=2.83 p95=17.86 registry=1868
+
+[40/45] drtp_img88_cacheonly_1024mb_1000__seed4__cache0.5
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=500, accepted=155
+  WAN=10  cloud_fifo  mean=904.17 p95=1563.70 registry=16341
+  WAN=10  cloud_sjf   mean=816.10 p95=1599.70 registry=16341
+  WAN=10  p2p_sjf     mean=663.36 p95=1368.90 registry=13985
+  WAN=10  c_lru       mean=567.41 p95=1134.50 registry=13119
+  WAN=10  l_lru       mean=593.08 p95=1255.00 registry=14324
+  WAN=10  l_lease     mean=559.02 p95=1179.90 registry=13573
+  WAN=10  d_lease     mean=559.61 p95=1179.90 registry=13573
+  WAN=30  cloud_fifo  mean=301.39 p95=521.23 registry=16341
+  WAN=30  cloud_sjf   mean=272.03 p95=533.23 registry=16341
+  WAN=30  p2p_sjf     mean=221.32 p95=456.62 registry=13994
+  WAN=30  c_lru       mean=189.18 p95=377.80 registry=13108
+  WAN=30  l_lru       mean=198.11 p95=419.63 registry=14363
+  WAN=30  l_lease     mean=186.37 p95=393.30 registry=13573
+  WAN=30  d_lease     mean=186.57 p95=393.30 registry=13573
+  WAN=100 cloud_fifo  mean=90.43 p95=156.37 registry=16341
+  WAN=100 cloud_sjf   mean=81.62 p95=159.97 registry=16341
+  WAN=100 p2p_sjf     mean=65.69 p95=136.70 registry=13896
+  WAN=100 c_lru       mean=59.27 p95=124.83 registry=13155
+  WAN=100 l_lru       mean=60.97 p95=138.30 registry=14363
+  WAN=100 l_lease     mean=55.74 p95=127.85 registry=13401
+  WAN=100 d_lease     mean=55.80 p95=127.85 registry=13401
+
+[41/45] drtp_img88_cacheonly_1024mb_1000__seed4__cache1
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=500, accepted=154
+  WAN=10  cloud_fifo  mean=788.89 p95=1522.80 registry=16382
+  WAN=10  cloud_sjf   mean=720.07 p95=1560.20 registry=16382
+  WAN=10  p2p_sjf     mean=468.73 p95=983.97 registry=9972
+  WAN=10  c_lru       mean=380.39 p95=653.55 registry=6250
+  WAN=10  l_lru       mean=398.68 p95=727.87 registry=8014
+  WAN=10  l_lease     mean=361.72 p95=637.39 registry=5938
+  WAN=10  d_lease     mean=361.72 p95=637.39 registry=5938
+  WAN=30  cloud_fifo  mean=262.96 p95=507.60 registry=16382
+  WAN=30  cloud_sjf   mean=240.02 p95=520.07 registry=16382
+  WAN=30  p2p_sjf     mean=157.26 p95=326.96 registry=9972
+  WAN=30  c_lru       mean=132.83 p95=243.83 registry=6250
+  WAN=30  l_lru       mean=136.40 p95=256.40 registry=7522
+  WAN=30  l_lease     mean=126.06 p95=239.11 registry=5938
+  WAN=30  d_lease     mean=126.06 p95=239.11 registry=5938
+  WAN=100 cloud_fifo  mean=78.96 p95=152.28 registry=16382
+  WAN=100 cloud_sjf   mean=72.07 p95=156.02 registry=16382
+  WAN=100 p2p_sjf     mean=47.25 p95=99.66 registry=9867
+  WAN=100 c_lru       mean=42.07 p95=96.97 registry=6050
+  WAN=100 l_lru       mean=43.75 p95=99.42 registry=7793
+  WAN=100 l_lease     mean=41.17 p95=94.83 registry=5938
+  WAN=100 d_lease     mean=41.17 p95=94.83 registry=5938
+
+[42/45] drtp_img88_cacheonly_1024mb_1000__seed4__cache2
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=500, accepted=159
+  WAN=10  cloud_fifo  mean=85.36 p95=559.30 registry=6771
+  WAN=10  cloud_sjf   mean=89.99 p95=498.10 registry=6771
+  WAN=10  p2p_sjf     mean=37.83 p95=190.70 registry=2433
+  WAN=10  c_lru       mean=37.29 p95=190.70 registry=2275
+  WAN=10  l_lru       mean=35.99 p95=180.73 registry=2469
+  WAN=10  l_lease     mean=31.12 p95=155.10 registry=1697
+  WAN=10  d_lease     mean=31.12 p95=155.10 registry=1697
+  WAN=30  cloud_fifo  mean=28.45 p95=186.43 registry=6771
+  WAN=30  cloud_sjf   mean=30.00 p95=166.03 registry=6771
+  WAN=30  p2p_sjf     mean=12.46 p95=65.75 registry=2275
+  WAN=30  c_lru       mean=12.46 p95=65.75 registry=2275
+  WAN=30  l_lru       mean=12.14 p95=69.57 registry=2348
+  WAN=30  l_lease     mean=11.06 p95=57.05 registry=1697
+  WAN=30  d_lease     mean=11.06 p95=57.05 registry=1697
+  WAN=100 cloud_fifo  mean=8.54 p95=55.93 registry=6771
+  WAN=100 cloud_sjf   mean=9.00 p95=49.81 registry=6771
+  WAN=100 p2p_sjf     mean=4.05 p95=22.82 registry=2275
+  WAN=100 c_lru       mean=4.05 p95=22.82 registry=2275
+  WAN=100 l_lru       mean=4.38 p95=24.94 registry=2413
+  WAN=100 l_lease     mean=4.20 p95=24.38 registry=2071
+  WAN=100 d_lease     mean=4.20 p95=24.38 registry=2071
+
+[43/45] drtp_img88_cacheonly_1024mb_1000__seed5__cache0.5
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=500, accepted=152
+  WAN=10  cloud_fifo  mean=875.79 p95=1589.20 registry=17069
+  WAN=10  cloud_sjf   mean=826.14 p95=1588.20 registry=17069
+  WAN=10  p2p_sjf     mean=688.57 p95=1341.63 registry=14809
+  WAN=10  c_lru       mean=612.77 p95=1188.70 registry=13661
+  WAN=10  l_lru       mean=532.44 p95=1287.40 registry=14648
+  WAN=10  l_lease     mean=490.06 p95=1154.30 registry=13317
+  WAN=10  d_lease     mean=492.87 p95=1154.30 registry=13317
+  WAN=30  cloud_fifo  mean=291.93 p95=529.73 registry=17069
+  WAN=30  cloud_sjf   mean=275.38 p95=529.40 registry=17069
+  WAN=30  p2p_sjf     mean=229.08 p95=444.40 registry=14809
+  WAN=30  c_lru       mean=204.41 p95=396.23 registry=13661
+  WAN=30  l_lru       mean=178.64 p95=429.47 registry=14658
+  WAN=30  l_lease     mean=163.57 p95=384.77 registry=13317
+  WAN=30  d_lease     mean=164.32 p95=384.77 registry=13317
+  WAN=100 cloud_fifo  mean=87.65 p95=158.92 registry=17069
+  WAN=100 cloud_sjf   mean=82.68 p95=158.82 registry=17069
+  WAN=100 p2p_sjf     mean=67.58 p95=129.90 registry=14546
+  WAN=100 c_lru       mean=62.74 p95=128.37 registry=13862
+  WAN=100 l_lru       mean=54.15 p95=135.84 registry=14686
+  WAN=100 l_lease     mean=49.87 p95=122.36 registry=13318
+  WAN=100 d_lease     mean=50.08 p95=122.61 registry=13318
+
+[44/45] drtp_img88_cacheonly_1024mb_1000__seed5__cache1
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=500, accepted=153
+  WAN=10  cloud_fifo  mean=739.91 p95=1586.00 registry=17427
+  WAN=10  cloud_sjf   mean=796.39 p95=1638.20 registry=17427
+  WAN=10  p2p_sjf     mean=538.22 p95=1158.70 registry=12217
+  WAN=10  c_lru       mean=416.65 p95=764.75 registry=7204
+  WAN=10  l_lru       mean=397.37 p95=716.62 registry=7610
+  WAN=10  l_lease     mean=371.08 p95=627.75 registry=6347
+  WAN=10  d_lease     mean=367.11 p95=634.09 registry=6347
+  WAN=30  cloud_fifo  mean=246.64 p95=528.67 registry=17427
+  WAN=30  cloud_sjf   mean=265.46 p95=546.07 registry=17427
+  WAN=30  p2p_sjf     mean=179.03 p95=384.25 registry=12187
+  WAN=30  c_lru       mean=140.95 p95=266.68 registry=7202
+  WAN=30  l_lru       mean=141.55 p95=314.11 registry=8625
+  WAN=30  l_lease     mean=129.42 p95=267.74 registry=7234
+  WAN=30  d_lease     mean=128.23 p95=236.94 registry=6565
+  WAN=100 cloud_fifo  mean=74.08 p95=158.60 registry=17427
+  WAN=100 cloud_sjf   mean=79.70 p95=163.82 registry=17427
+  WAN=100 p2p_sjf     mean=54.87 p95=111.38 registry=11896
+  WAN=100 c_lru       mean=45.39 p95=99.42 registry=7284
+  WAN=100 l_lru       mean=44.28 p95=103.93 registry=8873
+  WAN=100 l_lease     mean=40.79 p95=90.18 registry=7461
+  WAN=100 d_lease     mean=41.95 p95=94.31 registry=7855
+
+[45/45] drtp_img88_cacheonly_1024mb_1000__seed5__cache2
+  running historical FG-DSCR warm-up...
+  running target FG-DSCR placement...
+  target requests=500, accepted=154
+  WAN=10  cloud_fifo  mean=112.08 p95=558.10 registry=6596
+  WAN=10  cloud_sjf   mean=127.00 p95=603.70 registry=6596
+  WAN=10  p2p_sjf     mean=76.38 p95=376.10 registry=4452
+  WAN=10  c_lru       mean=59.50 p95=288.10 registry=2881
+  WAN=10  l_lru       mean=65.12 p95=311.52 registry=3152
+  WAN=10  l_lease     mean=58.58 p95=278.92 registry=2826
+  WAN=10  d_lease     mean=58.58 p95=278.92 registry=2826
+  WAN=30  cloud_fifo  mean=37.36 p95=186.03 registry=6596
+  WAN=30  cloud_sjf   mean=42.33 p95=201.23 registry=6596
+  WAN=30  p2p_sjf     mean=25.75 p95=124.75 registry=4452
+  WAN=30  c_lru       mean=20.34 p95=96.03 registry=2881
+  WAN=30  l_lru       mean=22.04 p95=104.01 registry=3152
+  WAN=30  l_lease     mean=19.90 p95=93.14 registry=2826
+  WAN=30  d_lease     mean=19.90 p95=93.14 registry=2826
+  WAN=100 cloud_fifo  mean=11.22 p95=55.81 registry=6596
+  WAN=100 cloud_sjf   mean=12.70 p95=60.37 registry=6596
+  WAN=100 p2p_sjf     mean=8.03 p95=36.57 registry=4451
+  WAN=100 c_lru       mean=6.76 p95=28.97 registry=2881
+  WAN=100 l_lru       mean=6.87 p95=31.57 registry=3563
+  WAN=100 l_lease     mean=6.49 p95=28.14 registry=2826
+  WAN=100 d_lease     mean=6.49 p95=28.14 registry=2826
+
+Formal sweep completed.
+Raw results: /home/zhjia/FG-DSCR/results/secon_formal_core_20260919_201459/raw.csv
