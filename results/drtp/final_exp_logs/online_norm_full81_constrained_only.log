@@ -1,0 +1,44 @@
+===== START full81 constrained Optuna only =====
+2026年 05月 16日 星期六 12:44:09 CST
+full cases = 81
+FULL_OPTUNA_TRIALS=5
+[INFO] cases = 81
+[INFO] base_dir = results/drtp/final_exp/cacheonly_dg_0_1024_fg
+[INFO] out_root = results/drtp/optuna/fg_online_norm_full81_constrained_runs
+[INFO] study_name = fg_online_norm_full81_constrained
+[INFO] storage = sqlite:///results/drtp/optuna/fg_online_norm_full81_constrained.db
+[INFO] reuse_penalty = 1500.0
+[INFO] download_penalty = 200.0
+[BASE] {
+  "objective": 1259.0302552627336,
+  "reuse_rate": 0.3449537716045495,
+  "downloaded_mb": 203179.71604938273,
+  "ACT": 889.3942489513931,
+  "AMS": 1628.6662615740745
+}
+[I 2026-05-16 12:44:10,844] Using an existing study with name 'fg_online_norm_full81_constrained' instead of creating a new one.
+====================================================================================================
+[TRIAL] 2
+score = 1660.9884576734423
+metrics = {
+  "avg_objective": 1322.1744681000553,
+  "avg_reuse_rate": 0.1567180350448879,
+  "avg_downloaded_mb": 260537.74074074073,
+  "avg_ACT": 881.2418567248025,
+  "avg_AMS": 1763.1070794753089,
+  "reuse_drop": 0.18823573655966158,
+  "download_inc_ratio": 0.2823019236694728
+}
+params = {
+  "lambda_cong": 0.37692562659193996,
+  "lambda_frag": 0.1898722609319264,
+  "lambda_aff": 0.4994522466669227,
+  "lambda_task_load": 0.1556084614630832,
+  "alpha1_reuse": 0.36077379417532496,
+  "alpha2_future": 0.6734370255677246,
+  "alpha3_pull": 0.6983322343611649,
+  "alpha4_evict": 0.2497539829391204,
+  "greedy_load_factor": 1.3455753253779519
+}
+[I 2026-05-16 15:34:43,584] Trial 2 finished with value: 1660.9884576734423 and parameters: {'lambda_cong': 0.37692562659193996, 'lambda_frag': 0.1898722609319264, 'lambda_aff': 0.4994522466669227, 'lambda_task_load': 0.1556084614630832, 'alpha1_reuse': 0.36077379417532496, 'alpha2_future': 0.6734370255677246, 'alpha3_pull': 0.6983322343611649, 'alpha4_evict': 0.2497539829391204, 'greedy_load_factor': 1.3455753253779519}. Best is trial 2 with value: 1660.9884576734423.
+Terminated

@@ -1,0 +1,57 @@
+[INFO] cases = 81
+[INFO] weights = {'act': 0.35, 'ams': 0.25, 'frag': 0.2, 'download': 0.2, 'load': 0.0}
+[INFO] base_dir = results/drtp/final_exp/cacheonly_dg_0_1024_fg
+[BASE] {
+  "ACT": 889.3942489513931,
+  "AMS": 1628.6662615740745,
+  "old_obj": 1259.0302552627336,
+  "downloaded": 203179.71604938273,
+  "reuse": 0.3449537716045495,
+  "frag": 1.3707288793408856,
+  "load_var": 200.38888888888889
+}
+[I 2026-05-16 23:25:57,392] A new study created in RDB with name: fg_phase1_jsys_noload_balanced_full81_cacheonly
+[Trial 0] case 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 0] case 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 0] case 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 0] case 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 0] case 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 0] case 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 0] case 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 0] case 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 0] case 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 0] case 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 0] case 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 0] case 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 0] case 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 0] case 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 0] case 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 0] case 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 0] case 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 0] case 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 0] case 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 0] case 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 0] case 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 0] case 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 0] case 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 0] case 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 0] case 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 0] case 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 0] case 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 0] case 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 0] case 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 0] case 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 0] case 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 0] case 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 0] case 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 0] case 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 0] case 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 0] case 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 0] case 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 0] case 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 0] case 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 0] case 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 0] case 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 0] case 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 0] case 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 0] case 44/81 drtp_img88_cacheonly_384mb_800

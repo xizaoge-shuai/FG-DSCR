@@ -1,0 +1,43 @@
+{
+  "algo": "LASA-reimpl-K8sCA",
+  "num_containers": 400,
+  "num_scheduled_containers": 90,
+  "num_assigned": 90,
+  "ca_triggered": 310,
+  "ca_rate": 0.775,
+  "ca_penalty": 775.0,
+  "lambda_ca": 1000.0,
+  "num_nodes": 8,
+  "ACT": 114.28652777777776,
+  "AMS": 248.98333333333335,
+  "downloaded_mb": 6638,
+  "reused_mb": 6312,
+  "reuse_rate": 0.4874131274131274,
+  "objective_without_ca_penalty": 181.63493055555557,
+  "objective_ca": 956.6349305555556,
+  "objective": 956.6349305555556,
+  "elapsed_s_internal": 1.8912525177001953
+}
+	Command being timed: "scripts/k8s_ca_figs/run_one_k8s_ca.sh lasa results/drtp/k8s_ca_figs/cases/fig2_cache/case_cache2048_req400.json results/drtp/k8s_ca_figs/fig2_cache/lasa_cache2048_req400.json"
+	User time (seconds): 1.94
+	System time (seconds): 0.01
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.95
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 13152
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 2830
+	Voluntary context switches: 8
+	Involuntary context switches: 194
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 64
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

@@ -1,0 +1,50 @@
+{
+  "algo": "GAHRL-objective-greedy",
+  "num_containers": 200,
+  "num_scheduled_containers": 99,
+  "num_assigned": 99,
+  "ca_triggered": 101,
+  "ca_rate": 0.505,
+  "ca_penalty": 505.0,
+  "lambda_ca": 1000.0,
+  "num_nodes": 8,
+  "ACT": 132.61174242424238,
+  "AMS": 259.5666666666666,
+  "downloaded_mb": 16286,
+  "reused_mb": 39078,
+  "reuse_rate": 0.705837728487826,
+  "objective_without_ca_penalty": 196.0892045454545,
+  "objective_ca": 701.0892045454545,
+  "objective": 701.0892045454545,
+  "params": {
+    "lambda_latency": 0.5,
+    "w_resource": 0.3,
+    "w_imbalance": 0.2,
+    "w_cache_pressure": 0.2,
+    "w_layer_hit": 0.2,
+    "order": "cache"
+  }
+}
+	Command being timed: "scripts/k8s_ca_figs/run_one_k8s_ca.sh gahrl results/drtp/k8s_ca_figs/cases/fig2_cache/case_cache1792_req200.json results/drtp/k8s_ca_figs/fig2_cache/gahrl_cache1792_req200.json"
+	User time (seconds): 0.07
+	System time (seconds): 0.02
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.10
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 11880
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 2391
+	Voluntary context switches: 8
+	Involuntary context switches: 13
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 64
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

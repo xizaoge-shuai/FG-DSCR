@@ -1,0 +1,12 @@
+{
+  "algo": "LASA-paper-reimpl",
+  "num_containers": 1000,
+  "num_nodes": 8,
+  "ACT": 1415.9952199999968,
+  "AMS": 3367.599999999992,
+  "downloaded_mb": 421652,
+  "reused_mb": 94029,
+  "reuse_rate": 0.18233946955579128,
+  "objective": 2391.7976099999946,
+  "elapsed_s_internal": 6.308539628982544
+}

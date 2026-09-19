@@ -1,0 +1,23 @@
+# J_sys full81 evaluation
+
+weights: {'ACT': 0.3, 'AMS': 0.2, 'frag': 0.2, 'downloaded': 0.2, 'load_var': 0.1}
+case_list: /tmp/cacheonly_full81_cases.txt cases: 81
+
+# Resolved directories
+FG-DSCR-GC: results/drtp/final_exp/cacheonly_dg_0_1024_fg
+GAHRL-inspired: results/drtp/final_exp/cacheonly_dg_0_1024_gahrl
+ORR-inspired: results/drtp/final_exp/cacheonly_dg_0_1024_orr
+ILR-SA: results/drtp/final_exp/cacheonly_dg_0_1024_ilrsa
+LASA-reimpl: results/drtp/final_exp/cacheonly_dg_0_1024_lasa
+OnlineNorm-trial12: results/drtp/final_exp/cacheonly_fg_online_norm_trial12_full81
+
+| method | cases | missing | J_sys | J_sys_impr | ACT_ratio | AMS_ratio | frag_ratio | download_ratio | load_ratio | old_obj | ACT | AMS | frag | downloaded | reuse | load_var |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| FG-DSCR-GC | 81 | 0 | 1.000000 | 0.00% | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 1.000000 | 1259.030 | 889.394 | 1628.666 | 1.285783 | 203179.716 | 0.344954 | 200.389 |
+| GAHRL-inspired | 81 | 0 | 0.910445 | 8.96% | 0.925936 | 1.056078 | 0.999323 | 1.076353 | 0.063133 | 1271.760 | 823.522 | 1719.999 | 1.284913 | 218693.012 | 0.290094 | 12.651 |
+| ORR-inspired | 81 | 0 | 0.916007 | 8.40% | 0.921045 | 1.063477 | 0.999376 | 1.079881 | 0.111465 | 1275.611 | 819.173 | 1732.049 | 1.284981 | 219409.951 | 0.289694 | 22.336 |
+| ILR-SA | 81 | 0 | 0.955562 | 4.44% | 0.985719 | 1.063410 | 0.999403 | 1.213175 | 0.046484 | 1304.317 | 876.693 | 1731.941 | 1.285016 | 246492.494 | 0.212586 | 9.315 |
+| LASA-reimpl | 81 | 0 | 0.910534 | 8.95% | 0.881908 | 1.128286 | 1.001281 | 1.099963 | 0.000554 | 1310.982 | 784.364 | 1837.601 | 1.287431 | 223490.185 | 0.274259 | 0.111 |
+| OnlineNorm-switch-req>=700 | 81 | 0 | 0.989024 | 1.10% | 0.974296 | 1.007525 | 0.998731 | 0.998353 | 0.958137 | 1253.727 | 866.533 | 1640.922 | 1.284152 | 202845.049 | 0.345484 | 192.000 |
+
+# Missing detail

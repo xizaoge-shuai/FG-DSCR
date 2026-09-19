@@ -1,0 +1,328 @@
+{
+  "summary": {
+    "algo": "FG-DSCR-GC-K8sCA-tuned",
+    "num_containers": 200,
+    "num_assigned": 121,
+    "num_failed": 79,
+    "fail_rate": 0.395,
+    "num_nodes": 10,
+    "ACT": 131.16322314049586,
+    "AMS": 246.97291666666666,
+    "downloaded_mb": 30775,
+    "reused_mb": 38693,
+    "reuse_rate": 0.5569902689007888,
+    "objective_base": 189.06806990358126,
+    "fail_penalty": 395.0,
+    "lambda_fail": 1000.0,
+    "objective": 584.0680699035813
+  },
+  "assignment": {
+    "edge-1": [
+      "c020",
+      "c047",
+      "c049",
+      "c051",
+      "c052",
+      "c053",
+      "c057",
+      "c060",
+      "c066",
+      "c069",
+      "c072",
+      "c076",
+      "c107",
+      "c108"
+    ],
+    "edge-2": [
+      "c001",
+      "c025",
+      "c027",
+      "c034",
+      "c058",
+      "c061",
+      "c065",
+      "c067",
+      "c071",
+      "c074",
+      "c081",
+      "c110",
+      "c111"
+    ],
+    "edge-3": [
+      "c021",
+      "c026",
+      "c033",
+      "c040",
+      "c056",
+      "c070",
+      "c073",
+      "c092",
+      "c096",
+      "c100",
+      "c112",
+      "c115"
+    ],
+    "edge-4": [
+      "c002",
+      "c003",
+      "c004",
+      "c006",
+      "c008",
+      "c010",
+      "c012",
+      "c013",
+      "c014",
+      "c015",
+      "c016",
+      "c017",
+      "c113"
+    ],
+    "edge-5": [
+      "c022",
+      "c044",
+      "c050",
+      "c059",
+      "c068",
+      "c085",
+      "c087",
+      "c089",
+      "c091",
+      "c104",
+      "c117"
+    ],
+    "edge-6": [
+      "c005",
+      "c009",
+      "c028",
+      "c043",
+      "c055",
+      "c064",
+      "c075",
+      "c083",
+      "c084",
+      "c090",
+      "c118",
+      "c121",
+      "c123"
+    ],
+    "edge-7": [
+      "c023",
+      "c024",
+      "c038",
+      "c041",
+      "c046",
+      "c088",
+      "c097",
+      "c098",
+      "c106",
+      "c109"
+    ],
+    "edge-8": [
+      "c007",
+      "c039",
+      "c048",
+      "c062",
+      "c077",
+      "c086",
+      "c093",
+      "c094",
+      "c095",
+      "c099",
+      "c101",
+      "c114"
+    ],
+    "edge-9": [
+      "c011",
+      "c019",
+      "c029",
+      "c030",
+      "c036",
+      "c037",
+      "c042",
+      "c063",
+      "c102",
+      "c103"
+    ],
+    "edge-10": [
+      "c018",
+      "c031",
+      "c032",
+      "c035",
+      "c045",
+      "c054",
+      "c078",
+      "c079",
+      "c080",
+      "c082",
+      "c116",
+      "c119",
+      "c120"
+    ]
+  },
+  "ordered_queues": {
+    "edge-1": [
+      "c047",
+      "c049",
+      "c051",
+      "c052",
+      "c053",
+      "c057",
+      "c060",
+      "c066",
+      "c069",
+      "c072",
+      "c108",
+      "c020",
+      "c076",
+      "c107"
+    ],
+    "edge-2": [
+      "c025",
+      "c027",
+      "c034",
+      "c058",
+      "c061",
+      "c067",
+      "c071",
+      "c081",
+      "c110",
+      "c001",
+      "c065",
+      "c074",
+      "c111"
+    ],
+    "edge-3": [
+      "c026",
+      "c033",
+      "c096",
+      "c021",
+      "c073",
+      "c040",
+      "c100",
+      "c112",
+      "c056",
+      "c070",
+      "c092",
+      "c115"
+    ],
+    "edge-4": [
+      "c002",
+      "c003",
+      "c004",
+      "c006",
+      "c010",
+      "c012",
+      "c016",
+      "c017",
+      "c015",
+      "c113",
+      "c013",
+      "c008",
+      "c014"
+    ],
+    "edge-5": [
+      "c059",
+      "c050",
+      "c085",
+      "c022",
+      "c068",
+      "c089",
+      "c091",
+      "c104",
+      "c087",
+      "c044",
+      "c117"
+    ],
+    "edge-6": [
+      "c005",
+      "c055",
+      "c064",
+      "c083",
+      "c009",
+      "c090",
+      "c075",
+      "c028",
+      "c043",
+      "c118",
+      "c084",
+      "c121",
+      "c123"
+    ],
+    "edge-7": [
+      "c023",
+      "c038",
+      "c024",
+      "c041",
+      "c046",
+      "c088",
+      "c097",
+      "c109",
+      "c098",
+      "c106"
+    ],
+    "edge-8": [
+      "c048",
+      "c062",
+      "c077",
+      "c101",
+      "c039",
+      "c094",
+      "c086",
+      "c093",
+      "c114",
+      "c095",
+      "c007",
+      "c099"
+    ],
+    "edge-9": [
+      "c019",
+      "c029",
+      "c030",
+      "c036",
+      "c037",
+      "c063",
+      "c011",
+      "c042",
+      "c103",
+      "c102"
+    ],
+    "edge-10": [
+      "c032",
+      "c035",
+      "c045",
+      "c116",
+      "c054",
+      "c018",
+      "c031",
+      "c080",
+      "c078",
+      "c079",
+      "c120",
+      "c082",
+      "c119"
+    ]
+  }
+}
+	Command being timed: "scripts/k8s_ca_figs/run_one_k8s_ca.sh fg results/drtp/k8s_ca_figs/cases/fig3_scale/case_cat88_edge10_req200.json results/drtp/k8s_ca_figs/fig3_scale/fg_cat88_edge10_req200.json"
+	User time (seconds): 0.96
+	System time (seconds): 0.02
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.99
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 17452
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 3727
+	Voluntary context switches: 8
+	Involuntary context switches: 99
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 344
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

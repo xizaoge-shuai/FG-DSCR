@@ -1,0 +1,264 @@
+{
+  "summary": {
+    "algo": "FG-DSCR-GC-K8sCA-tuned",
+    "num_containers": 1500,
+    "num_assigned": 93,
+    "num_failed": 1407,
+    "fail_rate": 0.938,
+    "num_nodes": 8,
+    "ACT": 125.14363799283154,
+    "AMS": 242.17604166666666,
+    "downloaded_mb": 23017,
+    "reused_mb": 19096,
+    "reuse_rate": 0.45344667917270204,
+    "objective_base": 183.6598398297491,
+    "fail_penalty": 938.0,
+    "lambda_fail": 1000.0,
+    "objective": 1121.6598398297492
+  },
+  "assignment": {
+    "edge-1": [
+      "c008_scale_7",
+      "c020_scale_19",
+      "c021_scale_20",
+      "c035_scale_34",
+      "c042_scale_41",
+      "c055_scale_54",
+      "c061_scale_60",
+      "c063_scale_62",
+      "c064_scale_63",
+      "c066_scale_65",
+      "c072_scale_71",
+      "c078_scale_77",
+      "c080_scale_79"
+    ],
+    "edge-2": [
+      "c001_scale_0",
+      "c003_scale_2",
+      "c005_scale_4",
+      "c006_scale_5",
+      "c009_scale_8",
+      "c012_scale_11",
+      "c015_scale_14",
+      "c019_scale_18",
+      "c024_scale_23",
+      "c025_scale_24"
+    ],
+    "edge-3": [
+      "c010_scale_9",
+      "c016_scale_15",
+      "c023_scale_22",
+      "c052_scale_51",
+      "c053_scale_52",
+      "c054_scale_53",
+      "c067_scale_66",
+      "c069_scale_68",
+      "c071_scale_70",
+      "c073_scale_72",
+      "c077_scale_76",
+      "c081_scale_80",
+      "c087_scale_86",
+      "c088_scale_87"
+    ],
+    "edge-4": [
+      "c002_scale_1",
+      "c017_scale_16",
+      "c029_scale_28",
+      "c031_scale_30",
+      "c034_scale_33",
+      "c037_scale_36",
+      "c039_scale_38",
+      "c043_scale_42",
+      "c044_scale_43",
+      "c060_scale_59",
+      "c099_scale_98"
+    ],
+    "edge-5": [
+      "c011_scale_10",
+      "c028_scale_27",
+      "c036_scale_35",
+      "c058_scale_57",
+      "c065_scale_64",
+      "c068_scale_67",
+      "c070_scale_69",
+      "c075_scale_74",
+      "c089_scale_88",
+      "c090_scale_89"
+    ],
+    "edge-6": [
+      "c004_scale_3",
+      "c014_scale_13",
+      "c022_scale_21",
+      "c026_scale_25",
+      "c045_scale_44",
+      "c049_scale_48",
+      "c062_scale_61",
+      "c074_scale_73",
+      "c076_scale_75",
+      "c079_scale_78",
+      "c084_scale_83",
+      "c085_scale_84",
+      "c086_scale_85"
+    ],
+    "edge-7": [
+      "c013_scale_12",
+      "c027_scale_26",
+      "c030_scale_29",
+      "c048_scale_47",
+      "c050_scale_49",
+      "c051_scale_50",
+      "c056_scale_55",
+      "c057_scale_56",
+      "c059_scale_58",
+      "c091_scale_90",
+      "c098_scale_97"
+    ],
+    "edge-8": [
+      "c007_scale_6",
+      "c018_scale_17",
+      "c032_scale_31",
+      "c033_scale_32",
+      "c038_scale_37",
+      "c040_scale_39",
+      "c041_scale_40",
+      "c046_scale_45",
+      "c047_scale_46",
+      "c082_scale_81",
+      "c083_scale_82"
+    ]
+  },
+  "ordered_queues": {
+    "edge-1": [
+      "c078_scale_77",
+      "c063_scale_62",
+      "c020_scale_19",
+      "c021_scale_20",
+      "c035_scale_34",
+      "c061_scale_60",
+      "c066_scale_65",
+      "c008_scale_7",
+      "c055_scale_54",
+      "c072_scale_71",
+      "c064_scale_63",
+      "c042_scale_41",
+      "c080_scale_79"
+    ],
+    "edge-2": [
+      "c005_scale_4",
+      "c006_scale_5",
+      "c009_scale_8",
+      "c012_scale_11",
+      "c019_scale_18",
+      "c025_scale_24",
+      "c003_scale_2",
+      "c001_scale_0",
+      "c015_scale_14",
+      "c024_scale_23"
+    ],
+    "edge-3": [
+      "c067_scale_66",
+      "c016_scale_15",
+      "c052_scale_51",
+      "c081_scale_80",
+      "c088_scale_87",
+      "c010_scale_9",
+      "c073_scale_72",
+      "c071_scale_70",
+      "c077_scale_76",
+      "c087_scale_86",
+      "c023_scale_22",
+      "c054_scale_53",
+      "c069_scale_68",
+      "c053_scale_52"
+    ],
+    "edge-4": [
+      "c002_scale_1",
+      "c017_scale_16",
+      "c034_scale_33",
+      "c039_scale_38",
+      "c043_scale_42",
+      "c060_scale_59",
+      "c099_scale_98",
+      "c029_scale_28",
+      "c031_scale_30",
+      "c037_scale_36",
+      "c044_scale_43"
+    ],
+    "edge-5": [
+      "c090_scale_89",
+      "c058_scale_57",
+      "c089_scale_88",
+      "c036_scale_35",
+      "c065_scale_64",
+      "c068_scale_67",
+      "c011_scale_10",
+      "c028_scale_27",
+      "c070_scale_69",
+      "c075_scale_74"
+    ],
+    "edge-6": [
+      "c085_scale_84",
+      "c076_scale_75",
+      "c022_scale_21",
+      "c045_scale_44",
+      "c014_scale_13",
+      "c049_scale_48",
+      "c074_scale_73",
+      "c084_scale_83",
+      "c004_scale_3",
+      "c079_scale_78",
+      "c086_scale_85",
+      "c026_scale_25",
+      "c062_scale_61"
+    ],
+    "edge-7": [
+      "c098_scale_97",
+      "c027_scale_26",
+      "c013_scale_12",
+      "c030_scale_29",
+      "c051_scale_50",
+      "c056_scale_55",
+      "c048_scale_47",
+      "c050_scale_49",
+      "c057_scale_56",
+      "c059_scale_58",
+      "c091_scale_90"
+    ],
+    "edge-8": [
+      "c038_scale_37",
+      "c040_scale_39",
+      "c041_scale_40",
+      "c046_scale_45",
+      "c047_scale_46",
+      "c033_scale_32",
+      "c082_scale_81",
+      "c018_scale_17",
+      "c032_scale_31",
+      "c007_scale_6",
+      "c083_scale_82"
+    ]
+  }
+}
+	Command being timed: "scripts/k8s_ca_figs/run_one_k8s_ca.sh fg cases/drtp_scale_nodes/drtp_img68_nodes8_cache1024mb_1500.json results/drtp/k8s_ca_figs/fig3_scale_fixed/fg_cat68_edge8_req1500.json"
+	User time (seconds): 0.65
+	System time (seconds): 0.01
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.67
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 21240
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 5237
+	Voluntary context switches: 8
+	Involuntary context switches: 71
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 344
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

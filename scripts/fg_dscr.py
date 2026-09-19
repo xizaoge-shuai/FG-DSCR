@@ -74,6 +74,7 @@ class FGDscrScheduler:
         greedy_load_factor: float = 0.0,
     # Phase 1 weights
         lambda_cong: float = 1.0,
+        bw_gamma: float = 1.0,
         lambda_frag: float = 1.0,
         lambda_aff: float = 0.2,
         # lambda_balance: float = 0.0,
@@ -83,6 +84,11 @@ class FGDscrScheduler:
         lambda_task_load: float = 0.03,
         task_load_power: float = 2.0,
         task_load_factor: float = 1.8,
+        lambda_cache_core: float = 0.0,
+        cache_core_ratio: float = 0.90,
+        lambda_fail: float = 0.0,
+        hard_resource_filter: bool = False,
+        init_order: str = "image_resource",
     # Phase 2 weights
         alpha1_reuse: float = 1.0,
         alpha2_future: float = 0.15,
@@ -96,7 +102,13 @@ class FGDscrScheduler:
         beam_width: int = 4,
         unit_mb: int = 50,
         max_best_response_rounds: int = 20,
+        phase1_neighbor_mode: str = "full",
+        move_topk_per_node: int = 8,
+        swap_topk_per_node: int = 6,
+        block_seed_topk_per_node: int = 5,
         cache_policy: str = "pgdsf",
+        cache_bw_eta: float = 0.0,
+        cache_bw_ref: float = 100.0,
         order_policy: str = "dynamic_state",
         disable_future_share: bool = False,
         algo_name: str = "FG-DSCR",
@@ -105,6 +117,7 @@ class FGDscrScheduler:
         self.alpha_obj = alpha_obj
 
         self.lambda_cong = lambda_cong
+        self.bw_gamma = bw_gamma
         self.lambda_frag = lambda_frag
         self.lambda_aff = lambda_aff
         self.lambda_balance = lambda_balance
@@ -113,6 +126,13 @@ class FGDscrScheduler:
         self.lambda_task_load = lambda_task_load
         self.task_load_power = task_load_power
         self.task_load_factor = task_load_factor
+        self.lambda_cache_core = lambda_cache_core
+        self.cache_core_ratio = cache_core_ratio
+        self.lambda_fail = lambda_fail
+        self.hard_resource_filter = hard_resource_filter
+        self.init_order = init_order
+        self.failed_container_ids: List[str] = []
+        self.total_requested_containers = 0
         self.alpha1_reuse = alpha1_reuse
         self.alpha2_future = alpha2_future
         self.alpha3_pull = alpha3_pull
@@ -125,7 +145,13 @@ class FGDscrScheduler:
         self.beam_width = beam_width
         self.unit_mb = max(unit_mb, 1)
         self.max_best_response_rounds = max_best_response_rounds
+        self.phase1_neighbor_mode = phase1_neighbor_mode
+        self.move_topk_per_node = move_topk_per_node
+        self.swap_topk_per_node = swap_topk_per_node
+        self.block_seed_topk_per_node = block_seed_topk_per_node
         self.cache_policy = cache_policy
+        self.cache_bw_eta = cache_bw_eta
+        self.cache_bw_ref = cache_bw_ref
         self.order_policy = order_policy
         self.disable_future_share = disable_future_share
         self.greedy_load_factor = greedy_load_factor
@@ -155,6 +181,7 @@ class FGDscrScheduler:
     def set_data(self, containers: List[Container], nodes: List[EdgeNode]):
         self.containers = {c.cid: c for c in containers}
         self.nodes = {n.eid: n for n in nodes}
+        self.total_requested_containers = len(containers)
 
         cnt = Counter()
         for c in containers:
@@ -214,95 +241,169 @@ class FGDscrScheduler:
         self,
         assignment: Dict[str, str],
     ) -> Tuple[float, Dict[str, Dict]]:
+        """
+        Phase-1 potential with scale normalization.
+
+        The original implementation directly summed:
+            cong_term + frag_term + aff_term + task_load_term
+
+        However, these terms have very different scales:
+            cong_term:       D_j^2 / bandwidth, often 1e5~1e6
+            frag_term:       small shape-imbalance value, often O(1)
+            aff_term:        layer-size based reward, often 1e4
+            task_load_term:  already scaled by cong_scale
+
+        This version keeps congestion as the reference scale and normalizes
+        fragmentation, affinity, and load before aggregation.
+        """
         layer_cnts = self.node_layer_counts(assignment)
         node_counts = Counter(assignment.values())
 
-        total_num = len(self.containers)
+        total_num = max(len(assignment), 1)
         num_nodes = max(len(self.nodes), 1)
         avg_per_node = total_num / num_nodes
 
-        total_run_time = sum(c.run_time for c in self.containers.values())
+        total_run_time = sum(self.containers[cid].run_time for cid in assignment)
         avg_run_per_node = total_run_time / num_nodes
 
-        # 先计算原始拥塞项，用它估计势函数量级。
-        # 这样 lambda_task_load 可以用 0.2 / 0.5 / 1.0 这种数值调参。
+        eps = 1e-9
+
         raw_cong_terms: Dict[str, float] = {}
-        for eid, node in self.nodes.items():
-            D_j = self.distinct_missing_size(eid, layer_cnts[eid])
-            raw_cong_terms[eid] = self.lambda_cong * (
-                (D_j ** 2) / max(node.bandwidth_mb_s, 1e-8)
-            )
+        raw_frag_terms: Dict[str, float] = {}
+        raw_aff_terms: Dict[str, float] = {}
+        raw_load_terms: Dict[str, float] = {}
+        aux: Dict[str, Dict] = {}
 
-        cong_scale = max(
-            sum(raw_cong_terms.values()) / max(num_nodes, 1),
-            1.0
-        )
-
-        total = 0.0
-        comps: Dict[str, Dict] = {}
-
+        # 1) First pass: collect raw components.
         for eid, node in self.nodes.items():
             m_j = node_counts.get(eid, 0)
             D_j = self.distinct_missing_size(eid, layer_cnts[eid])
             Frag_j = self.fragmentation_penalty(eid, assignment)
             Aff_j = self.affinity_gain(eid, layer_cnts[eid])
 
-            # 1) 缺失层下载 / 带宽拥塞项
-            cong_term = raw_cong_terms[eid]
+            raw_cong_terms[eid] = self.lambda_cong * (
+                (D_j ** 2) / (max(node.bandwidth_mb_s, eps) ** max(getattr(self, "bw_gamma", 1.0), eps))
+            )
 
-            # 2) 资源碎片项
-            frag_term = self.lambda_frag * Frag_j
-
-            # 3) 层共享亲和项：共享越强，势函数越小
-            aff_term = - self.lambda_aff * Aff_j
-
-            # 4) 热点节点过载惩罚项
-            # 只惩罚超过软阈值的节点，不惩罚正常聚类。
-            # soft_limit = task_load_factor * 平均任务数。
-            load_ratio = m_j / max(avg_per_node, 1e-8)
+            load_ratio = m_j / max(avg_per_node, eps)
             soft_limit = self.task_load_factor * avg_per_node
             overload = max(0.0, m_j - soft_limit)
-            overload_ratio = overload / max(avg_per_node, 1e-8)
+            overload_ratio = overload / max(avg_per_node, eps)
 
             node_run_sum = sum(
                 self.containers[cid].run_time
                 for cid, ne in assignment.items()
                 if ne == eid
             )
-            run_ratio = node_run_sum / max(avg_run_per_node, 1e-8)
+            run_ratio = node_run_sum / max(avg_run_per_node, eps)
 
-            task_load_term = (
-                self.lambda_task_load
-                * cong_scale
-                * (overload_ratio ** self.task_load_power)
-                * run_ratio
-            )
+            raw_frag_terms[eid] = Frag_j
+            raw_aff_terms[eid] = Aff_j
+            raw_load_terms[eid] = (overload_ratio ** self.task_load_power) * run_ratio
 
-            # 旧的强均衡项保留为日志项，不参与势函数
-            balance_term = 0.0
-            idle_term = 0.0
-
-            node_val = cong_term + frag_term + aff_term + task_load_term
-            total += node_val
-
-            comps[eid] = {
+            aux[eid] = {
                 "m_j": m_j,
                 "D_j": D_j,
                 "Frag_j": Frag_j,
                 "Aff_j": Aff_j,
-                "cong_term": cong_term,
-                "frag_term": frag_term,
-                "aff_term": aff_term,
-                "task_load_term": task_load_term,
                 "load_ratio": load_ratio,
                 "soft_limit": soft_limit,
                 "overload": overload,
                 "overload_ratio": overload_ratio,
                 "node_run_sum": node_run_sum,
                 "run_ratio": run_ratio,
+            }
+
+        # 2) Reference scale.
+        # Use average congestion as the common scale so that all components
+        # contribute at comparable magnitudes.
+        cong_scale = max(
+            sum(abs(v) for v in raw_cong_terms.values()) / max(num_nodes, 1),
+            1.0
+        )
+
+        # 3) Component normalization scales.
+        # max-scale keeps each normalized component in roughly [0, 1].
+        frag_scale = max(max((abs(v) for v in raw_frag_terms.values()), default=0.0), eps)
+        aff_scale = max(max((abs(v) for v in raw_aff_terms.values()), default=0.0), eps)
+        load_scale = max(max((abs(v) for v in raw_load_terms.values()), default=0.0), eps)
+
+        total = 0.0
+        comps: Dict[str, Dict] = {}
+
+        for eid, node in self.nodes.items():
+            raw_cong = raw_cong_terms[eid]
+            raw_frag = raw_frag_terms[eid]
+            raw_aff = raw_aff_terms[eid]
+            raw_load = raw_load_terms[eid]
+
+            frag_norm = raw_frag / frag_scale
+            aff_norm = raw_aff / aff_scale
+            load_norm = raw_load / load_scale if load_scale > eps else 0.0
+
+            # Congestion remains the reference term.
+            cong_term = raw_cong
+
+            # Other terms are normalized and then mapped to the same scale.
+            frag_term = self.lambda_frag * cong_scale * frag_norm
+            aff_term = - self.lambda_aff * cong_scale * aff_norm
+            task_load_term = self.lambda_task_load * cong_scale * load_norm
+
+            # Cache-capacity-aware placement penalty.
+            # In cache-heterogeneous settings, small-cache nodes should not
+            # receive a large weighted core layer working set.
+            cache_cap = float(getattr(node, "repo_capacity_mb", 0.0))
+            if cache_cap > 0:
+                cache_core_mb = self.weighted_core_layer_size(
+                    layer_cnts[eid],
+                    getattr(self, "cache_core_ratio", 0.90),
+                )
+                cache_core_pressure = max(0.0, cache_core_mb / max(cache_cap, eps) - 1.0) ** 2
+            else:
+                cache_core_mb = 0.0
+                cache_core_pressure = 0.0
+
+            cache_core_term = self.lambda_cache_core * cong_scale * cache_core_pressure
+
+            balance_term = 0.0
+            idle_term = 0.0
+
+            node_val = cong_term + frag_term + aff_term + task_load_term + cache_core_term
+            total += node_val
+
+            comps[eid] = {
+                **aux[eid],
+
+                # scaled terms used by the actual potential
+                "cong_term": cong_term,
+                "frag_term": frag_term,
+                "aff_term": aff_term,
+                "task_load_term": task_load_term,
+                "cache_core_term": cache_core_term,
+                "cache_core_mb": cache_core_mb,
+                "cache_core_pressure": cache_core_pressure,
+                "node_potential": node_val,
+
+                # normalized terms for plotting/debugging
+                "cong_norm": raw_cong / max(cong_scale, eps),
+                "frag_norm": frag_norm,
+                "aff_norm": aff_norm,
+                "load_norm": load_norm,
+
+                # raw terms for interpretation
+                "raw_cong_term": raw_cong,
+                "raw_frag_term": raw_frag,
+                "raw_aff_term": raw_aff,
+                "raw_load_term": raw_load,
+
+                # scales
+                "cong_scale": cong_scale,
+                "frag_scale": frag_scale,
+                "aff_scale": aff_scale,
+                "load_scale": load_scale,
+
                 "balance_term": balance_term,
                 "idle_term": idle_term,
-                "node_potential": node_val,
             }
 
         return total, comps
@@ -379,18 +480,22 @@ class FGDscrScheduler:
         node = self.nodes[eid]
         c = self.containers[cid]
 
-    # 只检查单镜像是否能在该节点上运行
-    # 不再把同一时间片已分配到该节点的所有镜像资源直接累加
+        if getattr(self, "hard_resource_filter", False):
+            # Kubernetes-style hard Filter:
+            # already assigned resource usage on this node + current container request
+            # must not exceed node capacity in every resource dimension.
+            used = self.aggregate_resource_usage(eid, assignment)
+            for q, demand in c.resources.items():
+                cap = node.resources.get(q, 0.0)
+                if used.get(q, 0.0) + demand > cap + 1e-9:
+                    return False
+            return True
+
+        # Legacy sequential-queue mode:
+        # only check whether a single container can run on this node.
         for q, demand in c.resources.items():
             if demand > node.resources.get(q, 0.0):
                 return False
-
-    # cache/repo capacity only controls reusable layer retention.
-    # It should NOT be a hard deployment feasibility constraint.
-    # A container can still be pulled and started even if its image
-    # cannot be fully retained in the reusable cache.
-    # if self.image_size(cid) > node.repo_capacity_mb:
-    #     return False
 
         return True
 
@@ -403,6 +508,41 @@ class FGDscrScheduler:
             for l in self.containers[cid].layers:
                 cnts[eid][l] += 1
         return cnts
+
+    def weighted_core_layer_size(self, layer_cnt: Counter, ratio: float) -> float:
+        """
+        Weighted core layer working-set size for cache-heterogeneous placement.
+
+        weight(l) = count(l) * size(l).
+        We sort layers by weight and accumulate layer sizes until the selected
+        layers cover ratio of total weighted demand.
+        """
+        ratio = min(max(float(ratio), 0.0), 1.0)
+
+        items = []
+        for l, cnt in layer_cnt.items():
+            size = float(self.layer_sizes_mb.get(l, self.layer_sizes_mb.get(str(l), 0.0)))
+            weight = float(cnt) * size
+            if size > 0 and weight > 0:
+                items.append((weight, size, str(l)))
+
+        if not items:
+            return 0.0
+
+        items.sort(reverse=True)
+        total_weight = sum(x[0] for x in items)
+        target = ratio * total_weight
+
+        acc_weight = 0.0
+        core_mb = 0.0
+
+        for weight, size, _ in items:
+            acc_weight += weight
+            core_mb += size
+            if acc_weight >= target:
+                break
+
+        return core_mb
 
     def distinct_missing_size(self, eid: str, layer_cnt: Counter) -> int:
         node = self.nodes[eid]
@@ -418,35 +558,52 @@ class FGDscrScheduler:
         assignment: Dict[str, str],
     ) -> float:
         """
-        顺序队列模型下，不再把“已分配镜像资源总和”当作并发占用。
-        这里改成“需求形状失衡惩罚”：
-        - 看分到该节点的镜像，在 cpu/mem/disk 三维上的平均归一化需求是否过于偏斜
-        - 越偏斜，说明后续更容易形成资源碎片化倾向
+        K8s-style residual resource fragmentation.
+
+        Under hard resource filtering, containers assigned to the same node
+        consume cumulative CPU/mem/disk requests. Fragmentation is measured
+        by the imbalance of residual resource ratios after placement.
+
+        Example:
+          remaining = (50% CPU, 5% MEM, 60% DISK) -> highly fragmented
+          remaining = (30% CPU, 32% MEM, 28% DISK) -> less fragmented
         """
         node = self.nodes[eid]
         cids = [cid for cid, ne in assignment.items() if ne == eid]
-
         if not cids:
             return 0.0
 
-        prof = []
+        used = self.aggregate_resource_usage(eid, assignment)
+
+        residual_ratios = []
+        pressure_ratios = []
         tiny_gap_pen = 0.0
 
         for q, cap in node.resources.items():
-            vals = [
-                self.containers[cid].resources.get(q, 0.0) / max(cap, 1e-8)
-                for cid in cids
-            ]
-            avg_q = sum(vals) / len(vals)
-            prof.append(avg_q)
+            cap = max(float(cap), 1e-8)
+            u = float(used.get(q, 0.0))
 
-        # 如果某一维长期非常低，说明该节点上这类资源利用结构不均衡
-            if 0.0 < avg_q < self.tiny_gap_thresholds.get(q, 0.15):
+            # hard-filter should prevent this, but keep a large guard penalty
+            if u > cap + 1e-9:
+                return 1e12 + (u - cap) * 1e9
+
+            pressure = u / cap
+            residual = max(0.0, cap - u) / cap
+
+            pressure_ratios.append(pressure)
+            residual_ratios.append(residual)
+
+            # A small positive remaining ratio is often unusable by future pods.
+            if 0.0 < residual < self.tiny_gap_thresholds.get(q, 0.15):
                 tiny_gap_pen += 0.5
 
-        mean_p = sum(prof) / len(prof)
-        var_p = sum((x - mean_p) ** 2 for x in prof) / len(prof)
-        return var_p + tiny_gap_pen
+        mean_res = sum(residual_ratios) / max(len(residual_ratios), 1)
+        var_res = sum((x - mean_res) ** 2 for x in residual_ratios) / max(len(residual_ratios), 1)
+
+        mean_press = sum(pressure_ratios) / max(len(pressure_ratios), 1)
+        var_press = sum((x - mean_press) ** 2 for x in pressure_ratios) / max(len(pressure_ratios), 1)
+
+        return var_res + 0.5 * var_press + tiny_gap_pen
 
     def affinity_gain(self, eid: str, layer_cnt: Counter) -> float:
         # 层共享亲和：sum s_l * log(1+n_jl)
@@ -787,17 +944,47 @@ class FGDscrScheduler:
 
         soft_cap = ceil(greedy_load_factor * N / M)
         """
-        # 大镜像、重资源优先
+        # Initial container order.
+        # image_resource: legacy behavior, large image + heavy resource first.
+        # arrival: preserve original case order, closer to online K8s scheduling.
+        # resource_desc: dominant normalized resource demand first.
+        # resource_asc: small resource demand first, often schedules more pods under CA penalty.
         cids = list(self.containers.keys())
-        cids.sort(
-            key=lambda cid: (
-                self.image_size(cid),
-                sum(self.containers[cid].resources.values())
-            ),
-            reverse=True
-        )
+        init_order = getattr(self, "init_order", "image_resource")
+
+        if init_order == "image_resource":
+            cids.sort(
+                key=lambda cid: (
+                    self.image_size(cid),
+                    sum(self.containers[cid].resources.values())
+                ),
+                reverse=True
+            )
+        elif init_order == "arrival":
+            pass
+        elif init_order in ("resource_desc", "resource_asc"):
+            max_cap = {}
+            for q in ["cpu", "mem", "disk"]:
+                max_cap[q] = max(
+                    (float(n.resources.get(q, 0.0)) for n in self.nodes.values()),
+                    default=1.0
+                )
+                max_cap[q] = max(max_cap[q], 1e-9)
+
+            def rkey(cid):
+                c = self.containers[cid]
+                ratios = [
+                    float(c.resources.get(q, 0.0)) / max_cap[q]
+                    for q in ["cpu", "mem", "disk"]
+                ]
+                return (max(ratios), sum(ratios), self.image_size(cid))
+
+            cids.sort(key=rkey, reverse=(init_order == "resource_desc"))
+        else:
+            raise ValueError(f"Unknown init_order={init_order}")
 
         assignment: Dict[str, str] = {}
+        self.failed_container_ids = []
 
         avg_load = len(cids) / max(len(self.nodes), 1)
         soft_cap = None
@@ -811,6 +998,9 @@ class FGDscrScheduler:
                     feasible_eids.append(eid)
 
             if not feasible_eids:
+                if getattr(self, "hard_resource_filter", False):
+                    self.failed_container_ids.append(cid)
+                    continue
                 raise ValueError(f"No feasible node for container {cid}")
 
             # 关键改动：
@@ -839,6 +1029,9 @@ class FGDscrScheduler:
                     best_eid = eid
 
             if best_eid is None:
+                if getattr(self, "hard_resource_filter", False):
+                    self.failed_container_ids.append(cid)
+                    continue
                 raise ValueError(f"No feasible node for container {cid}")
 
             assignment[cid] = best_eid
@@ -858,17 +1051,30 @@ class FGDscrScheduler:
 
             candidates = []
 
-            move_trial, move_tag = self._best_move_neighbor(assignment)
+            mode = getattr(self, "phase1_neighbor_mode", "full")
+
+            move_trial, move_tag = self._best_move_neighbor(
+                assignment,
+                move_topk_per_node=getattr(self, "move_topk_per_node", 8),
+            )
             if move_trial is not None:
                 candidates.append((self.potential(move_trial), move_trial, move_tag))
 
-            swap_trial, swap_tag = self._best_swap_neighbor(assignment)
-            if swap_trial is not None:
-                candidates.append((self.potential(swap_trial), swap_trial, swap_tag))
+            if mode in ("move_swap", "full"):
+                swap_trial, swap_tag = self._best_swap_neighbor(
+                    assignment,
+                    swap_topk_per_node=getattr(self, "swap_topk_per_node", 6),
+                )
+                if swap_trial is not None:
+                    candidates.append((self.potential(swap_trial), swap_trial, swap_tag))
 
-            block_trial, block_tag = self._best_block_neighbor(assignment)
-            if block_trial is not None:
-                candidates.append((self.potential(block_trial), block_trial, block_tag))
+            if mode == "full":
+                block_trial, block_tag = self._best_block_neighbor(
+                    assignment,
+                    seed_topk_per_node=getattr(self, "block_seed_topk_per_node", 5),
+                )
+                if block_trial is not None:
+                    candidates.append((self.potential(block_trial), block_trial, block_tag))
 
             if not candidates:
                 self.log_phase1_state(rounds, assignment, f"no_improve_round_{rounds}")
@@ -920,7 +1126,11 @@ class FGDscrScheduler:
         f_hist = hist_freq.get(layer, 0)
         f_slot = slot_future_cnt.get(layer, 0)
         size = self.layer_sizes_mb[layer]
-        cost_redl = size / max(bandwidth, 1e-8)
+        bw = max(bandwidth, 1e-8)
+        bw_ref = max(getattr(self, "cache_bw_ref", 100.0), 1e-8)
+        bw_eta = max(getattr(self, "cache_bw_eta", 0.0), 0.0)
+        bw_factor = (bw_ref / bw) ** bw_eta
+        cost_redl = (size / bw) * bw_factor
         centrality = self.layer_centrality.get(layer, 1)
         return clock + (
             ((f_hist + self.beta_slot * f_slot) * cost_redl * (1.0 + self.rho_centrality * centrality))
@@ -1476,20 +1686,32 @@ class FGDscrScheduler:
 
         ACT = total_completion_sum / max(total_num, 1)
         AMS = total_makespan / max(len(self.nodes), 1)
-        objective = self.alpha_obj * ACT + (1.0 - self.alpha_obj) * AMS
+        objective_base = self.alpha_obj * ACT + (1.0 - self.alpha_obj) * AMS
+        num_failed = len(getattr(self, "failed_container_ids", []))
+        total_requested = max(getattr(self, "total_requested_containers", total_num), total_num + num_failed, 1)
+        fail_rate = num_failed / max(total_requested, 1)
+        fail_penalty_value = self.lambda_fail * fail_rate
+        objective = objective_base + fail_penalty_value
 
         out = {
             "assignment": node_to_cids,
             "ordered_queues": ordered,
+            "failed_containers": list(getattr(self, "failed_container_ids", [])),
             "summary": {
                 "algo": self.algo_name,
-                "num_containers": total_num,
+                "num_containers": total_requested,
+                "num_assigned": total_num,
+                "num_failed": num_failed,
+                "fail_rate": fail_rate,
                 "num_nodes": len(self.nodes),
                 "ACT": ACT,
                 "AMS": AMS,
                 "downloaded_mb": total_downloaded,
                 "reused_mb": total_reused,
                 "reuse_rate": total_reused / max(total_reused + total_downloaded, 1),
+                "objective_base": objective_base,
+                "fail_penalty": fail_penalty_value,
+                "lambda_fail": self.lambda_fail,
                 "objective": objective,
             },
             "node_details": node_details,
@@ -1546,19 +1768,35 @@ def main():
     parser.add_argument("--beam", type=int, default=4)
     parser.add_argument("--unit-mb", type=int, default=50)
     parser.add_argument("--algo-name", type=str, default="FG-DSCR")
+    parser.add_argument("--init-order", type=str, default="image_resource",
+                        choices=["image_resource", "arrival", "resource_desc", "resource_asc"])
+    parser.add_argument("--hard-resource-filter", action="store_true",
+                        help="Enable Kubernetes-style cumulative CPU/mem/disk hard resource filtering.")
+    parser.add_argument("--lambda-fail", type=float, default=0.0,
+                        help="Penalty coefficient added as lambda_fail * fail_rate to objective.")
 
     # Phase 1 势函数消融项
     parser.add_argument("--lambda-cong", type=float, default=1.0)
-    parser.add_argument("--lambda-frag", type=float, default=1.0)
+    parser.add_argument("--bw-gamma", type=float, default=1.0,
+                        help="Bandwidth exponent for Phase-1 congestion term: D_j^2 / bandwidth^gamma.")
+    parser.add_argument("--lambda-frag", type=float, default=0.1)
     parser.add_argument("--lambda-aff", type=float, default=0.2)
 
     # Phase 2 排序/缓存替换消融项
     parser.add_argument("--k-pin", type=int, default=6)
     parser.add_argument("--cache-policy", type=str, default="pgdsf", choices=["pgdsf", "lru", "lfu"])
+    parser.add_argument("--cache-bw-eta", type=float, default=0.0,
+                        help="Bandwidth-aware exponent for cache priority. 0 disables it.")
+    parser.add_argument("--cache-bw-ref", type=float, default=100.0,
+                        help="Reference bandwidth used in cache bandwidth factor.")
     parser.add_argument("--order-policy", type=str, default="dynamic_state", choices=["dynamic_state", "static_ilrsa", "arrival"])
     parser.add_argument("--disable-future-share", action="store_true", help="Disable FutureShare term in dynamic ordering.")
 
     parser.add_argument("--max-best-response-rounds", type=int, default=20)
+    parser.add_argument("--phase1-neighbor-mode", type=str, default="full", choices=["move", "move_swap", "full"])
+    parser.add_argument("--move-topk-per-node", type=int, default=8)
+    parser.add_argument("--swap-topk-per-node", type=int, default=6)
+    parser.add_argument("--block-seed-topk-per-node", type=int, default=5)
 
     # 下面三个默认是0，只加日志不改算法行为
     parser.add_argument("--lambda-balance", type=float, default=0.0)
@@ -1566,6 +1804,10 @@ def main():
     parser.add_argument("--theta-cong-count", type=float, default=0.0)
     parser.add_argument("--greedy-load-factor", type=float, default=0.0)
     parser.add_argument("--lambda-task-load", type=float, default=0.03)
+    parser.add_argument("--lambda-cache-core", type=float, default=0.0,
+                        help="Penalty weight for weighted-core layer working set over cache capacity.")
+    parser.add_argument("--cache-core-ratio", type=float, default=0.90,
+                        help="Weighted layer demand coverage ratio for cache-core penalty.")
     parser.add_argument("--task-load-power", type=float, default=2.0)
     parser.add_argument("--task-load-factor", type=float, default=1.8)
     args = parser.parse_args()
@@ -1577,19 +1819,31 @@ def main():
         beam_width=args.beam,
         unit_mb=args.unit_mb,
         algo_name=args.algo_name,
+        init_order=args.init_order,
+        hard_resource_filter=args.hard_resource_filter,
+        lambda_fail=args.lambda_fail,
         lambda_cong=args.lambda_cong,
+        bw_gamma=args.bw_gamma,
         lambda_frag=args.lambda_frag,
         lambda_aff=args.lambda_aff,
         k_pin=args.k_pin,
         cache_policy=args.cache_policy,
+        cache_bw_eta=args.cache_bw_eta,
+        cache_bw_ref=args.cache_bw_ref,
         order_policy=args.order_policy,
         disable_future_share=args.disable_future_share,
         max_best_response_rounds=args.max_best_response_rounds,
+        phase1_neighbor_mode=args.phase1_neighbor_mode,
+        move_topk_per_node=args.move_topk_per_node,
+        swap_topk_per_node=args.swap_topk_per_node,
+        block_seed_topk_per_node=args.block_seed_topk_per_node,
         lambda_balance=args.lambda_balance,
         lambda_idle=args.lambda_idle,
         theta_cong_count=args.theta_cong_count,
         greedy_load_factor=args.greedy_load_factor,
         lambda_task_load=args.lambda_task_load,
+        lambda_cache_core=args.lambda_cache_core,
+        cache_core_ratio=args.cache_core_ratio,
         task_load_power=args.task_load_power,
         task_load_factor=args.task_load_factor,
     )

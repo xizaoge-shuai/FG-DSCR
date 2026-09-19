@@ -1,0 +1,13 @@
+{
+  "algo": "ORR-inspired-LGreedy",
+  "num_containers": 600,
+  "num_nodes": 8,
+  "ACT": 681.1693000000042,
+  "AMS": 1420.6866666666665,
+  "downloaded_mb": 105744,
+  "reused_mb": 212679,
+  "reuse_rate": 0.6679134359013011,
+  "objective": 1050.9279833333353,
+  "prefetch_mb": 0,
+  "count_prefetch_in_downloaded": false
+}

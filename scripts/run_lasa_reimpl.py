@@ -231,24 +231,38 @@ class LASAReimpl:
 
     def evict_if_needed(self, cache: Set[str], last_used: Dict[str, int], protected: Set[str], capacity_mb: float) -> Set[str]:
         """
-        简单 LRU eviction，用于适配当前有限 cache case。
-        LASA 原文主要是 storage capacity + layer sequencing，不强调动态 eviction。
-        这里为了公平适配 FG-DSCR 的有限 cache setting。
+        LRU eviction under a finite reusable layer-cache budget.
+
+        Important:
+        - repo_capacity_mb is the reusable cache budget, not the temporary execution storage.
+        - If capacity is 0, no layer can remain reusable after the current container.
+        - Protected layers are preferred to keep, but they can still be evicted when the
+          cache cannot satisfy the capacity constraint otherwise.
         """
+        cache = set(cache)
+        protected = set(protected or set())
+
         if capacity_mb <= 0:
-            return cache
+            return set()
 
         while size_of_layers(cache, self.layer_sizes) > capacity_mb + 1e-9:
             candidates = [l for l in cache if l not in protected]
+
+            # If keeping all protected layers violates the cache budget, allow evicting
+            # protected layers as well. Otherwise small-cache cases will keep oversized images.
+            if not candidates:
+                candidates = list(cache)
+
             if not candidates:
                 break
 
-            # LRU: last_used 越小越先淘汰；同等情况下大层优先
+            # LRU: smaller last_used is evicted first; tie-break by larger layer size.
             victim = min(
                 candidates,
                 key=lambda l: (last_used.get(l, -1), -float(self.layer_sizes.get(l, 0.0)), l)
             )
             cache.remove(victim)
+            last_used.pop(victim, None)
 
         return cache
 

@@ -1,0 +1,22 @@
+====================================================================================================
+[MULTISTART RUN] pgdsf_dyn_base
+python3 -u scripts/fg_dscr.py --case cases/drtp_network_env/drtp_img88_hetero_good_cache1024mb_1000.json --out results/drtp/final_exp/multistart_hetero_candidates/drtp_img88_hetero_good_cache1024mb_1000/drtp_img88_hetero_good_cache1024mb_1000__pgdsf_dyn_base.json --beam 1 --lambda-cong 1.0 --lambda-frag 0.1 --lambda-aff 0.6 --lambda-task-load 0.10 --cache-policy pgdsf --order-policy dynamic_state --greedy-load-factor 0.9 --algo-name FG-DSCR-GC-MultiStart-pgdsf_dyn_base
+====================================================================================================
+====================================================================================================
+[MULTISTART RUN] lfu_dyn_bwcache
+python3 -u scripts/fg_dscr.py --case cases/drtp_network_env/drtp_img88_hetero_good_cache1024mb_1000.json --out results/drtp/final_exp/multistart_hetero_candidates/drtp_img88_hetero_good_cache1024mb_1000/drtp_img88_hetero_good_cache1024mb_1000__lfu_dyn_bwcache.json --beam 1 --lambda-cong 1.0 --lambda-frag 0.1 --lambda-aff 0.6 --lambda-task-load 0.10 --cache-policy lfu --order-policy dynamic_state --greedy-load-factor 0.9 --algo-name FG-DSCR-GC-MultiStart-lfu_dyn_bwcache
+====================================================================================================
+====================================================================================================
+[MULTISTART RUN] lfu_static_highreuse
+python3 -u scripts/fg_dscr.py --case cases/drtp_network_env/drtp_img88_hetero_good_cache1024mb_1000.json --out results/drtp/final_exp/multistart_hetero_candidates/drtp_img88_hetero_good_cache1024mb_1000/drtp_img88_hetero_good_cache1024mb_1000__lfu_static_highreuse.json --beam 1 --lambda-cong 1.0 --lambda-frag 0.1 --lambda-aff 1.0 --lambda-task-load 0.10 --cache-policy lfu --order-policy static_ilrsa --greedy-load-factor 0.9 --algo-name FG-DSCR-GC-MultiStart-lfu_static_highreuse
+====================================================================================================
+====================================================================================================
+[MULTISTART RUN] bwplace_cong13
+python3 -u scripts/fg_dscr.py --case cases/drtp_network_env/drtp_img88_hetero_good_cache1024mb_1000.json --out results/drtp/final_exp/multistart_hetero_candidates/drtp_img88_hetero_good_cache1024mb_1000/drtp_img88_hetero_good_cache1024mb_1000__bwplace_cong13.json --beam 1 --lambda-cong 1.3 --lambda-frag 0.1 --lambda-aff 0.4 --lambda-task-load 0.10 --cache-policy lfu --order-policy dynamic_state --greedy-load-factor 0.9 --algo-name FG-DSCR-GC-MultiStart-bwplace_cong13
+====================================================================================================
+====================================================================================================
+[MULTISTART RUN] bwplace_cong15
+python3 -u scripts/fg_dscr.py --case cases/drtp_network_env/drtp_img88_hetero_good_cache1024mb_1000.json --out results/drtp/final_exp/multistart_hetero_candidates/drtp_img88_hetero_good_cache1024mb_1000/drtp_img88_hetero_good_cache1024mb_1000__bwplace_cong15.json --beam 1 --lambda-cong 1.5 --lambda-frag 0.1 --lambda-aff 0.4 --lambda-task-load 0.15 --cache-policy lfu --order-policy dynamic_state --greedy-load-factor 0.9 --algo-name FG-DSCR-GC-MultiStart-bwplace_cong15
+====================================================================================================
+[OK] selected: pgdsf_dyn_base objective= 1648.8269850000004
+[OK] written: results/drtp/final_exp/multistart_hetero/drtp_img88_hetero_good_cache1024mb_1000.json

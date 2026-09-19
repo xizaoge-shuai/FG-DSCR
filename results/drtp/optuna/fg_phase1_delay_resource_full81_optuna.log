@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/tools/optuna_tune_fg_phase1_fragaware_v2.py", line 333, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/tools/optuna_tune_fg_phase1_fragaware_v2.py", line 180, in main
+    with open(args.case_list, "r", encoding="utf-8") as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'results/drtp/case_lists/cacheonly_full81_cases.txt'
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/tools/optuna_tune_fg_phase1_fragaware_v2.py", line 333, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/tools/optuna_tune_fg_phase1_fragaware_v2.py", line 180, in main
+    with open(args.case_list, "r", encoding="utf-8") as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'results/drtp/case_lists/cacheonly_full81_cases.txt'

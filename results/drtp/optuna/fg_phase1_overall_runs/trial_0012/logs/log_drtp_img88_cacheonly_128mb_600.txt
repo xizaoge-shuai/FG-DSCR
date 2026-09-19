@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr.py", line 1777, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr.py", line 1764, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr.py", line 1574, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr.py", line 990, in best_response_assignment
+    move_trial, move_tag = self._best_move_neighbor(
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr.py", line 768, in _best_move_neighbor
+    new_phi = self.potential(trial)
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr.py", line 587, in potential
+    total, _ = self.potential_components(assignment)
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr.py", line 273, in potential_components
+    Aff_j = self.affinity_gain(eid, layer_cnts[eid])
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr.py", line -1, in affinity_gain
+KeyboardInterrupt

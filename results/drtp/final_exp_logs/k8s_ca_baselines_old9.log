@@ -1,0 +1,878 @@
+[START] 2026年 05月 19日 星期二 09:36:26 CST
+[CASE_LIST] results/drtp/case_lists/normal88_cache1024_req200_1000_cases.txt cases=9
+
+############################################################
+[ALGO] ilrsa
+############################################################
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_200.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_ilrsa/drtp_img88_cacheonly_1024mb_200.json
+{
+  "algo": "ilrsa-K8sCA",
+  "num_containers": 200,
+  "num_scheduled_containers": 96,
+  "failed_deployments": 104,
+  "ca_penalty": 520.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 148.92057291666666,
+  "AMS": 291.56614583333334,
+  "downloaded_mb": 49241.0,
+  "reused_mb": 5189.0,
+  "reuse_rate": 0.09533345581480801,
+  "objective_without_ca_penalty": 220.243359375,
+  "objective": 740.243359375
+}
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_300.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_ilrsa/drtp_img88_cacheonly_1024mb_300.json
+{
+  "algo": "ilrsa-K8sCA",
+  "num_containers": 300,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 205,
+  "ca_penalty": 683.3333333333334,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 139.47188596491227,
+  "AMS": 275.84270833333335,
+  "downloaded_mb": 41812.0,
+  "reused_mb": 4948.0,
+  "reuse_rate": 0.1058169375534645,
+  "objective_without_ca_penalty": 207.65729714912283,
+  "objective": 890.9906304824563
+}
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_400.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_ilrsa/drtp_img88_cacheonly_1024mb_400.json
+{
+  "algo": "ilrsa-K8sCA",
+  "num_containers": 400,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 305,
+  "ca_penalty": 762.5,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 139.47188596491227,
+  "AMS": 275.84270833333335,
+  "downloaded_mb": 41812.0,
+  "reused_mb": 4948.0,
+  "reuse_rate": 0.1058169375534645,
+  "objective_without_ca_penalty": 207.65729714912283,
+  "objective": 970.1572971491228
+}
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_500.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_ilrsa/drtp_img88_cacheonly_1024mb_500.json
+{
+  "algo": "ilrsa-K8sCA",
+  "num_containers": 500,
+  "num_scheduled_containers": 91,
+  "failed_deployments": 409,
+  "ca_penalty": 818.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 141.04180402930402,
+  "AMS": 280.8463541666667,
+  "downloaded_mb": 45771.0,
+  "reused_mb": 4805.0,
+  "reuse_rate": 0.09500553622271433,
+  "objective_without_ca_penalty": 210.94407909798537,
+  "objective": 1028.9440790979854
+}
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_600.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_ilrsa/drtp_img88_cacheonly_1024mb_600.json
+{
+  "algo": "ilrsa-K8sCA",
+  "num_containers": 600,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 505,
+  "ca_penalty": 841.6666666666666,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 139.50570175438597,
+  "AMS": 274.6963541666667,
+  "downloaded_mb": 41292.0,
+  "reused_mb": 5468.0,
+  "reuse_rate": 0.11693755346449958,
+  "objective_without_ca_penalty": 207.10102796052632,
+  "objective": 1048.767694627193
+}
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_700.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_ilrsa/drtp_img88_cacheonly_1024mb_700.json
+{
+  "algo": "ilrsa-K8sCA",
+  "num_containers": 700,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 605,
+  "ca_penalty": 864.2857142857143,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 139.50570175438597,
+  "AMS": 274.6963541666667,
+  "downloaded_mb": 41292.0,
+  "reused_mb": 5468.0,
+  "reuse_rate": 0.11693755346449958,
+  "objective_without_ca_penalty": 207.10102796052632,
+  "objective": 1071.3867422462406
+}
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_800.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_ilrsa/drtp_img88_cacheonly_1024mb_800.json
+{
+  "algo": "ilrsa-K8sCA",
+  "num_containers": 800,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 705,
+  "ca_penalty": 881.25,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 139.50570175438597,
+  "AMS": 274.6963541666667,
+  "downloaded_mb": 41292.0,
+  "reused_mb": 5468.0,
+  "reuse_rate": 0.11693755346449958,
+  "objective_without_ca_penalty": 207.10102796052632,
+  "objective": 1088.3510279605264
+}
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_900.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_ilrsa/drtp_img88_cacheonly_1024mb_900.json
+{
+  "algo": "ilrsa-K8sCA",
+  "num_containers": 900,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 805,
+  "ca_penalty": 894.4444444444445,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 139.50570175438597,
+  "AMS": 274.6963541666667,
+  "downloaded_mb": 41292.0,
+  "reused_mb": 5468.0,
+  "reuse_rate": 0.11693755346449958,
+  "objective_without_ca_penalty": 207.10102796052632,
+  "objective": 1101.5454724049707
+}
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_1000.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_ilrsa/drtp_img88_cacheonly_1024mb_1000.json
+{
+  "algo": "ilrsa-K8sCA",
+  "num_containers": 1000,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 905,
+  "ca_penalty": 905.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 139.50570175438597,
+  "AMS": 274.6963541666667,
+  "downloaded_mb": 41292.0,
+  "reused_mb": 5468.0,
+  "reuse_rate": 0.11693755346449958,
+  "objective_without_ca_penalty": 207.10102796052632,
+  "objective": 1112.1010279605264
+}
+
+############################################################
+[ALGO] lrscheduler
+############################################################
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_200.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lrscheduler/drtp_img88_cacheonly_1024mb_200.json
+{
+  "algo": "lrscheduler-K8sCA",
+  "num_containers": 200,
+  "num_scheduled_containers": 98,
+  "failed_deployments": 102,
+  "ca_penalty": 510.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 136.21122448979594,
+  "AMS": 266.23020833333334,
+  "downloaded_mb": 32022.0,
+  "reused_mb": 22940.0,
+  "reuse_rate": 0.41737928022997706,
+  "objective_without_ca_penalty": 201.22071641156464,
+  "objective": 711.2207164115646
+}
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_300.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lrscheduler/drtp_img88_cacheonly_1024mb_300.json
+{
+  "algo": "lrscheduler-K8sCA",
+  "num_containers": 300,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 205,
+  "ca_penalty": 683.3333333333334,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 128.20228070175438,
+  "AMS": 248.69687500000003,
+  "downloaded_mb": 25664.0,
+  "reused_mb": 21096.0,
+  "reuse_rate": 0.45115483319076133,
+  "objective_without_ca_penalty": 188.4495778508772,
+  "objective": 871.7829111842105
+}
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_400.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lrscheduler/drtp_img88_cacheonly_1024mb_400.json
+{
+  "algo": "lrscheduler-K8sCA",
+  "num_containers": 400,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 305,
+  "ca_penalty": 762.5,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 128.20228070175438,
+  "AMS": 248.69687500000003,
+  "downloaded_mb": 25664.0,
+  "reused_mb": 21096.0,
+  "reuse_rate": 0.45115483319076133,
+  "objective_without_ca_penalty": 188.4495778508772,
+  "objective": 950.9495778508772
+}
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_500.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lrscheduler/drtp_img88_cacheonly_1024mb_500.json
+{
+  "algo": "lrscheduler-K8sCA",
+  "num_containers": 500,
+  "num_scheduled_containers": 93,
+  "failed_deployments": 407,
+  "ca_penalty": 814.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 125.24072580645161,
+  "AMS": 244.6328125,
+  "downloaded_mb": 27153.0,
+  "reused_mb": 23312.0,
+  "reuse_rate": 0.4619439215297731,
+  "objective_without_ca_penalty": 184.9367691532258,
+  "objective": 998.9367691532258
+}
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_600.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lrscheduler/drtp_img88_cacheonly_1024mb_600.json
+{
+  "algo": "lrscheduler-K8sCA",
+  "num_containers": 600,
+  "num_scheduled_containers": 94,
+  "failed_deployments": 506,
+  "ca_penalty": 843.3333333333334,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 127.44565602836882,
+  "AMS": 248.70625,
+  "downloaded_mb": 26018.0,
+  "reused_mb": 20275.0,
+  "reuse_rate": 0.43797118354826864,
+  "objective_without_ca_penalty": 188.07595301418442,
+  "objective": 1031.4092863475178
+}
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_700.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lrscheduler/drtp_img88_cacheonly_1024mb_700.json
+{
+  "algo": "lrscheduler-K8sCA",
+  "num_containers": 700,
+  "num_scheduled_containers": 94,
+  "failed_deployments": 606,
+  "ca_penalty": 865.7142857142857,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 127.44565602836882,
+  "AMS": 248.70625,
+  "downloaded_mb": 26018.0,
+  "reused_mb": 20275.0,
+  "reuse_rate": 0.43797118354826864,
+  "objective_without_ca_penalty": 188.07595301418442,
+  "objective": 1053.79023872847
+}
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_800.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lrscheduler/drtp_img88_cacheonly_1024mb_800.json
+{
+  "algo": "lrscheduler-K8sCA",
+  "num_containers": 800,
+  "num_scheduled_containers": 94,
+  "failed_deployments": 706,
+  "ca_penalty": 882.5,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 127.44565602836882,
+  "AMS": 248.70625,
+  "downloaded_mb": 26018.0,
+  "reused_mb": 20275.0,
+  "reuse_rate": 0.43797118354826864,
+  "objective_without_ca_penalty": 188.07595301418442,
+  "objective": 1070.5759530141845
+}
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_900.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lrscheduler/drtp_img88_cacheonly_1024mb_900.json
+{
+  "algo": "lrscheduler-K8sCA",
+  "num_containers": 900,
+  "num_scheduled_containers": 94,
+  "failed_deployments": 806,
+  "ca_penalty": 895.5555555555555,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 127.44565602836882,
+  "AMS": 248.70625,
+  "downloaded_mb": 26018.0,
+  "reused_mb": 20275.0,
+  "reuse_rate": 0.43797118354826864,
+  "objective_without_ca_penalty": 188.07595301418442,
+  "objective": 1083.63150856974
+}
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_1000.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lrscheduler/drtp_img88_cacheonly_1024mb_1000.json
+{
+  "algo": "lrscheduler-K8sCA",
+  "num_containers": 1000,
+  "num_scheduled_containers": 94,
+  "failed_deployments": 906,
+  "ca_penalty": 906.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 127.44565602836882,
+  "AMS": 248.70625,
+  "downloaded_mb": 26018.0,
+  "reused_mb": 20275.0,
+  "reuse_rate": 0.43797118354826864,
+  "objective_without_ca_penalty": 188.07595301418442,
+  "objective": 1094.0759530141845
+}
+
+############################################################
+[ALGO] gahrl
+############################################################
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_200.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_gahrl/drtp_img88_cacheonly_1024mb_200.json
+{
+  "algo": "gahrl-K8sCA",
+  "num_containers": 200,
+  "num_scheduled_containers": 96,
+  "failed_deployments": 104,
+  "ca_penalty": 520.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 138.81358506944446,
+  "AMS": 270.06354166666665,
+  "downloaded_mb": 37812.0,
+  "reused_mb": 16618.0,
+  "reuse_rate": 0.305309571927246,
+  "objective_without_ca_penalty": 204.43856336805555,
+  "objective": 724.4385633680556
+}
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_300.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_gahrl/drtp_img88_cacheonly_1024mb_300.json
+{
+  "algo": "gahrl-K8sCA",
+  "num_containers": 300,
+  "num_scheduled_containers": 94,
+  "failed_deployments": 206,
+  "ca_penalty": 686.6666666666666,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 127.6394503546099,
+  "AMS": 252.16562499999998,
+  "downloaded_mb": 29984.0,
+  "reused_mb": 16828.0,
+  "reuse_rate": 0.35948047509185677,
+  "objective_without_ca_penalty": 189.90253767730493,
+  "objective": 876.5692043439716
+}
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_400.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_gahrl/drtp_img88_cacheonly_1024mb_400.json
+{
+  "algo": "gahrl-K8sCA",
+  "num_containers": 400,
+  "num_scheduled_containers": 94,
+  "failed_deployments": 306,
+  "ca_penalty": 765.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 127.6394503546099,
+  "AMS": 252.16562499999998,
+  "downloaded_mb": 29984.0,
+  "reused_mb": 16828.0,
+  "reuse_rate": 0.35948047509185677,
+  "objective_without_ca_penalty": 189.90253767730493,
+  "objective": 954.902537677305
+}
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_500.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_gahrl/drtp_img88_cacheonly_1024mb_500.json
+{
+  "algo": "gahrl-K8sCA",
+  "num_containers": 500,
+  "num_scheduled_containers": 92,
+  "failed_deployments": 408,
+  "ca_penalty": 816.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 130.12921195652174,
+  "AMS": 257.80572916666665,
+  "downloaded_mb": 34275.0,
+  "reused_mb": 16772.0,
+  "reuse_rate": 0.3285599545516877,
+  "objective_without_ca_penalty": 193.9674705615942,
+  "objective": 1009.9674705615942
+}
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_600.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_gahrl/drtp_img88_cacheonly_1024mb_600.json
+{
+  "algo": "gahrl-K8sCA",
+  "num_containers": 600,
+  "num_scheduled_containers": 94,
+  "failed_deployments": 506,
+  "ca_penalty": 843.3333333333334,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 127.56852836879433,
+  "AMS": 251.74895833333335,
+  "downloaded_mb": 29784.0,
+  "reused_mb": 17028.0,
+  "reuse_rate": 0.36375288387592924,
+  "objective_without_ca_penalty": 189.65874335106383,
+  "objective": 1032.9920766843973
+}
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_700.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_gahrl/drtp_img88_cacheonly_1024mb_700.json
+{
+  "algo": "gahrl-K8sCA",
+  "num_containers": 700,
+  "num_scheduled_containers": 94,
+  "failed_deployments": 606,
+  "ca_penalty": 865.7142857142857,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 127.17384751773051,
+  "AMS": 251.16927083333334,
+  "downloaded_mb": 29413.0,
+  "reused_mb": 17399.0,
+  "reuse_rate": 0.37167820217038366,
+  "objective_without_ca_penalty": 189.1715591755319,
+  "objective": 1054.8858448898177
+}
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_800.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_gahrl/drtp_img88_cacheonly_1024mb_800.json
+{
+  "algo": "gahrl-K8sCA",
+  "num_containers": 800,
+  "num_scheduled_containers": 94,
+  "failed_deployments": 706,
+  "ca_penalty": 882.5,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 127.17384751773051,
+  "AMS": 251.16927083333334,
+  "downloaded_mb": 29413.0,
+  "reused_mb": 17399.0,
+  "reuse_rate": 0.37167820217038366,
+  "objective_without_ca_penalty": 189.1715591755319,
+  "objective": 1071.671559175532
+}
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_900.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_gahrl/drtp_img88_cacheonly_1024mb_900.json
+{
+  "algo": "gahrl-K8sCA",
+  "num_containers": 900,
+  "num_scheduled_containers": 94,
+  "failed_deployments": 806,
+  "ca_penalty": 895.5555555555555,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 127.17384751773051,
+  "AMS": 251.16927083333334,
+  "downloaded_mb": 29413.0,
+  "reused_mb": 17399.0,
+  "reuse_rate": 0.37167820217038366,
+  "objective_without_ca_penalty": 189.1715591755319,
+  "objective": 1084.7271147310876
+}
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_1000.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_gahrl/drtp_img88_cacheonly_1024mb_1000.json
+{
+  "algo": "gahrl-K8sCA",
+  "num_containers": 1000,
+  "num_scheduled_containers": 94,
+  "failed_deployments": 906,
+  "ca_penalty": 906.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 129.84286347517727,
+  "AMS": 252.17968749999997,
+  "downloaded_mb": 29437.0,
+  "reused_mb": 16856.0,
+  "reuse_rate": 0.3641155250253818,
+  "objective_without_ca_penalty": 191.01127548758862,
+  "objective": 1097.0112754875886
+}
+
+############################################################
+[ALGO] orr
+############################################################
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_200.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_orr/drtp_img88_cacheonly_1024mb_200.json
+{
+  "algo": "orr-K8sCA",
+  "num_containers": 200,
+  "num_scheduled_containers": 96,
+  "failed_deployments": 104,
+  "ca_penalty": 520.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 148.92057291666666,
+  "AMS": 291.56614583333334,
+  "downloaded_mb": 49241.0,
+  "reused_mb": 5189.0,
+  "reuse_rate": 0.09533345581480801,
+  "objective_without_ca_penalty": 220.243359375,
+  "objective": 740.243359375
+}
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_300.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_orr/drtp_img88_cacheonly_1024mb_300.json
+{
+  "algo": "orr-K8sCA",
+  "num_containers": 300,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 205,
+  "ca_penalty": 683.3333333333334,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 139.47188596491227,
+  "AMS": 275.84270833333335,
+  "downloaded_mb": 41812.0,
+  "reused_mb": 4948.0,
+  "reuse_rate": 0.1058169375534645,
+  "objective_without_ca_penalty": 207.65729714912283,
+  "objective": 890.9906304824563
+}
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_400.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_orr/drtp_img88_cacheonly_1024mb_400.json
+{
+  "algo": "orr-K8sCA",
+  "num_containers": 400,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 305,
+  "ca_penalty": 762.5,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 139.47188596491227,
+  "AMS": 275.84270833333335,
+  "downloaded_mb": 41812.0,
+  "reused_mb": 4948.0,
+  "reuse_rate": 0.1058169375534645,
+  "objective_without_ca_penalty": 207.65729714912283,
+  "objective": 970.1572971491228
+}
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_500.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_orr/drtp_img88_cacheonly_1024mb_500.json
+{
+  "algo": "orr-K8sCA",
+  "num_containers": 500,
+  "num_scheduled_containers": 91,
+  "failed_deployments": 409,
+  "ca_penalty": 818.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 141.04180402930402,
+  "AMS": 280.8463541666667,
+  "downloaded_mb": 45771.0,
+  "reused_mb": 4805.0,
+  "reuse_rate": 0.09500553622271433,
+  "objective_without_ca_penalty": 210.94407909798537,
+  "objective": 1028.9440790979854
+}
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_600.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_orr/drtp_img88_cacheonly_1024mb_600.json
+{
+  "algo": "orr-K8sCA",
+  "num_containers": 600,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 505,
+  "ca_penalty": 841.6666666666666,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 139.50570175438597,
+  "AMS": 274.6963541666667,
+  "downloaded_mb": 41292.0,
+  "reused_mb": 5468.0,
+  "reuse_rate": 0.11693755346449958,
+  "objective_without_ca_penalty": 207.10102796052632,
+  "objective": 1048.767694627193
+}
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_700.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_orr/drtp_img88_cacheonly_1024mb_700.json
+{
+  "algo": "orr-K8sCA",
+  "num_containers": 700,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 605,
+  "ca_penalty": 864.2857142857143,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 139.50570175438597,
+  "AMS": 274.6963541666667,
+  "downloaded_mb": 41292.0,
+  "reused_mb": 5468.0,
+  "reuse_rate": 0.11693755346449958,
+  "objective_without_ca_penalty": 207.10102796052632,
+  "objective": 1071.3867422462406
+}
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_800.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_orr/drtp_img88_cacheonly_1024mb_800.json
+{
+  "algo": "orr-K8sCA",
+  "num_containers": 800,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 705,
+  "ca_penalty": 881.25,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 139.50570175438597,
+  "AMS": 274.6963541666667,
+  "downloaded_mb": 41292.0,
+  "reused_mb": 5468.0,
+  "reuse_rate": 0.11693755346449958,
+  "objective_without_ca_penalty": 207.10102796052632,
+  "objective": 1088.3510279605264
+}
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_900.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_orr/drtp_img88_cacheonly_1024mb_900.json
+{
+  "algo": "orr-K8sCA",
+  "num_containers": 900,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 805,
+  "ca_penalty": 894.4444444444445,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 139.50570175438597,
+  "AMS": 274.6963541666667,
+  "downloaded_mb": 41292.0,
+  "reused_mb": 5468.0,
+  "reuse_rate": 0.11693755346449958,
+  "objective_without_ca_penalty": 207.10102796052632,
+  "objective": 1101.5454724049707
+}
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_1000.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_orr/drtp_img88_cacheonly_1024mb_1000.json
+{
+  "algo": "orr-K8sCA",
+  "num_containers": 1000,
+  "num_scheduled_containers": 95,
+  "failed_deployments": 905,
+  "ca_penalty": 905.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 139.50570175438597,
+  "AMS": 274.6963541666667,
+  "downloaded_mb": 41292.0,
+  "reused_mb": 5468.0,
+  "reuse_rate": 0.11693755346449958,
+  "objective_without_ca_penalty": 207.10102796052632,
+  "objective": 1112.1010279605264
+}
+
+############################################################
+[ALGO] lasa
+############################################################
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_200.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lasa/drtp_img88_cacheonly_1024mb_200.json
+{
+  "algo": "lasa-K8sCA",
+  "num_containers": 200,
+  "num_scheduled_containers": 96,
+  "failed_deployments": 104,
+  "ca_penalty": 520.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 147.1774739583333,
+  "AMS": 292.88437500000003,
+  "downloaded_mb": 48134.0,
+  "reused_mb": 6296.0,
+  "reuse_rate": 0.11567150468491641,
+  "objective_without_ca_penalty": 220.03092447916669,
+  "objective": 740.0309244791667
+}
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_300.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lasa/drtp_img88_cacheonly_1024mb_300.json
+{
+  "algo": "lasa-K8sCA",
+  "num_containers": 300,
+  "num_scheduled_containers": 93,
+  "failed_deployments": 207,
+  "ca_penalty": 690.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 136.16258960573478,
+  "AMS": 267.7234375,
+  "downloaded_mb": 38819.0,
+  "reused_mb": 7394.0,
+  "reuse_rate": 0.15999826888537858,
+  "objective_without_ca_penalty": 201.9430135528674,
+  "objective": 891.9430135528673
+}
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_400.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lasa/drtp_img88_cacheonly_1024mb_400.json
+{
+  "algo": "lasa-K8sCA",
+  "num_containers": 400,
+  "num_scheduled_containers": 93,
+  "failed_deployments": 307,
+  "ca_penalty": 767.5,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 135.86545698924732,
+  "AMS": 267.03802083333335,
+  "downloaded_mb": 38447.0,
+  "reused_mb": 7766.0,
+  "reuse_rate": 0.16804795187501353,
+  "objective_without_ca_penalty": 201.45173891129033,
+  "objective": 968.9517389112904
+}
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_500.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lasa/drtp_img88_cacheonly_1024mb_500.json
+{
+  "algo": "lasa-K8sCA",
+  "num_containers": 500,
+  "num_scheduled_containers": 91,
+  "failed_deployments": 409,
+  "ca_penalty": 818.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 140.10407509157508,
+  "AMS": 276.53645833333337,
+  "downloaded_mb": 43536.0,
+  "reused_mb": 7040.0,
+  "reuse_rate": 0.13919645681746282,
+  "objective_without_ca_penalty": 208.3202667124542,
+  "objective": 1026.3202667124542
+}
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_600.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lasa/drtp_img88_cacheonly_1024mb_600.json
+{
+  "algo": "lasa-K8sCA",
+  "num_containers": 600,
+  "num_scheduled_containers": 93,
+  "failed_deployments": 507,
+  "ca_penalty": 845.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 135.86545698924732,
+  "AMS": 267.03802083333335,
+  "downloaded_mb": 38447.0,
+  "reused_mb": 7766.0,
+  "reuse_rate": 0.16804795187501353,
+  "objective_without_ca_penalty": 201.45173891129033,
+  "objective": 1046.4517389112902
+}
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_700.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lasa/drtp_img88_cacheonly_1024mb_700.json
+{
+  "algo": "lasa-K8sCA",
+  "num_containers": 700,
+  "num_scheduled_containers": 93,
+  "failed_deployments": 607,
+  "ca_penalty": 867.1428571428571,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 135.86545698924732,
+  "AMS": 267.03802083333335,
+  "downloaded_mb": 38447.0,
+  "reused_mb": 7766.0,
+  "reuse_rate": 0.16804795187501353,
+  "objective_without_ca_penalty": 201.45173891129033,
+  "objective": 1068.5945960541474
+}
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_800.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lasa/drtp_img88_cacheonly_1024mb_800.json
+{
+  "algo": "lasa-K8sCA",
+  "num_containers": 800,
+  "num_scheduled_containers": 93,
+  "failed_deployments": 707,
+  "ca_penalty": 883.75,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 135.86545698924732,
+  "AMS": 267.03802083333335,
+  "downloaded_mb": 38447.0,
+  "reused_mb": 7766.0,
+  "reuse_rate": 0.16804795187501353,
+  "objective_without_ca_penalty": 201.45173891129033,
+  "objective": 1085.2017389112902
+}
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_900.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lasa/drtp_img88_cacheonly_1024mb_900.json
+{
+  "algo": "lasa-K8sCA",
+  "num_containers": 900,
+  "num_scheduled_containers": 93,
+  "failed_deployments": 807,
+  "ca_penalty": 896.6666666666666,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 135.86545698924732,
+  "AMS": 267.03802083333335,
+  "downloaded_mb": 38447.0,
+  "reused_mb": 7766.0,
+  "reuse_rate": 0.16804795187501353,
+  "objective_without_ca_penalty": 201.45173891129033,
+  "objective": 1098.118405577957
+}
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_1000.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_ca_lasa/drtp_img88_cacheonly_1024mb_1000.json
+{
+  "algo": "lasa-K8sCA",
+  "num_containers": 1000,
+  "num_scheduled_containers": 93,
+  "failed_deployments": 907,
+  "ca_penalty": 907.0,
+  "ca_fixed_penalty": 1000.0,
+  "num_nodes": 8,
+  "ACT": 135.86545698924732,
+  "AMS": 267.03802083333335,
+  "downloaded_mb": 38447.0,
+  "reused_mb": 7766.0,
+  "reuse_rate": 0.16804795187501353,
+  "objective_without_ca_penalty": 201.45173891129033,
+  "objective": 1108.4517389112902
+}
+[DONE] 2026年 05月 19日 星期二 09:36:32 CST

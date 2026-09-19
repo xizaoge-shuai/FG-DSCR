@@ -1,0 +1,13 @@
+1) 把 coded_delivery_gate 解压到 FG-DSCR 根目录。
+2) cd FG-DSCR
+3) pip install -r coded_delivery_gate/requirements.txt
+4) 先跑一个 200 请求 case：
+
+python coded_delivery_gate/run_gate.py --repo-root . --case cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_200.json --placement fg_dscr --warmup-fraction 0.5 --target-fraction 0.5 --split-mode sequential --seed 42 --scheduler-config coded_delivery_gate/scheduler_config_paper_like.json --out results/coded_gate/gate_200.json --dump-state
+
+重点看输出中的：
+xor2_gain_over_mcast
+coding_density
+cache_heterogeneity
+
+如果你的 case 路径不同，只改 --case。

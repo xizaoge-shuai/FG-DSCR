@@ -1,0 +1,54 @@
+[1mdiff --git a/scripts/fg_dscr.py b/scripts/fg_dscr.py[m
+[1mindex e577036..086f6d0 100644[m
+[1m--- a/scripts/fg_dscr.py[m
+[1m+++ b/scripts/fg_dscr.py[m
+[36m@@ -468,22 +468,39 @@[m [mclass FGDscrScheduler:[m
+         eid: str,[m
+         assignment: Dict[str, str],[m
+     ) -> bool:[m
+[32m+[m[32m        """[m
+[32m+[m[32m        K8s-style hard feasibility filter.[m
+[32m+[m
+[32m+[m[32m        A container can be assigned to a node only if the node still has enough[m
+[32m+[m[32m        remaining CPU / memory / disk resources after considering containers[m
+[32m+[m[32m        already assigned to that node.[m
+[32m+[m
+[32m+[m[32m        This matches the native scheduler logic:[m
+[32m+[m[32m        first filter out nodes whose remaining requested resources are insufficient,[m
+[32m+[m[32m        then score among feasible nodes.[m
+[32m+[m
+[32m+[m[32m        Note:[m
+[32m+[m[32m        - node.resources is treated as allocatable runtime resource capacity.[m
+[32m+[m[32m        - repo_capacity_mb is only reusable image-layer cache capacity, not a hard[m
+[32m+[m[32m          deployment feasibility constraint.[m
+[32m+[m[32m        """[m
+         node = self.nodes[eid][m
+         c = self.containers[cid][m
+ [m
+[31m-    # 只检查单镜像是否能在该节点上运行[m
+[31m-    # 不再把同一时间片已分配到该节点的所有镜像资源直接累加[m
+[32m+[m[32m        used = self.aggregate_resource_usage(eid, assignment)[m
+[32m+[m
+         for q, demand in c.resources.items():[m
+[31m-            if demand > node.resources.get(q, 0.0):[m
+[31m-                return False[m
+[32m+[m[32m            cap = float(node.resources.get(q, 0.0))[m
+[32m+[m[32m            cur = float(used.get(q, 0.0))[m
+[32m+[m[32m            req = float(demand)[m
+ [m
+[31m-    # cache/repo capacity only controls reusable layer retention.[m
+[31m-    # It should NOT be a hard deployment feasibility constraint.[m
+[31m-    # A container can still be pulled and started even if its image[m
+[31m-    # cannot be fully retained in the reusable cache.[m
+[31m-    # if self.image_size(cid) > node.repo_capacity_mb:[m
+[31m-    #     return False[m
+[32m+[m[32m            if cur + req > cap + 1e-9:[m
+[32m+[m[32m                return False[m
+ [m
+[32m+[m[32m        # cache/repo capacity only controls reusable layer retention.[m
+[32m+[m[32m        # It should NOT be a hard deployment feasibility constraint.[m
+[32m+[m[32m        # A container can still be pulled and started even if its image[m
+[32m+[m[32m        # cannot be fully retained in the reusable cache.[m
+         return True[m
+ [m
+     def node_layer_counts([m

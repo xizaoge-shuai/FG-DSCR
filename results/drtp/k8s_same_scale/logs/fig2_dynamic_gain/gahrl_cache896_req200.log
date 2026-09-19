@@ -1,0 +1,27 @@
+{
+  "algo": "GAHRL-objective-greedy",
+  "num_containers": 200,
+  "num_scheduled_containers": 96,
+  "num_assigned": 96,
+  "ca_triggered": 104,
+  "ca_rate": 0.52,
+  "ca_penalty": 520.0,
+  "lambda_ca": 1000.0,
+  "num_nodes": 8,
+  "ACT": 142.07452256944444,
+  "AMS": 305.75,
+  "downloaded_mb": 32944,
+  "reused_mb": 21531,
+  "reuse_rate": 0.39524552547039926,
+  "objective_without_ca_penalty": 223.9122612847222,
+  "objective_ca": 743.9122612847223,
+  "objective": 743.9122612847223,
+  "params": {
+    "lambda_latency": 0.5,
+    "w_resource": 0.3,
+    "w_imbalance": 0.2,
+    "w_cache_pressure": 0.2,
+    "w_layer_hit": 0.2,
+    "order": "cache"
+  }
+}

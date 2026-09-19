@@ -1,0 +1,20 @@
+{
+  "algo": "LRScheduler-source-inspired",
+  "num_containers": 800,
+  "num_nodes": 8,
+  "ACT": 1298.926166666667,
+  "AMS": 4717.983333333335,
+  "downloaded_mb": 127295,
+  "reused_mb": 289468,
+  "reuse_rate": 0.6945626171229212,
+  "objective": 3008.4547500000012,
+  "params": {
+    "layer_mb_threshold": 10.0,
+    "std_threshold": 0.16,
+    "cpu_threshold": 0.6,
+    "high_weight": 2.0,
+    "low_weight": 0.5,
+    "plugin_weight_layer": 2.0,
+    "plugin_weight_resource": 1.0
+  }
+}

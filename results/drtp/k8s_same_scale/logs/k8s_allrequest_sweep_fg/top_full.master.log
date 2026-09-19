@@ -1,0 +1,12 @@
+nohup: ignoring input
+[TOP-FULL] TAG=initarrival_frag10_aff0.15_glf0.65 INIT=arrival FRAG=10 AFF=0.15 GLF=0.65
+[TOP-FULL] TAG=initarrival_frag10_aff0.15_glf0.75 INIT=arrival FRAG=10 AFF=0.15 GLF=0.75
+[TOP-FULL] TAG=initarrival_frag10_aff0.15_glf0.85 INIT=arrival FRAG=10 AFF=0.15 GLF=0.85
+[TOP-FULL] TAG=initarrival_frag10_aff0.15_glf0.95 INIT=arrival FRAG=10 AFF=0.15 GLF=0.95
+[TOP-FULL] TAG=initarrival_frag8_aff0.10_glf0.65 INIT=arrival FRAG=8 AFF=0.10 GLF=0.65
+[TOP-FULL] TAG=initarrival_frag8_aff0.10_glf0.75 INIT=arrival FRAG=8 AFF=0.10 GLF=0.75
+[TOP-FULL] TAG=initarrival_frag8_aff0.10_glf0.85 INIT=arrival FRAG=8 AFF=0.10 GLF=0.85
+[TOP-FULL] TAG=initarrival_frag8_aff0.10_glf0.95 INIT=arrival FRAG=8 AFF=0.10 GLF=0.95
+[TOP-FULL] TAG=initarrival_frag8_aff0.15_glf0.65 INIT=arrival FRAG=8 AFF=0.15 GLF=0.65
+[TOP-FULL] TAG=initarrival_frag8_aff0.15_glf0.75 INIT=arrival FRAG=8 AFF=0.15 GLF=0.75
+[DONE] top-full edge-like CA FG sweep

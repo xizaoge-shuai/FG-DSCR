@@ -1,0 +1,19 @@
+{
+  "algo": "GAHRL-objective-greedy",
+  "num_containers": 1000,
+  "num_nodes": 8,
+  "ACT": 1241.359453333333,
+  "AMS": 2594.3333333333335,
+  "downloaded_mb": 470884,
+  "reused_mb": 45149,
+  "reuse_rate": 0.08749246656706064,
+  "objective": 1917.8463933333333,
+  "params": {
+    "lambda_latency": 0.5,
+    "w_resource": 0.3,
+    "w_imbalance": 0.2,
+    "w_cache_pressure": 0.2,
+    "w_layer_hit": 0.2,
+    "order": "cache"
+  }
+}

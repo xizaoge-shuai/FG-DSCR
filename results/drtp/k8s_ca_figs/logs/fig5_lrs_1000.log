@@ -1,0 +1,51 @@
+{
+  "algo": "LRScheduler-source-inspired",
+  "num_containers": 1000,
+  "num_scheduled_containers": 93,
+  "num_assigned": 93,
+  "ca_triggered": 907,
+  "ca_rate": 0.907,
+  "ca_penalty": 907.0,
+  "lambda_ca": 1000.0,
+  "num_nodes": 8,
+  "ACT": 130.36931003584226,
+  "AMS": 288.3,
+  "downloaded_mb": 19327,
+  "reused_mb": 26922,
+  "reuse_rate": 0.5821098834569396,
+  "objective_without_ca_penalty": 209.33465501792114,
+  "objective_ca": 1116.3346550179212,
+  "objective": 1116.3346550179212,
+  "params": {
+    "layer_mb_threshold": 10.0,
+    "std_threshold": 0.16,
+    "cpu_threshold": 0.6,
+    "high_weight": 2.0,
+    "low_weight": 0.5,
+    "plugin_weight_layer": 2.0,
+    "plugin_weight_resource": 1.0
+  }
+}
+	Command being timed: "scripts/k8s_ca_figs/run_one_k8s_ca.sh lrs cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_1000.json results/drtp/k8s_ca_figs/fig5_overall/lrs_cache1024_req1000.json"
+	User time (seconds): 0.10
+	System time (seconds): 0.01
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.12
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 13992
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 3145
+	Voluntary context switches: 8
+	Involuntary context switches: 12
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 88
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

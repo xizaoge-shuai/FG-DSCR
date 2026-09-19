@@ -1,0 +1,1815 @@
+[START] 2026年 05月 18日 星期一 23:46:48 CST
+[INFO] baseline will NOT be rerun.
+[INFO] only run FG-DSCR-GC-K8sHard.
+[INFO] old overall cases = 9
+[INFO] full81 cases = 81
+
+##############################
+[PHASE] Run old overall 9 cases
+##############################
+
+================================================================================
+[RUN][old9] drtp_img88_cacheonly_1024mb_200.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_200.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_hard_fg/drtp_img88_cacheonly_1024mb_200.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c068
+[FAILED][old9] drtp_img88_cacheonly_1024mb_200.json return_code=1
+
+================================================================================
+[RUN][old9] drtp_img88_cacheonly_1024mb_300.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_300.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_hard_fg/drtp_img88_cacheonly_1024mb_300.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c268
+[FAILED][old9] drtp_img88_cacheonly_1024mb_300.json return_code=1
+
+================================================================================
+[RUN][old9] drtp_img88_cacheonly_1024mb_400.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_400.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_hard_fg/drtp_img88_cacheonly_1024mb_400.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c353
+[FAILED][old9] drtp_img88_cacheonly_1024mb_400.json return_code=1
+
+================================================================================
+[RUN][old9] drtp_img88_cacheonly_1024mb_500.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_500.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_hard_fg/drtp_img88_cacheonly_1024mb_500.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c160
+[FAILED][old9] drtp_img88_cacheonly_1024mb_500.json return_code=1
+
+================================================================================
+[RUN][old9] drtp_img88_cacheonly_1024mb_600.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_600.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_hard_fg/drtp_img88_cacheonly_1024mb_600.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c245
+[FAILED][old9] drtp_img88_cacheonly_1024mb_600.json return_code=1
+
+================================================================================
+[RUN][old9] drtp_img88_cacheonly_1024mb_700.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_700.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_hard_fg/drtp_img88_cacheonly_1024mb_700.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c087
+[FAILED][old9] drtp_img88_cacheonly_1024mb_700.json return_code=1
+
+================================================================================
+[RUN][old9] drtp_img88_cacheonly_1024mb_800.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_800.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_hard_fg/drtp_img88_cacheonly_1024mb_800.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c575
+[FAILED][old9] drtp_img88_cacheonly_1024mb_800.json return_code=1
+
+================================================================================
+[RUN][old9] drtp_img88_cacheonly_1024mb_900.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_900.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_hard_fg/drtp_img88_cacheonly_1024mb_900.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c439
+[FAILED][old9] drtp_img88_cacheonly_1024mb_900.json return_code=1
+
+================================================================================
+[RUN][old9] drtp_img88_cacheonly_1024mb_1000.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_1000.json
+OUT=results/drtp/final_exp/overall_normal88_k8s_hard_fg/drtp_img88_cacheonly_1024mb_1000.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c220
+[FAILED][old9] drtp_img88_cacheonly_1024mb_1000.json return_code=1
+
+##############################
+[PHASE] Run full81 cases
+##############################
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_0mb_1000.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_1000.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_0mb_1000.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c220
+[FAILED][full81] drtp_img88_cacheonly_0mb_1000.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_0mb_200.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_200.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_0mb_200.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c068
+[FAILED][full81] drtp_img88_cacheonly_0mb_200.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_0mb_300.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_300.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_0mb_300.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c268
+[FAILED][full81] drtp_img88_cacheonly_0mb_300.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_0mb_400.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_400.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_0mb_400.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c353
+[FAILED][full81] drtp_img88_cacheonly_0mb_400.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_0mb_500.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_500.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_0mb_500.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c160
+[FAILED][full81] drtp_img88_cacheonly_0mb_500.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_0mb_600.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_600.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_0mb_600.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c245
+[FAILED][full81] drtp_img88_cacheonly_0mb_600.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_0mb_700.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_700.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_0mb_700.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c087
+[FAILED][full81] drtp_img88_cacheonly_0mb_700.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_0mb_800.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_800.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_0mb_800.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c575
+[FAILED][full81] drtp_img88_cacheonly_0mb_800.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_0mb_900.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_900.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_0mb_900.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c439
+[FAILED][full81] drtp_img88_cacheonly_0mb_900.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_1024mb_1000.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_1000.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_1024mb_1000.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c220
+[FAILED][full81] drtp_img88_cacheonly_1024mb_1000.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_1024mb_200.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_200.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_1024mb_200.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c068
+[FAILED][full81] drtp_img88_cacheonly_1024mb_200.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_1024mb_300.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_300.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_1024mb_300.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c268
+[FAILED][full81] drtp_img88_cacheonly_1024mb_300.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_1024mb_400.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_400.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_1024mb_400.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c353
+[FAILED][full81] drtp_img88_cacheonly_1024mb_400.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_1024mb_500.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_500.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_1024mb_500.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c160
+[FAILED][full81] drtp_img88_cacheonly_1024mb_500.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_1024mb_600.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_600.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_1024mb_600.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c245
+[FAILED][full81] drtp_img88_cacheonly_1024mb_600.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_1024mb_700.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_700.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_1024mb_700.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c087
+[FAILED][full81] drtp_img88_cacheonly_1024mb_700.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_1024mb_800.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_800.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_1024mb_800.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c575
+[FAILED][full81] drtp_img88_cacheonly_1024mb_800.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_1024mb_900.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_900.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_1024mb_900.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c439
+[FAILED][full81] drtp_img88_cacheonly_1024mb_900.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_128mb_1000.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_1000.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_128mb_1000.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c220
+[FAILED][full81] drtp_img88_cacheonly_128mb_1000.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_128mb_200.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_200.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_128mb_200.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c068
+[FAILED][full81] drtp_img88_cacheonly_128mb_200.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_128mb_300.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_300.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_128mb_300.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c268
+[FAILED][full81] drtp_img88_cacheonly_128mb_300.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_128mb_400.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_400.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_128mb_400.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c353
+[FAILED][full81] drtp_img88_cacheonly_128mb_400.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_128mb_500.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_500.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_128mb_500.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c160
+[FAILED][full81] drtp_img88_cacheonly_128mb_500.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_128mb_600.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_600.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_128mb_600.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c245
+[FAILED][full81] drtp_img88_cacheonly_128mb_600.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_128mb_700.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_700.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_128mb_700.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c087
+[FAILED][full81] drtp_img88_cacheonly_128mb_700.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_128mb_800.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_800.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_128mb_800.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c575
+[FAILED][full81] drtp_img88_cacheonly_128mb_800.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_128mb_900.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_900.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_128mb_900.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c439
+[FAILED][full81] drtp_img88_cacheonly_128mb_900.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_256mb_1000.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_1000.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_256mb_1000.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c220
+[FAILED][full81] drtp_img88_cacheonly_256mb_1000.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_256mb_200.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_200.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_256mb_200.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c068
+[FAILED][full81] drtp_img88_cacheonly_256mb_200.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_256mb_300.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_300.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_256mb_300.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c268
+[FAILED][full81] drtp_img88_cacheonly_256mb_300.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_256mb_400.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_400.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_256mb_400.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c353
+[FAILED][full81] drtp_img88_cacheonly_256mb_400.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_256mb_500.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_500.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_256mb_500.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c160
+[FAILED][full81] drtp_img88_cacheonly_256mb_500.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_256mb_600.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_600.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_256mb_600.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c245
+[FAILED][full81] drtp_img88_cacheonly_256mb_600.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_256mb_700.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_700.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_256mb_700.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c087
+[FAILED][full81] drtp_img88_cacheonly_256mb_700.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_256mb_800.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_800.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_256mb_800.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c575
+[FAILED][full81] drtp_img88_cacheonly_256mb_800.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_256mb_900.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_900.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_256mb_900.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c439
+[FAILED][full81] drtp_img88_cacheonly_256mb_900.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_384mb_1000.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_1000.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_384mb_1000.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c220
+[FAILED][full81] drtp_img88_cacheonly_384mb_1000.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_384mb_200.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_200.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_384mb_200.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c068
+[FAILED][full81] drtp_img88_cacheonly_384mb_200.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_384mb_300.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_300.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_384mb_300.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c268
+[FAILED][full81] drtp_img88_cacheonly_384mb_300.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_384mb_400.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_400.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_384mb_400.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c353
+[FAILED][full81] drtp_img88_cacheonly_384mb_400.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_384mb_500.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_500.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_384mb_500.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c160
+[FAILED][full81] drtp_img88_cacheonly_384mb_500.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_384mb_600.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_600.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_384mb_600.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c245
+[FAILED][full81] drtp_img88_cacheonly_384mb_600.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_384mb_700.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_700.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_384mb_700.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c087
+[FAILED][full81] drtp_img88_cacheonly_384mb_700.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_384mb_800.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_800.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_384mb_800.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c575
+[FAILED][full81] drtp_img88_cacheonly_384mb_800.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_384mb_900.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_900.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_384mb_900.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c439
+[FAILED][full81] drtp_img88_cacheonly_384mb_900.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_512mb_1000.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_1000.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_512mb_1000.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c220
+[FAILED][full81] drtp_img88_cacheonly_512mb_1000.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_512mb_200.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_200.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_512mb_200.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c068
+[FAILED][full81] drtp_img88_cacheonly_512mb_200.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_512mb_300.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_300.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_512mb_300.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c268
+[FAILED][full81] drtp_img88_cacheonly_512mb_300.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_512mb_400.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_400.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_512mb_400.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c353
+[FAILED][full81] drtp_img88_cacheonly_512mb_400.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_512mb_500.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_500.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_512mb_500.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c160
+[FAILED][full81] drtp_img88_cacheonly_512mb_500.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_512mb_600.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_600.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_512mb_600.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c245
+[FAILED][full81] drtp_img88_cacheonly_512mb_600.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_512mb_700.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_700.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_512mb_700.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c087
+[FAILED][full81] drtp_img88_cacheonly_512mb_700.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_512mb_800.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_800.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_512mb_800.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c575
+[FAILED][full81] drtp_img88_cacheonly_512mb_800.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_512mb_900.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_900.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_512mb_900.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c439
+[FAILED][full81] drtp_img88_cacheonly_512mb_900.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_640mb_1000.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_1000.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_640mb_1000.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c220
+[FAILED][full81] drtp_img88_cacheonly_640mb_1000.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_640mb_200.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_200.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_640mb_200.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c068
+[FAILED][full81] drtp_img88_cacheonly_640mb_200.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_640mb_300.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_300.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_640mb_300.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c268
+[FAILED][full81] drtp_img88_cacheonly_640mb_300.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_640mb_400.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_400.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_640mb_400.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c353
+[FAILED][full81] drtp_img88_cacheonly_640mb_400.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_640mb_500.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_500.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_640mb_500.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c160
+[FAILED][full81] drtp_img88_cacheonly_640mb_500.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_640mb_600.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_600.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_640mb_600.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c245
+[FAILED][full81] drtp_img88_cacheonly_640mb_600.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_640mb_700.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_700.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_640mb_700.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c087
+[FAILED][full81] drtp_img88_cacheonly_640mb_700.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_640mb_800.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_800.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_640mb_800.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c575
+[FAILED][full81] drtp_img88_cacheonly_640mb_800.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_640mb_900.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_900.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_640mb_900.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c439
+[FAILED][full81] drtp_img88_cacheonly_640mb_900.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_768mb_1000.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_1000.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_768mb_1000.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c220
+[FAILED][full81] drtp_img88_cacheonly_768mb_1000.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_768mb_200.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_200.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_768mb_200.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c068
+[FAILED][full81] drtp_img88_cacheonly_768mb_200.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_768mb_300.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_300.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_768mb_300.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c268
+[FAILED][full81] drtp_img88_cacheonly_768mb_300.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_768mb_400.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_400.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_768mb_400.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c353
+[FAILED][full81] drtp_img88_cacheonly_768mb_400.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_768mb_500.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_500.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_768mb_500.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c160
+[FAILED][full81] drtp_img88_cacheonly_768mb_500.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_768mb_600.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_600.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_768mb_600.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c245
+[FAILED][full81] drtp_img88_cacheonly_768mb_600.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_768mb_700.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_700.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_768mb_700.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c087
+[FAILED][full81] drtp_img88_cacheonly_768mb_700.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_768mb_800.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_800.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_768mb_800.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c575
+[FAILED][full81] drtp_img88_cacheonly_768mb_800.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_768mb_900.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_900.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_768mb_900.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c439
+[FAILED][full81] drtp_img88_cacheonly_768mb_900.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_896mb_1000.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_1000.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_896mb_1000.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c220
+[FAILED][full81] drtp_img88_cacheonly_896mb_1000.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_896mb_200.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_200.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_896mb_200.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c068
+[FAILED][full81] drtp_img88_cacheonly_896mb_200.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_896mb_300.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_300.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_896mb_300.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c268
+[FAILED][full81] drtp_img88_cacheonly_896mb_300.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_896mb_400.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_400.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_896mb_400.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c353
+[FAILED][full81] drtp_img88_cacheonly_896mb_400.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_896mb_500.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_500.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_896mb_500.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c160
+[FAILED][full81] drtp_img88_cacheonly_896mb_500.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_896mb_600.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_600.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_896mb_600.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c245
+[FAILED][full81] drtp_img88_cacheonly_896mb_600.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_896mb_700.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_700.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_896mb_700.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c087
+[FAILED][full81] drtp_img88_cacheonly_896mb_700.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_896mb_800.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_800.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_896mb_800.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c575
+[FAILED][full81] drtp_img88_cacheonly_896mb_800.json return_code=1
+
+================================================================================
+[RUN][full81] drtp_img88_cacheonly_896mb_900.json
+CASE=cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_900.json
+OUT=results/drtp/final_exp/cacheonly_fg_k8s_hard_full81/drtp_img88_cacheonly_896mb_900.json
+================================================================================
+Traceback (most recent call last):
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1783, in <module>
+    main()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1770, in main
+    res = scheduler.run()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 1580, in run
+    assign_map = self.best_response_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 983, in best_response_assignment
+    assignment = self.greedy_init_assignment()
+  File "/home/zhjia/FG-DSCR/scripts/fg_dscr_k8s_hard.py", line 947, in greedy_init_assignment
+    raise ValueError(f"No feasible node for container {cid}")
+ValueError: No feasible node for container c439
+[FAILED][full81] drtp_img88_cacheonly_896mb_900.json return_code=1
+
+##############################
+[SUMMARY] finished files
+##############################
+old9 completed = 0
+full81 completed = 0
+
+[FAILED CASES]
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_1000.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_200.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_300.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_400.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_500.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_600.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_700.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_800.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_0mb_900.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_1000.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_200.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_300.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_400.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_500.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_600.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_700.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_800.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_1024mb_900.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_1000.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_200.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_300.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_400.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_500.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_600.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_700.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_800.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_128mb_900.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_1000.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_200.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_300.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_400.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_500.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_600.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_700.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_800.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_256mb_900.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_1000.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_200.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_300.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_400.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_500.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_600.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_700.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_800.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_384mb_900.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_1000.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_200.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_300.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_400.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_500.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_600.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_700.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_800.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_512mb_900.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_1000.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_200.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_300.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_400.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_500.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_600.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_700.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_800.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_640mb_900.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_1000.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_200.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_300.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_400.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_500.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_600.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_700.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_800.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_768mb_900.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_1000.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_200.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_300.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_400.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_500.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_600.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_700.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_800.json
+cases/drtp_cache_only_sweep_88/drtp_img88_cacheonly_896mb_900.json
+
+[DONE] 2026年 05月 18日 星期一 23:47:08 CST
+[SHUTDOWN] machine will power off in 60 seconds.

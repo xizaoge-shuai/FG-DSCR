@@ -1,0 +1,44 @@
+===== START full81 objfocus Optuna only =====
+2026年 05月 16日 星期六 12:44:13 CST
+full cases = 81
+FULL_OPTUNA_TRIALS=5
+[INFO] cases = 81
+[INFO] base_dir = results/drtp/final_exp/cacheonly_dg_0_1024_fg
+[INFO] out_root = results/drtp/optuna/fg_online_norm_full81_objfocus_runs
+[INFO] study_name = fg_online_norm_full81_objfocus
+[INFO] storage = sqlite:///results/drtp/optuna/fg_online_norm_full81_objfocus.db
+[INFO] reuse_penalty = 800.0
+[INFO] download_penalty = 120.0
+[BASE] {
+  "objective": 1259.0302552627336,
+  "reuse_rate": 0.3449537716045495,
+  "downloaded_mb": 203179.71604938273,
+  "ACT": 889.3942489513931,
+  "AMS": 1628.6662615740745
+}
+[I 2026-05-16 12:44:14,196] A new study created in RDB with name: fg_online_norm_full81_objfocus
+====================================================================================================
+[TRIAL] 0
+score = 1513.27487489593
+metrics = {
+  "avg_objective": 1326.9676139124656,
+  "avg_reuse_rate": 0.15522144019372403,
+  "avg_downloaded_mb": 261630.11111111112,
+  "avg_ACT": 888.7011678969478,
+  "avg_AMS": 1765.2340599279837,
+  "reuse_drop": 0.18973233141082546,
+  "download_inc_ratio": 0.28767829879003304
+}
+params = {
+  "lambda_cong": 0.3614701362250723,
+  "lambda_frag": 0.23311765521038486,
+  "lambda_aff": 0.5783142753108728,
+  "lambda_task_load": 0.15542608689327997,
+  "alpha1_reuse": 0.5877883084180479,
+  "alpha2_future": 0.28184469342764945,
+  "alpha3_pull": 0.30137844338621134,
+  "alpha4_evict": 0.22302274838993666,
+  "greedy_load_factor": 1.4596837468888793
+}
+[I 2026-05-16 15:49:00,148] Trial 0 finished with value: 1513.27487489593 and parameters: {'lambda_cong': 0.3614701362250723, 'lambda_frag': 0.23311765521038486, 'lambda_aff': 0.5783142753108728, 'lambda_task_load': 0.15542608689327997, 'alpha1_reuse': 0.5877883084180479, 'alpha2_future': 0.28184469342764945, 'alpha3_pull': 0.30137844338621134, 'alpha4_evict': 0.22302274838993666, 'greedy_load_factor': 1.4596837468888793}. Best is trial 0 with value: 1513.27487489593.
+Terminated

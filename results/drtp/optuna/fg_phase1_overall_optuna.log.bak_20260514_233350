@@ -1,0 +1,12 @@
+[I 2026-05-14 21:40:48,955] A new study created in RDB with name: fg_phase1_overall_cacheonly
+[I 2026-05-14 21:54:09,740] Trial 0 finished with value: 1222.4916522376545 and parameters: {'lambda_cong': 0.5514718587869896, 'lambda_frag': 0.9507143064099162, 'lambda_aff': 1.4639878836228102, 'lambda_task_load': 0.5986584841970366, 'greedy_load_factor': 0.6248149123539493, 'theta_cong_count': 0.15599452033620265}. Best is trial 0 with value: 1222.4916522376545.
+[I 2026-05-14 22:17:12,183] Trial 1 finished with value: 1231.967330324074 and parameters: {'lambda_cong': 0.23406777359270511, 'lambda_frag': 0.8661761457749352, 'lambda_aff': 1.2022300234864176, 'lambda_task_load': 0.7080725777960455, 'greedy_load_factor': 0.516467595436642, 'theta_cong_count': 0.9699098521619943}. Best is trial 0 with value: 1222.4916522376545.
+[I 2026-05-14 22:30:38,623] Trial 2 finished with value: 1220.7918399691362 and parameters: {'lambda_cong': 1.9057174434080482, 'lambda_frag': 0.21233911067827616, 'lambda_aff': 0.36364993441420124, 'lambda_task_load': 0.18340450985343382, 'greedy_load_factor': 0.7433937943676302, 'theta_cong_count': 0.5247564316322378}. Best is trial 2 with value: 1220.7918399691362.
+[I 2026-05-14 22:48:00,623] Trial 3 finished with value: 1217.500654166667 and parameters: {'lambda_cong': 0.6442237870408892, 'lambda_frag': 0.2912291401980419, 'lambda_aff': 1.223705789444759, 'lambda_task_load': 0.13949386065204183, 'greedy_load_factor': 0.7337157188281745, 'theta_cong_count': 0.3663618432936917}. Best is trial 3 with value: 1217.500654166667.
+[I 2026-05-14 23:09:52,899] Trial 4 finished with value: 1202.7869978395065 and parameters: {'lambda_cong': 0.6877172495876589, 'lambda_frag': 0.7851759613930136, 'lambda_aff': 0.39934756431671947, 'lambda_task_load': 0.5142344384136116, 'greedy_load_factor': 0.973931655089634, 'theta_cong_count': 0.046450412719997725}. Best is trial 4 with value: 1202.7869978395065.
+[I 2026-05-14 23:10:17,625] Trial 5 pruned. 
+[I 2026-05-14 23:10:58,579] Trial 6 pruned. 
+[I 2026-05-14 23:20:05,950] Trial 7 finished with value: 1221.4303430555556 and parameters: {'lambda_cong': 0.21951997004258864, 'lambda_frag': 0.9093204020787821, 'lambda_aff': 0.5175599632000338, 'lambda_task_load': 0.662522284353982, 'greedy_load_factor': 0.7493688608715288, 'theta_cong_count': 0.5200680211778108}. Best is trial 4 with value: 1202.7869978395065.
+[I 2026-05-14 23:20:24,710] Trial 8 pruned. 
+[I 2026-05-14 23:20:34,511] Trial 9 pruned. 
+[I 2026-05-14 23:21:03,035] Trial 10 pruned. 

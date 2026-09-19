@@ -1,0 +1,316 @@
+{
+  "summary": {
+    "algo": "FG-DSCR-GC-K8sCA-tuned",
+    "num_containers": 1500,
+    "num_assigned": 115,
+    "num_failed": 1385,
+    "fail_rate": 0.9233333333333333,
+    "num_nodes": 10,
+    "ACT": 120.69155797101448,
+    "AMS": 233.65874999999997,
+    "downloaded_mb": 22371,
+    "reused_mb": 28452,
+    "reuse_rate": 0.5598252759577357,
+    "objective_base": 177.17515398550722,
+    "fail_penalty": 923.3333333333334,
+    "lambda_fail": 1000.0,
+    "objective": 1100.5084873188407
+  },
+  "assignment": {
+    "edge-1": [
+      "c014_scale_13",
+      "c044_scale_43",
+      "c048_scale_47",
+      "c049_scale_48",
+      "c050_scale_49",
+      "c059_scale_58",
+      "c065_scale_64",
+      "c068_scale_67",
+      "c070_scale_69",
+      "c111_scale_110",
+      "c114_scale_113"
+    ],
+    "edge-2": [
+      "c001_scale_0",
+      "c003_scale_2",
+      "c005_scale_4",
+      "c007_scale_6",
+      "c008_scale_7",
+      "c010_scale_9",
+      "c015_scale_14",
+      "c016_scale_15",
+      "c018_scale_17",
+      "c032_scale_31",
+      "c052_scale_51"
+    ],
+    "edge-3": [
+      "c020_scale_19",
+      "c021_scale_20",
+      "c033_scale_32",
+      "c035_scale_34",
+      "c060_scale_59",
+      "c061_scale_60",
+      "c066_scale_65",
+      "c067_scale_66",
+      "c072_scale_71",
+      "c074_scale_73",
+      "c087_scale_86",
+      "c101_scale_100"
+    ],
+    "edge-4": [
+      "c002_scale_1",
+      "c017_scale_16",
+      "c034_scale_33",
+      "c039_scale_38",
+      "c042_scale_41",
+      "c043_scale_42",
+      "c062_scale_61",
+      "c071_scale_70",
+      "c077_scale_76",
+      "c082_scale_81",
+      "c104_scale_103",
+      "c105_scale_104"
+    ],
+    "edge-5": [
+      "c022_scale_21",
+      "c026_scale_25",
+      "c053_scale_52",
+      "c078_scale_77",
+      "c083_scale_82",
+      "c092_scale_91",
+      "c093_scale_92",
+      "c095_scale_94",
+      "c097_scale_96",
+      "c103_scale_102",
+      "c122_scale_121"
+    ],
+    "edge-6": [
+      "c004_scale_3",
+      "c024_scale_23",
+      "c027_scale_26",
+      "c029_scale_28",
+      "c031_scale_30",
+      "c037_scale_36",
+      "c064_scale_63",
+      "c084_scale_83",
+      "c099_scale_98",
+      "c100_scale_99",
+      "c106_scale_105"
+    ],
+    "edge-7": [
+      "c023_scale_22",
+      "c045_scale_44",
+      "c054_scale_53",
+      "c063_scale_62",
+      "c069_scale_68",
+      "c076_scale_75",
+      "c081_scale_80",
+      "c085_scale_84",
+      "c088_scale_87",
+      "c090_scale_89",
+      "c094_scale_93",
+      "c109_scale_108",
+      "c115_scale_114"
+    ],
+    "edge-8": [
+      "c006_scale_5",
+      "c009_scale_8",
+      "c012_scale_11",
+      "c019_scale_18",
+      "c025_scale_24",
+      "c038_scale_37",
+      "c040_scale_39",
+      "c041_scale_40",
+      "c046_scale_45",
+      "c047_scale_46",
+      "c057_scale_56",
+      "c110_scale_109"
+    ],
+    "edge-9": [
+      "c013_scale_12",
+      "c030_scale_29",
+      "c051_scale_50",
+      "c056_scale_55",
+      "c058_scale_57",
+      "c079_scale_78",
+      "c086_scale_85",
+      "c091_scale_90",
+      "c096_scale_95",
+      "c102_scale_101",
+      "c108_scale_107"
+    ],
+    "edge-10": [
+      "c011_scale_10",
+      "c028_scale_27",
+      "c036_scale_35",
+      "c055_scale_54",
+      "c073_scale_72",
+      "c075_scale_74",
+      "c080_scale_79",
+      "c089_scale_88",
+      "c098_scale_97",
+      "c112_scale_111",
+      "c113_scale_112"
+    ]
+  },
+  "ordered_queues": {
+    "edge-1": [
+      "c048_scale_47",
+      "c050_scale_49",
+      "c059_scale_58",
+      "c065_scale_64",
+      "c068_scale_67",
+      "c070_scale_69",
+      "c111_scale_110",
+      "c014_scale_13",
+      "c044_scale_43",
+      "c049_scale_48",
+      "c114_scale_113"
+    ],
+    "edge-2": [
+      "c005_scale_4",
+      "c003_scale_2",
+      "c016_scale_15",
+      "c052_scale_51",
+      "c001_scale_0",
+      "c015_scale_14",
+      "c008_scale_7",
+      "c010_scale_9",
+      "c018_scale_17",
+      "c032_scale_31",
+      "c007_scale_6"
+    ],
+    "edge-3": [
+      "c101_scale_100",
+      "c060_scale_59",
+      "c067_scale_66",
+      "c020_scale_19",
+      "c021_scale_20",
+      "c035_scale_34",
+      "c061_scale_60",
+      "c066_scale_65",
+      "c072_scale_71",
+      "c074_scale_73",
+      "c033_scale_32",
+      "c087_scale_86"
+    ],
+    "edge-4": [
+      "c002_scale_1",
+      "c017_scale_16",
+      "c034_scale_33",
+      "c039_scale_38",
+      "c043_scale_42",
+      "c062_scale_61",
+      "c082_scale_81",
+      "c071_scale_70",
+      "c077_scale_76",
+      "c104_scale_103",
+      "c105_scale_104",
+      "c042_scale_41"
+    ],
+    "edge-5": [
+      "c103_scale_102",
+      "c078_scale_77",
+      "c022_scale_21",
+      "c092_scale_91",
+      "c095_scale_94",
+      "c122_scale_121",
+      "c053_scale_52",
+      "c026_scale_25",
+      "c093_scale_92",
+      "c083_scale_82",
+      "c097_scale_96"
+    ],
+    "edge-6": [
+      "c084_scale_83",
+      "c099_scale_98",
+      "c024_scale_23",
+      "c029_scale_28",
+      "c031_scale_30",
+      "c037_scale_36",
+      "c004_scale_3",
+      "c027_scale_26",
+      "c064_scale_63",
+      "c100_scale_99",
+      "c106_scale_105"
+    ],
+    "edge-7": [
+      "c085_scale_84",
+      "c076_scale_75",
+      "c090_scale_89",
+      "c045_scale_44",
+      "c063_scale_62",
+      "c081_scale_80",
+      "c088_scale_87",
+      "c109_scale_108",
+      "c094_scale_93",
+      "c115_scale_114",
+      "c023_scale_22",
+      "c054_scale_53",
+      "c069_scale_68"
+    ],
+    "edge-8": [
+      "c006_scale_5",
+      "c009_scale_8",
+      "c012_scale_11",
+      "c019_scale_18",
+      "c025_scale_24",
+      "c038_scale_37",
+      "c040_scale_39",
+      "c041_scale_40",
+      "c046_scale_45",
+      "c047_scale_46",
+      "c057_scale_56",
+      "c110_scale_109"
+    ],
+    "edge-9": [
+      "c096_scale_95",
+      "c013_scale_12",
+      "c030_scale_29",
+      "c051_scale_50",
+      "c056_scale_55",
+      "c102_scale_101",
+      "c058_scale_57",
+      "c079_scale_78",
+      "c086_scale_85",
+      "c091_scale_90",
+      "c108_scale_107"
+    ],
+    "edge-10": [
+      "c098_scale_97",
+      "c055_scale_54",
+      "c073_scale_72",
+      "c089_scale_88",
+      "c036_scale_35",
+      "c113_scale_112",
+      "c011_scale_10",
+      "c028_scale_27",
+      "c075_scale_74",
+      "c080_scale_79",
+      "c112_scale_111"
+    ]
+  }
+}
+	Command being timed: "scripts/k8s_ca_figs/run_one_k8s_ca.sh fg cases/drtp_scale_nodes/drtp_img68_nodes10_cache1024mb_1500.json results/drtp/k8s_ca_figs/fig3_scale_fixed/fg_cat68_edge10_req1500.json"
+	User time (seconds): 1.02
+	System time (seconds): 0.01
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 21116
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 5258
+	Voluntary context switches: 8
+	Involuntary context switches: 110
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 400
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

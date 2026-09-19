@@ -78,13 +78,12 @@ class ILRSA:
         return sum(self.layer_sizes_mb[l] for l in (a.layers & b.layers))
 
     def feasible(self, c: Container, node: EdgeNode) -> bool:
-        for k, v in c.resources.items():
-            if v > node.resources.get(k, 0):
-                return False
-        if self.image_size(c) > node.repo_capacity_mb:
-            return False
+        """
+        Deployment feasibility should not be constrained by repo_capacity_mb.
+        repo_capacity_mb is only the reusable layer-cache budget.
+        """
+        # [PATCHED] Do not reject a container only because its image is larger than cache.
         return True
-
     def future_layer_value(self, layer: str, future_queue: List[Container]) -> int:
         size = self.layer_sizes_mb[layer]
         return sum(size for c in future_queue if layer in c.layers)
@@ -134,38 +133,44 @@ class ILRSA:
         node: EdgeNode,
     ) -> Set[str]:
         """
-        对应论文的 Phase-3.
-
-        顺序执行场景下：
-        - 当前容器可复用层 = current_cache ∩ current.layers
-        - 当前容器运行需要的层必须保留
-        - 其他空闲层按未来价值做背包选择
+        Runtime cache update for reusable layer cache.
+    
+        Important:
+        - repo_capacity_mb is only the reusable layer-cache budget.
+        - The currently executed container image does not have to be pinned after execution.
+        - Therefore, the returned cache must always satisfy node.repo_capacity_mb.
+        - If repo_capacity_mb == 0, the cache must be empty.
         """
-        reusable_now = current_cache & current.layers
-        must_keep = set(current.layers)
-        _ = reusable_now  # 保留命名，便于和论文符号对应
-
-        fixed_size = sum(self.layer_sizes_mb[l] for l in must_keep)
-        if fixed_size > node.repo_capacity_mb:
-            raise ValueError(
-                f"container {current.cid} image size={fixed_size}MB > repo_capacity={node.repo_capacity_mb}MB"
-            )
-
-        remaining_capacity = node.repo_capacity_mb - fixed_size
-        free_layers = [l for l in current_cache if l not in must_keep]
-
+        cap = int(node.repo_capacity_mb)
+        if cap <= 0:
+            return set()
+    
+        # after_pull_cache is passed as current_cache by simulate_queue.
+        # We select a subset of all currently available layers according to future reuse value.
         items = []
-        for lid in free_layers:
-            items.append((lid, self.layer_sizes_mb[lid], self.future_layer_value(lid, future_queue)))
-
+        for lid in current_cache:
+            size = self.layer_sizes_mb[lid]
+            if size <= cap:
+                items.append((lid, size, self.future_layer_value(lid, future_queue)))
+    
+        if not items:
+            return set()
+    
         if self.cache_knapsack == "exact":
-            keep_free = self._knapsack_exact(items, remaining_capacity)
+            keep = self._knapsack_exact(items, cap)
         else:
-            keep_free = self._knapsack_greedy(items, remaining_capacity)
-
-        new_cache = must_keep | keep_free
-        return new_cache
-
+            keep = self._knapsack_greedy(items, cap)
+    
+        # Safety guard: exact knapsack may use scaled sizes, so enforce actual capacity.
+        used = 0
+        safe_keep = set()
+        for lid in sorted(keep, key=lambda x: self.future_layer_value(x, future_queue), reverse=True):
+            size = self.layer_sizes_mb[lid]
+            if used + size <= cap:
+                safe_keep.add(lid)
+                used += size
+    
+        return safe_keep
     # =========================
     # 单节点顺序仿真
     # =========================
@@ -205,17 +210,22 @@ class ILRSA:
             after_pull_cache = set(cache) | set(c.layers)
 
             if random_eviction:
-                # Phase-1：未来未知，随机驱逐
-                kept = set(c.layers)
-                free = [l for l in after_pull_cache if l not in kept]
-                self.rng.shuffle(free)
-                used = sum(self.layer_sizes_mb[l] for l in kept)
-                for lid in free:
-                    size = self.layer_sizes_mb[lid]
-                    if used + size <= node.repo_capacity_mb:
-                        kept.add(lid)
-                        used += size
-                cache = kept
+                # Phase-1 coarse simulation: randomly keep a subset of available layers
+                # under the actual reusable cache capacity.
+                cap = int(node.repo_capacity_mb)
+                if cap <= 0:
+                    cache = set()
+                else:
+                    pool = list(after_pull_cache)
+                    self.rng.shuffle(pool)
+                    kept = set()
+                    used = 0
+                    for lid in pool:
+                        size = self.layer_sizes_mb[lid]
+                        if used + size <= cap:
+                            kept.add(lid)
+                            used += size
+                    cache = kept
             else:
                 future_queue = queue[i + 1:]
                 cache = self.update_layers_runtime(after_pull_cache, c, future_queue, node)

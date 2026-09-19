@@ -1,0 +1,1517 @@
+[START] 2026年 05月 19日 星期二 13:34:29 CST
+[PWD] /home/zhjia/FG-DSCR
+[PYTHON] /home/zhjia/miniconda3/envs/fg/bin/python3
+[CASE_LIST] results/drtp/case_lists/normal88_cache1024_req200_1000_cases.txt cases=9
+============================================================
+[RUN][fg] drtp_img88_cacheonly_1024mb_200.json
+OUT=results/drtp/final_exp/online_k8sca_old9_fg/drtp_img88_cacheonly_1024mb_200.json
+{
+  "algo": "fg-online-k8sca",
+  "num_containers": 200,
+  "num_edge_containers": 96,
+  "num_ca_containers": 104,
+  "failed_deployments": 104,
+  "fail_rate": 0.52,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 520.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 73.56014880952385,
+  "AMS": 211.32658730158724,
+  "AMS_mode": "avg",
+  "downloaded_mb": 69917.0,
+  "reused_mb": 38929.0,
+  "reuse_rate": 0.35765209562133654,
+  "objective_without_ca_penalty": 142.44336805555554,
+  "objective": 662.4433680555555
+}
+[OK][fg] drtp_img88_cacheonly_1024mb_200.json
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_200.json
+OUT=results/drtp/final_exp/online_k8sca_old9_ilrsa/drtp_img88_cacheonly_1024mb_200.json
+{
+  "algo": "ilrsa-online-k8sca",
+  "num_containers": 200,
+  "num_edge_containers": 97,
+  "num_ca_containers": 103,
+  "failed_deployments": 103,
+  "fail_rate": 0.515,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 515.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 82.57600297619051,
+  "AMS": 234.3900132275132,
+  "AMS_mode": "avg",
+  "downloaded_mb": 82072.0,
+  "reused_mb": 26774.0,
+  "reuse_rate": 0.245980559689837,
+  "objective_without_ca_penalty": 158.48300810185185,
+  "objective": 673.4830081018519
+}
+[OK][ilrsa] drtp_img88_cacheonly_1024mb_200.json
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_200.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lrscheduler/drtp_img88_cacheonly_1024mb_200.json
+{
+  "algo": "lrscheduler-online-k8sca",
+  "num_containers": 200,
+  "num_edge_containers": 96,
+  "num_ca_containers": 104,
+  "failed_deployments": 104,
+  "fail_rate": 0.52,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 520.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 75.14598214285714,
+  "AMS": 214.7650132275132,
+  "AMS_mode": "avg",
+  "downloaded_mb": 71800.0,
+  "reused_mb": 37091.0,
+  "reuse_rate": 0.3406250286984232,
+  "objective_without_ca_penalty": 144.95549768518518,
+  "objective": 664.9554976851852
+}
+[OK][lrscheduler] drtp_img88_cacheonly_1024mb_200.json
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_200.json
+OUT=results/drtp/final_exp/online_k8sca_old9_gahrl/drtp_img88_cacheonly_1024mb_200.json
+{
+  "algo": "gahrl-online-k8sca",
+  "num_containers": 200,
+  "num_edge_containers": 96,
+  "num_ca_containers": 104,
+  "failed_deployments": 104,
+  "fail_rate": 0.52,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 520.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 74.39844047619049,
+  "AMS": 215.21501322751317,
+  "AMS_mode": "avg",
+  "downloaded_mb": 72141.0,
+  "reused_mb": 36750.0,
+  "reuse_rate": 0.3374934567595118,
+  "objective_without_ca_penalty": 144.80672685185183,
+  "objective": 664.8067268518519
+}
+[OK][gahrl] drtp_img88_cacheonly_1024mb_200.json
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_200.json
+OUT=results/drtp/final_exp/online_k8sca_old9_orr/drtp_img88_cacheonly_1024mb_200.json
+{
+  "algo": "orr-online-k8sca",
+  "num_containers": 200,
+  "num_edge_containers": 97,
+  "num_ca_containers": 103,
+  "failed_deployments": 103,
+  "fail_rate": 0.515,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 515.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 78.34948214285714,
+  "AMS": 225.9992724867725,
+  "AMS_mode": "avg",
+  "downloaded_mb": 77207.0,
+  "reused_mb": 31684.0,
+  "reuse_rate": 0.2909698689515203,
+  "objective_without_ca_penalty": 152.17437731481482,
+  "objective": 667.1743773148148
+}
+[OK][orr] drtp_img88_cacheonly_1024mb_200.json
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_200.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lasa/drtp_img88_cacheonly_1024mb_200.json
+{
+  "algo": "lasa-online-k8sca",
+  "num_containers": 200,
+  "num_edge_containers": 97,
+  "num_ca_containers": 103,
+  "failed_deployments": 103,
+  "fail_rate": 0.515,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 515.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 75.40106845238098,
+  "AMS": 202.8126984126984,
+  "AMS_mode": "avg",
+  "downloaded_mb": 95756.0,
+  "reused_mb": 13135.0,
+  "reuse_rate": 0.12062521236833164,
+  "objective_without_ca_penalty": 139.1068834325397,
+  "objective": 654.1068834325397
+}
+[OK][lasa] drtp_img88_cacheonly_1024mb_200.json
+============================================================
+[RUN][fg] drtp_img88_cacheonly_1024mb_300.json
+OUT=results/drtp/final_exp/online_k8sca_old9_fg/drtp_img88_cacheonly_1024mb_300.json
+{
+  "algo": "fg-online-k8sca",
+  "num_containers": 300,
+  "num_edge_containers": 94,
+  "num_ca_containers": 206,
+  "failed_deployments": 206,
+  "fail_rate": 0.6866666666666666,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 686.6666666666666,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 56.38887500000014,
+  "AMS": 214.22843915343915,
+  "AMS_mode": "avg",
+  "downloaded_mb": 129562.0,
+  "reused_mb": 26778.0,
+  "reuse_rate": 0.17128054240757323,
+  "objective_without_ca_penalty": 135.30865707671964,
+  "objective": 821.9753237433863
+}
+[OK][fg] drtp_img88_cacheonly_1024mb_300.json
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_300.json
+OUT=results/drtp/final_exp/online_k8sca_old9_ilrsa/drtp_img88_cacheonly_1024mb_300.json
+{
+  "algo": "ilrsa-online-k8sca",
+  "num_containers": 300,
+  "num_edge_containers": 94,
+  "num_ca_containers": 206,
+  "failed_deployments": 206,
+  "fail_rate": 0.6866666666666666,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 686.6666666666666,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 59.533876984127204,
+  "AMS": 221.27334656084653,
+  "AMS_mode": "avg",
+  "downloaded_mb": 133452.0,
+  "reused_mb": 22887.0,
+  "reuse_rate": 0.14639341431120834,
+  "objective_without_ca_penalty": 140.40361177248687,
+  "objective": 827.0702784391535
+}
+[OK][ilrsa] drtp_img88_cacheonly_1024mb_300.json
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_300.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lrscheduler/drtp_img88_cacheonly_1024mb_300.json
+{
+  "algo": "lrscheduler-online-k8sca",
+  "num_containers": 300,
+  "num_edge_containers": 94,
+  "num_ca_containers": 206,
+  "failed_deployments": 206,
+  "fail_rate": 0.6866666666666666,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 686.6666666666666,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 55.63405753968263,
+  "AMS": 207.3478835978836,
+  "AMS_mode": "avg",
+  "downloaded_mb": 124774.0,
+  "reused_mb": 31602.0,
+  "reuse_rate": 0.20208983475725176,
+  "objective_without_ca_penalty": 131.4909705687831,
+  "objective": 818.1576372354498
+}
+[OK][lrscheduler] drtp_img88_cacheonly_1024mb_300.json
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_300.json
+OUT=results/drtp/final_exp/online_k8sca_old9_gahrl/drtp_img88_cacheonly_1024mb_300.json
+{
+  "algo": "gahrl-online-k8sca",
+  "num_containers": 300,
+  "num_edge_containers": 94,
+  "num_ca_containers": 206,
+  "failed_deployments": 206,
+  "fail_rate": 0.6866666666666666,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 686.6666666666666,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 55.11912698412702,
+  "AMS": 207.13862433862434,
+  "AMS_mode": "avg",
+  "downloaded_mb": 124841.0,
+  "reused_mb": 31535.0,
+  "reuse_rate": 0.20166138026295596,
+  "objective_without_ca_penalty": 131.12887566137567,
+  "objective": 817.7955423280423
+}
+[OK][gahrl] drtp_img88_cacheonly_1024mb_300.json
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_300.json
+OUT=results/drtp/final_exp/online_k8sca_old9_orr/drtp_img88_cacheonly_1024mb_300.json
+{
+  "algo": "orr-online-k8sca",
+  "num_containers": 300,
+  "num_edge_containers": 94,
+  "num_ca_containers": 206,
+  "failed_deployments": 206,
+  "fail_rate": 0.6866666666666666,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 686.6666666666666,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 57.80415476190494,
+  "AMS": 218.64927248677247,
+  "AMS_mode": "avg",
+  "downloaded_mb": 131805.0,
+  "reused_mb": 24571.0,
+  "reuse_rate": 0.15712769222898654,
+  "objective_without_ca_penalty": 138.22671362433871,
+  "objective": 824.8933802910053
+}
+[OK][orr] drtp_img88_cacheonly_1024mb_300.json
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_300.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lasa/drtp_img88_cacheonly_1024mb_300.json
+{
+  "algo": "lasa-online-k8sca",
+  "num_containers": 300,
+  "num_edge_containers": 91,
+  "num_ca_containers": 209,
+  "failed_deployments": 209,
+  "fail_rate": 0.6966666666666667,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 696.6666666666666,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 54.51264285714288,
+  "AMS": 200.98677248677254,
+  "AMS_mode": "avg",
+  "downloaded_mb": 148015.0,
+  "reused_mb": 8361.0,
+  "reuse_rate": 0.05346728398219676,
+  "objective_without_ca_penalty": 127.74970767195771,
+  "objective": 824.4163743386243
+}
+[OK][lasa] drtp_img88_cacheonly_1024mb_300.json
+============================================================
+[RUN][fg] drtp_img88_cacheonly_1024mb_400.json
+OUT=results/drtp/final_exp/online_k8sca_old9_fg/drtp_img88_cacheonly_1024mb_400.json
+{
+  "algo": "fg-online-k8sca",
+  "num_containers": 400,
+  "num_edge_containers": 94,
+  "num_ca_containers": 306,
+  "failed_deployments": 306,
+  "fail_rate": 0.765,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 765.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 48.291799107143085,
+  "AMS": 214.22843915343915,
+  "AMS_mode": "avg",
+  "downloaded_mb": 183326.0,
+  "reused_mb": 26778.0,
+  "reuse_rate": 0.12745116704108442,
+  "objective_without_ca_penalty": 131.26011913029112,
+  "objective": 896.2601191302911
+}
+[OK][fg] drtp_img88_cacheonly_1024mb_400.json
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_400.json
+OUT=results/drtp/final_exp/online_k8sca_old9_ilrsa/drtp_img88_cacheonly_1024mb_400.json
+{
+  "algo": "ilrsa-online-k8sca",
+  "num_containers": 400,
+  "num_edge_containers": 95,
+  "num_ca_containers": 305,
+  "failed_deployments": 305,
+  "fail_rate": 0.7625,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 762.5,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 51.06890178571458,
+  "AMS": 224.96501322751323,
+  "AMS_mode": "avg",
+  "downloaded_mb": 188364.0,
+  "reused_mb": 21740.0,
+  "reuse_rate": 0.10347256596733047,
+  "objective_without_ca_penalty": 138.0169575066139,
+  "objective": 900.5169575066138
+}
+[OK][ilrsa] drtp_img88_cacheonly_1024mb_400.json
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_400.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lrscheduler/drtp_img88_cacheonly_1024mb_400.json
+{
+  "algo": "lrscheduler-online-k8sca",
+  "num_containers": 400,
+  "num_edge_containers": 94,
+  "num_ca_containers": 306,
+  "failed_deployments": 306,
+  "fail_rate": 0.765,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 765.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 47.725686011904955,
+  "AMS": 207.3478835978836,
+  "AMS_mode": "avg",
+  "downloaded_mb": 178538.0,
+  "reused_mb": 31602.0,
+  "reuse_rate": 0.1503854573141715,
+  "objective_without_ca_penalty": 127.53678480489427,
+  "objective": 892.5367848048943
+}
+[OK][lrscheduler] drtp_img88_cacheonly_1024mb_400.json
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_400.json
+OUT=results/drtp/final_exp/online_k8sca_old9_gahrl/drtp_img88_cacheonly_1024mb_400.json
+{
+  "algo": "gahrl-online-k8sca",
+  "num_containers": 400,
+  "num_edge_containers": 95,
+  "num_ca_containers": 305,
+  "failed_deployments": 305,
+  "fail_rate": 0.7625,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 762.5,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 47.660766369047806,
+  "AMS": 207.41084656084655,
+  "AMS_mode": "avg",
+  "downloaded_mb": 178151.0,
+  "reused_mb": 31989.0,
+  "reuse_rate": 0.15222708670410204,
+  "objective_without_ca_penalty": 127.53580646494717,
+  "objective": 890.0358064649472
+}
+[OK][gahrl] drtp_img88_cacheonly_1024mb_400.json
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_400.json
+OUT=results/drtp/final_exp/online_k8sca_old9_orr/drtp_img88_cacheonly_1024mb_400.json
+{
+  "algo": "orr-online-k8sca",
+  "num_containers": 400,
+  "num_edge_containers": 94,
+  "num_ca_containers": 306,
+  "failed_deployments": 306,
+  "fail_rate": 0.765,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 765.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 49.36102976190501,
+  "AMS": 217.92473544973544,
+  "AMS_mode": "avg",
+  "downloaded_mb": 185230.0,
+  "reused_mb": 24910.0,
+  "reuse_rate": 0.118540020938422,
+  "objective_without_ca_penalty": 133.64288260582023,
+  "objective": 898.6428826058202
+}
+[OK][orr] drtp_img88_cacheonly_1024mb_400.json
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_400.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lasa/drtp_img88_cacheonly_1024mb_400.json
+{
+  "algo": "lasa-online-k8sca",
+  "num_containers": 400,
+  "num_edge_containers": 90,
+  "num_ca_containers": 310,
+  "failed_deployments": 310,
+  "fail_rate": 0.775,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 775.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 45.7522008928573,
+  "AMS": 196.7275132275132,
+  "AMS_mode": "avg",
+  "downloaded_mb": 203826.0,
+  "reused_mb": 6314.0,
+  "reuse_rate": 0.03004663557628248,
+  "objective_without_ca_penalty": 121.23985706018526,
+  "objective": 896.2398570601853
+}
+[OK][lasa] drtp_img88_cacheonly_1024mb_400.json
+============================================================
+[RUN][fg] drtp_img88_cacheonly_1024mb_500.json
+OUT=results/drtp/final_exp/online_k8sca_old9_fg/drtp_img88_cacheonly_1024mb_500.json
+{
+  "algo": "fg-online-k8sca",
+  "num_containers": 500,
+  "num_edge_containers": 93,
+  "num_ca_containers": 407,
+  "failed_deployments": 407,
+  "fail_rate": 0.814,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 814.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 43.26392857142885,
+  "AMS": 218.7126984126984,
+  "AMS_mode": "avg",
+  "downloaded_mb": 242103.0,
+  "reused_mb": 27631.0,
+  "reuse_rate": 0.10243795739506328,
+  "objective_without_ca_penalty": 130.9883134920636,
+  "objective": 944.9883134920636
+}
+[OK][fg] drtp_img88_cacheonly_1024mb_500.json
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_500.json
+OUT=results/drtp/final_exp/online_k8sca_old9_ilrsa/drtp_img88_cacheonly_1024mb_500.json
+{
+  "algo": "ilrsa-online-k8sca",
+  "num_containers": 500,
+  "num_edge_containers": 92,
+  "num_ca_containers": 408,
+  "failed_deployments": 408,
+  "fail_rate": 0.816,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 816.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 45.89489642857177,
+  "AMS": 223.42103174603173,
+  "AMS_mode": "avg",
+  "downloaded_mb": 245032.0,
+  "reused_mb": 24701.0,
+  "reuse_rate": 0.0915757434203453,
+  "objective_without_ca_penalty": 134.65796408730176,
+  "objective": 950.6579640873017
+}
+[OK][ilrsa] drtp_img88_cacheonly_1024mb_500.json
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_500.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lrscheduler/drtp_img88_cacheonly_1024mb_500.json
+{
+  "algo": "lrscheduler-online-k8sca",
+  "num_containers": 500,
+  "num_edge_containers": 91,
+  "num_ca_containers": 409,
+  "failed_deployments": 409,
+  "fail_rate": 0.818,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 818.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 42.631440476190754,
+  "AMS": 210.43630952380948,
+  "AMS_mode": "avg",
+  "downloaded_mb": 237412.0,
+  "reused_mb": 32364.0,
+  "reuse_rate": 0.1199661941759089,
+  "objective_without_ca_penalty": 126.53387500000012,
+  "objective": 944.5338750000001
+}
+[OK][lrscheduler] drtp_img88_cacheonly_1024mb_500.json
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_500.json
+OUT=results/drtp/final_exp/online_k8sca_old9_gahrl/drtp_img88_cacheonly_1024mb_500.json
+{
+  "algo": "gahrl-online-k8sca",
+  "num_containers": 500,
+  "num_edge_containers": 91,
+  "num_ca_containers": 409,
+  "failed_deployments": 409,
+  "fail_rate": 0.818,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 818.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 43.06268214285741,
+  "AMS": 212.94556878306878,
+  "AMS_mode": "avg",
+  "downloaded_mb": 239001.0,
+  "reused_mb": 30775.0,
+  "reuse_rate": 0.11407612241266829,
+  "objective_without_ca_penalty": 128.0041254629631,
+  "objective": 946.0041254629631
+}
+[OK][gahrl] drtp_img88_cacheonly_1024mb_500.json
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_500.json
+OUT=results/drtp/final_exp/online_k8sca_old9_orr/drtp_img88_cacheonly_1024mb_500.json
+{
+  "algo": "orr-online-k8sca",
+  "num_containers": 500,
+  "num_edge_containers": 93,
+  "num_ca_containers": 407,
+  "failed_deployments": 407,
+  "fail_rate": 0.814,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 814.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 43.839086904762205,
+  "AMS": 218.4881613756614,
+  "AMS_mode": "avg",
+  "downloaded_mb": 242394.0,
+  "reused_mb": 27382.0,
+  "reuse_rate": 0.10149902141035526,
+  "objective_without_ca_penalty": 131.1636241402118,
+  "objective": 945.1636241402118
+}
+[OK][orr] drtp_img88_cacheonly_1024mb_500.json
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_500.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lasa/drtp_img88_cacheonly_1024mb_500.json
+{
+  "algo": "lasa-online-k8sca",
+  "num_containers": 500,
+  "num_edge_containers": 94,
+  "num_ca_containers": 406,
+  "failed_deployments": 406,
+  "fail_rate": 0.812,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 812.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 42.89982500000032,
+  "AMS": 199.7414021164021,
+  "AMS_mode": "avg",
+  "downloaded_mb": 264921.0,
+  "reused_mb": 4855.0,
+  "reuse_rate": 0.017996411837969278,
+  "objective_without_ca_penalty": 121.32061355820122,
+  "objective": 933.3206135582012
+}
+[OK][lasa] drtp_img88_cacheonly_1024mb_500.json
+============================================================
+[RUN][fg] drtp_img88_cacheonly_1024mb_600.json
+OUT=results/drtp/final_exp/online_k8sca_old9_fg/drtp_img88_cacheonly_1024mb_600.json
+{
+  "algo": "fg-online-k8sca",
+  "num_containers": 600,
+  "num_edge_containers": 94,
+  "num_ca_containers": 506,
+  "failed_deployments": 506,
+  "fail_rate": 0.8433333333333334,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 843.3333333333334,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 40.447699404762275,
+  "AMS": 214.78399470899473,
+  "AMS_mode": "avg",
+  "downloaded_mb": 291609.0,
+  "reused_mb": 26778.0,
+  "reuse_rate": 0.08410519273714065,
+  "objective_without_ca_penalty": 127.6158470568785,
+  "objective": 970.9491803902118
+}
+[OK][fg] drtp_img88_cacheonly_1024mb_600.json
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_600.json
+OUT=results/drtp/final_exp/online_k8sca_old9_ilrsa/drtp_img88_cacheonly_1024mb_600.json
+{
+  "algo": "ilrsa-online-k8sca",
+  "num_containers": 600,
+  "num_edge_containers": 94,
+  "num_ca_containers": 506,
+  "failed_deployments": 506,
+  "fail_rate": 0.8433333333333334,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 843.3333333333334,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 42.298518849206744,
+  "AMS": 220.4710317460317,
+  "AMS_mode": "avg",
+  "downloaded_mb": 295257.0,
+  "reused_mb": 23130.0,
+  "reuse_rate": 0.07264743849466215,
+  "objective_without_ca_penalty": 131.38477529761923,
+  "objective": 974.7181086309527
+}
+[OK][ilrsa] drtp_img88_cacheonly_1024mb_600.json
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_600.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lrscheduler/drtp_img88_cacheonly_1024mb_600.json
+{
+  "algo": "lrscheduler-online-k8sca",
+  "num_containers": 600,
+  "num_edge_containers": 93,
+  "num_ca_containers": 507,
+  "failed_deployments": 507,
+  "fail_rate": 0.845,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 845.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 40.065472222222574,
+  "AMS": 208.01547619047616,
+  "AMS_mode": "avg",
+  "downloaded_mb": 288534.0,
+  "reused_mb": 29889.0,
+  "reuse_rate": 0.0938657069369989,
+  "objective_without_ca_penalty": 124.04047420634937,
+  "objective": 969.0404742063494
+}
+[OK][lrscheduler] drtp_img88_cacheonly_1024mb_600.json
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_600.json
+OUT=results/drtp/final_exp/online_k8sca_old9_gahrl/drtp_img88_cacheonly_1024mb_600.json
+{
+  "algo": "gahrl-online-k8sca",
+  "num_containers": 600,
+  "num_edge_containers": 95,
+  "num_ca_containers": 505,
+  "failed_deployments": 505,
+  "fail_rate": 0.8416666666666667,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 841.6666666666666,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 40.302990079365436,
+  "AMS": 209.71408730158726,
+  "AMS_mode": "avg",
+  "downloaded_mb": 287262.0,
+  "reused_mb": 31161.0,
+  "reuse_rate": 0.09786039325048757,
+  "objective_without_ca_penalty": 125.00853869047634,
+  "objective": 966.675205357143
+}
+[OK][gahrl] drtp_img88_cacheonly_1024mb_600.json
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_600.json
+OUT=results/drtp/final_exp/online_k8sca_old9_orr/drtp_img88_cacheonly_1024mb_600.json
+{
+  "algo": "orr-online-k8sca",
+  "num_containers": 600,
+  "num_edge_containers": 94,
+  "num_ca_containers": 506,
+  "failed_deployments": 506,
+  "fail_rate": 0.8433333333333334,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 843.3333333333334,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 41.11964484127023,
+  "AMS": 218.92751322751326,
+  "AMS_mode": "avg",
+  "downloaded_mb": 293835.0,
+  "reused_mb": 24588.0,
+  "reuse_rate": 0.0772180401541346,
+  "objective_without_ca_penalty": 130.02357903439173,
+  "objective": 973.356912367725
+}
+[OK][orr] drtp_img88_cacheonly_1024mb_600.json
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_600.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lasa/drtp_img88_cacheonly_1024mb_600.json
+{
+  "algo": "lasa-online-k8sca",
+  "num_containers": 600,
+  "num_edge_containers": 98,
+  "num_ca_containers": 502,
+  "failed_deployments": 502,
+  "fail_rate": 0.8366666666666667,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 836.6666666666666,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 41.62191865079407,
+  "AMS": 204.55436507936508,
+  "AMS_mode": "avg",
+  "downloaded_mb": 312768.0,
+  "reused_mb": 5655.0,
+  "reuse_rate": 0.017759395521052185,
+  "objective_without_ca_penalty": 123.08814186507958,
+  "objective": 959.7548085317462
+}
+[OK][lasa] drtp_img88_cacheonly_1024mb_600.json
+============================================================
+[RUN][fg] drtp_img88_cacheonly_1024mb_700.json
+OUT=results/drtp/final_exp/online_k8sca_old9_fg/drtp_img88_cacheonly_1024mb_700.json
+{
+  "algo": "fg-online-k8sca",
+  "num_containers": 700,
+  "num_edge_containers": 94,
+  "num_ca_containers": 606,
+  "failed_deployments": 606,
+  "fail_rate": 0.8657142857142858,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 865.7142857142858,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 38.24692602040857,
+  "AMS": 214.78399470899473,
+  "AMS_mode": "avg",
+  "downloaded_mb": 338735.0,
+  "reused_mb": 26778.0,
+  "reuse_rate": 0.07326141614662132,
+  "objective_without_ca_penalty": 126.51546036470165,
+  "objective": 992.2297460789874
+}
+[OK][fg] drtp_img88_cacheonly_1024mb_700.json
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_700.json
+OUT=results/drtp/final_exp/online_k8sca_old9_ilrsa/drtp_img88_cacheonly_1024mb_700.json
+{
+  "algo": "ilrsa-online-k8sca",
+  "num_containers": 700,
+  "num_edge_containers": 94,
+  "num_ca_containers": 606,
+  "failed_deployments": 606,
+  "fail_rate": 0.8657142857142858,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 865.7142857142858,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 39.68298554421813,
+  "AMS": 220.64834656084656,
+  "AMS_mode": "avg",
+  "downloaded_mb": 342245.0,
+  "reused_mb": 23268.0,
+  "reuse_rate": 0.06365847452758178,
+  "objective_without_ca_penalty": 130.16566605253234,
+  "objective": 995.8799517668181
+}
+[OK][ilrsa] drtp_img88_cacheonly_1024mb_700.json
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_700.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lrscheduler/drtp_img88_cacheonly_1024mb_700.json
+{
+  "algo": "lrscheduler-online-k8sca",
+  "num_containers": 700,
+  "num_edge_containers": 95,
+  "num_ca_containers": 605,
+  "failed_deployments": 605,
+  "fail_rate": 0.8642857142857143,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 864.2857142857143,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 38.105478741496995,
+  "AMS": 208.86084656084657,
+  "AMS_mode": "avg",
+  "downloaded_mb": 333909.0,
+  "reused_mb": 31640.0,
+  "reuse_rate": 0.08655474368689287,
+  "objective_without_ca_penalty": 123.48316265117178,
+  "objective": 987.7688769368862
+}
+[OK][lrscheduler] drtp_img88_cacheonly_1024mb_700.json
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_700.json
+OUT=results/drtp/final_exp/online_k8sca_old9_gahrl/drtp_img88_cacheonly_1024mb_700.json
+{
+  "algo": "gahrl-online-k8sca",
+  "num_containers": 700,
+  "num_edge_containers": 94,
+  "num_ca_containers": 606,
+  "failed_deployments": 606,
+  "fail_rate": 0.8657142857142858,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 865.7142857142858,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 38.07259863945618,
+  "AMS": 209.48630952380952,
+  "AMS_mode": "avg",
+  "downloaded_mb": 335498.0,
+  "reused_mb": 30051.0,
+  "reuse_rate": 0.08220785722297147,
+  "objective_without_ca_penalty": 123.77945408163285,
+  "objective": 989.4937397959186
+}
+[OK][gahrl] drtp_img88_cacheonly_1024mb_700.json
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_700.json
+OUT=results/drtp/final_exp/online_k8sca_old9_orr/drtp_img88_cacheonly_1024mb_700.json
+{
+  "algo": "orr-online-k8sca",
+  "num_containers": 700,
+  "num_edge_containers": 94,
+  "num_ca_containers": 606,
+  "failed_deployments": 606,
+  "fail_rate": 0.8657142857142858,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 865.7142857142858,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 38.857914965986815,
+  "AMS": 218.48029100529098,
+  "AMS_mode": "avg",
+  "downloaded_mb": 340639.0,
+  "reused_mb": 24910.0,
+  "reuse_rate": 0.06814407917953544,
+  "objective_without_ca_penalty": 128.6691029856389,
+  "objective": 994.3833886999247
+}
+[OK][orr] drtp_img88_cacheonly_1024mb_700.json
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_700.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lasa/drtp_img88_cacheonly_1024mb_700.json
+{
+  "algo": "lasa-online-k8sca",
+  "num_containers": 700,
+  "num_edge_containers": 92,
+  "num_ca_containers": 608,
+  "failed_deployments": 608,
+  "fail_rate": 0.8685714285714285,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 868.5714285714286,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 37.47797363945621,
+  "AMS": 200.3126984126984,
+  "AMS_mode": "avg",
+  "downloaded_mb": 362029.0,
+  "reused_mb": 3520.0,
+  "reuse_rate": 0.009629352015735237,
+  "objective_without_ca_penalty": 118.8953360260773,
+  "objective": 987.4667645975059
+}
+[OK][lasa] drtp_img88_cacheonly_1024mb_700.json
+============================================================
+[RUN][fg] drtp_img88_cacheonly_1024mb_800.json
+OUT=results/drtp/final_exp/online_k8sca_old9_fg/drtp_img88_cacheonly_1024mb_800.json
+{
+  "algo": "fg-online-k8sca",
+  "num_containers": 800,
+  "num_edge_containers": 94,
+  "num_ca_containers": 706,
+  "failed_deployments": 706,
+  "fail_rate": 0.8825,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 882.5,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 36.541845982143286,
+  "AMS": 214.78399470899473,
+  "AMS_mode": "avg",
+  "downloaded_mb": 389949.0,
+  "reused_mb": 26778.0,
+  "reuse_rate": 0.06425789545673787,
+  "objective_without_ca_penalty": 125.662920345569,
+  "objective": 1008.162920345569
+}
+[OK][fg] drtp_img88_cacheonly_1024mb_800.json
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_800.json
+OUT=results/drtp/final_exp/online_k8sca_old9_ilrsa/drtp_img88_cacheonly_1024mb_800.json
+{
+  "algo": "ilrsa-online-k8sca",
+  "num_containers": 800,
+  "num_edge_containers": 94,
+  "num_ca_containers": 706,
+  "failed_deployments": 706,
+  "fail_rate": 0.8825,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 882.5,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 37.78965327380998,
+  "AMS": 222.1728835978836,
+  "AMS_mode": "avg",
+  "downloaded_mb": 394880.0,
+  "reused_mb": 21847.0,
+  "reuse_rate": 0.05242520882976145,
+  "objective_without_ca_penalty": 129.9812684358468,
+  "objective": 1012.4812684358468
+}
+[OK][ilrsa] drtp_img88_cacheonly_1024mb_800.json
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_800.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lrscheduler/drtp_img88_cacheonly_1024mb_800.json
+{
+  "algo": "lrscheduler-online-k8sca",
+  "num_containers": 800,
+  "num_edge_containers": 94,
+  "num_ca_containers": 706,
+  "failed_deployments": 706,
+  "fail_rate": 0.8825,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 882.5,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 36.50581026785756,
+  "AMS": 208.53399470899467,
+  "AMS_mode": "avg",
+  "downloaded_mb": 385493.0,
+  "reused_mb": 31270.0,
+  "reuse_rate": 0.0750306529130465,
+  "objective_without_ca_penalty": 122.51990248842611,
+  "objective": 1005.0199024884262
+}
+[OK][lrscheduler] drtp_img88_cacheonly_1024mb_800.json
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_800.json
+OUT=results/drtp/final_exp/online_k8sca_old9_gahrl/drtp_img88_cacheonly_1024mb_800.json
+{
+  "algo": "gahrl-online-k8sca",
+  "num_containers": 800,
+  "num_edge_containers": 95,
+  "num_ca_containers": 705,
+  "failed_deployments": 705,
+  "fail_rate": 0.88125,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 881.25,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 36.73512127976233,
+  "AMS": 212.01825396825396,
+  "AMS_mode": "avg",
+  "downloaded_mb": 387068.0,
+  "reused_mb": 29695.0,
+  "reuse_rate": 0.07125152664703921,
+  "objective_without_ca_penalty": 124.37668762400814,
+  "objective": 1005.6266876240081
+}
+[OK][gahrl] drtp_img88_cacheonly_1024mb_800.json
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_800.json
+OUT=results/drtp/final_exp/online_k8sca_old9_orr/drtp_img88_cacheonly_1024mb_800.json
+{
+  "algo": "orr-online-k8sca",
+  "num_containers": 800,
+  "num_edge_containers": 95,
+  "num_ca_containers": 705,
+  "failed_deployments": 705,
+  "fail_rate": 0.88125,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 881.25,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 37.427048363095686,
+  "AMS": 223.02612433862436,
+  "AMS_mode": "avg",
+  "downloaded_mb": 393920.0,
+  "reused_mb": 22843.0,
+  "reuse_rate": 0.05481052780597126,
+  "objective_without_ca_penalty": 130.22658635086003,
+  "objective": 1011.4765863508601
+}
+[OK][orr] drtp_img88_cacheonly_1024mb_800.json
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_800.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lasa/drtp_img88_cacheonly_1024mb_800.json
+{
+  "algo": "lasa-online-k8sca",
+  "num_containers": 800,
+  "num_edge_containers": 93,
+  "num_ca_containers": 707,
+  "failed_deployments": 707,
+  "fail_rate": 0.88375,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 883.75,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 35.76680133928616,
+  "AMS": 198.2015873015873,
+  "AMS_mode": "avg",
+  "downloaded_mb": 412898.0,
+  "reused_mb": 3865.0,
+  "reuse_rate": 0.009273855884519499,
+  "objective_without_ca_penalty": 116.98419432043673,
+  "objective": 1000.7341943204367
+}
+[OK][lasa] drtp_img88_cacheonly_1024mb_800.json
+============================================================
+[RUN][fg] drtp_img88_cacheonly_1024mb_900.json
+OUT=results/drtp/final_exp/online_k8sca_old9_fg/drtp_img88_cacheonly_1024mb_900.json
+{
+  "algo": "fg-online-k8sca",
+  "num_containers": 900,
+  "num_edge_containers": 94,
+  "num_ca_containers": 806,
+  "failed_deployments": 806,
+  "fail_rate": 0.8955555555555555,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 895.5555555555555,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 35.10308531746075,
+  "AMS": 214.78399470899473,
+  "AMS_mode": "avg",
+  "downloaded_mb": 437290.0,
+  "reused_mb": 26778.0,
+  "reuse_rate": 0.05770275045898446,
+  "objective_without_ca_penalty": 124.94354001322773,
+  "objective": 1020.4990955687833
+}
+[OK][fg] drtp_img88_cacheonly_1024mb_900.json
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_900.json
+OUT=results/drtp/final_exp/online_k8sca_old9_ilrsa/drtp_img88_cacheonly_1024mb_900.json
+{
+  "algo": "ilrsa-online-k8sca",
+  "num_containers": 900,
+  "num_edge_containers": 95,
+  "num_ca_containers": 805,
+  "failed_deployments": 805,
+  "fail_rate": 0.8944444444444445,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 894.4444444444445,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 36.30333465608512,
+  "AMS": 223.06362433862432,
+  "AMS_mode": "avg",
+  "downloaded_mb": 441654.0,
+  "reused_mb": 22414.0,
+  "reuse_rate": 0.048298956187455284,
+  "objective_without_ca_penalty": 129.6834794973547,
+  "objective": 1024.127923941799
+}
+[OK][ilrsa] drtp_img88_cacheonly_1024mb_900.json
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_900.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lrscheduler/drtp_img88_cacheonly_1024mb_900.json
+{
+  "algo": "lrscheduler-online-k8sca",
+  "num_containers": 900,
+  "num_edge_containers": 94,
+  "num_ca_containers": 806,
+  "failed_deployments": 806,
+  "fail_rate": 0.8955555555555555,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 895.5555555555555,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 35.071053571429005,
+  "AMS": 208.53399470899467,
+  "AMS_mode": "avg",
+  "downloaded_mb": 432834.0,
+  "reused_mb": 31270.0,
+  "reuse_rate": 0.0673771396066399,
+  "objective_without_ca_penalty": 121.80252414021183,
+  "objective": 1017.3580796957674
+}
+[OK][lrscheduler] drtp_img88_cacheonly_1024mb_900.json
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_900.json
+OUT=results/drtp/final_exp/online_k8sca_old9_gahrl/drtp_img88_cacheonly_1024mb_900.json
+{
+  "algo": "gahrl-online-k8sca",
+  "num_containers": 900,
+  "num_edge_containers": 95,
+  "num_ca_containers": 805,
+  "failed_deployments": 805,
+  "fail_rate": 0.8944444444444445,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 894.4444444444445,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 35.27488558201102,
+  "AMS": 212.01825396825396,
+  "AMS_mode": "avg",
+  "downloaded_mb": 434409.0,
+  "reused_mb": 29695.0,
+  "reuse_rate": 0.06398350369744712,
+  "objective_without_ca_penalty": 123.64656977513249,
+  "objective": 1018.0910142195769
+}
+[OK][gahrl] drtp_img88_cacheonly_1024mb_900.json
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_900.json
+OUT=results/drtp/final_exp/online_k8sca_old9_orr/drtp_img88_cacheonly_1024mb_900.json
+{
+  "algo": "orr-online-k8sca",
+  "num_containers": 900,
+  "num_edge_containers": 94,
+  "num_ca_containers": 806,
+  "failed_deployments": 806,
+  "fail_rate": 0.8955555555555555,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 895.5555555555555,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 35.726696428571884,
+  "AMS": 221.6020502645503,
+  "AMS_mode": "avg",
+  "downloaded_mb": 441424.0,
+  "reused_mb": 22680.0,
+  "reuse_rate": 0.048868357092375844,
+  "objective_without_ca_penalty": 128.6643733465611,
+  "objective": 1024.2199289021166
+}
+[OK][orr] drtp_img88_cacheonly_1024mb_900.json
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_900.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lasa/drtp_img88_cacheonly_1024mb_900.json
+{
+  "algo": "lasa-online-k8sca",
+  "num_containers": 900,
+  "num_edge_containers": 94,
+  "num_ca_containers": 806,
+  "failed_deployments": 806,
+  "fail_rate": 0.8955555555555555,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 895.5555555555555,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 34.27978240740785,
+  "AMS": 192.3589947089947,
+  "AMS_mode": "avg",
+  "downloaded_mb": 460480.0,
+  "reused_mb": 3624.0,
+  "reuse_rate": 0.007808594625342596,
+  "objective_without_ca_penalty": 113.31938855820127,
+  "objective": 1008.8749441137568
+}
+[OK][lasa] drtp_img88_cacheonly_1024mb_900.json
+============================================================
+[RUN][fg] drtp_img88_cacheonly_1024mb_1000.json
+OUT=results/drtp/final_exp/online_k8sca_old9_fg/drtp_img88_cacheonly_1024mb_1000.json
+{
+  "algo": "fg-online-k8sca",
+  "num_containers": 1000,
+  "num_edge_containers": 94,
+  "num_ca_containers": 906,
+  "failed_deployments": 906,
+  "fail_rate": 0.906,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 906.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 34.106619642857545,
+  "AMS": 214.78399470899473,
+  "AMS_mode": "avg",
+  "downloaded_mb": 489219.0,
+  "reused_mb": 26778.0,
+  "reuse_rate": 0.05189565055610788,
+  "objective_without_ca_penalty": 124.44530717592613,
+  "objective": 1030.4453071759262
+}
+[OK][fg] drtp_img88_cacheonly_1024mb_1000.json
+============================================================
+[RUN][ilrsa] drtp_img88_cacheonly_1024mb_1000.json
+OUT=results/drtp/final_exp/online_k8sca_old9_ilrsa/drtp_img88_cacheonly_1024mb_1000.json
+{
+  "algo": "ilrsa-online-k8sca",
+  "num_containers": 1000,
+  "num_edge_containers": 94,
+  "num_ca_containers": 906,
+  "failed_deployments": 906,
+  "fail_rate": 0.906,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 906.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 35.382061904762274,
+  "AMS": 224.1029761904762,
+  "AMS_mode": "avg",
+  "downloaded_mb": 494226.0,
+  "reused_mb": 21770.0,
+  "reuse_rate": 0.04219024953681812,
+  "objective_without_ca_penalty": 129.74251904761923,
+  "objective": 1035.7425190476192
+}
+[OK][ilrsa] drtp_img88_cacheonly_1024mb_1000.json
+============================================================
+[RUN][lrscheduler] drtp_img88_cacheonly_1024mb_1000.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lrscheduler/drtp_img88_cacheonly_1024mb_1000.json
+{
+  "algo": "lrscheduler-online-k8sca",
+  "num_containers": 1000,
+  "num_edge_containers": 94,
+  "num_ca_containers": 906,
+  "failed_deployments": 906,
+  "fail_rate": 0.906,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 906.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 34.07779107142897,
+  "AMS": 208.53399470899467,
+  "AMS_mode": "avg",
+  "downloaded_mb": 484763.0,
+  "reused_mb": 31270.0,
+  "reuse_rate": 0.060596899810671026,
+  "objective_without_ca_penalty": 121.30589289021182,
+  "objective": 1027.305892890212
+}
+[OK][lrscheduler] drtp_img88_cacheonly_1024mb_1000.json
+============================================================
+[RUN][gahrl] drtp_img88_cacheonly_1024mb_1000.json
+OUT=results/drtp/final_exp/online_k8sca_old9_gahrl/drtp_img88_cacheonly_1024mb_1000.json
+{
+  "algo": "gahrl-online-k8sca",
+  "num_containers": 1000,
+  "num_edge_containers": 95,
+  "num_ca_containers": 905,
+  "failed_deployments": 905,
+  "fail_rate": 0.905,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 905.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 34.26123988095276,
+  "AMS": 212.01825396825396,
+  "AMS_mode": "avg",
+  "downloaded_mb": 486338.0,
+  "reused_mb": 29695.0,
+  "reuse_rate": 0.05754476942366089,
+  "objective_without_ca_penalty": 123.13974692460336,
+  "objective": 1028.1397469246033
+}
+[OK][gahrl] drtp_img88_cacheonly_1024mb_1000.json
+============================================================
+[RUN][orr] drtp_img88_cacheonly_1024mb_1000.json
+OUT=results/drtp/final_exp/online_k8sca_old9_orr/drtp_img88_cacheonly_1024mb_1000.json
+{
+  "algo": "orr-online-k8sca",
+  "num_containers": 1000,
+  "num_edge_containers": 94,
+  "num_ca_containers": 906,
+  "failed_deployments": 906,
+  "fail_rate": 0.906,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 906.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 34.66786964285751,
+  "AMS": 221.6020502645503,
+  "AMS_mode": "avg",
+  "downloaded_mb": 493353.0,
+  "reused_mb": 22680.0,
+  "reuse_rate": 0.04395067757294591,
+  "objective_without_ca_penalty": 128.1349599537039,
+  "objective": 1034.1349599537039
+}
+[OK][orr] drtp_img88_cacheonly_1024mb_1000.json
+============================================================
+[RUN][lasa] drtp_img88_cacheonly_1024mb_1000.json
+OUT=results/drtp/final_exp/online_k8sca_old9_lasa/drtp_img88_cacheonly_1024mb_1000.json
+{
+  "algo": "lasa-online-k8sca",
+  "num_containers": 1000,
+  "num_edge_containers": 93,
+  "num_ca_containers": 907,
+  "failed_deployments": 907,
+  "fail_rate": 0.907,
+  "num_nodes": 8,
+  "num_eval_nodes": 9,
+  "resource_model": "online_cumulative_k8s_filter_no_release",
+  "ca_model": "parallel_virtual_guarantee",
+  "ca_bandwidth_mb_s": 70.0,
+  "ca_extra_delay": 0.0,
+  "ca_penalty": 907.0,
+  "ca_fixed_penalty": 1000.0,
+  "ACT": 33.1614928571433,
+  "AMS": 191.85853174603173,
+  "AMS_mode": "avg",
+  "downloaded_mb": 513224.0,
+  "reused_mb": 2809.0,
+  "reuse_rate": 0.005443450321975533,
+  "objective_without_ca_penalty": 112.51001230158752,
+  "objective": 1019.5100123015875
+}
+[OK][lasa] drtp_img88_cacheonly_1024mb_1000.json
+[DONE] 2026年 05月 19日 星期二 13:35:22 CST

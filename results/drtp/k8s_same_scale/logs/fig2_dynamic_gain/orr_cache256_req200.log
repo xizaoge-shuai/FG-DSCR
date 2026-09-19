@@ -1,0 +1,21 @@
+{
+  "algo": "ORR-inspired-LGreedy",
+  "num_containers": 200,
+  "num_scheduled_containers": 97,
+  "num_assigned": 97,
+  "ca_triggered": 103,
+  "ca_rate": 0.515,
+  "ca_penalty": 515.0,
+  "lambda_ca": 1000.0,
+  "num_nodes": 8,
+  "ACT": 156.57418384879728,
+  "AMS": 341.0375,
+  "downloaded_mb": 51297,
+  "reused_mb": 3682,
+  "reuse_rate": 0.06697102530056931,
+  "objective_without_ca_penalty": 248.80584192439864,
+  "objective_ca": 763.8058419243987,
+  "objective": 763.8058419243987,
+  "prefetch_mb": 0,
+  "count_prefetch_in_downloaded": false
+}

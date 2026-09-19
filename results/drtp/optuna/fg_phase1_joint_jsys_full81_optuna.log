@@ -1,0 +1,2385 @@
+[INFO] cases = 81
+[INFO] base_dir = results/drtp/final_exp/cacheonly_dg_0_1024_fg
+[INFO] base = {
+  "ACT": 889.3942489513931,
+  "AMS": 1628.6662615740745,
+  "old_obj": 1259.0302552627336,
+  "downloaded": 203179.71604938273,
+  "reuse": 0.3449537716045495,
+  "frag": 1.5003987290220402,
+  "load_var": 200.38888888888889,
+  "missing": []
+}
+[INFO] jobs_per_trial = 2
+/home/zhjia/miniconda3/envs/fg/lib/python3.10/site-packages/optuna/_experimental.py:33: ExperimentalWarning: Argument ``multivariate`` is an experimental feature. The interface can change in the future.
+  optuna_warn(
+/home/zhjia/miniconda3/envs/fg/lib/python3.10/site-packages/optuna/_experimental.py:33: ExperimentalWarning: Argument ``group`` is an experimental feature. The interface can change in the future.
+  optuna_warn(
+[I 2026-05-16 23:42:56,072] Using an existing study with name 'fg_phase1_joint_jsys_full81_cacheonly' instead of creating a new one.
+[Trial 0] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 0] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 0] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 0] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 0] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 0] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 0] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 0] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 0] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 0] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 0] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 0] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 0] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 0] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 0] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 0] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 0] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 0] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 0] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 0] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 0] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 0] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 0] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 0] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 0] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 0] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 0] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 0] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 0] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 0] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 0] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 0] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 0] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 0] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 0] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 0] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 0] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 0] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 0] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 0] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 0] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 0] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 0] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 0] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 0] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 0] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 0] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 0] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 0] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 0] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 0] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 0] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 0] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 0] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 0] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 0] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 0] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 0] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 0] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 0] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 0] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 0] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 0] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 0] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 0] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 0] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 0] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 0] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 0] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 0] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 0] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 0] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 0] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 0] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 0] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 0] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 0] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 0] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 0] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 0] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 0] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 0
+score = 0.9748969716183394
+weights = {
+  "w_act": 0.30000000000000004,
+  "w_ams": 0.20000000000000004,
+  "w_frag": 0.20000000000000004,
+  "w_download": 0.20000000000000004,
+  "w_load": 0.1
+}
+params = {
+  "lambda_cong": 1.992251637093233,
+  "lambda_frag": 1.470389069077567,
+  "lambda_aff": 1.4438849217316503,
+  "lambda_task_load": 0.41049650828268813,
+  "greedy_load_factor": 0.9075603856789807,
+  "theta_cong_count": 0.9621025290385223
+}
+ratios = {
+  "ratio_ACT": 0.9850055213829337,
+  "ratio_AMS": 1.0026095603383778,
+  "ratio_frag": 0.999999884687405,
+  "ratio_downloaded": 1.0196097148562207,
+  "ratio_load_var": 0.749514832270585
+}
+avgs = {
+  "avg_ACT": 876.0582459033498,
+  "avg_AMS": 1632.9163644547323,
+  "avg_old_obj": 1254.4873051790405,
+  "avg_frag": 1.500398556007169,
+  "avg_downloaded": 207164.01234567902,
+  "avg_reuse": 0.3337878213395137,
+  "avg_load_var": 150.19444444444446
+}
+[I 2026-05-17 00:41:49,349] Trial 0 finished with value: 0.9748969716183394 and parameters: {'w_load_mode': 'small', 'w_load_value': 0.1, 'w_act_raw': 0.3, 'w_ams_raw': 0.2, 'w_frag_raw': 0.2, 'w_download_raw': 0.2, 'lambda_cong': 1.992251637093233, 'lambda_frag': 1.470389069077567, 'lambda_aff': 1.4438849217316503, 'lambda_task_load': 0.41049650828268813, 'greedy_load_factor': 0.9075603856789807, 'theta_cong_count': 0.9621025290385223}. Best is trial 0 with value: 0.9748969716183394.
+[Trial 1] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 1] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 1] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 1] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 1] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 1] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 1] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 1] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 1] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 1] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 1] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 1] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 1] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 1] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 1] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 1] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 1] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 1] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 1] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 1] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 1] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 1] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 1] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 1] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 1] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 1] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 1] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 1] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 1] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 1] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 1] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 1] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 1] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 1] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 1] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 1] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 1] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 1] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 1] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 1] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 1] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 1] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 1] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 1] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 1] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 1] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 1] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 1] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 1] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 1] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 1] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 1] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 1] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 1] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 1] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 1] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 1] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 1] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 1] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 1] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 1] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 1] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 1] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 1] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 1] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 1] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 1] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 1] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 1] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 1] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 1] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 1] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 1] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 1] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 1] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 1] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 1] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 1] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 1] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 1] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 1] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 1
+score = 0.9997219486825961
+weights = {
+  "w_act": 0.33333333333333337,
+  "w_ams": 0.22222222222222227,
+  "w_frag": 0.22222222222222227,
+  "w_download": 0.22222222222222227,
+  "w_load": 0.0
+}
+params = {
+  "lambda_cong": 1.992251637093233,
+  "lambda_frag": 1.470389069077567,
+  "lambda_aff": 1.4438849217316503,
+  "lambda_task_load": 0.41049650828268813,
+  "greedy_load_factor": 0.9075603856789807,
+  "theta_cong_count": 0.9621025290385223
+}
+ratios = {
+  "ratio_ACT": 0.9849786634960344,
+  "ratio_AMS": 1.0024472919058367,
+  "ratio_frag": 0.999999884687405,
+  "ratio_downloaded": 1.018833597234389,
+  "ratio_load_var": 0.749514832270585
+}
+avgs = {
+  "avg_ACT": 876.0343586532025,
+  "avg_AMS": 1632.652083333334,
+  "avg_old_obj": 1254.3432209932678,
+  "avg_frag": 1.500398556007169,
+  "avg_downloaded": 207006.32098765433,
+  "avg_reuse": 0.3340183940774653,
+  "avg_load_var": 150.19444444444446
+}
+[I 2026-05-17 01:40:40,609] Trial 1 finished with value: 0.9997219486825961 and parameters: {'w_load_mode': 'zero', 'w_act_raw': 0.3, 'w_ams_raw': 0.2, 'w_frag_raw': 0.2, 'w_download_raw': 0.2, 'lambda_cong': 1.992251637093233, 'lambda_frag': 1.470389069077567, 'lambda_aff': 1.4438849217316503, 'lambda_task_load': 0.41049650828268813, 'greedy_load_factor': 0.9075603856789807, 'theta_cong_count': 0.9621025290385223}. Best is trial 0 with value: 0.9748969716183394.
+[Trial 2] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 2] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 2] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 2] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 2] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 2] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 2] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 2] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 2] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 2] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 2] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 2] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 2] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 2] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 2] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 2] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 2] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 2] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 2] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 2] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 2] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 2] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 2] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 2] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 2] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 2] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 2] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 2] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 2] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 2] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 2] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 2] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 2] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 2] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 2] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 2] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 2] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 2] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 2] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 2] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 2] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 2] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 2] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 2] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 2] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 2] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 2] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 2] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 2] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 2] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 2] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 2] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 2] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 2] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 2] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 2] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 2] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 2] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 2] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 2] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 2] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 2] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 2] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 2] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 2] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 2] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 2] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 2] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 2] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 2] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 2] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 2] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 2] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 2] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 2] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 2] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 2] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 2] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 2] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 2] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 2] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 2
+score = 0.9992906799536455
+weights = {
+  "w_act": 0.35,
+  "w_ams": 0.25,
+  "w_frag": 0.2,
+  "w_download": 0.2,
+  "w_load": 0.0
+}
+params = {
+  "lambda_cong": 1.992251637093233,
+  "lambda_frag": 1.470389069077567,
+  "lambda_aff": 1.4438849217316503,
+  "lambda_task_load": 0.41049650828268813,
+  "greedy_load_factor": 0.9075603856789807,
+  "theta_cong_count": 0.9621025290385223
+}
+ratios = {
+  "ratio_ACT": 0.9851064742223078,
+  "ratio_AMS": 1.0025565815763948,
+  "ratio_frag": 0.999999884687405,
+  "ratio_downloaded": 1.01932145822129,
+  "ratio_load_var": 0.749514832270585
+}
+avgs = {
+  "avg_ACT": 876.1480327781044,
+  "avg_AMS": 1632.8300797325105,
+  "avg_old_obj": 1254.489056255308,
+  "avg_frag": 1.500398556007169,
+  "avg_downloaded": 207105.44444444444,
+  "avg_reuse": 0.3339114381830989,
+  "avg_load_var": 150.19444444444446
+}
+[I 2026-05-17 02:39:31,685] Trial 2 finished with value: 0.9992906799536455 and parameters: {'w_load_mode': 'zero', 'w_act_raw': 0.35, 'w_ams_raw': 0.25, 'w_frag_raw': 0.2, 'w_download_raw': 0.2, 'lambda_cong': 1.992251637093233, 'lambda_frag': 1.470389069077567, 'lambda_aff': 1.4438849217316503, 'lambda_task_load': 0.41049650828268813, 'greedy_load_factor': 0.9075603856789807, 'theta_cong_count': 0.9621025290385223}. Best is trial 0 with value: 0.9748969716183394.
+[Trial 3] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 3] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 3] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 3] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 3] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 3] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 3] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 3] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 3] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 3] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 3] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 3] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 3] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 3] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 3] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 3] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 3] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 3] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 3] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 3] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 3] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 3] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 3] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 3] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 3] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 3] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 3] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 3] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 3] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 3] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 3] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 3] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 3] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 3] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 3] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 3] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 3] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 3] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 3] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 3] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 3] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 3] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 3] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 3] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 3] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 3] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 3] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 3] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 3] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 3] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 3] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 3] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 3] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 3] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 3] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 3] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 3] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 3] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 3] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 3] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 3] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 3] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 3] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 3] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 3] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 3] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 3] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 3] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 3] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 3] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 3] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 3] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 3] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 3] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 3] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 3] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 3] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 3] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 3] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 3] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 3] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 3
+score = 3.3831380256799326
+weights = {
+  "w_act": 0.2154637792419431,
+  "w_ams": 0.22347137926753682,
+  "w_frag": 0.18774009524543406,
+  "w_download": 0.05160771682001103,
+  "w_load": 0.321717029425075
+}
+params = {
+  "lambda_cong": 0.3351250036936612,
+  "lambda_frag": 1.2300292337355636,
+  "lambda_aff": 1.4824676440093527,
+  "lambda_task_load": 0.7737365922639605,
+  "greedy_load_factor": 2.578569010462521,
+  "theta_cong_count": 0.402195134902456
+}
+ratios = {
+  "ratio_ACT": 1.2478642633804045,
+  "ratio_AMS": 0.9901634243005007,
+  "ratio_frag": 0.9999969910494064,
+  "ratio_downloaded": 0.9800357975366575,
+  "ratio_load_var": 8.251594122539506
+}
+avgs = {
+  "avg_ACT": 1109.8432993224983,
+  "avg_AMS": 1612.6457626028807,
+  "avg_old_obj": 1361.2445309626894,
+  "avg_frag": 1.500394214396394,
+  "avg_downloaded": 199123.3950617284,
+  "avg_reuse": 0.3584658265395012,
+  "avg_load_var": 1653.5277777777778
+}
+[I 2026-05-17 02:56:21,695] Trial 3 finished with value: 3.3831380256799326 and parameters: {'w_load_mode': 'large', 'w_load_value': 0.321717029425075, 'w_act_raw': 1.4427874396843299, 'w_ams_raw': 1.4964078893932782, 'w_frag_raw': 1.2571442508724153, 'w_download_raw': 0.3455753253779517, 'lambda_cong': 0.3351250036936612, 'lambda_frag': 1.2300292337355636, 'lambda_aff': 1.4824676440093527, 'lambda_task_load': 0.7737365922639605, 'greedy_load_factor': 2.578569010462521, 'theta_cong_count': 0.402195134902456}. Best is trial 0 with value: 0.9748969716183394.
+[Trial 4] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 4] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 4] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 4] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 4] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 4] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 4] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 4] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 4] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 4] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 4] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 4] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 4] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 4] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 4] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 4] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 4] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 4] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 4] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 4] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 4] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 4] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 4] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 4] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 4] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 4] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 4] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 4] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 4] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 4] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 4] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 4] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 4] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 4] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 4] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 4] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 4] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 4] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 4] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 4] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 4] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 4] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 4] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 4] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 4] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 4] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 4] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 4] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 4] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 4] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 4] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 4] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 4] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 4] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 4] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 4] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 4] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 4] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 4] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 4] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 4] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 4] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 4] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 4] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 4] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 4] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 4] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 4] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 4] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 4] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 4] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 4] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 4] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 4] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 4] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 4] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 4] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 4] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 4] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 4] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 4] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 4
+score = 0.9991510247801456
+weights = {
+  "w_act": 0.08633969134767594,
+  "w_ams": 0.5060429853085313,
+  "w_frag": 0.34591155239623234,
+  "w_download": 0.06170577094756036,
+  "w_load": 0.0
+}
+params = {
+  "lambda_cong": 0.8602698014396726,
+  "lambda_frag": 0.7326860870357963,
+  "lambda_aff": 0.02967063671322462,
+  "lambda_task_load": 0.5301990723724227,
+  "greedy_load_factor": 0.8017311309469493,
+  "theta_cong_count": 0.8071060056361608
+}
+ratios = {
+  "ratio_ACT": 0.9971763188475151,
+  "ratio_AMS": 0.9990260775095117,
+  "ratio_frag": 1.0000028690684342,
+  "ratio_downloaded": 0.9981634576747934,
+  "ratio_load_var": 0.8932630995286942
+}
+avgs = {
+  "avg_ACT": 886.8828831735007,
+  "avg_AMS": 1627.080066872428,
+  "avg_old_obj": 1256.9814750229643,
+  "avg_frag": 1.5004030337686722,
+  "avg_downloaded": 202806.56790123458,
+  "avg_reuse": 0.3464290827882607,
+  "avg_load_var": 179.0
+}
+[I 2026-05-17 03:37:49,857] Trial 4 finished with value: 0.9991510247801456 and parameters: {'w_load_mode': 'zero', 'w_act_raw': 0.2253017252532204, 'w_ams_raw': 1.32050921033749, 'w_frag_raw': 0.9026493878239779, 'w_download_raw': 0.16101999480844348, 'lambda_cong': 0.8602698014396726, 'lambda_frag': 0.7326860870357963, 'lambda_aff': 0.02967063671322462, 'lambda_task_load': 0.5301990723724227, 'greedy_load_factor': 0.8017311309469493, 'theta_cong_count': 0.8071060056361608}. Best is trial 0 with value: 0.9748969716183394.
+[Trial 5] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 5] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 5] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 5] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 5] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 5] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 5] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 5] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 5] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 5] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 5] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 5] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 5] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 5] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 5] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 5] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 5] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 5] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 5] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 5] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 5] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 5] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 5] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 5] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 5] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 5] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 5] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 5] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 5] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 5] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 5] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 5] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 5] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 5] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 5] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 5] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 5] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 5] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 5] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 5] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 5] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 5] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 5] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 5] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 5] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 5] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 5] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 5] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 5] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 5] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 5] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 5] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 5] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 5] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 5] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 5] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 5] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 5] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 5] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 5] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 5] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 5] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 5] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 5] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 5] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 5] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 5] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 5] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 5] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 5] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 5] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 5] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 5] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 5] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 5] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 5] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 5] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 5] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 5] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 5] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 5] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 5
+score = 2.160804206605677
+weights = {
+  "w_act": 0.07203660844368646,
+  "w_ams": 0.11090054945801772,
+  "w_frag": 0.08800876079360338,
+  "w_download": 0.42958577172750273,
+  "w_load": 0.2994683095771898
+}
+params = {
+  "lambda_cong": 2.4708145988196835,
+  "lambda_frag": 0.18581152143794966,
+  "lambda_aff": 0.6554848502937018,
+  "lambda_task_load": 0.15920428714787288,
+  "greedy_load_factor": 2.069530011174457,
+  "theta_cong_count": 0.22960513339793076
+}
+ratios = {
+  "ratio_ACT": 1.1215474301657122,
+  "ratio_AMS": 0.9920603119164775,
+  "ratio_frag": 0.9999956006138894,
+  "ratio_downloaded": 0.9800286883405599,
+  "ratio_load_var": 4.878569448294982
+}
+avgs = {
+  "avg_ACT": 997.4978343155988,
+  "avg_AMS": 1615.7351594650197,
+  "avg_old_obj": 1306.61649689031,
+  "avg_frag": 1.5003921281887114,
+  "avg_downloaded": 199121.95061728396,
+  "avg_reuse": 0.357179878621282,
+  "avg_load_var": 977.6111111111111
+}
+[I 2026-05-17 04:04:58,727] Trial 5 finished with value: 2.160804206605677 and parameters: {'w_load_mode': 'large', 'w_load_value': 0.2994683095771898, 'w_act_raw': 0.23627945474215917, 'w_ams_raw': 0.3637528462633064, 'w_frag_raw': 0.28866797677047273, 'w_download_raw': 1.4090376282513617, 'lambda_cong': 2.4708145988196835, 'lambda_frag': 0.18581152143794966, 'lambda_aff': 0.6554848502937018, 'lambda_task_load': 0.15920428714787288, 'greedy_load_factor': 2.069530011174457, 'theta_cong_count': 0.22960513339793076}. Best is trial 0 with value: 0.9748969716183394.
+[Trial 6] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 6] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 6] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 6] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 6] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 6] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 6] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 6] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 6] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 6] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 6] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 6] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 6] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 6] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 6] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 6] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 6] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 6] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 6] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 6] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 6] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 6] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 6] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 6] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 6] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 6] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 6] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 6] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 6] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 6] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 6] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 6] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 6] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 6] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 6] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 6] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 6] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 6] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 6] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 6] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 6] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 6] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 6] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 6] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 6] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 6] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 6] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 6] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 6] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 6] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 6] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 6] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 6] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 6] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 6] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 6] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 6] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 6] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 6] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 6] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 6] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 6] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 6] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 6] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 6] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 6] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 6] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 6] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 6] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 6] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 6] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 6] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 6] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 6] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 6] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 6] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 6] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 6] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 6] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 6] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 6] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 6
+score = 0.8968484653234867
+weights = {
+  "w_act": 0.22438229401266369,
+  "w_ams": 0.07188561619791489,
+  "w_frag": 0.4871570870431827,
+  "w_download": 0.1020805265715421,
+  "w_load": 0.11449447617469644
+}
+params = {
+  "lambda_cong": 2.270326952836647,
+  "lambda_frag": 0.5495562797837548,
+  "lambda_aff": 1.45271948254968,
+  "lambda_task_load": 1.0758000130778953,
+  "greedy_load_factor": 1.0021890304963827,
+  "theta_cong_count": 0.9771657558617896
+}
+ratios = {
+  "ratio_ACT": 0.9456096361181293,
+  "ratio_AMS": 1.0067331075377632,
+  "ratio_frag": 0.9999998976624941,
+  "ratio_downloaded": 1.0234489845607098,
+  "ratio_load_var": 0.18052860179281027
+}
+avgs = {
+  "avg_ACT": 841.0197721164838,
+  "avg_AMS": 1639.6322466563797,
+  "avg_old_obj": 1240.326009386432,
+  "avg_frag": 1.5003985754749765,
+  "avg_downloaded": 207944.07407407407,
+  "avg_reuse": 0.32787004986511975,
+  "avg_load_var": 36.175925925925924
+}
+[I 2026-05-17 05:08:18,268] Trial 6 finished with value: 0.8968484653234867 and parameters: {'w_load_mode': 'medium', 'w_load_value': 0.11449447617469644, 'w_act_raw': 0.33310010242533583, 'w_ams_raw': 0.10671566677664156, 'w_frag_raw': 0.723194654486214, 'w_download_raw': 0.1515406284895805, 'lambda_cong': 2.270326952836647, 'lambda_frag': 0.5495562797837548, 'lambda_aff': 1.45271948254968, 'lambda_task_load': 1.0758000130778953, 'greedy_load_factor': 1.0021890304963827, 'theta_cong_count': 0.9771657558617896}. Best is trial 6 with value: 0.8968484653234867.
+[Trial 7] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 7] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 7] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 7] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 7] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 7] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 7] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 7] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 7] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 7] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 7] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 7] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 7] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 7] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 7] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 7] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 7] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 7] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 7] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 7] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 7] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 7] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 7] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 7] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 7] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 7] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 7] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 7] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 7] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 7] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 7] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 7] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 7] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 7] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 7] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 7] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 7] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 7] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 7] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 7] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 7] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 7] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 7] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 7] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 7] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 7] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 7] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 7] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 7] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 7] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 7] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 7] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 7] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 7] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 7] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 7] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 7] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 7] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 7] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 7] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 7] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 7] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 7] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 7] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 7] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 7] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 7] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 7] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 7] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 7] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 7] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 7] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 7] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 7] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 7] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 7] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 7] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 7] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 7] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 7] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 7] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 7
+score = 1.0824562133806184
+weights = {
+  "w_act": 0.5074256476253225,
+  "w_ams": 0.059018838006435266,
+  "w_frag": 0.22434812532975934,
+  "w_download": 0.2092073890384827,
+  "w_load": 0.0
+}
+params = {
+  "lambda_cong": 2.0533213169379563,
+  "lambda_frag": 1.1153817168228917,
+  "lambda_aff": 2.381125409434397,
+  "lambda_task_load": 0.35822993509211004,
+  "greedy_load_factor": 1.3409349434856377,
+  "theta_cong_count": 0.3492266487167035
+}
+ratios = {
+  "ratio_ACT": 1.246701465420321,
+  "ratio_AMS": 1.0061011406691855,
+  "ratio_frag": 0.7499992216400155,
+  "ratio_downloaded": 1.06214257681137,
+  "ratio_load_var": 11.204478945260757
+}
+avgs = {
+  "avg_ACT": 1108.8091135041077,
+  "avg_AMS": 1638.6029835390943,
+  "avg_old_obj": 1373.7060485216014,
+  "avg_frag": 1.1252978789161987,
+  "avg_downloaded": 215805.82716049382,
+  "avg_reuse": 0.30730355831832495,
+  "avg_load_var": 2245.253086419753
+}
+[I 2026-05-17 06:04:49,671] Trial 7 finished with value: 1.0824562133806184 and parameters: {'w_load_mode': 'zero', 'w_act_raw': 1.1183070770978984, 'w_ams_raw': 0.130070650810748, 'w_frag_raw': 0.4944371603288974, 'w_download_raw': 0.46106873950459165, 'lambda_cong': 2.0533213169379563, 'lambda_frag': 1.1153817168228917, 'lambda_aff': 2.381125409434397, 'lambda_task_load': 0.35822993509211004, 'greedy_load_factor': 1.3409349434856377, 'theta_cong_count': 0.3492266487167035}. Best is trial 6 with value: 0.8968484653234867.
+[Trial 8] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 8] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 8] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 8] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 8] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 8] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 8] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 8] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 8] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 8] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 8] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 8] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 8] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 8] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 8] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 8] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 8] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 8] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 8] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 8] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 8] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 8] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 8] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 8] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 8] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 8] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 8] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 8] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 8] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 8] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 8] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 8] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 8] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 8] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 8] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 8] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 8] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 8] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 8] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 8] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 8] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 8] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 8] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 8] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 8] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 8] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 8] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 8] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 8] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 8] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 8] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 8] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 8] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 8] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 8] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 8] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 8] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 8] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 8] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 8] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 8] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 8] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 8] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 8] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 8] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 8] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 8] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 8] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 8] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 8] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 8] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 8] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 8] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 8] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 8] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 8] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 8] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 8] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 8] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 8] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 8] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 8
+score = 1.330420858307776
+weights = {
+  "w_act": 0.2982696317038969,
+  "w_ams": 0.1326826756812389,
+  "w_frag": 0.3866362083669279,
+  "w_download": 0.14648248309635525,
+  "w_load": 0.03592900115158089
+}
+params = {
+  "lambda_cong": 1.8015990692877804,
+  "lambda_frag": 0.06712980269259772,
+  "lambda_aff": 0.8098786084339396,
+  "lambda_task_load": 0.29412226234327654,
+  "greedy_load_factor": 2.5845387793497157,
+  "theta_cong_count": 0.9043949855451419
+}
+ratios = {
+  "ratio_ACT": 1.2479776250549925,
+  "ratio_AMS": 0.9904086489702277,
+  "ratio_frag": 0.9999966860744698,
+  "ratio_downloaded": 0.981109286147391,
+  "ratio_load_var": 8.250346548378154
+}
+avgs = {
+  "avg_ACT": 1109.9441225439284,
+  "avg_AMS": 1613.0451517489707,
+  "avg_old_obj": 1361.4946371464505,
+  "avg_frag": 1.5003937568123866,
+  "avg_downloaded": 199341.5061728395,
+  "avg_reuse": 0.35789048453792865,
+  "avg_load_var": 1653.2777777777778
+}
+[I 2026-05-17 06:21:36,906] Trial 8 finished with value: 1.330420858307776 and parameters: {'w_load_mode': 'small', 'w_load_value': 0.03592900115158089, 'w_act_raw': 0.9182921941088646, 'w_ams_raw': 0.40849437026333346, 'w_frag_raw': 1.1903491819631993, 'w_download_raw': 0.45098027590889106, 'lambda_cong': 1.8015990692877804, 'lambda_frag': 0.06712980269259772, 'lambda_aff': 0.8098786084339396, 'lambda_task_load': 0.29412226234327654, 'greedy_load_factor': 2.5845387793497157, 'theta_cong_count': 0.9043949855451419}. Best is trial 6 with value: 0.8968484653234867.
+[Trial 9] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 9] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 9] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 9] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 9] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 9] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 9] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 9] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 9] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 9] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 9] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 9] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 9] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 9] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 9] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 9] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 9] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 9] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 9] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 9] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 9] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 9] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 9] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 9] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 9] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 9] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 9] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 9] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 9] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 9] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 9] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 9] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 9] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 9] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 9] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 9] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 9] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 9] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 9] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 9] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 9] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 9] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 9] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 9] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 9] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 9] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 9] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 9] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 9] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 9] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 9] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 9] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 9] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 9] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 9] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 9] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 9] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 9] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 9] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 9] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 9] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 9] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 9] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 9] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 9] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 9] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 9] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 9] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 9] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 9] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 9] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 9] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 9] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 9] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 9] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 9] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 9] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 9] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 9] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 9] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 9] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 9
+score = 2.129383232055359
+weights = {
+  "w_act": 0.2147575210067376,
+  "w_ams": 0.19491298024334866,
+  "w_frag": 0.2385285760292237,
+  "w_download": 0.1849038646215228,
+  "w_load": 0.1668970580991673
+}
+params = {
+  "lambda_cong": 2.143956700084458,
+  "lambda_frag": 1.5047760226146227,
+  "lambda_aff": 1.5421206427293592,
+  "lambda_task_load": 0.9687614157595044,
+  "greedy_load_factor": 2.1346643962894083,
+  "theta_cong_count": 0.6800281521367139
+}
+ratios = {
+  "ratio_ACT": 1.2003031335799956,
+  "ratio_AMS": 0.992266281214687,
+  "ratio_frag": 0.9583286685686289,
+  "ratio_downloaded": 0.985508420235154,
+  "ratio_load_var": 7.593845300803992
+}
+avgs = {
+  "avg_ACT": 1067.542704004384,
+  "avg_AMS": 1616.0706147119336,
+  "avg_old_obj": 1341.806659358159,
+  "avg_frag": 1.4378751163057548,
+  "avg_downloaded": 200235.32098765433,
+  "avg_reuse": 0.3540105443866606,
+  "avg_load_var": 1521.7222222222222
+}
+[I 2026-05-17 06:43:08,261] Trial 9 finished with value: 2.129383232055359 and parameters: {'w_load_mode': 'medium', 'w_load_value': 0.1668970580991673, 'w_act_raw': 1.2232604488922725, 'w_ams_raw': 1.1102257960033404, 'w_frag_raw': 1.3586605564234868, 'w_download_raw': 1.0532137984203302, 'lambda_cong': 2.143956700084458, 'lambda_frag': 1.5047760226146227, 'lambda_aff': 1.5421206427293592, 'lambda_task_load': 0.9687614157595044, 'greedy_load_factor': 2.1346643962894083, 'theta_cong_count': 0.6800281521367139}. Best is trial 6 with value: 0.8968484653234867.
+[W 2026-05-17 06:43:08,282] The parameter `w_load_value` in Trial#10 is sampled independently using `RandomSampler` instead of `TPESampler`, potentially degrading the optimization performance. This fallback happend because dynamic search space is not supported for `multivariate=True`. You can suppress this warning by setting `warn_independent_sampling` to `False` in the constructor of `TPESampler` if this independent sampling is intended behavior.
+[Trial 10] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 10] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 10] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 10] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 10] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 10] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 10] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 10] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 10] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 10] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 10] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 10] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 10] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 10] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 10] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 10] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 10] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 10] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 10] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 10] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 10] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 10] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 10] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 10] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 10] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 10] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 10] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 10] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 10] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 10] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 10] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 10] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 10] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 10] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 10] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 10] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 10] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 10] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 10] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 10] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 10] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 10] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 10] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 10] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 10] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 10] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 10] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 10] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 10] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 10] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 10] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 10] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 10] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 10] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 10] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 10] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 10] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 10] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 10] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 10] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 10] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 10] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 10] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 10] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 10] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 10] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 10] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 10] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 10] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 10] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 10] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 10] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 10] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 10] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 10] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 10] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 10] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 10] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 10] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 10] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 10] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 10
+score = 0.9442783283488205
+weights = {
+  "w_act": 0.17855248071966232,
+  "w_ams": 0.1486423574370417,
+  "w_frag": 0.2571843742197217,
+  "w_download": 0.209337807469617,
+  "w_load": 0.2062829801539573
+}
+params = {
+  "lambda_cong": 2.1064470720113193,
+  "lambda_frag": 0.7417597635191312,
+  "lambda_aff": 0.9902209046431946,
+  "lambda_task_load": 0.5883363377806186,
+  "greedy_load_factor": 0.8122120486469496,
+  "theta_cong_count": 1.059948343864495
+}
+ratios = {
+  "ratio_ACT": 0.9846467178021848,
+  "ratio_AMS": 0.9993564219428845,
+  "ratio_frag": 1.0000038384126988,
+  "ratio_downloaded": 0.9984314196815481,
+  "ratio_load_var": 0.7452176323814805
+}
+avgs = {
+  "avg_ACT": 875.7391280621285,
+  "avg_AMS": 1627.6180877057611,
+  "avg_old_obj": 1251.6786078839455,
+  "avg_frag": 1.5004044881715748,
+  "avg_downloaded": 202861.01234567902,
+  "avg_reuse": 0.3460528110648574,
+  "avg_load_var": 149.33333333333334
+}
+[I 2026-05-17 07:09:05,769] Trial 10 finished with value: 0.9442783283488205 and parameters: {'w_load_mode': 'medium', 'w_load_value': 0.2062829801539573, 'w_act_raw': 0.6018022105824943, 'w_ams_raw': 0.5009916352394554, 'w_frag_raw': 0.8668270768845171, 'w_download_raw': 0.705562615461523, 'lambda_cong': 2.1064470720113193, 'lambda_frag': 0.7417597635191312, 'lambda_aff': 0.9902209046431946, 'lambda_task_load': 0.5883363377806186, 'greedy_load_factor': 0.8122120486469496, 'theta_cong_count': 1.059948343864495}. Best is trial 6 with value: 0.8968484653234867.
+[W 2026-05-17 07:09:05,790] The parameter `w_load_value` in Trial#11 is sampled independently using `RandomSampler` instead of `TPESampler`, potentially degrading the optimization performance. This fallback happend because dynamic search space is not supported for `multivariate=True`. You can suppress this warning by setting `warn_independent_sampling` to `False` in the constructor of `TPESampler` if this independent sampling is intended behavior.
+[Trial 11] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 11] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 11] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 11] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 11] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 11] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 11] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 11] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 11] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 11] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 11] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 11] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 11] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 11] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 11] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 11] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 11] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 11] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 11] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 11] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 11] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 11] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 11] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 11] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 11] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 11] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 11] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 11] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 11] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 11] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 11] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 11] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 11] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 11] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 11] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 11] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 11] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 11] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 11] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 11] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 11] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 11] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 11] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 11] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 11] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 11] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 11] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 11] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 11] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 11] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 11] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 11] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 11] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 11] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 11] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 11] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 11] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 11] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 11] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 11] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 11] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 11] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 11] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 11] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 11] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 11] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 11] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 11] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 11] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 11] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 11] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 11] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 11] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 11] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 11] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 11] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 11] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 11] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 11] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 11] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 11] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 11
+score = 0.8574761549937341
+weights = {
+  "w_act": 0.19852931271655572,
+  "w_ams": 0.04860131500994301,
+  "w_frag": 0.39652035144919023,
+  "w_download": 0.15037572607968697,
+  "w_load": 0.20597329474462409
+}
+params = {
+  "lambda_cong": 2.3668229912617695,
+  "lambda_frag": 0.7744530393510763,
+  "lambda_aff": 1.213626520152443,
+  "lambda_task_load": 1.0808260993573928,
+  "greedy_load_factor": 1.0261782686206826,
+  "theta_cong_count": 1.0162534841080328
+}
+ratios = {
+  "ratio_ACT": 0.9484805682681401,
+  "ratio_AMS": 0.9993328402940791,
+  "ratio_frag": 1.0000001014905002,
+  "ratio_downloaded": 1.0014457188269195,
+  "ratio_load_var": 0.35680621014693653
+}
+avgs = {
+  "avg_ACT": 843.573162659833,
+  "avg_AMS": 1627.5796810699594,
+  "avg_old_obj": 1235.5764218648958,
+  "avg_frag": 1.5003988812982576,
+  "avg_downloaded": 203473.45679012345,
+  "avg_reuse": 0.34416217928121196,
+  "avg_load_var": 71.5
+}
+[I 2026-05-17 07:50:58,578] Trial 11 finished with value: 0.8574761549937341 and parameters: {'w_load_mode': 'medium', 'w_load_value': 0.20597329474462409, 'w_act_raw': 0.4879783556005952, 'w_ams_raw': 0.11946039329939595, 'w_frag_raw': 0.9746336519010685, 'w_download_raw': 0.36961846354335304, 'lambda_cong': 2.3668229912617695, 'lambda_frag': 0.7744530393510763, 'lambda_aff': 1.213626520152443, 'lambda_task_load': 1.0808260993573928, 'greedy_load_factor': 1.0261782686206826, 'theta_cong_count': 1.0162534841080328}. Best is trial 11 with value: 0.8574761549937341.
+[Trial 12] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 12] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 12] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 12] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 12] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 12] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 12] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 12] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 12] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 12] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 12] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 12] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 12] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 12] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 12] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 12] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 12] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 12] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 12] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 12] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 12] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 12] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 12] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 12] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 12] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 12] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 12] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 12] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 12] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 12] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 12] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 12] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 12] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 12] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 12] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 12] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 12] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 12] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 12] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 12] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 12] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 12] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 12] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 12] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 12] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 12] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 12] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 12] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 12] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 12] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 12] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 12] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 12] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 12] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 12] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 12] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 12] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 12] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 12] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 12] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 12] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 12] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 12] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 12] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 12] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 12] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 12] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 12] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 12] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 12] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 12] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 12] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 12] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 12] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 12] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 12] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 12] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 12] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 12] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 12] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 12] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 12
+score = 0.9432249994896981
+weights = {
+  "w_act": 0.23602119625522539,
+  "w_ams": 0.23599493428478927,
+  "w_frag": 0.38702261809151,
+  "w_download": 0.07040696416900143,
+  "w_load": 0.07055428719947393
+}
+params = {
+  "lambda_cong": 2.002485832594281,
+  "lambda_frag": 0.23017158780279845,
+  "lambda_aff": 1.6990418775817406,
+  "lambda_task_load": 1.1908177568898384,
+  "greedy_load_factor": 0.9286560318847424,
+  "theta_cong_count": 0.939673017602561
+}
+ratios = {
+  "ratio_ACT": 0.959218876074803,
+  "ratio_AMS": 1.0288699746930965,
+  "ratio_frag": 1.000001090245877,
+  "ratio_downloaded": 1.1230491864618788,
+  "ratio_load_var": 0.11235868527246405
+}
+avgs = {
+  "avg_ACT": 853.1237518665489,
+  "avg_AMS": 1675.6858153292183,
+  "avg_old_obj": 1264.4047835978838,
+  "avg_frag": 1.5004003648255682,
+  "avg_downloaded": 228180.8148148148,
+  "avg_reuse": 0.2625475651314475,
+  "avg_load_var": 22.515432098765434
+}
+[I 2026-05-17 09:22:21,304] Trial 12 finished with value: 0.9432249994896981 and parameters: {'w_load_mode': 'small', 'w_load_value': 0.07055428719947393, 'w_act_raw': 0.22730190169582776, 'w_ams_raw': 0.2272766099173048, 'w_frag_raw': 0.37272490135322184, 'w_download_raw': 0.0678059305781089, 'lambda_cong': 2.002485832594281, 'lambda_frag': 0.23017158780279845, 'lambda_aff': 1.6990418775817406, 'lambda_task_load': 1.1908177568898384, 'greedy_load_factor': 0.9286560318847424, 'theta_cong_count': 0.939673017602561}. Best is trial 11 with value: 0.8574761549937341.
+[W 2026-05-17 09:22:21,325] The parameter `w_load_value` in Trial#13 is sampled independently using `RandomSampler` instead of `TPESampler`, potentially degrading the optimization performance. This fallback happend because dynamic search space is not supported for `multivariate=True`. You can suppress this warning by setting `warn_independent_sampling` to `False` in the constructor of `TPESampler` if this independent sampling is intended behavior.
+[Trial 13] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 13] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 13] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 13] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 13] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 13] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 13] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 13] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 13] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 13] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 13] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 13] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 13] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 13] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 13] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 13] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 13] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 13] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 13] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 13] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 13] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 13] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 13] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 13] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 13] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 13] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 13] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 13] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 13] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 13] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 13] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 13] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 13] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 13] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 13] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 13] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 13] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 13] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 13] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 13] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 13] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 13] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 13] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 13] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 13] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 13] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 13] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 13] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 13] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 13] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 13] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 13] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 13] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 13] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 13] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 13] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 13] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 13] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 13] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 13] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 13] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 13] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 13] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 13] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 13] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 13] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 13] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 13] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 13] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 13] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 13] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 13] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 13] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 13] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 13] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 13] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 13] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 13] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 13] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 13] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 13] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 13
+score = 0.9413338462822827
+weights = {
+  "w_act": 0.06537417394650501,
+  "w_ams": 0.12467875894506118,
+  "w_frag": 0.45950155589647745,
+  "w_download": 0.2034836653244884,
+  "w_load": 0.14696184588746794
+}
+params = {
+  "lambda_cong": 2.252589623673583,
+  "lambda_frag": 0.7533130692281096,
+  "lambda_aff": 0.15599535404514975,
+  "lambda_task_load": 1.1185781392884435,
+  "greedy_load_factor": 1.1444493747491125,
+  "theta_cong_count": 0.8435162292347718
+}
+ratios = {
+  "ratio_ACT": 0.9619405051449114,
+  "ratio_AMS": 0.9942712543487229,
+  "ratio_frag": 1.0000025302492592,
+  "ratio_downloaded": 0.9859198421734161,
+  "ratio_load_var": 0.642084835042972
+}
+avgs = {
+  "avg_ACT": 855.5443531092822,
+  "avg_AMS": 1619.3360468107003,
+  "avg_old_obj": 1237.4401999599916,
+  "avg_frag": 1.5004025254048128,
+  "avg_downloaded": 200318.9135802469,
+  "avg_reuse": 0.35280546671483926,
+  "avg_load_var": 128.66666666666666
+}
+[I 2026-05-17 09:50:09,352] Trial 13 finished with value: 0.9413338462822827 and parameters: {'w_load_mode': 'medium', 'w_load_value': 0.14696184588746794, 'w_act_raw': 0.17821492791644622, 'w_ams_raw': 0.33988369866498247, 'w_frag_raw': 1.2526358914851508, 'w_download_raw': 0.5547118159787727, 'lambda_cong': 2.252589623673583, 'lambda_frag': 0.7533130692281096, 'lambda_aff': 0.15599535404514975, 'lambda_task_load': 1.1185781392884435, 'greedy_load_factor': 1.1444493747491125, 'theta_cong_count': 0.8435162292347718}. Best is trial 11 with value: 0.8574761549937341.
+[W 2026-05-17 09:50:09,373] The parameter `w_load_value` in Trial#14 is sampled independently using `RandomSampler` instead of `TPESampler`, potentially degrading the optimization performance. This fallback happend because dynamic search space is not supported for `multivariate=True`. You can suppress this warning by setting `warn_independent_sampling` to `False` in the constructor of `TPESampler` if this independent sampling is intended behavior.
+[Trial 14] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 14] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 14] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 14] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 14] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 14] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 14] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 14] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 14] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 14] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 14] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 14] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 14] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 14] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 14] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 14] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 14] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 14] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 14] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 14] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 14] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 14] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 14] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 14] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 14] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 14] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 14] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 14] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 14] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 14] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 14] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 14] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 14] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 14] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 14] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 14] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 14] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 14] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 14] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 14] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 14] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 14] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 14] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 14] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 14] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 14] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 14] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 14] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 14] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 14] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 14] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 14] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 14] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 14] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 14] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 14] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 14] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 14] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 14] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 14] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 14] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 14] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 14] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 14] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 14] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 14] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 14] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 14] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 14] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 14] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 14] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 14] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 14] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 14] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 14] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 14] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 14] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 14] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 14] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 14] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 14] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 14
+score = 0.9271998319810159
+weights = {
+  "w_act": 0.245064671902441,
+  "w_ams": 0.12958481581850498,
+  "w_frag": 0.3749903023106014,
+  "w_download": 0.027119862086095122,
+  "w_load": 0.22324034788235741
+}
+params = {
+  "lambda_cong": 2.3690349116178973,
+  "lambda_frag": 0.8601686243136607,
+  "lambda_aff": 1.5694650482712207,
+  "lambda_task_load": 0.8882845097948595,
+  "greedy_load_factor": 0.886717552576797,
+  "theta_cong_count": 0.7649385069691086
+}
+ratios = {
+  "ratio_ACT": 0.9880456153117386,
+  "ratio_AMS": 1.0037207364737242,
+  "ratio_frag": 1.0000006640755585,
+  "ratio_downloaded": 1.0234459464427192,
+  "ratio_load_var": 0.6820072082062656
+}
+avgs = {
+  "avg_ACT": 878.7620879599009,
+  "avg_AMS": 1634.726099537037,
+  "avg_old_obj": 1256.744093748469,
+  "avg_frag": 1.5003997254001642,
+  "avg_downloaded": 207943.45679012345,
+  "avg_reuse": 0.3301484168478153,
+  "avg_load_var": 136.66666666666666
+}
+[I 2026-05-17 10:39:14,797] Trial 14 finished with value: 0.9271998319810159 and parameters: {'w_load_mode': 'medium', 'w_load_value': 0.22324034788235741, 'w_act_raw': 0.8198195260668089, 'w_ams_raw': 0.433502558590222, 'w_frag_raw': 1.2544622182111613, 'w_download_raw': 0.0907245924507255, 'lambda_cong': 2.3690349116178973, 'lambda_frag': 0.8601686243136607, 'lambda_aff': 1.5694650482712207, 'lambda_task_load': 0.8882845097948595, 'greedy_load_factor': 0.886717552576797, 'theta_cong_count': 0.7649385069691086}. Best is trial 11 with value: 0.8574761549937341.
+[W 2026-05-17 10:39:14,818] The parameter `w_load_value` in Trial#15 is sampled independently using `RandomSampler` instead of `TPESampler`, potentially degrading the optimization performance. This fallback happend because dynamic search space is not supported for `multivariate=True`. You can suppress this warning by setting `warn_independent_sampling` to `False` in the constructor of `TPESampler` if this independent sampling is intended behavior.
+[Trial 15] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 15] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 15] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 15] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 15] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 15] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 15] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 15] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 15] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 15] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 15] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 15] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 15] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 15] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 15] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 15] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 15] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 15] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 15] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 15] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 15] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 15] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 15] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 15] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 15] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 15] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 15] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 15] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 15] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 15] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 15] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 15] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 15] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 15] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 15] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 15] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 15] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 15] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 15] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 15] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 15] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 15] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 15] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 15] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 15] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 15] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 15] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 15] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 15] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 15] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 15] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 15] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 15] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 15] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 15] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 15] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 15] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 15] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 15] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 15] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 15] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 15] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 15] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 15] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 15] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 15] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 15] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 15] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 15] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 15] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 15] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 15] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 15] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 15] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 15] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 15] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 15] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 15] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 15] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 15] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 15] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 15
+score = 1.5387819651740848
+weights = {
+  "w_act": 0.3820183702964172,
+  "w_ams": 0.06574109952105642,
+  "w_frag": 0.17297663227791357,
+  "w_download": 0.24548928260583827,
+  "w_load": 0.13377461529877455
+}
+params = {
+  "lambda_cong": 2.1502716254430947,
+  "lambda_frag": 0.4804891181230934,
+  "lambda_aff": 2.30494453226333,
+  "lambda_task_load": 0.811517374726384,
+  "greedy_load_factor": 1.1439441882017831,
+  "theta_cong_count": 1.1431552275476147
+}
+ratios = {
+  "ratio_ACT": 1.0646414656144993,
+  "ratio_AMS": 1.0147464976504006,
+  "ratio_frag": 0.8888943632864297,
+  "ratio_downloaded": 1.0841470577923564,
+  "ratio_load_var": 4.824939161506946
+}
+avgs = {
+  "avg_ACT": 946.8859967127181,
+  "avg_AMS": 1652.6833847736632,
+  "avg_old_obj": 1299.7846907431906,
+  "avg_frag": 1.3336959729098148,
+  "avg_downloaded": 220276.6913580247,
+  "avg_reuse": 0.28321582498800607,
+  "avg_load_var": 966.8641975308642
+}
+[I 2026-05-17 11:44:07,034] Trial 15 finished with value: 1.5387819651740848 and parameters: {'w_load_mode': 'medium', 'w_load_value': 0.13377461529877455, 'w_act_raw': 0.7030604410792629, 'w_ams_raw': 0.12098885818094682, 'w_frag_raw': 0.3183434013692925, 'w_download_raw': 0.451794512329794, 'lambda_cong': 2.1502716254430947, 'lambda_frag': 0.4804891181230934, 'lambda_aff': 2.30494453226333, 'lambda_task_load': 0.811517374726384, 'greedy_load_factor': 1.1439441882017831, 'theta_cong_count': 1.1431552275476147}. Best is trial 11 with value: 0.8574761549937341.
+[W 2026-05-17 11:44:07,056] The parameter `w_load_value` in Trial#16 is sampled independently using `RandomSampler` instead of `TPESampler`, potentially degrading the optimization performance. This fallback happend because dynamic search space is not supported for `multivariate=True`. You can suppress this warning by setting `warn_independent_sampling` to `False` in the constructor of `TPESampler` if this independent sampling is intended behavior.
+[Trial 16] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 16] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 16] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 16] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 16] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 16] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 16] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 16] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 16] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 16] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 16] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 16] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 16] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 16] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 16] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 16] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 16] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 16] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 16] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 16] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 16] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 16] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 16] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 16] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 16] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 16] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 16] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 16] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 16] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 16] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 16] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 16] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 16] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 16] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 16] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 16] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 16] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 16] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 16] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 16] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 16] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 16] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 16] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 16] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 16] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 16] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 16] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 16] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 16] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 16] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 16] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 16] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 16] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 16] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 16] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 16] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 16] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 16] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 16] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 16] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 16] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 16] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 16] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 16] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 16] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 16] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 16] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 16] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 16] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 16] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 16] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 16] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 16] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 16] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 16] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 16] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 16] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 16] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 16] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 16] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 16] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 16
+score = 0.9360143869857961
+weights = {
+  "w_act": 0.2583891271314477,
+  "w_ams": 0.16972442978795757,
+  "w_frag": 0.3118332317109851,
+  "w_download": 0.0798551601399987,
+  "w_load": 0.18019805122961097
+}
+params = {
+  "lambda_cong": 1.439671030227863,
+  "lambda_frag": 0.7730441494324098,
+  "lambda_aff": 0.6892490891169196,
+  "lambda_task_load": 1.1287906385610151,
+  "greedy_load_factor": 0.8070837794620394,
+  "theta_cong_count": 1.1298024178400998
+}
+ratios = {
+  "ratio_ACT": 0.983581959465501,
+  "ratio_AMS": 0.9992261523825299,
+  "ratio_frag": 1.0000028816983055,
+  "ratio_downloaded": 0.9982708855269345,
+  "ratio_load_var": 0.6699473246465206
+}
+avgs = {
+  "avg_ACT": 874.7921381209588,
+  "avg_AMS": 1627.4059220679014,
+  "avg_old_obj": 1251.0990300944297,
+  "avg_frag": 1.5004030527185153,
+  "avg_downloaded": 202828.3950617284,
+  "avg_reuse": 0.34603760177577314,
+  "avg_load_var": 134.25
+}
+[I 2026-05-17 12:10:22,998] Trial 16 finished with value: 0.9360143869857961 and parameters: {'w_load_mode': 'medium', 'w_load_value': 0.18019805122961097, 'w_act_raw': 0.44428505502821775, 'w_ams_raw': 0.29183127194672964, 'w_frag_raw': 0.536179080166413, 'w_download_raw': 0.13730629694429003, 'lambda_cong': 1.439671030227863, 'lambda_frag': 0.7730441494324098, 'lambda_aff': 0.6892490891169196, 'lambda_task_load': 1.1287906385610151, 'greedy_load_factor': 0.8070837794620394, 'theta_cong_count': 1.1298024178400998}. Best is trial 11 with value: 0.8574761549937341.
+[W 2026-05-17 12:10:23,019] The parameter `w_load_value` in Trial#17 is sampled independently using `RandomSampler` instead of `TPESampler`, potentially degrading the optimization performance. This fallback happend because dynamic search space is not supported for `multivariate=True`. You can suppress this warning by setting `warn_independent_sampling` to `False` in the constructor of `TPESampler` if this independent sampling is intended behavior.
+[Trial 17] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 17] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 17] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 17] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 17] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 17] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 17] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 17] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 17] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 17] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 17] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 17] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 17] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 17] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 17] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 17] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 17] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 17] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 17] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 17] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 17] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 17] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 17] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 17] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 17] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 17] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 17] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 17] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 17] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 17] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 17] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 17] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 17] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 17] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 17] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 17] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 17] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 17] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 17] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 17] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 17] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 17] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 17] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 17] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 17] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 17] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 17] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 17] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 17] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 17] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 17] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 17] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 17] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 17] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 17] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 17] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 17] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 17] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 17] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 17] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 17] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 17] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 17] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 17] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 17] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 17] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 17] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 17] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 17] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 17] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 17] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 17] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 17] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 17] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 17] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 17] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 17] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 17] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 17] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 17] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 17] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 17
+score = 1.9041670271094644
+weights = {
+  "w_act": 0.09404016867441989,
+  "w_ams": 0.26300729555994656,
+  "w_frag": 0.21836716637252368,
+  "w_download": 0.29276392448407346,
+  "w_load": 0.1318214449090365
+}
+params = {
+  "lambda_cong": 1.9988645516528023,
+  "lambda_frag": 0.9926629827074926,
+  "lambda_aff": 1.672613574395763,
+  "lambda_task_load": 1.1875953855726977,
+  "greedy_load_factor": 1.3137419869842362,
+  "theta_cong_count": 0.9537263605365711
+}
+ratios = {
+  "ratio_ACT": 1.156946323581268,
+  "ratio_AMS": 1.0004485171961486,
+  "ratio_frag": 0.8611193569163541,
+  "ratio_downloaded": 1.0254983774323247,
+  "ratio_load_var": 7.919600776268367
+}
+avgs = {
+  "avg_ACT": 1028.9814065386374,
+  "avg_AMS": 1629.3967463991776,
+  "avg_old_obj": 1329.189076468907,
+  "avg_frag": 1.2920223886535742,
+  "avg_downloaded": 208360.46913580247,
+  "avg_reuse": 0.32951299417269997,
+  "avg_load_var": 1587.0
+}
+[I 2026-05-17 13:10:55,685] Trial 17 finished with value: 1.9041670271094644 and parameters: {'w_load_mode': 'medium', 'w_load_value': 0.1318214449090365, 'w_act_raw': 0.2314609181835432, 'w_ams_raw': 0.6473394399156875, 'w_frag_raw': 0.5374667606638537, 'w_download_raw': 0.7205793835473377, 'lambda_cong': 1.9988645516528023, 'lambda_frag': 0.9926629827074926, 'lambda_aff': 1.672613574395763, 'lambda_task_load': 1.1875953855726977, 'greedy_load_factor': 1.3137419869842362, 'theta_cong_count': 0.9537263605365711}. Best is trial 11 with value: 0.8574761549937341.
+[W 2026-05-17 13:10:55,705] The parameter `w_load_value` in Trial#18 is sampled independently using `RandomSampler` instead of `TPESampler`, potentially degrading the optimization performance. This fallback happend because dynamic search space is not supported for `multivariate=True`. You can suppress this warning by setting `warn_independent_sampling` to `False` in the constructor of `TPESampler` if this independent sampling is intended behavior.
+[Trial 18] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 18] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 18] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 18] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 18] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 18] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 18] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 18] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 18] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 18] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 18] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 18] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 18] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 18] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 18] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 18] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 18] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 18] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 18] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 18] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 18] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 18] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 18] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 18] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 18] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 18] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 18] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 18] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 18] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 18] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 18] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 18] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 18] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 18] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 18] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 18] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 18] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 18] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 18] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 18] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 18] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 18] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 18] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 18] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 18] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 18] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 18] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 18] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 18] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 18] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 18] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 18] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 18] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 18] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 18] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 18] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 18] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 18] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 18] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 18] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 18] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 18] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 18] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 18] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 18] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 18] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 18] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 18] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 18] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 18] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 18] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 18] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 18] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 18] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 18] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 18] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 18] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 18] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 18] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 18] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 18] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 18
+score = 1.8041844677446692
+weights = {
+  "w_act": 0.18900960057196017,
+  "w_ams": 0.20107770553252408,
+  "w_frag": 0.298599462843688,
+  "w_download": 0.08570706084056207,
+  "w_load": 0.2256061702112656
+}
+params = {
+  "lambda_cong": 1.8014933256768024,
+  "lambda_frag": 0.45438250873669506,
+  "lambda_aff": 1.6086439415819738,
+  "lambda_task_load": 0.7806837402898341,
+  "greedy_load_factor": 1.9621648693933227,
+  "theta_cong_count": 0.6607779562873759
+}
+ratios = {
+  "ratio_ACT": 1.0886334692195456,
+  "ratio_AMS": 0.9987789933124801,
+  "ratio_frag": 0.999997123904815,
+  "ratio_downloaded": 0.9995840208847521,
+  "ratio_load_var": 4.491544219573052
+}
+avgs = {
+  "avg_ACT": 968.2243467398673,
+  "avg_AMS": 1626.6776491769544,
+  "avg_old_obj": 1297.4509979584104,
+  "avg_frag": 1.50039441373248,
+  "avg_downloaded": 203095.19753086418,
+  "avg_reuse": 0.3425610615465162,
+  "avg_load_var": 900.0555555555555
+}
+[I 2026-05-17 13:50:38,415] Trial 18 finished with value: 1.8041844677446692 and parameters: {'w_load_mode': 'medium', 'w_load_value': 0.2256061702112656, 'w_act_raw': 0.3587679325276143, 'w_ams_raw': 0.3816749650440889, 'w_frag_raw': 0.5667855580568784, 'w_download_raw': 0.16268456696240724, 'lambda_cong': 1.8014933256768024, 'lambda_frag': 0.45438250873669506, 'lambda_aff': 1.6086439415819738, 'lambda_task_load': 0.7806837402898341, 'greedy_load_factor': 1.9621648693933227, 'theta_cong_count': 0.6607779562873759}. Best is trial 11 with value: 0.8574761549937341.
+[W 2026-05-17 13:50:38,438] The parameter `w_load_value` in Trial#19 is sampled independently using `RandomSampler` instead of `TPESampler`, potentially degrading the optimization performance. This fallback happend because dynamic search space is not supported for `multivariate=True`. You can suppress this warning by setting `warn_independent_sampling` to `False` in the constructor of `TPESampler` if this independent sampling is intended behavior.
+[Trial 19] submit 1/81 drtp_img88_cacheonly_0mb_1000
+[Trial 19] submit 2/81 drtp_img88_cacheonly_0mb_200
+[Trial 19] submit 3/81 drtp_img88_cacheonly_0mb_300
+[Trial 19] submit 4/81 drtp_img88_cacheonly_0mb_400
+[Trial 19] submit 5/81 drtp_img88_cacheonly_0mb_500
+[Trial 19] submit 6/81 drtp_img88_cacheonly_0mb_600
+[Trial 19] submit 7/81 drtp_img88_cacheonly_0mb_700
+[Trial 19] submit 8/81 drtp_img88_cacheonly_0mb_800
+[Trial 19] submit 9/81 drtp_img88_cacheonly_0mb_900
+[Trial 19] submit 10/81 drtp_img88_cacheonly_1024mb_1000
+[Trial 19] submit 11/81 drtp_img88_cacheonly_1024mb_200
+[Trial 19] submit 12/81 drtp_img88_cacheonly_1024mb_300
+[Trial 19] submit 13/81 drtp_img88_cacheonly_1024mb_400
+[Trial 19] submit 14/81 drtp_img88_cacheonly_1024mb_500
+[Trial 19] submit 15/81 drtp_img88_cacheonly_1024mb_600
+[Trial 19] submit 16/81 drtp_img88_cacheonly_1024mb_700
+[Trial 19] submit 17/81 drtp_img88_cacheonly_1024mb_800
+[Trial 19] submit 18/81 drtp_img88_cacheonly_1024mb_900
+[Trial 19] submit 19/81 drtp_img88_cacheonly_128mb_1000
+[Trial 19] submit 20/81 drtp_img88_cacheonly_128mb_200
+[Trial 19] submit 21/81 drtp_img88_cacheonly_128mb_300
+[Trial 19] submit 22/81 drtp_img88_cacheonly_128mb_400
+[Trial 19] submit 23/81 drtp_img88_cacheonly_128mb_500
+[Trial 19] submit 24/81 drtp_img88_cacheonly_128mb_600
+[Trial 19] submit 25/81 drtp_img88_cacheonly_128mb_700
+[Trial 19] submit 26/81 drtp_img88_cacheonly_128mb_800
+[Trial 19] submit 27/81 drtp_img88_cacheonly_128mb_900
+[Trial 19] submit 28/81 drtp_img88_cacheonly_256mb_1000
+[Trial 19] submit 29/81 drtp_img88_cacheonly_256mb_200
+[Trial 19] submit 30/81 drtp_img88_cacheonly_256mb_300
+[Trial 19] submit 31/81 drtp_img88_cacheonly_256mb_400
+[Trial 19] submit 32/81 drtp_img88_cacheonly_256mb_500
+[Trial 19] submit 33/81 drtp_img88_cacheonly_256mb_600
+[Trial 19] submit 34/81 drtp_img88_cacheonly_256mb_700
+[Trial 19] submit 35/81 drtp_img88_cacheonly_256mb_800
+[Trial 19] submit 36/81 drtp_img88_cacheonly_256mb_900
+[Trial 19] submit 37/81 drtp_img88_cacheonly_384mb_1000
+[Trial 19] submit 38/81 drtp_img88_cacheonly_384mb_200
+[Trial 19] submit 39/81 drtp_img88_cacheonly_384mb_300
+[Trial 19] submit 40/81 drtp_img88_cacheonly_384mb_400
+[Trial 19] submit 41/81 drtp_img88_cacheonly_384mb_500
+[Trial 19] submit 42/81 drtp_img88_cacheonly_384mb_600
+[Trial 19] submit 43/81 drtp_img88_cacheonly_384mb_700
+[Trial 19] submit 44/81 drtp_img88_cacheonly_384mb_800
+[Trial 19] submit 45/81 drtp_img88_cacheonly_384mb_900
+[Trial 19] submit 46/81 drtp_img88_cacheonly_512mb_1000
+[Trial 19] submit 47/81 drtp_img88_cacheonly_512mb_200
+[Trial 19] submit 48/81 drtp_img88_cacheonly_512mb_300
+[Trial 19] submit 49/81 drtp_img88_cacheonly_512mb_400
+[Trial 19] submit 50/81 drtp_img88_cacheonly_512mb_500
+[Trial 19] submit 51/81 drtp_img88_cacheonly_512mb_600
+[Trial 19] submit 52/81 drtp_img88_cacheonly_512mb_700
+[Trial 19] submit 53/81 drtp_img88_cacheonly_512mb_800
+[Trial 19] submit 54/81 drtp_img88_cacheonly_512mb_900
+[Trial 19] submit 55/81 drtp_img88_cacheonly_640mb_1000
+[Trial 19] submit 56/81 drtp_img88_cacheonly_640mb_200
+[Trial 19] submit 57/81 drtp_img88_cacheonly_640mb_300
+[Trial 19] submit 58/81 drtp_img88_cacheonly_640mb_400
+[Trial 19] submit 59/81 drtp_img88_cacheonly_640mb_500
+[Trial 19] submit 60/81 drtp_img88_cacheonly_640mb_600
+[Trial 19] submit 61/81 drtp_img88_cacheonly_640mb_700
+[Trial 19] submit 62/81 drtp_img88_cacheonly_640mb_800
+[Trial 19] submit 63/81 drtp_img88_cacheonly_640mb_900
+[Trial 19] submit 64/81 drtp_img88_cacheonly_768mb_1000
+[Trial 19] submit 65/81 drtp_img88_cacheonly_768mb_200
+[Trial 19] submit 66/81 drtp_img88_cacheonly_768mb_300
+[Trial 19] submit 67/81 drtp_img88_cacheonly_768mb_400
+[Trial 19] submit 68/81 drtp_img88_cacheonly_768mb_500
+[Trial 19] submit 69/81 drtp_img88_cacheonly_768mb_600
+[Trial 19] submit 70/81 drtp_img88_cacheonly_768mb_700
+[Trial 19] submit 71/81 drtp_img88_cacheonly_768mb_800
+[Trial 19] submit 72/81 drtp_img88_cacheonly_768mb_900
+[Trial 19] submit 73/81 drtp_img88_cacheonly_896mb_1000
+[Trial 19] submit 74/81 drtp_img88_cacheonly_896mb_200
+[Trial 19] submit 75/81 drtp_img88_cacheonly_896mb_300
+[Trial 19] submit 76/81 drtp_img88_cacheonly_896mb_400
+[Trial 19] submit 77/81 drtp_img88_cacheonly_896mb_500
+[Trial 19] submit 78/81 drtp_img88_cacheonly_896mb_600
+[Trial 19] submit 79/81 drtp_img88_cacheonly_896mb_700
+[Trial 19] submit 80/81 drtp_img88_cacheonly_896mb_800
+[Trial 19] submit 81/81 drtp_img88_cacheonly_896mb_900
+====================================================================================================
+[TRIAL] 19
+score = 0.8098134629055198
+weights = {
+  "w_act": 0.13222286925315152,
+  "w_ams": 0.04183542233094817,
+  "w_frag": 0.2848747904446721,
+  "w_download": 0.17131834737790713,
+  "w_load": 0.36974857059332095
+}
+params = {
+  "lambda_cong": 1.6132419899880268,
+  "lambda_frag": 0.04470098170629366,
+  "lambda_aff": 1.2053842628020894,
+  "lambda_task_load": 0.6567651049944874,
+  "greedy_load_factor": 0.9223458942900218,
+  "theta_cong_count": 0.7126454912202544
+}
+ratios = {
+  "ratio_ACT": 0.9808811526491633,
+  "ratio_AMS": 1.0232706339811983,
+  "ratio_frag": 1.000002166246918,
+  "ratio_downloaded": 1.0955379343361837,
+  "ratio_load_var": 0.4455688014046761
+}
+avgs = {
+  "avg_ACT": 872.3900560709794,
+  "avg_AMS": 1666.5663580246915,
+  "avg_old_obj": 1269.4782070478352,
+  "avg_frag": 1.5004019792561627,
+  "avg_downloaded": 222591.0864197531,
+  "avg_reuse": 0.28495614141689074,
+  "avg_load_var": 89.28703703703704
+}
+[I 2026-05-17 15:12:39,073] Trial 19 finished with value: 0.8098134629055198 and parameters: {'w_load_mode': 'large', 'w_load_value': 0.36974857059332095, 'w_act_raw': 0.36801815470537086, 'w_ams_raw': 0.11644124056995112, 'w_frag_raw': 0.7928968361804674, 'w_download_raw': 0.47683326209235427, 'lambda_cong': 1.6132419899880268, 'lambda_frag': 0.04470098170629366, 'lambda_aff': 1.2053842628020894, 'lambda_task_load': 0.6567651049944874, 'greedy_load_factor': 0.9223458942900218, 'theta_cong_count': 0.7126454912202544}. Best is trial 19 with value: 0.8098134629055198.
+====================================================================================================
+[BEST]
+best_score = 0.8098134629055198
+best_trial = 19
+best_params = {
+  "w_load_mode": "large",
+  "w_load_value": 0.36974857059332095,
+  "w_act_raw": 0.36801815470537086,
+  "w_ams_raw": 0.11644124056995112,
+  "w_frag_raw": 0.7928968361804674,
+  "w_download_raw": 0.47683326209235427,
+  "lambda_cong": 1.6132419899880268,
+  "lambda_frag": 0.04470098170629366,
+  "lambda_aff": 1.2053842628020894,
+  "lambda_task_load": 0.6567651049944874,
+  "greedy_load_factor": 0.9223458942900218,
+  "theta_cong_count": 0.7126454912202544
+}
+best_user_attrs = {
+  "avg_ACT": 872.3900560709794,
+  "avg_AMS": 1666.5663580246915,
+  "avg_downloaded": 222591.0864197531,
+  "avg_frag": 1.5004019792561627,
+  "avg_load_var": 89.28703703703704,
+  "avg_old_obj": 1269.4782070478352,
+  "avg_reuse": 0.28495614141689074,
+  "ratio_ACT": 0.9808811526491633,
+  "ratio_AMS": 1.0232706339811983,
+  "ratio_downloaded": 1.0955379343361837,
+  "ratio_frag": 1.000002166246918,
+  "ratio_load_var": 0.4455688014046761,
+  "score": 0.8098134629055198,
+  "w_act": 0.13222286925315152,
+  "w_ams": 0.04183542233094817,
+  "w_download": 0.17131834737790713,
+  "w_frag": 0.2848747904446721,
+  "w_load": 0.36974857059332095
+}
