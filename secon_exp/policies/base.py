@@ -26,13 +26,13 @@ class PolicySpec:
     debt_lambda: float = 0.0
 
     def __post_init__(self):
-        if self.source_mode not in ("cloud", "p2p"):
+        if self.source_mode not in ("cloud", "p2p", "dragonfly", "peersync"):
             raise ValueError(self.source_mode)
 
-        if self.ordering not in ("fifo", "sjf", "local", "debt"):
+        if self.ordering not in ("fifo", "sjf", "local", "debt", "reuse", "popularity"):
             raise ValueError(self.ordering)
 
-        if self.eviction not in ("lru", "lease"):
+        if self.eviction not in ("lru", "lease", "replica_popularity", "future_reuse"):
             raise ValueError(self.eviction)
 
         if not 0.0 <= self.lease_rho <= 1.0:

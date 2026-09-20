@@ -120,6 +120,11 @@ def simulate(
         for c in case["containers"]
     }
 
+    layer_popularity = Counter()
+    for _layers in tasks.values():
+        for _layer in _layers:
+            layer_popularity[_layer] += 1
+
     if len(tasks) != len(case["containers"]):
         raise ValueError("Duplicate request IDs")
 
@@ -405,6 +410,61 @@ def simulate(
         node: str,
         layer: str,
     ):
+        if policy.eviction == "replica_popularity":
+            holders = sum(
+                1
+                for other in groups
+                if layer in relay_cache[other]
+            )
+
+            pending = sum(
+                1
+                for other in groups
+                if (
+                    layer in need[other]
+                    and layer not in acquired[other]
+                )
+            )
+
+            # PeerSync-style:
+            # 非唯一副本、低需求、低流行度、久未访问的内容优先删除。
+            #
+            # holders <= 1 为 True，min() 时会排在 False 后面，
+            # 因而唯一/稀缺副本得到保护。
+            return (
+                holders <= 1,
+                pending,
+                layer_popularity.get(layer, 0),
+                touched[node].get(
+                    layer,
+                    0.0,
+                ),
+                -sizes[layer],
+                layer,
+            )
+
+        if policy.eviction == "future_reuse":
+            future_local_use = sum(
+                1
+                for cid in groups[node]
+                if (
+                    cid not in ready
+                    and layer in tasks[cid]
+                )
+            )
+
+            # ILR-SA-style:
+            # 局部未来复用价值越低，越先淘汰。
+            return (
+                future_local_use,
+                touched[node].get(
+                    layer,
+                    0.0,
+                ),
+                -sizes[layer],
+                layer,
+            )
+
         if policy.eviction == "lease":
             (
                 scarce,
@@ -641,6 +701,48 @@ def simulate(
                         layer,
                     )
 
+                if policy.ordering == "popularity":
+                    global_waiters = sum(
+                        1
+                        for other in groups
+                        if layer in missing[other]
+                    )
+
+                    score = (
+                        global_waiters
+                        + 0.25 * layer_popularity.get(layer, 0)
+                    ) / max(
+                        sizes[layer],
+                        1e-9,
+                    )
+
+                    return (
+                        -score,
+                        layer,
+                    )
+
+                if policy.ordering == "reuse":
+                    local_users = sum(
+                        1
+                        for cid in groups[n]
+                        if layer in (
+                            tasks[cid]
+                            - acquired[n]
+                        )
+                    )
+
+                    # ILR-SA 思想：
+                    # 优先处理能产生更多 layer reuse bytes 的 layer。
+                    reuse_value = (
+                        local_users
+                        * sizes[layer]
+                    )
+
+                    return (
+                        -reuse_value,
+                        layer,
+                    )
+
                 local_score = (
                     local[layer]
                     / max(
@@ -696,7 +798,11 @@ def simulate(
             ):
                 sources = [None]
 
-                if policy.source_mode == "p2p":
+                if policy.source_mode in (
+                    "p2p",
+                    "dragonfly",
+                    "peersync",
+                ):
                     sources += [
                         s
                         for s in groups
@@ -726,19 +832,116 @@ def simulate(
 
                     options.append(
                         (
-                            -estimate,
-                            source is None,
-                            source or "",
+                            source,
                             path,
+                            estimate,
                         )
                     )
 
-                (
-                    _,
-                    cloud,
-                    source,
-                    path,
-                ) = min(options)
+                if policy.source_mode == "dragonfly":
+                    # Dragonfly-style:
+                    # 优先 P2P parent；根据实时可用速率和当前上传负载
+                    # 选择 parent；没有 peer 时回源。
+                    peer_options = [
+                        x
+                        for x in options
+                        if x[0] is not None
+                    ]
+
+                    if peer_options:
+                        def dragonfly_score(opt):
+                            src, pth, estimate = opt
+
+                            uploads = sum(
+                                1
+                                for f in active
+                                if f["src"] == src
+                            )
+
+                            return (
+                                estimate
+                                / (1.0 + uploads),
+                                -uploads,
+                                src,
+                            )
+
+                        source, path, estimate = max(
+                            peer_options,
+                            key=dragonfly_score,
+                        )
+                    else:
+                        source, path, estimate = options[0]
+
+                elif policy.source_mode == "peersync":
+                    # PeerSync-style:
+                    # 1) 同一网络域优先；
+                    # 2) 高估计传输速率优先；
+                    # 3) 内容价值较高的 peer 优先；
+                    # 无可用 peer 时直接回源。
+                    peer_options = [
+                        x
+                        for x in options
+                        if x[0] is not None
+                    ]
+
+                    if peer_options:
+                        dst_domain = nodes[n].get(
+                            "domain",
+                            nodes[n].get("lan_id"),
+                        )
+
+                        def peersync_score(opt):
+                            src, pth, estimate = opt
+
+                            src_domain = nodes[src].get(
+                                "domain",
+                                nodes[src].get("lan_id"),
+                            )
+
+                            same_domain = (
+                                dst_domain is not None
+                                and src_domain is not None
+                                and dst_domain == src_domain
+                            )
+
+                            inventory_popularity = sum(
+                                layer_popularity.get(x, 0)
+                                for x in relay_cache[src]
+                            )
+
+                            uploads = sum(
+                                1
+                                for f in active
+                                if f["src"] == src
+                            )
+
+                            return (
+                                int(same_domain),
+                                estimate,
+                                inventory_popularity,
+                                -uploads,
+                                src,
+                            )
+
+                        source, path, estimate = max(
+                            peer_options,
+                            key=peersync_score,
+                        )
+                    else:
+                        source, path, estimate = options[0]
+
+                else:
+                    # 原正式 simulator 的 fastest-source 行为。
+                    source, path, estimate = min(
+                        options,
+                        key=lambda opt: (
+                            -opt[2],
+                            opt[0] is None,
+                            opt[0] or "",
+                        ),
+                    )
+
+                cloud = source is None
 
                 if (
                     policy.coalesce
