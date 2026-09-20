@@ -24,3 +24,6 @@ __pycache__/
 .DS_Store
 *.json
 .txt
+# Large external datasets
+datasets/ibm_registry_trace/
+datasets/docker_images/
