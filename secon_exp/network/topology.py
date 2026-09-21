@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, List, Tuple
+from typing import Dict, Tuple
 
 
-@dataclass(frozen=True)
+@dataclass
 class Link:
     lid: str
     capacity_mb_s: float
@@ -13,82 +13,78 @@ class Link:
 
 class EdgeTopology:
     """
-    Multi-domain edge topology.
-
     Registry
-       |
-      WAN
-       |
-      Core
-       |
-    Domain gateways
-       |
+        |
+       WAN
+        |
+       Core
+      / |  \
+    GW0 GW1 GW2 ...
+     |   |   |
     Edge nodes
     """
 
     def __init__(
         self,
-        nodes: List[dict],
-        num_domains: int,
-        wan_capacity: float,
-        core_capacity: float,
-        domain_uplink_capacity: float,
-        access_capacity: float,
-        peer_upload_capacity: float,
-        registry_rtt_ms: float = 40.0,
-        inter_domain_rtt_ms: float = 10.0,
-        intra_domain_rtt_ms: float = 2.0,
+        nodes,
+        num_domains,
+        wan_capacity=100.0,
+        core_capacity=1000.0,
+        domain_capacity=300.0,
+        access_capacity=200.0,
+        peer_upload_capacity=100.0,
+        registry_latency_ms=40.0,
+        inter_domain_latency_ms=10.0,
+        intra_domain_latency_ms=2.0,
     ):
-        if num_domains <= 0:
-            raise ValueError("num_domains must be positive")
-
         self.nodes = {
-            x["eid"]: x
-            for x in nodes
+            n["eid"]: n
+            for n in nodes
         }
 
-        self.num_domains = num_domains
+        self.num_domains = int(num_domains)
 
         self.domain_of: Dict[str, int] = {}
 
-        for i, eid in enumerate(sorted(self.nodes)):
-            explicit = self.nodes[eid].get("domain")
+        for i, eid in enumerate(
+            sorted(self.nodes)
+        ):
+            node = self.nodes[eid]
 
-            if explicit is None:
-                d = i % num_domains
-            else:
-                d = int(explicit)
+            self.domain_of[eid] = int(
+                node.get(
+                    "domain",
+                    i % self.num_domains,
+                )
+            )
 
-            self.domain_of[eid] = d
-
-        self.caps: Dict[str, float] = {}
-
-        self.latency_ms: Dict[str, float] = {}
+        self.capacity = {}
+        self.latency = {}
 
         self._add(
             "wan",
             wan_capacity,
-            registry_rtt_ms / 2.0,
+            registry_latency_ms / 2.0,
         )
 
         self._add(
             "core",
             core_capacity,
-            inter_domain_rtt_ms / 2.0,
+            inter_domain_latency_ms / 2.0,
         )
 
-        for d in range(num_domains):
+        for d in range(self.num_domains):
             self._add(
                 f"domain:{d}",
-                domain_uplink_capacity,
-                inter_domain_rtt_ms / 4.0,
+                domain_capacity,
+                inter_domain_latency_ms / 4.0,
             )
 
-        for eid in self.nodes:
+        for eid, node in self.nodes.items():
             self._add(
                 f"access:{eid}",
                 access_capacity,
-                intra_domain_rtt_ms / 2.0,
+                intra_domain_latency_ms / 2.0,
             )
 
             self._add(
@@ -100,7 +96,7 @@ class EdgeTopology:
             self._add(
                 f"rx:{eid}",
                 float(
-                    self.nodes[eid].get(
+                    node.get(
                         "bandwidth_mb_s",
                         access_capacity,
                     )
@@ -110,21 +106,16 @@ class EdgeTopology:
 
     def _add(
         self,
-        lid: str,
-        capacity: float,
-        latency_ms: float,
+        name,
+        capacity,
+        latency,
     ):
-        if capacity <= 0:
-            raise ValueError(
-                f"invalid capacity for {lid}"
-            )
-
-        self.caps[lid] = float(capacity)
-        self.latency_ms[lid] = float(latency_ms)
+        self.capacity[name] = float(capacity)
+        self.latency[name] = float(latency)
 
     def registry_path(
         self,
-        dst: str,
+        dst,
     ) -> Tuple[str, ...]:
 
         d = self.domain_of[dst]
@@ -139,8 +130,8 @@ class EdgeTopology:
 
     def peer_path(
         self,
-        src: str,
-        dst: str,
+        src,
+        dst,
     ) -> Tuple[str, ...]:
 
         sd = self.domain_of[src]
@@ -167,20 +158,18 @@ class EdgeTopology:
 
     def path_latency_ms(
         self,
-        path: Tuple[str, ...],
-    ) -> float:
-
+        path,
+    ):
         return sum(
-            self.latency_ms[x]
+            self.latency[x]
             for x in path
         )
 
     def same_domain(
         self,
-        a: str,
-        b: str,
-    ) -> bool:
-
+        a,
+        b,
+    ):
         return (
             self.domain_of[a]
             == self.domain_of[b]

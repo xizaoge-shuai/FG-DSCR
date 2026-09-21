@@ -2,22 +2,14 @@ from __future__ import annotations
 
 import copy
 import random
-from typing import Dict
 
 
-def expand_nodes(
-    case: Dict,
-    num_nodes: int,
-    num_domains: int,
-    seed: int,
-) -> Dict:
-
-    if num_nodes < 2:
-        raise ValueError("num_nodes must be >= 2")
-
-    if num_domains < 1:
-        raise ValueError("num_domains must be >= 1")
-
+def expand_case_nodes(
+    case,
+    num_nodes,
+    num_domains,
+    seed=1,
+):
     rng = random.Random(seed)
 
     out = copy.deepcopy(case)
@@ -29,41 +21,51 @@ def expand_nodes(
     nodes = []
 
     for i in range(num_nodes):
+        src = templates[
+            i % len(templates)
+        ]
 
-        base = copy.deepcopy(
-            templates[
-                i % len(templates)
-            ]
-        )
+        n = copy.deepcopy(src)
 
-        eid = f"edge-{i+1}"
+        n["eid"] = f"edge-{i+1}"
 
-        base["eid"] = eid
-
-        base["domain"] = (
+        n["domain"] = (
             i % num_domains
         )
 
-        # 保留原节点资源异构性，
-        # 再加入小幅确定性扰动。
         bw = float(
-            base["bandwidth_mb_s"]
+            n.get(
+                "bandwidth_mb_s",
+                100.0,
+            )
         )
 
-        bw *= rng.uniform(
-            0.8,
-            1.2,
-        )
-
-        base["bandwidth_mb_s"] = round(
-            bw,
+        # 保持原资源分布，只加入小幅异构性
+        n["bandwidth_mb_s"] = round(
+            bw * rng.uniform(
+                0.8,
+                1.2,
+            ),
             3,
         )
 
-        base["initial_cache"] = []
+        n["initial_cache"] = []
 
-        nodes.append(base)
+        nodes.append(n)
 
     out["nodes"] = nodes
+
+    out.setdefault(
+        "metadata",
+        {}
+    )
+
+    out["metadata"].update(
+        {
+            "num_edge_nodes": num_nodes,
+            "num_domains": num_domains,
+            "node_expansion_seed": seed,
+        }
+    )
 
     return out
