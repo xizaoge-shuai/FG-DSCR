@@ -4,9 +4,11 @@ import argparse
 import csv
 import json
 import time
+from collections import Counter
 from pathlib import Path
 
 from secon_exp.network.topology import EdgeTopology
+from secon_exp.adapters.fg_dscr_adapter import FGDSCRAdapter
 from secon_exp.cider_simulator import simulate_cider
 
 
@@ -146,6 +148,10 @@ def main():
 
     args = ap.parse_args()
 
+    adapter = FGDSCRAdapter(
+        "scripts/fg_dscr.py"
+    )
+
     state_root = Path(
         args.state_root
     )
@@ -203,6 +209,52 @@ def main():
         placement = state[
             "placement"
         ]
+
+        # KEEP 的 p_hat 只能使用 warmup/history，
+        # 不能读取 target future workload。
+        original_case = json.loads(
+            Path(
+                state["case"]
+            ).read_text(
+                encoding="utf-8"
+            )
+        )
+
+        warm_case, _ = (
+            adapter.split_windows(
+                original_case,
+                warmup_fraction=0.5,
+                seed=args.seed,
+            )
+        )
+
+        history_count = Counter()
+
+        for container in warm_case[
+            "containers"
+        ]:
+            for layer in set(
+                container["layers"]
+            ):
+                history_count[
+                    layer
+                ] += 1
+
+        history_total = max(
+            1,
+            sum(
+                history_count.values()
+            ),
+        )
+
+        history_probability = {
+            layer: (
+                count
+                / history_total
+            )
+            for layer, count
+            in history_count.items()
+        }
 
         num_nodes = int(
             state["num_nodes"]
@@ -263,6 +315,9 @@ def main():
             case=case,
             placement=placement,
             topology=topology,
+            history_probability=(
+                history_probability
+            ),
 
             pulse_budget_mb=(
                 args.pulse_budget_mb

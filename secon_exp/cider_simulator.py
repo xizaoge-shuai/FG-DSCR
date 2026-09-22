@@ -23,22 +23,33 @@ def percentile(values, q):
     if len(xs) == 1:
         return xs[0]
 
-    pos = (len(xs) - 1) * q
-    lo = int(math.floor(pos))
-    hi = int(math.ceil(pos))
+    pos = (
+        (len(xs) - 1) * q
+    )
+
+    lo = int(
+        math.floor(pos)
+    )
+
+    hi = int(
+        math.ceil(pos)
+    )
 
     if lo == hi:
         return xs[lo]
 
-    frac = pos - lo
+    f = pos - lo
 
     return (
-        xs[lo] * (1.0 - frac)
-        + xs[hi] * frac
+        xs[lo] * (1 - f)
+        + xs[hi] * f
     )
 
 
-def weighted_percentile(samples, q):
+def weighted_percentile(
+    samples,
+    q,
+):
     xs = [
         (float(v), float(w))
         for v, w in samples
@@ -48,17 +59,28 @@ def weighted_percentile(samples, q):
     if not xs:
         return 0.0
 
-    xs.sort(key=lambda x: x[0])
+    xs.sort(
+        key=lambda x: x[0]
+    )
 
-    total = sum(w for _, w in xs)
-    target = q * total
+    total = sum(
+        w for _, w in xs
+    )
+
+    target = (
+        q * total
+    )
 
     acc = 0.0
 
     for value, weight in xs:
+
         acc += weight
 
-        if acc + EPS >= target:
+        if (
+            acc + EPS
+            >= target
+        ):
             return value
 
     return xs[-1][0]
@@ -68,43 +90,32 @@ def simulate_cider(
     case,
     placement,
     topology,
+    history_probability,
 
     pulse_budget_mb=2048.0,
     pulse_max_transfers=0,
     pulse_quantum_mb=8.0,
 
+    scout_alpha=1.0,
+    scout_beta=0.02,
+    scout_gamma=1.0,
     scout_source_concurrency=0,
-    scout_registry_penalty=0.02,
-    scout_cross_domain_penalty=0.005,
-    scout_congestion_penalty=1.0,
 
     keep_v=1.0,
     keep_registry_budget_rate_mb_s=3.0,
 ):
     """
-    CIDER workflow:
+    Strict CIDER scheduling semantics:
 
-        missing layer demands
-               |
-             PULSE
-        what to transmit
-               |
-             SCOUT
-        where to retrieve
-               |
-        network transfer
-               |
-              KEEP
-        future source preservation
-               |
-         next scheduling cycle
+      Cycle t
+        1. Construct ALL missing (node, layer)
+        2. PULSE selects D(t)
+        3. SCOUT jointly assigns sources
+        4. Execute the WHOLE batch
+        5. KEEP performs batch retention
+        6. Update Lyapunov queue
+        7. Enter next cycle
     """
-
-    algorithm_time = {
-        "pulse_ms": 0.0,
-        "scout_ms": 0.0,
-        "keep_ms": 0.0,
-    }
 
     sizes = {
         str(k): float(v)
@@ -115,57 +126,59 @@ def simulate_cider(
 
     nodes = {
         n["eid"]: n
-        for n in case["nodes"]
+        for n in case[
+            "nodes"
+        ]
     }
 
     containers = {
         c["cid"]: c
-        for c in case["containers"]
+        for c in case[
+            "containers"
+        ]
     }
 
     groups = {
         node: list(
-            placement.get(node, [])
+            placement.get(
+                node,
+                [],
+            )
         )
         for node in nodes
     }
 
     assigned = set()
 
-    for cids in groups.values():
-        assigned.update(cids)
+    for cids in (
+        groups.values()
+    ):
+        assigned.update(
+            cids
+        )
 
-    accepted = len(assigned)
+    accepted = len(
+        assigned
+    )
 
     excluded = (
         len(containers)
         - accepted
     )
 
-    # ---------------------------------------------
-    # Container -> unique layer set
-    # ---------------------------------------------
-
-    tasks = {}
-
-    for cid in assigned:
-        tasks[cid] = set(
-            containers[cid]["layers"]
+    tasks = {
+        cid: set(
+            containers[cid][
+                "layers"
+            ]
         )
-
-    popularity = Counter()
-
-    for layers in tasks.values():
-        for layer in layers:
-            popularity[layer] += 1
-
-    # ---------------------------------------------
-    # Per-node layer demand
-    # ---------------------------------------------
+        for cid in assigned
+    }
 
     need = {}
 
     for node in nodes:
+
         required = set()
 
         for cid in groups[node]:
@@ -174,17 +187,6 @@ def simulate_cider(
             )
 
         need[node] = required
-
-    # ---------------------------------------------
-    # Layer states
-    #
-    # acquired:
-    #   deployment can use the layer.
-    #
-    # relay_cache:
-    #   layer is physically preserved and may
-    #   serve as a future communication source.
-    # ---------------------------------------------
 
     acquired = {}
     relay_cache = {}
@@ -198,10 +200,17 @@ def simulate_cider(
             )
         )
 
-        initial &= set(sizes)
+        initial &= set(
+            sizes
+        )
 
-        acquired[node] = set(initial)
-        relay_cache[node] = set(initial)
+        acquired[node] = set(
+            initial
+        )
+
+        relay_cache[node] = set(
+            initial
+        )
 
     cache_capacity = {
         node: float(
@@ -216,15 +225,15 @@ def simulate_cider(
         for node in nodes
     }
 
-    # ---------------------------------------------
-    # Container readiness
-    # ---------------------------------------------
-
     ready = {}
 
     def update_ready(now):
+
         for node in nodes:
-            for cid in groups[node]:
+
+            for cid in (
+                groups[node]
+            ):
 
                 if cid in ready:
                     continue
@@ -233,48 +242,39 @@ def simulate_cider(
                     tasks[cid]
                     <= acquired[node]
                 ):
-                    ready[cid] = now
+                    ready[cid] = (
+                        now
+                    )
 
-    update_ready(0.0)
-
-    # ---------------------------------------------
-    # CIDER modules
-    # ---------------------------------------------
+    update_ready(
+        0.0
+    )
 
     pulse = PulseScheduler(
-        quantum_mb=pulse_quantum_mb,
-        max_candidates_per_node=8,
+        quantum_mb=(
+            pulse_quantum_mb
+        )
     )
 
     scout = ScoutOptimizer(
-        registry_penalty=(
-            scout_registry_penalty
-        ),
-        cross_domain_penalty=(
-            scout_cross_domain_penalty
-        ),
-        congestion_penalty=(
-            scout_congestion_penalty
-        ),
+        alpha=scout_alpha,
+        beta=scout_beta,
+        gamma=scout_gamma,
         source_concurrency=(
             scout_source_concurrency
         ),
     )
 
     keep = KeepOptimizer(
+        history_probability=(
+            history_probability
+        ),
         V=keep_v,
         registry_budget_rate_mb_s=(
             keep_registry_budget_rate_mb_s
         ),
         quantum_mb=8.0,
     )
-
-    # ---------------------------------------------
-    # Network flows
-    # ---------------------------------------------
-
-    active = []
-    pending = []
 
     now = 0.0
 
@@ -284,356 +284,182 @@ def simulate_cider(
     same_domain_peer_mb = 0.0
     cross_domain_peer_mb = 0.0
 
-    not_preserved_mb = 0.0
     evicted_mb = 0.0
+    not_preserved_mb = 0.0
 
     transfer_times = []
-
-    link_bytes = {
-        lid: 0.0
-        for lid in topology.capacity
-    }
-
-    link_peak_utilization = {
-        lid: 0.0
-        for lid in topology.capacity
-    }
-
-    link_busy_time = {
-        lid: 0.0
-        for lid in topology.capacity
-    }
-
-    utilization_samples = []
-
-    wan_busy_time_s = 0.0
-
-    # ---------------------------------------------
-    # KEEP helpers
-    # ---------------------------------------------
-
-    def pinned_layers(node):
-        result = set()
-
-        for f in active + pending:
-            if (
-                f["src"] == node
-            ):
-                result.add(
-                    f["layer"]
-                )
-
-        return result
-
-    def preserve_layer(
-        node,
-        new_layer,
-    ):
-        """
-        KEEP is triggered by storage pressure.
-
-        If capacity is still available, keeping an
-        additional communication source cannot hurt
-        the feasible source set, so no unnecessary
-        proactive deletion is performed.
-        """
-
-        nonlocal evicted_mb
-        nonlocal not_preserved_mb
-
-        if (
-            new_layer
-            in relay_cache[node]
-        ):
-            return
-
-        old_cache = set(
-            relay_cache[node]
-        )
-
-        current_bytes = sum(
-            sizes[layer]
-            for layer in old_cache
-        )
-
-        new_size = sizes[
-            new_layer
-        ]
-
-        # No storage pressure: simply preserve it.
-        if (
-            current_bytes
-            + new_size
-            <= cache_capacity[node]
-            + EPS
-        ):
-            relay_cache[node].add(
-                new_layer
-            )
-            return
-
-        t0 = time.perf_counter()
-
-        pins = pinned_layers(
-            node
-        )
-
-        pinned_bytes = sum(
-            sizes[layer]
-            for layer in pins
-        )
-
-        if (
-            pinned_bytes
-            > cache_capacity[node]
-            + EPS
-        ):
-            raise RuntimeError(
-                f"Pinned layers exceed cache "
-                f"capacity at {node}"
-            )
-
-        remaining_capacity = (
-            cache_capacity[node]
-            - pinned_bytes
-        )
-
-        candidates = (
-            old_cache
-            | {new_layer}
-        ) - pins
-
-        remaining_need = {
-            dst: (
-                need[dst]
-                - acquired[dst]
-            )
-            for dst in nodes
-        }
-
-        selected = (
-            keep.choose_retention(
-                node=node,
-                candidate_layers=(
-                    candidates
-                ),
-                capacity_mb=(
-                    remaining_capacity
-                ),
-                nodes=nodes,
-                relay_cache=(
-                    relay_cache
-                ),
-                need=remaining_need,
-                topology=topology,
-                sizes=sizes,
-                popularity=popularity,
-            )
-        )
-
-        new_cache = (
-            set(pins)
-            | set(selected)
-        )
-
-        used = sum(
-            sizes[layer]
-            for layer in new_cache
-        )
-
-        if (
-            used
-            > cache_capacity[node]
-            + 1e-7
-        ):
-            raise RuntimeError(
-                f"KEEP cache overflow "
-                f"node={node}: "
-                f"{used} > "
-                f"{cache_capacity[node]}"
-            )
-
-        removed = (
-            old_cache
-            - new_cache
-        )
-
-        evicted_mb += sum(
-            sizes[layer]
-            for layer in removed
-        )
-
-        if (
-            new_layer
-            not in new_cache
-        ):
-            not_preserved_mb += (
-                new_size
-            )
-
-        relay_cache[node] = (
-            new_cache
-        )
-
-        algorithm_time[
-            "keep_ms"
-        ] += (
-            time.perf_counter()
-            - t0
-        ) * 1000.0
-
-    # ---------------------------------------------
-    # PULSE + SCOUT scheduling cycle
-    # ---------------------------------------------
 
     scheduling_cycles = 0
     pulse_selected_total = 0
 
-    def schedule_cycle():
-        nonlocal scheduling_cycles
-        nonlocal pulse_selected_total
+    pulse_ms = 0.0
+    scout_ms = 0.0
+    keep_ms = 0.0
 
-        busy_dst = {
-            f["dst"]
-            for f in (
-                active + pending
-            )
-        }
+    link_bytes = {
+        lid: 0.0
+        for lid
+        in topology.capacity
+    }
 
-        idle_nodes = [
-            node
-            for node in nodes
-            if (
-                node not in busy_dst
-                and (
-                    need[node]
-                    - acquired[node]
-                )
-            )
-        ]
+    link_peak = {
+        lid: 0.0
+        for lid
+        in topology.capacity
+    }
 
-        if not idle_nodes:
-            return 0
+    link_busy = {
+        lid: 0.0
+        for lid
+        in topology.capacity
+    }
 
-        # Ensure the communication budget can admit
-        # at least one currently missing layer.
-        min_missing_size = min(
-            sizes[layer]
-            for node in idle_nodes
-            for layer in (
+    util_samples = []
+
+    wan_busy_time_s = 0.0
+
+    while (
+        len(ready)
+        < accepted
+    ):
+        scheduling_cycles += 1
+
+        remaining_pairs = sum(
+            len(
                 need[node]
                 - acquired[node]
             )
+            for node in nodes
         )
 
-        effective_budget = max(
-            pulse_budget_mb,
-            math.ceil(
-                min_missing_size
-                / pulse_quantum_mb
-            )
-            * pulse_quantum_mb,
-        )
+        if remaining_pairs <= 0:
+            break
 
-        max_transfers = (
-            len(idle_nodes)
-            if pulse_max_transfers <= 0
-            else min(
-                pulse_max_transfers,
-                len(idle_nodes),
+        # -------------------------------------
+        # 1. PULSE
+        # -------------------------------------
+
+        k = (
+            int(
+                pulse_max_transfers
             )
         )
 
-        # -------------------------
-        # PULSE
-        # -------------------------
+        if k <= 0:
+            # K(t): current scheduling window
+            # transmission concurrency budget.
+            #
+            # Use N slots by default, but unlike
+            # previous implementation multiple
+            # items may belong to the same node.
+            k = len(nodes)
 
-        t0 = time.perf_counter()
+        t0 = (
+            time.perf_counter()
+        )
 
         selected = pulse.select(
-            idle_nodes=idle_nodes,
+            nodes=list(nodes),
             groups=groups,
             tasks=tasks,
             acquired=acquired,
             need=need,
             sizes=sizes,
-            budget_mb=effective_budget,
-            max_transfers=max_transfers,
+            budget_mb=(
+                pulse_budget_mb
+            ),
+            max_transfers=k,
         )
 
-        algorithm_time[
-            "pulse_ms"
-        ] += (
+        pulse_ms += (
             time.perf_counter()
             - t0
         ) * 1000.0
 
         if not selected:
-            return 0
+            raise RuntimeError(
+                "PULSE selected no layer "
+                f"with {remaining_pairs} "
+                "missing demands remaining. "
+                "Increase pulse budget."
+            )
 
-        # -------------------------
-        # SCOUT
-        # -------------------------
+        pulse_selected_total += (
+            len(selected)
+        )
 
-        t0 = time.perf_counter()
+        # -------------------------------------
+        # 2. SCOUT
+        # -------------------------------------
+
+        t0 = (
+            time.perf_counter()
+        )
 
         assignment = scout.choose(
             demands=selected,
             relay_cache=relay_cache,
             topology=topology,
-            active=(
-                active + pending
-            ),
-            sizes=sizes,
+            active=[],
         )
 
-        algorithm_time[
-            "scout_ms"
-        ] += (
+        scout_ms += (
             time.perf_counter()
             - t0
         ) * 1000.0
 
-        started = 0
+        # -------------------------------------
+        # 3. Build complete batch.
+        # -------------------------------------
+
+        active = []
+        pending = []
+
+        batch_registry_mb = 0.0
+
+        newly_arrived = {
+            node: set()
+            for node in nodes
+        }
+
+        batch_start = now
 
         for item in selected:
 
-            dst = item.node
-            layer = item.layer
-
-            source = assignment.get(
+            src = assignment[
                 (
-                    dst,
-                    layer,
+                    item.node,
+                    item.layer,
                 )
-            )
+            ]
 
-            if source is None:
+            if src is None:
                 path = (
                     topology.registry_path(
-                        dst
+                        item.node
                     )
                 )
             else:
                 path = (
                     topology.peer_path(
-                        source,
-                        dst,
+                        src,
+                        item.node,
                     )
                 )
 
             latency_s = (
-                topology
-                .path_latency_ms(path)
+                topology.path_latency_ms(
+                    path
+                )
                 / 1000.0
             )
 
             flow = {
-                "dst": dst,
-                "src": source,
-                "layer": layer,
-                "size": sizes[layer],
-                "remaining": sizes[layer],
+                "dst": item.node,
+                "src": src,
+                "layer": item.layer,
+                "size": item.size_mb,
+                "remaining": item.size_mb,
                 "path": tuple(path),
                 "created_at": now,
                 "ready_at": (
@@ -642,284 +468,339 @@ def simulate_cider(
             }
 
             if latency_s <= EPS:
-                active.append(flow)
+                active.append(
+                    flow
+                )
             else:
-                pending.append(flow)
+                pending.append(
+                    flow
+                )
 
-            started += 1
+        # -------------------------------------
+        # 4. Execute WHOLE batch.
+        #
+        # No new PULSE scheduling is allowed
+        # before this batch becomes empty.
+        # -------------------------------------
 
-        scheduling_cycles += 1
-        pulse_selected_total += (
-            len(selected)
-        )
+        while (
+            active or pending
+        ):
+            newly_active = [
+                f
+                for f in pending
+                if (
+                    f["ready_at"]
+                    <= now + EPS
+                )
+            ]
 
-        return started
+            for f in newly_active:
+                pending.remove(f)
+                active.append(f)
 
-    # ---------------------------------------------
-    # Event-driven simulation
-    # ---------------------------------------------
+            if not active:
 
-    schedule_cycle()
-
-    safety = 0
-
-    while (
-        len(ready)
-        < accepted
-    ):
-        safety += 1
-
-        if safety > 10_000_000:
-            raise RuntimeError(
-                "CIDER simulation exceeded "
-                "safety limit"
-            )
-
-        # Activate propagation-complete flows.
-        newly_active = [
-            f
-            for f in pending
-            if (
-                f["ready_at"]
-                <= now + EPS
-            )
-        ]
-
-        for f in newly_active:
-            pending.remove(f)
-            active.append(f)
-
-        # Fill currently available transfer slots.
-        schedule_cycle()
-
-        if not active:
-
-            if pending:
                 now = min(
                     f["ready_at"]
                     for f in pending
                 )
+
                 continue
 
-            # No active/pending flow but requests
-            # remain -> this would be a scheduler bug.
-            remaining = sum(
-                len(
-                    need[node]
-                    - acquired[node]
+            rates = fair_rates(
+                [
+                    f["path"]
+                    for f in active
+                ],
+                topology.capacity,
+            )
+
+            dt = min(
+                f["remaining"]
+                / max(
+                    rates[i],
+                    EPS,
                 )
-                for node in nodes
+                for i, f
+                in enumerate(active)
             )
 
-            raise RuntimeError(
-                "CIDER deadlock: "
-                f"{remaining} layers remain"
-            )
+            if pending:
 
-        paths = [
-            f["path"]
-            for f in active
-        ]
-
-        rates = fair_rates(
-            paths,
-            topology.capacity,
-        )
-
-        dt_completion = min(
-            f["remaining"]
-            / max(
-                rates[i],
-                EPS,
-            )
-            for i, f in enumerate(
-                active
-            )
-        )
-
-        dt = dt_completion
-
-        if pending:
-            next_activation = min(
-                f["ready_at"]
-                for f in pending
-            )
-
-            until_activation = (
-                next_activation - now
-            )
-
-            if until_activation > EPS:
-                dt = min(
-                    dt,
-                    until_activation,
+                next_activation = min(
+                    f["ready_at"]
+                    for f
+                    in pending
                 )
 
-        if dt <= EPS:
-            now += EPS
-            continue
-
-        # -----------------------------------------
-        # Link utilization for this event interval
-        # -----------------------------------------
-
-        link_rate = Counter()
-
-        for i, f in enumerate(active):
-
-            rate = rates[i]
-
-            for lid in f["path"]:
-                link_rate[lid] += (
-                    rate
+                delta = (
+                    next_activation
+                    - now
                 )
 
-        for lid, cap in (
-            topology.capacity.items()
-        ):
-            util = min(
-                1.0,
+                if delta > EPS:
+                    dt = min(
+                        dt,
+                        delta,
+                    )
+
+            if dt <= EPS:
+                now += EPS
+                continue
+
+            link_rate = Counter()
+
+            for i, f in (
+                enumerate(active)
+            ):
+                for lid in f["path"]:
+
+                    link_rate[lid] += (
+                        rates[i]
+                    )
+
+            for lid, cap in (
+                topology.capacity.items()
+            ):
+                util = min(
+                    1.0,
+                    link_rate.get(
+                        lid,
+                        0.0,
+                    )
+                    / cap,
+                )
+
+                link_peak[lid] = max(
+                    link_peak[lid],
+                    util,
+                )
+
+                util_samples.append(
+                    (
+                        util,
+                        dt,
+                    )
+                )
+
+                if util > EPS:
+                    link_busy[lid] += (
+                        dt
+                    )
+
+            if (
                 link_rate.get(
-                    lid,
+                    "wan",
                     0.0,
                 )
-                / cap,
-            )
-
-            link_peak_utilization[
-                lid
-            ] = max(
-                link_peak_utilization[
-                    lid
-                ],
-                util,
-            )
-
-            utilization_samples.append(
-                (
-                    util,
-                    dt,
+                > EPS
+            ):
+                wan_busy_time_s += (
+                    dt
                 )
-            )
 
-            if util > EPS:
-                link_busy_time[
-                    lid
-                ] += dt
+            for i, f in (
+                enumerate(active)
+            ):
+                amount = min(
+                    f["remaining"],
+                    rates[i] * dt,
+                )
 
-        if (
-            link_rate.get(
-                "wan",
-                0.0,
-            )
-            > EPS
-        ):
-            wan_busy_time_s += dt
-
-        # -----------------------------------------
-        # Transfer bytes
-        # -----------------------------------------
-
-        registry_interval_mb = 0.0
-
-        for i, f in enumerate(active):
-
-            amount = min(
-                f["remaining"],
-                rates[i] * dt,
-            )
-
-            f["remaining"] -= (
-                amount
-            )
-
-            if f["src"] is None:
-                registry_interval_mb += (
+                f["remaining"] -= (
                     amount
                 )
 
-            for lid in f["path"]:
-                link_bytes[lid] += (
-                    amount
+                for lid in f["path"]:
+                    link_bytes[lid] += (
+                        amount
+                    )
+
+            now += dt
+
+            completed = [
+                f
+                for f in active
+                if (
+                    f["remaining"]
+                    <= EPS
+                )
+            ]
+
+            for f in completed:
+
+                active.remove(f)
+
+                dst = f["dst"]
+                src = f["src"]
+                layer = f["layer"]
+                size = f["size"]
+
+                acquired[dst].add(
+                    layer
                 )
 
-        # Lyapunov queue is updated using actual
-        # Registry bytes transferred during this
-        # event interval.
-        keep.update_virtual_queue(
-            registry_mb=(
-                registry_interval_mb
-            ),
-            duration_s=dt,
+                newly_arrived[
+                    dst
+                ].add(
+                    layer
+                )
+
+                transfer_times.append(
+                    now
+                    - f["created_at"]
+                )
+
+                if src is None:
+
+                    registry_mb += (
+                        size
+                    )
+
+                    batch_registry_mb += (
+                        size
+                    )
+
+                else:
+                    peer_mb += (
+                        size
+                    )
+
+                    if topology.same_domain(
+                        src,
+                        dst,
+                    ):
+                        same_domain_peer_mb += (
+                            size
+                        )
+                    else:
+                        cross_domain_peer_mb += (
+                            size
+                        )
+
+                # Container readiness can become
+                # true immediately when a layer
+                # completes, even though the next
+                # scheduling cycle waits for the
+                # full batch.
+                update_ready(
+                    now
+                )
+
+        batch_duration = (
+            now - batch_start
         )
 
-        now += dt
+        # -------------------------------------
+        # 5. KEEP
+        #
+        # One unified retention decision per
+        # node AFTER the whole batch.
+        # -------------------------------------
 
-        completed = [
-            f
-            for f in active
+        t0 = (
+            time.perf_counter()
+        )
+
+        for node in nodes:
+
+            if not newly_arrived[node]:
+                continue
+
+            old_cache = set(
+                relay_cache[node]
+            )
+
+            candidates = (
+                old_cache
+                | newly_arrived[node]
+            )
+
+            selected_cache = (
+                keep.choose_retention(
+                    node=node,
+                    candidate_layers=(
+                        candidates
+                    ),
+                    capacity_mb=(
+                        cache_capacity[
+                            node
+                        ]
+                    ),
+                    nodes=list(nodes),
+                    relay_cache=(
+                        relay_cache
+                    ),
+                    topology=topology,
+                    sizes=sizes,
+                )
+            )
+
+            removed = (
+                old_cache
+                - selected_cache
+            )
+
+            evicted_mb += sum(
+                sizes[x]
+                for x in removed
+            )
+
+            not_preserved_mb += sum(
+                sizes[x]
+                for x in (
+                    newly_arrived[node]
+                    - selected_cache
+                )
+            )
+
+            relay_cache[node] = (
+                selected_cache
+            )
+
+            used = sum(
+                sizes[x]
+                for x
+                in relay_cache[node]
+            )
+
             if (
-                f["remaining"]
-                <= EPS
-            )
-        ]
+                used
+                > cache_capacity[node]
+                + 1e-7
+            ):
+                raise RuntimeError(
+                    f"KEEP overflow "
+                    f"{node}: "
+                    f"{used} > "
+                    f"{cache_capacity[node]}"
+                )
 
-        if not completed:
-            continue
+        keep_ms += (
+            time.perf_counter()
+            - t0
+        ) * 1000.0
 
-        for f in completed:
-            active.remove(f)
+        # -------------------------------------
+        # 6. Lyapunov Q(t+1)
+        # -------------------------------------
 
-            dst = f["dst"]
-            src = f["src"]
-            layer = f["layer"]
-            size = f["size"]
-
-            acquired[dst].add(
-                layer
-            )
-
-            transfer_times.append(
-                now
-                - f["created_at"]
-            )
-
-            if src is None:
-                registry_mb += size
-            else:
-                peer_mb += size
-
-                if topology.same_domain(
-                    src,
-                    dst,
-                ):
-                    same_domain_peer_mb += (
-                        size
-                    )
-                else:
-                    cross_domain_peer_mb += (
-                        size
-                    )
-
-            # KEEP:
-            # decide whether this completed layer
-            # remains a future communication source.
-            preserve_layer(
-                dst,
-                layer,
-            )
-
-        update_ready(now)
-
-    # ---------------------------------------------
-    # Results
-    # ---------------------------------------------
+        keep.update_virtual_queue(
+            registry_mb=(
+                batch_registry_mb
+            ),
+            duration_s=max(
+                batch_duration,
+                EPS,
+            ),
+        )
 
     ready_values = list(
         ready.values()
     )
 
-    mean_ready_s = (
+    mean_ready = (
         statistics.mean(
             ready_values
         )
@@ -927,49 +808,29 @@ def simulate_cider(
         else 0.0
     )
 
-    p95_ready_s = percentile(
+    p95_ready = percentile(
         ready_values,
         0.95,
     )
 
-    makespan_s = (
+    makespan = (
         max(ready_values)
         if ready_values
         else 0.0
     )
 
-    total_transfer_mb = (
+    total_transfer = (
         registry_mb
         + peer_mb
     )
 
-    p2p_offload_pct = (
+    offload = (
         100.0
         * peer_mb
         / max(
-            total_transfer_mb,
+            total_transfer,
             EPS,
         )
-    )
-
-    peak_link_utilization = max(
-        link_peak_utilization.values(),
-        default=0.0,
-    )
-
-    p95_link_utilization = (
-        weighted_percentile(
-            utilization_samples,
-            0.95,
-        )
-    )
-
-    avg_layer_transfer_s = (
-        statistics.mean(
-            transfer_times
-        )
-        if transfer_times
-        else 0.0
     )
 
     return {
@@ -979,13 +840,13 @@ def simulate_cider(
         "excluded": excluded,
 
         "mean_ready_s": (
-            mean_ready_s
+            mean_ready
         ),
         "p95_ready_s": (
-            p95_ready_s
+            p95_ready
         ),
         "makespan_s": (
-            makespan_s
+            makespan
         ),
 
         "registry_mb": (
@@ -995,7 +856,7 @@ def simulate_cider(
             peer_mb
         ),
         "total_transfer_mb": (
-            total_transfer_mb
+            total_transfer
         ),
 
         "same_domain_peer_mb": (
@@ -1006,14 +867,19 @@ def simulate_cider(
         ),
 
         "p2p_offload_pct": (
-            p2p_offload_pct
+            offload
         ),
 
-        "peak_link_utilization": (
-            peak_link_utilization
+        "peak_link_utilization": max(
+            link_peak.values(),
+            default=0.0,
         ),
+
         "p95_link_utilization": (
-            p95_link_utilization
+            weighted_percentile(
+                util_samples,
+                0.95,
+            )
         ),
 
         "wan_busy_time_s": (
@@ -1021,47 +887,41 @@ def simulate_cider(
         ),
 
         "avg_layer_transfer_s": (
-            avg_layer_transfer_s
+            statistics.mean(
+                transfer_times
+            )
+            if transfer_times
+            else 0.0
         ),
 
         "evicted_mb": (
             evicted_mb
         ),
+
         "not_preserved_mb": (
             not_preserved_mb
         ),
 
         "pulse_ms": (
-            algorithm_time[
-                "pulse_ms"
-            ]
+            pulse_ms
         ),
         "scout_ms": (
-            algorithm_time[
-                "scout_ms"
-            ]
+            scout_ms
         ),
         "keep_ms": (
-            algorithm_time[
-                "keep_ms"
-            ]
+            keep_ms
         ),
 
         "scheduler_runtime_ms": (
-            algorithm_time[
-                "pulse_ms"
-            ]
-            + algorithm_time[
-                "scout_ms"
-            ]
-            + algorithm_time[
-                "keep_ms"
-            ]
+            pulse_ms
+            + scout_ms
+            + keep_ms
         ),
 
         "scheduling_cycles": (
             scheduling_cycles
         ),
+
         "pulse_selected_total": (
             pulse_selected_total
         ),
@@ -1070,15 +930,19 @@ def simulate_cider(
             keep.virtual_queue
         ),
 
+        "simulation_end_s": (
+            now
+        ),
+
         "link_bytes": (
             link_bytes
         ),
+
         "link_busy_time_s": (
-            link_busy_time
-        ),
-        "link_peak_utilization": (
-            link_peak_utilization
+            link_busy
         ),
 
-        "simulation_end_s": now,
+        "link_peak_utilization": (
+            link_peak
+        ),
     }

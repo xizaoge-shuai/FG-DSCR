@@ -11,26 +11,29 @@ class KeepOptimizer:
     KEEP:
     Knowledge-guided Efficient Edge-layer Preservation.
 
-    Event-driven Lyapunov formulation:
+    Objective:
 
-        Q(t+dt) =
-            [Q(t)
-             + B_WAN(t,t+dt)
-             - B_bar * dt]^+
+        max sum z_{n,l} [
+            V G_{n,l}
+            + Q(t) DeltaB_{n,l}
+        ]
 
-    B_bar is therefore expressed in MB/s.
+    subject to:
 
-    When storage pressure occurs, KEEP solves a
-    quantized 0/1 capacity-constrained preservation
-    subproblem instead of using plain LRU/LFU.
+        sum s_l z_{n,l} <= M_n
     """
 
     def __init__(
         self,
+        history_probability,
         V=1.0,
         registry_budget_rate_mb_s=3.0,
         quantum_mb=8.0,
     ):
+        self.p_hat = dict(
+            history_probability
+        )
+
         self.V = float(V)
 
         self.registry_budget_rate_mb_s = float(
@@ -43,22 +46,11 @@ class KeepOptimizer:
 
         self.virtual_queue = 0.0
 
-
     def update_virtual_queue(
         self,
         registry_mb,
         duration_s,
     ):
-        """
-        Continuous/event-driven equivalent of
-
-            Q(t+1) =
-            [Q(t)+B_WAN(t)-B_bar]^+.
-        """
-
-        if duration_s <= 0:
-            return
-
         self.virtual_queue = max(
             0.0,
             self.virtual_queue
@@ -69,44 +61,30 @@ class KeepOptimizer:
             ),
         )
 
-
     @staticmethod
     def path_cost(
         topology,
         path,
         size_mb,
     ):
-        """
-        Long-term communication cost.
-
-        Uses propagation latency plus bottleneck
-        transmission time. Dynamic instantaneous
-        congestion belongs to SCOUT.
-        """
-
-        rate = min(
+        bw = min(
             topology.capacity[x]
             for x in path
         )
 
-        latency_s = (
+        return (
             topology.path_latency_ms(
                 path
             )
             / 1000.0
-        )
-
-        return (
-            latency_s
-            + size_mb
+            + float(size_mb)
             / max(
-                rate,
+                bw,
                 EPS,
             )
         )
 
-
-    def communication_value(
+    def value(
         self,
         node,
         layer,
@@ -114,52 +92,38 @@ class KeepOptimizer:
         relay_cache,
         topology,
         sizes,
-        popularity,
     ):
         """
-        G_{n,l} =
-            p_hat_l *
-            sum_j [
-                C_alt(j,l) - C_n(j,l)
-            ]^+
+        Compute:
 
-        A candidate copy on `node` is evaluated as a
-        possible future communication source.
+            G_{n,l}
+            =
+            p_hat_l *
+            sum_j
+            [C_alt(j,l)-C_n(j,l)]^+
+
+        and expected WAN avoidance DeltaB.
         """
 
-        demand_count = float(
-            popularity.get(
+        p = float(
+            self.p_hat.get(
                 layer,
-                0,
+                0.0,
             )
         )
 
-        if demand_count <= 0:
-            return 0.0
+        if p <= 0:
+            return (
+                0.0,
+                0.0,
+            )
 
-        total_popularity = max(
-            1.0,
-            float(
-                sum(
-                    popularity.values()
-                )
-            ),
+        size = float(
+            sizes[layer]
         )
 
-        p_hat = (
-            demand_count
-            / total_popularity
-        )
-
-        size = sizes[layer]
-
-        holders = [
-            x
-            for x in nodes
-            if layer in relay_cache[x]
-        ]
-
-        saving = 0.0
+        communication_gain = 0.0
+        wan_avoidance = 0.0
 
         for dst in nodes:
 
@@ -181,14 +145,15 @@ class KeepOptimizer:
                 )
             )
 
-            # Alternative 1: Registry.
+            # Alternative if replica on `node`
+            # does not exist.
             registry_path = (
                 topology.registry_path(
                     dst
                 )
             )
 
-            alt_cost = (
+            registry_cost = (
                 self.path_cost(
                     topology,
                     registry_path,
@@ -196,13 +161,22 @@ class KeepOptimizer:
                 )
             )
 
-            # Alternative 2: any other current
-            # edge replica.
-            for src in holders:
+            alt_cost = registry_cost
+            alt_is_registry = True
+
+            for src in nodes:
 
                 if (
                     src == node
                     or src == dst
+                ):
+                    continue
+
+                if (
+                    layer
+                    not in relay_cache[
+                        src
+                    ]
                 ):
                     continue
 
@@ -213,90 +187,41 @@ class KeepOptimizer:
                     )
                 )
 
-                cost = (
-                    self.path_cost(
-                        topology,
-                        path,
-                        size,
-                    )
+                cost = self.path_cost(
+                    topology,
+                    path,
+                    size,
                 )
 
-                alt_cost = min(
-                    alt_cost,
-                    cost,
-                )
+                if (
+                    cost
+                    < alt_cost
+                ):
+                    alt_cost = cost
+                    alt_is_registry = False
 
-            saving += max(
-                0.0,
-                alt_cost
-                - candidate_cost,
-            )
-
-        return (
-            p_hat
-            * saving
-        )
-
-
-    def registry_avoidance_value(
-        self,
-        node,
-        layer,
-        nodes,
-        relay_cache,
-        sizes,
-        popularity,
-    ):
-        """
-        Approximate Delta B_{n,l}.
-
-        Scarce and popular replicas receive larger
-        expected WAN-avoidance value.
-        """
-
-        total_popularity = max(
-            1.0,
-            float(
-                sum(
-                    popularity.values()
-                )
-            ),
-        )
-
-        p_hat = (
-            float(
-                popularity.get(
-                    layer,
-                    0,
+            communication_gain += (
+                p
+                * max(
+                    0.0,
+                    alt_cost
+                    - candidate_cost,
                 )
             )
-            / total_popularity
-        )
 
-        other_holders = sum(
-            1
-            for src in nodes
             if (
-                src != node
-                and layer
-                in relay_cache[src]
-            )
-        )
-
-        scarcity = (
-            1.0
-            / (
-                1.0
-                + other_holders
-            )
-        )
+                alt_is_registry
+                and candidate_cost
+                < registry_cost
+            ):
+                wan_avoidance += (
+                    p * size
+                )
 
         return (
-            p_hat
-            * sizes[layer]
-            * scarcity
+            communication_gain,
+            wan_avoidance,
         )
-
 
     def choose_retention(
         self,
@@ -305,60 +230,52 @@ class KeepOptimizer:
         capacity_mb,
         nodes,
         relay_cache,
-        need,
         topology,
         sizes,
-        popularity,
     ):
-        """
-        Solve
-
-            max sum z_{n,l}
-                [V G_{n,l} + Q DeltaB_{n,l}]
-
-        subject to
-
-            sum s_l z_{n,l} <= M_n.
-
-        Storage is quantized only for computational
-        efficiency. The returned set is checked
-        against the exact MB capacity afterwards.
-        """
-
         candidate_layers = list(
             set(candidate_layers)
         )
 
+        total_size = sum(
+            sizes[layer]
+            for layer
+            in candidate_layers
+        )
+
+        # No capacity pressure -> keep all.
         if (
-            capacity_mb <= EPS
-            or not candidate_layers
+            total_size
+            <= capacity_mb + EPS
         ):
+            return set(
+                candidate_layers
+            )
+
+        capacity_units = int(
+            math.floor(
+                capacity_mb
+                / self.quantum_mb
+            )
+        )
+
+        if capacity_units <= 0:
             return set()
 
-        scored = []
+        items = []
 
         for layer in candidate_layers:
 
-            g = (
-                self.communication_value(
+            g, delta_b = (
+                self.value(
                     node=node,
                     layer=layer,
                     nodes=nodes,
-                    relay_cache=relay_cache,
+                    relay_cache=(
+                        relay_cache
+                    ),
                     topology=topology,
                     sizes=sizes,
-                    popularity=popularity,
-                )
-            )
-
-            delta_b = (
-                self.registry_avoidance_value(
-                    node=node,
-                    layer=layer,
-                    nodes=nodes,
-                    relay_cache=relay_cache,
-                    sizes=sizes,
-                    popularity=popularity,
                 )
             )
 
@@ -367,37 +284,6 @@ class KeepOptimizer:
                 + self.virtual_queue
                 * delta_b
             )
-
-            scored.append(
-                (
-                    layer,
-                    objective,
-                )
-            )
-
-        capacity_units = max(
-            0,
-            int(
-                math.floor(
-                    capacity_mb
-                    / self.quantum_mb
-                )
-            ),
-        )
-
-        if capacity_units <= 0:
-            return set()
-
-        # dp[used_units] =
-        #     (objective, tuple(selected layers))
-        dp = {
-            0: (
-                0.0,
-                tuple(),
-            )
-        }
-
-        for layer, value in scored:
 
             weight = max(
                 1,
@@ -409,15 +295,36 @@ class KeepOptimizer:
                 ),
             )
 
-            if weight > capacity_units:
-                continue
+            items.append(
+                (
+                    layer,
+                    weight,
+                    objective,
+                )
+            )
 
-            next_dp = dict(dp)
+        # 0/1 knapsack.
+        dp = {
+            0: (
+                0.0,
+                tuple(),
+            )
+        }
+
+        for (
+            layer,
+            weight,
+            value,
+        ) in items:
+
+            previous_states = list(
+                dp.items()
+            )
 
             for used, (
                 old_value,
                 chosen,
-            ) in dp.items():
+            ) in previous_states:
 
                 new_used = (
                     used + weight
@@ -430,50 +337,26 @@ class KeepOptimizer:
                     continue
 
                 new_value = (
-                    old_value
-                    + value
+                    old_value + value
                 )
 
-                old = next_dp.get(
+                old = dp.get(
                     new_used
                 )
 
                 if (
                     old is None
                     or new_value
-                    > old[0]
+                    > old[0] + EPS
                 ):
-                    next_dp[
-                        new_used
-                    ] = (
+                    dp[new_used] = (
                         new_value,
-                        chosen
-                        + (layer,),
+                        chosen + (layer,),
                     )
-
-            dp = next_dp
 
         _, chosen = max(
             dp.values(),
             key=lambda x: x[0],
         )
 
-        # Quantization uses ceil(size/q), therefore
-        # this should already fit in exact MB.
-        selected = set(chosen)
-
-        used_mb = sum(
-            sizes[x]
-            for x in selected
-        )
-
-        if (
-            used_mb
-            > capacity_mb + EPS
-        ):
-            raise RuntimeError(
-                "KEEP internal capacity error: "
-                f"{used_mb} > {capacity_mb}"
-            )
-
-        return selected
+        return set(chosen)

@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 import heapq
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 
-INF = 10**18
+INF = 1e100
+EPS = 1e-9
 
 
 class MinCostFlow:
@@ -15,29 +16,34 @@ class MinCostFlow:
         self,
         u,
         v,
-        cap,
+        capacity,
         cost,
     ):
-        a = [
+        forward = [
             v,
-            cap,
-            cost,
+            int(capacity),
+            float(cost),
             None,
         ]
 
-        b = [
+        backward = [
             u,
             0,
-            -cost,
-            a,
+            -float(cost),
+            forward,
         ]
 
-        a[3] = b
+        forward[3] = backward
 
-        self.g[u].append(a)
-        self.g[v].append(b)
+        self.g[u].append(
+            forward
+        )
 
-        return a
+        self.g[v].append(
+            backward
+        )
+
+        return forward
 
     def solve(
         self,
@@ -45,13 +51,17 @@ class MinCostFlow:
         sink,
         required_flow,
     ):
-        flow = 0
-        cost = 0.0
+        total_flow = 0
+        total_cost = 0.0
 
-        potential = defaultdict(float)
+        potential = defaultdict(
+            float
+        )
 
-        while flow < required_flow:
-
+        while (
+            total_flow
+            < required_flow
+        ):
             dist = defaultdict(
                 lambda: INF
             )
@@ -68,28 +78,37 @@ class MinCostFlow:
             ]
 
             while pq:
-                d, u = heapq.heappop(
-                    pq
+
+                d, u = (
+                    heapq.heappop(pq)
                 )
 
-                if d != dist[u]:
+                if (
+                    d
+                    > dist[u] + EPS
+                ):
                     continue
 
                 for edge in self.g[u]:
 
-                    v, cap, c, rev = edge
+                    v = edge[0]
+                    cap = edge[1]
+                    cost = edge[2]
 
                     if cap <= 0:
                         continue
 
                     nd = (
                         d
-                        + c
+                        + cost
                         + potential[u]
                         - potential[v]
                     )
 
-                    if nd < dist[v]:
+                    if (
+                        nd
+                        < dist[v] - EPS
+                    ):
                         dist[v] = nd
 
                         parent[v] = (
@@ -108,27 +127,33 @@ class MinCostFlow:
             if sink not in parent:
                 break
 
-            for v in list(dist):
-                if dist[v] < INF:
-                    potential[v] += (
-                        dist[v]
-                    )
+            for v, d in dist.items():
+                if d < INF:
+                    potential[v] += d
 
             cur = sink
 
             while cur != source:
-                u, edge = parent[cur]
+
+                u, edge = (
+                    parent[cur]
+                )
 
                 edge[1] -= 1
                 edge[3][1] += 1
 
-                cost += edge[2]
+                total_cost += (
+                    edge[2]
+                )
 
                 cur = u
 
-            flow += 1
+            total_flow += 1
 
-        return flow, cost
+        return (
+            total_flow,
+            total_cost,
+        )
 
 
 class ScoutOptimizer:
@@ -136,26 +161,20 @@ class ScoutOptimizer:
     SCOUT:
     Source-aware Communication Optimization
     for Unified Transfer.
+
+    对 PULSE 选出的整批需求联合做 source assignment。
     """
 
     def __init__(
         self,
-        registry_penalty=0.02,
-        cross_domain_penalty=0.005,
-        congestion_penalty=1.0,
+        alpha=1.0,
+        beta=0.02,
+        gamma=1.0,
         source_concurrency=0,
     ):
-        self.registry_penalty = float(
-            registry_penalty
-        )
-
-        self.cross_domain_penalty = float(
-            cross_domain_penalty
-        )
-
-        self.congestion_penalty = float(
-            congestion_penalty
-        )
+        self.alpha = float(alpha)
+        self.beta = float(beta)
+        self.gamma = float(gamma)
 
         self.source_concurrency = int(
             source_concurrency
@@ -166,248 +185,259 @@ class ScoutOptimizer:
         demands,
         relay_cache,
         topology,
-        active,
-        sizes,
+        active=None,
     ):
-        """
-        demands:
-            list[PulseItem]
-
-        return:
-            dict[(dst, layer)] = source
-
-        source=None 表示 Registry。
-        """
-
         if not demands:
             return {}
 
-        usage = defaultdict(int)
+        if active is None:
+            active = []
 
-        for f in active:
-            for lid in f["path"]:
-                usage[lid] += 1
+        current_usage = Counter()
 
-        def path_cost(
-            path,
-            layer_size,
+        for flow in active:
+            for lid in flow["path"]:
+                current_usage[lid] += 1
+
+        def communication_cost(
+            source,
+            dst,
+            size_mb,
         ):
-            bottleneck = min(
-                topology.capacity[x]
+            if source is None:
+                path = (
+                    topology.registry_path(
+                        dst
+                    )
+                )
+            else:
+                path = (
+                    topology.peer_path(
+                        source,
+                        dst,
+                    )
+                )
+
+            estimated_bw = min(
+                topology.capacity[lid]
                 / (
-                    1
-                    + usage[x]
+                    1.0
+                    + current_usage[lid]
                 )
-                for x in path
+                for lid in path
             )
 
-            latency_s = (
-                topology
-                .path_latency_ms(path)
+            transfer_time = (
+                topology.path_latency_ms(
+                    path
+                )
                 / 1000.0
-            )
-
-            transfer_s = (
-                layer_size
+                + size_mb
                 / max(
-                    bottleneck,
-                    1e-9,
+                    estimated_bw,
+                    EPS,
                 )
             )
 
-            congestion = sum(
-                usage[x]
+            # 当前路径拥塞代价
+            path_congestion = sum(
+                current_usage[lid]
                 / max(
-                    topology.capacity[x],
-                    1e-9,
+                    topology.capacity[
+                        lid
+                    ],
+                    EPS,
                 )
-                for x in path
+                for lid in path
             )
+
+            wan_bytes = 0.0
+
+            if source is None:
+                wan_bytes = size_mb
+
+            elif not topology.same_domain(
+                source,
+                dst,
+            ):
+                # 跨域通信也属于需要控制的
+                # higher-level network traffic。
+                wan_bytes = size_mb
 
             return (
-                transfer_s
-                + latency_s
-                + self.congestion_penalty
-                * congestion
+                self.alpha
+                * transfer_time
+                + self.beta
+                * wan_bytes
+                + self.gamma
+                * path_congestion
             )
-
-        mcf = MinCostFlow()
 
         SRC = "__SRC__"
         SNK = "__SNK__"
         REG = "__REGISTRY__"
 
-        source_edges = {}
+        mcf = MinCostFlow()
 
-        # Registry 足够大
+        k = len(demands)
+
+        # Registry.
         mcf.add_edge(
             SRC,
             REG,
-            len(demands),
+            k,
             0.0,
         )
 
         peer_sources = set()
 
         for item in demands:
-            for peer, cached in (
+            for src, cache in (
                 relay_cache.items()
             ):
                 if (
-                    peer != item.node
-                    and item.layer in cached
+                    src != item.node
+                    and item.layer
+                    in cache
                 ):
                     peer_sources.add(
-                        peer
+                        src
                     )
 
-        for peer in peer_sources:
-            # source_concurrency <= 0 表示不再使用人为的
-            # cardinality cap。真实上传限制由 tx:peer 链路
-            # 和后续 max-min fair network simulator 强制执行。
-            source_cap = (
-                len(demands)
-                if self.source_concurrency <= 0
+        for src in peer_sources:
+
+            cap = (
+                k
+                if self.source_concurrency
+                <= 0
                 else self.source_concurrency
             )
 
             mcf.add_edge(
                 SRC,
-                f"peer:{peer}",
-                source_cap,
+                f"peer:{src}",
+                cap,
                 0.0,
             )
 
-        demand_nodes = []
+        candidate_edges = {}
 
         for i, item in enumerate(
             demands
         ):
-            dn = f"demand:{i}"
-
-            demand_nodes.append(
-                (
-                    dn,
-                    item,
-                )
+            demand_node = (
+                f"demand:{i}"
             )
 
             mcf.add_edge(
-                dn,
+                demand_node,
                 SNK,
                 1,
                 0.0,
             )
 
             # Registry candidate
-            rpath = (
-                topology.registry_path(
-                    item.node
-                )
-            )
-
-            rcost = (
-                path_cost(
-                    rpath,
-                    item.size_mb,
-                )
-                + self.registry_penalty
-                * item.size_mb
+            cost = communication_cost(
+                source=None,
+                dst=item.node,
+                size_mb=item.size_mb,
             )
 
             edge = mcf.add_edge(
                 REG,
-                dn,
+                demand_node,
                 1,
-                rcost,
+                cost,
             )
 
-            source_edges[
+            candidate_edges[
                 (
                     i,
                     None,
                 )
             ] = edge
 
-            # Peer candidates
-            for peer in peer_sources:
+            # Edge peer candidates
+            for src in peer_sources:
 
                 if (
                     item.layer
                     not in relay_cache[
-                        peer
+                        src
                     ]
                 ):
                     continue
 
-                ppath = (
-                    topology.peer_path(
-                        peer,
-                        item.node,
+                cost = (
+                    communication_cost(
+                        source=src,
+                        dst=item.node,
+                        size_mb=item.size_mb,
                     )
                 )
-
-                pcost = path_cost(
-                    ppath,
-                    item.size_mb,
-                )
-
-                if not topology.same_domain(
-                    peer,
-                    item.node,
-                ):
-                    pcost += (
-                        self.cross_domain_penalty
-                        * item.size_mb
-                    )
 
                 edge = mcf.add_edge(
-                    f"peer:{peer}",
-                    dn,
+                    f"peer:{src}",
+                    demand_node,
                     1,
-                    pcost,
+                    cost,
                 )
 
-                source_edges[
+                candidate_edges[
                     (
                         i,
-                        peer,
+                        src,
                     )
                 ] = edge
 
-        mcf.solve(
+        flow, _ = mcf.solve(
             SRC,
             SNK,
-            len(demands),
+            k,
         )
+
+        if flow != k:
+            raise RuntimeError(
+                f"SCOUT only assigned "
+                f"{flow}/{k} demands"
+            )
 
         assignment = {}
 
         for i, item in enumerate(
             demands
         ):
-            chosen = None
+            selected_source = None
+            found = False
 
             for (
-                j,
-                peer,
+                idx,
+                source,
             ), edge in (
-                source_edges.items()
+                candidate_edges.items()
             ):
-                if j != i:
+                if idx != i:
                     continue
 
-                # 初始 cap=1，
-                # 使用后 cap=0
+                # capacity 1 -> 0 means selected.
                 if edge[1] == 0:
-                    chosen = peer
+                    selected_source = (
+                        source
+                    )
+                    found = True
                     break
+
+            if not found:
+                raise RuntimeError(
+                    "SCOUT demand has "
+                    "no selected source"
+                )
 
             assignment[
                 (
                     item.node,
                     item.layer,
                 )
-            ] = chosen
+            ] = selected_source
 
         return assignment

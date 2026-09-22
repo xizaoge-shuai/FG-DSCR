@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from typing import Dict, List, Set
 
 
-@dataclass
+EPS = 1e-9
+
+
+@dataclass(frozen=True)
 class PulseItem:
     node: str
     layer: str
@@ -16,120 +18,128 @@ class PulseItem:
 class PulseScheduler:
     """
     PULSE:
-    Priority-aware Utility-driven Layer Selection Engine
+    Priority-aware Utility-driven Layer Selection Engine.
 
-    将每个目标节点看作一个 group。
-    每个 group 中可以选 0 或 1 个待传输 layer，
-    在统一 transmission budget 下求 multiple-choice knapsack。
+    Candidate:
+        (destination node, layer)
+
+    Objective:
+        max sum x_{n,l} U_{n,l}
+
+    Constraints:
+        sum s_l x_{n,l} <= B(t)
+        sum x_{n,l} <= K(t)
+
+    不设置“每个 node 最多选一个 layer”的额外约束。
     """
 
     def __init__(
         self,
-        quantum_mb: float = 8.0,
-        max_candidates_per_node: int = 8,
+        quantum_mb=8.0,
     ):
         self.quantum_mb = float(
             quantum_mb
         )
 
-        self.max_candidates_per_node = int(
-            max_candidates_per_node
-        )
-
-    def utility(
+    def layer_utility(
         self,
-        node: str,
-        layer: str,
-        groups: Dict[str, List[str]],
-        tasks: Dict[str, Set[str]],
-        acquired: Dict[str, Set[str]],
-        waiting_time=None,
-    ) -> float:
+        node,
+        layer,
+        groups,
+        tasks,
+        acquired,
+        container_weights=None,
+    ):
+        """
+        U_{n,l}(t)
+        =
+        sum_{i in I_n, l in M_i(t)}
+            w_i(t) / |M_i(t)|
+        """
 
-        score = 0.0
+        utility = 0.0
 
         for cid in groups[node]:
 
-            remaining = (
+            missing = (
                 tasks[cid]
                 - acquired[node]
             )
 
             if (
-                not remaining
-                or layer not in remaining
+                layer not in missing
+                or not missing
             ):
                 continue
 
-            # 越接近 container completion，
-            # 当前 layer utility 越高。
-            score += (
-                1.0
-                / len(remaining)
+            weight = 1.0
+
+            if container_weights:
+                weight = float(
+                    container_weights.get(
+                        cid,
+                        1.0,
+                    )
+                )
+
+            utility += (
+                weight
+                / len(missing)
             )
 
-        return score
+        return utility
 
     def build_candidates(
         self,
-        idle_nodes,
+        nodes,
         groups,
         tasks,
         acquired,
         need,
         sizes,
+        container_weights=None,
     ):
+        items = []
 
-        result = {}
-
-        for node in idle_nodes:
+        for node in nodes:
 
             missing = (
                 need[node]
                 - acquired[node]
             )
 
-            items = []
-
             for layer in missing:
 
-                u = self.utility(
-                    node,
-                    layer,
-                    groups,
-                    tasks,
-                    acquired,
+                u = self.layer_utility(
+                    node=node,
+                    layer=layer,
+                    groups=groups,
+                    tasks=tasks,
+                    acquired=acquired,
+                    container_weights=(
+                        container_weights
+                    ),
                 )
 
-                # PULSE 的正式目标是最大化原始启动收益 U_{n,l}。
-                # layer size 只作为 knapsack resource constraint，
-                # 不能再次把 utility 除以 size，否则会过度偏向小层。
+                if u <= 0:
+                    continue
+
                 items.append(
                     PulseItem(
                         node=node,
                         layer=layer,
-                        size_mb=sizes[layer],
-                        utility=u,
+                        size_mb=float(
+                            sizes[layer]
+                        ),
+                        utility=float(u),
                     )
                 )
 
-            items.sort(
-                key=lambda x: (
-                    -x.utility,
-                    x.size_mb,
-                    x.layer,
-                )
-            )
-
-            result[node] = items[
-                :self.max_candidates_per_node
-            ]
-
-        return result
+        return items
 
     def select(
         self,
-        idle_nodes,
+        nodes,
         groups,
         tasks,
         acquired,
@@ -137,57 +147,74 @@ class PulseScheduler:
         sizes,
         budget_mb,
         max_transfers,
+        container_weights=None,
     ):
         """
-        Multiple-choice knapsack.
+        Quantized 0/1 two-constraint knapsack.
 
-        每个 node 最多选一个 layer。
+        State:
+            (used_budget_units, selected_count)
+
+        Value:
+            maximum sum U_{n,l}.
         """
 
-        if (
-            budget_mb <= 0
-            or max_transfers <= 0
-        ):
-            return []
-
-        candidates = (
-            self.build_candidates(
-                idle_nodes,
-                groups,
-                tasks,
-                acquired,
-                need,
-                sizes,
-            )
-        )
-
-        capacity = max(
-            1,
-            int(
-                math.floor(
-                    budget_mb
-                    / self.quantum_mb
-                )
+        items = self.build_candidates(
+            nodes=nodes,
+            groups=groups,
+            tasks=tasks,
+            acquired=acquired,
+            need=need,
+            sizes=sizes,
+            container_weights=(
+                container_weights
             ),
         )
 
-        # dp[(used_capacity, count)]
-        # = (value, selected_items)
+        if not items:
+            return []
+
+        if max_transfers <= 0:
+            max_transfers = len(items)
+
+        capacity = int(
+            math.floor(
+                float(budget_mb)
+                / self.quantum_mb
+            )
+        )
+
+        if capacity <= 0:
+            return []
+
+        # dp[(budget, count)]
+        # =
+        # (utility, tuple(item indices))
         dp = {
             (0, 0): (
                 0.0,
-                [],
+                tuple(),
             )
         }
 
-        for node in idle_nodes:
+        for idx, item in enumerate(items):
 
-            items = candidates.get(
-                node,
-                [],
+            weight = max(
+                1,
+                int(
+                    math.ceil(
+                        item.size_mb
+                        / self.quantum_mb
+                    )
+                ),
             )
 
-            next_dp = dict(dp)
+            if weight > capacity:
+                continue
+
+            old_states = list(
+                dp.items()
+            )
 
             for (
                 used,
@@ -195,70 +222,65 @@ class PulseScheduler:
             ), (
                 value,
                 chosen,
-            ) in dp.items():
+            ) in old_states:
 
                 if count >= max_transfers:
                     continue
 
-                for item in items:
+                new_used = (
+                    used + weight
+                )
 
-                    weight = max(
-                        1,
-                        int(
-                            math.ceil(
-                                item.size_mb
-                                / self.quantum_mb
-                            )
-                        ),
+                if new_used > capacity:
+                    continue
+
+                new_count = (
+                    count + 1
+                )
+
+                new_value = (
+                    value
+                    + item.utility
+                )
+
+                key = (
+                    new_used,
+                    new_count,
+                )
+
+                previous = dp.get(
+                    key
+                )
+
+                if (
+                    previous is None
+                    or new_value
+                    > previous[0] + EPS
+                ):
+                    dp[key] = (
+                        new_value,
+                        chosen + (idx,),
                     )
 
-                    new_used = (
-                        used + weight
-                    )
+        best_value = -1.0
+        best_indices = tuple()
 
-                    new_count = (
-                        count + 1
-                    )
+        for (
+            _,
+            _,
+        ), (
+            value,
+            chosen,
+        ) in dp.items():
 
-                    if (
-                        new_used
-                        > capacity
-                    ):
-                        continue
+            if (
+                value
+                > best_value + EPS
+            ):
+                best_value = value
+                best_indices = chosen
 
-                    key = (
-                        new_used,
-                        new_count,
-                    )
-
-                    new_value = (
-                        value
-                        + item.utility
-                    )
-
-                    old = next_dp.get(
-                        key
-                    )
-
-                    if (
-                        old is None
-                        or new_value
-                        > old[0]
-                    ):
-                        next_dp[key] = (
-                            new_value,
-                            chosen
-                            + [item],
-                        )
-
-            dp = next_dp
-
-        best = max(
-            dp.values(),
-            key=lambda x: (
-                x[0],
-                len(x[1]),
-            ),
-        )
-
-        return best[1]
+        return [
+            items[i]
+            for i in best_indices
+        ]
