@@ -73,13 +73,13 @@ def simulate_cider(
     pulse_max_transfers=0,
     pulse_quantum_mb=8.0,
 
-    scout_source_concurrency=4,
-    scout_registry_penalty=1.0,
-    scout_cross_domain_penalty=0.15,
+    scout_source_concurrency=0,
+    scout_registry_penalty=0.02,
+    scout_cross_domain_penalty=0.005,
     scout_congestion_penalty=1.0,
 
     keep_v=1.0,
-    keep_registry_budget_mb=512.0,
+    keep_registry_budget_rate_mb_s=3.0,
 ):
     """
     CIDER workflow:
@@ -263,9 +263,10 @@ def simulate_cider(
 
     keep = KeepOptimizer(
         V=keep_v,
-        registry_budget_mb=(
-            keep_registry_budget_mb
+        registry_budget_rate_mb_s=(
+            keep_registry_budget_rate_mb_s
         ),
+        quantum_mb=8.0,
     )
 
     # ---------------------------------------------
@@ -329,32 +330,72 @@ def simulate_cider(
         new_layer,
     ):
         """
-        Run KEEP after a layer reaches node.
+        KEEP is triggered by storage pressure.
 
-        Already-acquired layers may be removed from
-        relay_cache, but never from acquired.
+        If capacity is still available, keeping an
+        additional communication source cannot hurt
+        the feasible source set, so no unnecessary
+        proactive deletion is performed.
         """
 
         nonlocal evicted_mb
         nonlocal not_preserved_mb
 
-        t0 = time.perf_counter()
+        if (
+            new_layer
+            in relay_cache[node]
+        ):
+            return
 
         old_cache = set(
             relay_cache[node]
         )
 
-        pins = pinned_layers(node)
+        current_bytes = sum(
+            sizes[layer]
+            for layer in old_cache
+        )
 
-        pin_bytes = sum(
+        new_size = sizes[
+            new_layer
+        ]
+
+        # No storage pressure: simply preserve it.
+        if (
+            current_bytes
+            + new_size
+            <= cache_capacity[node]
+            + EPS
+        ):
+            relay_cache[node].add(
+                new_layer
+            )
+            return
+
+        t0 = time.perf_counter()
+
+        pins = pinned_layers(
+            node
+        )
+
+        pinned_bytes = sum(
             sizes[layer]
             for layer in pins
         )
 
-        remaining_capacity = max(
-            0.0,
+        if (
+            pinned_bytes
+            > cache_capacity[node]
+            + EPS
+        ):
+            raise RuntimeError(
+                f"Pinned layers exceed cache "
+                f"capacity at {node}"
+            )
+
+        remaining_capacity = (
             cache_capacity[node]
-            - pin_bytes,
+            - pinned_bytes
         )
 
         candidates = (
@@ -373,12 +414,16 @@ def simulate_cider(
         selected = (
             keep.choose_retention(
                 node=node,
-                candidate_layers=candidates,
+                candidate_layers=(
+                    candidates
+                ),
                 capacity_mb=(
                     remaining_capacity
                 ),
                 nodes=nodes,
-                relay_cache=relay_cache,
+                relay_cache=(
+                    relay_cache
+                ),
                 need=remaining_need,
                 topology=topology,
                 sizes=sizes,
@@ -391,7 +436,6 @@ def simulate_cider(
             | set(selected)
         )
 
-        # Safety check.
         used = sum(
             sizes[layer]
             for layer in new_cache
@@ -424,10 +468,12 @@ def simulate_cider(
             not in new_cache
         ):
             not_preserved_mb += (
-                sizes[new_layer]
+                new_size
             )
 
-        relay_cache[node] = new_cache
+        relay_cache[node] = (
+            new_cache
+        )
 
         algorithm_time[
             "keep_ms"
@@ -774,6 +820,8 @@ def simulate_cider(
         # Transfer bytes
         # -----------------------------------------
 
+        registry_interval_mb = 0.0
+
         for i, f in enumerate(active):
 
             amount = min(
@@ -785,10 +833,25 @@ def simulate_cider(
                 amount
             )
 
+            if f["src"] is None:
+                registry_interval_mb += (
+                    amount
+                )
+
             for lid in f["path"]:
                 link_bytes[lid] += (
                     amount
                 )
+
+        # Lyapunov queue is updated using actual
+        # Registry bytes transferred during this
+        # event interval.
+        keep.update_virtual_queue(
+            registry_mb=(
+                registry_interval_mb
+            ),
+            duration_s=dt,
+        )
 
         now += dt
 
@@ -803,8 +866,6 @@ def simulate_cider(
 
         if not completed:
             continue
-
-        registry_this_cycle = 0.0
 
         for f in completed:
             active.remove(f)
@@ -825,10 +886,6 @@ def simulate_cider(
 
             if src is None:
                 registry_mb += size
-                registry_this_cycle += (
-                    size
-                )
-
             else:
                 peer_mb += size
 
@@ -851,11 +908,6 @@ def simulate_cider(
                 dst,
                 layer,
             )
-
-        # Lyapunov virtual queue update.
-        keep.update_virtual_queue(
-            registry_this_cycle
-        )
 
         update_ready(now)
 

@@ -119,7 +119,7 @@ def main():
     ap.add_argument(
         "--scout-source-concurrency",
         type=int,
-        default=4,
+        default=0,
     )
 
     # KEEP
@@ -130,9 +130,13 @@ def main():
     )
 
     ap.add_argument(
-        "--keep-registry-budget-mb",
+        "--keep-registry-budget-ratio",
         type=float,
-        default=512.0,
+        default=0.30,
+        help=(
+            "Long-term Registry traffic budget "
+            "as a fraction of WAN capacity."
+        ),
     )
 
     ap.add_argument(
@@ -277,9 +281,9 @@ def main():
                 args.keep_v
             ),
 
-            keep_registry_budget_mb=(
-                args
-                .keep_registry_budget_mb
+            keep_registry_budget_rate_mb_s=(
+                args.wan
+                * args.keep_registry_budget_ratio
             ),
         )
 

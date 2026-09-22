@@ -101,21 +101,15 @@ class PulseScheduler:
                     acquired,
                 )
 
-                # 单位流量完成收益
-                value = (
-                    u
-                    / max(
-                        sizes[layer],
-                        1e-9,
-                    )
-                )
-
+                # PULSE 的正式目标是最大化原始启动收益 U_{n,l}。
+                # layer size 只作为 knapsack resource constraint，
+                # 不能再次把 utility 除以 size，否则会过度偏向小层。
                 items.append(
                     PulseItem(
                         node=node,
                         layer=layer,
                         size_mb=sizes[layer],
-                        utility=value,
+                        utility=u,
                     )
                 )
 

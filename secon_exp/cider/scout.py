@@ -140,10 +140,10 @@ class ScoutOptimizer:
 
     def __init__(
         self,
-        registry_penalty=1.0,
-        cross_domain_penalty=0.15,
+        registry_penalty=0.02,
+        cross_domain_penalty=0.005,
         congestion_penalty=1.0,
-        source_concurrency=4,
+        source_concurrency=0,
     ):
         self.registry_penalty = float(
             registry_penalty
@@ -262,10 +262,19 @@ class ScoutOptimizer:
                     )
 
         for peer in peer_sources:
+            # source_concurrency <= 0 表示不再使用人为的
+            # cardinality cap。真实上传限制由 tx:peer 链路
+            # 和后续 max-min fair network simulator 强制执行。
+            source_cap = (
+                len(demands)
+                if self.source_concurrency <= 0
+                else self.source_concurrency
+            )
+
             mcf.add_edge(
                 SRC,
                 f"peer:{peer}",
-                self.source_concurrency,
+                source_cap,
                 0.0,
             )
 
@@ -303,6 +312,7 @@ class ScoutOptimizer:
                     item.size_mb,
                 )
                 + self.registry_penalty
+                * item.size_mb
             )
 
             edge = mcf.add_edge(
@@ -347,8 +357,8 @@ class ScoutOptimizer:
                     item.node,
                 ):
                     pcost += (
-                        self
-                        .cross_domain_penalty
+                        self.cross_domain_penalty
+                        * item.size_mb
                     )
 
                 edge = mcf.add_edge(
