@@ -98,8 +98,8 @@ def simulate_cider(
     pulse_refill_ratio=0.5,
 
     scout_alpha=1.0,
-    scout_beta=0.02,
-    scout_gamma=1.0,
+    scout_beta=1.0,
+    scout_gamma=0.5,
     scout_source_concurrency=0,
 
     keep_v=1.0,

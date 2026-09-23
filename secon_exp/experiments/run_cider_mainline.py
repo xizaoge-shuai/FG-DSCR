@@ -129,6 +129,24 @@ def main():
 
     # SCOUT
     ap.add_argument(
+        "--scout-alpha",
+        type=float,
+        default=1.0,
+    )
+
+    ap.add_argument(
+        "--scout-beta",
+        type=float,
+        default=1.0,
+    )
+
+    ap.add_argument(
+        "--scout-gamma",
+        type=float,
+        default=0.5,
+    )
+
+    ap.add_argument(
         "--scout-source-concurrency",
         type=int,
         default=0,
@@ -339,6 +357,18 @@ def main():
 
             pulse_refill_ratio=(
                 args.pulse_refill_ratio
+            ),
+
+            scout_alpha=(
+                args.scout_alpha
+            ),
+
+            scout_beta=(
+                args.scout_beta
+            ),
+
+            scout_gamma=(
+                args.scout_gamma
             ),
 
             scout_source_concurrency=(

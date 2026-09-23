@@ -35,13 +35,8 @@ class MinCostFlow:
 
         forward[3] = backward
 
-        self.g[u].append(
-            forward
-        )
-
-        self.g[v].append(
-            backward
-        )
+        self.g[u].append(forward)
+        self.g[v].append(backward)
 
         return forward
 
@@ -54,14 +49,10 @@ class MinCostFlow:
         total_flow = 0
         total_cost = 0.0
 
-        potential = defaultdict(
-            float
-        )
+        potential = defaultdict(float)
 
-        while (
-            total_flow
-            < required_flow
-        ):
+        while total_flow < required_flow:
+
             dist = defaultdict(
                 lambda: INF
             )
@@ -79,8 +70,8 @@ class MinCostFlow:
 
             while pq:
 
-                d, u = (
-                    heapq.heappop(pq)
+                d, u = heapq.heappop(
+                    pq
                 )
 
                 if (
@@ -135,9 +126,7 @@ class MinCostFlow:
 
             while cur != source:
 
-                u, edge = (
-                    parent[cur]
-                )
+                u, edge = parent[cur]
 
                 edge[1] -= 1
                 edge[3][1] += 1
@@ -162,14 +151,33 @@ class ScoutOptimizer:
     Source-aware Communication Optimization
     for Unified Transfer.
 
-    对 PULSE 选出的整批需求联合做 source assignment。
+    对 PULSE 当前选中的一批 layer demands
+    联合进行 source assignment。
+
+    Normalized communication cost:
+
+        c =
+            alpha * T_norm
+          + beta  * B_norm
+          + gamma * P_norm
+
+    T_norm:
+        relative transfer time compared with
+        Registry delivery for the SAME demand.
+
+    B_norm:
+        0 -> same-domain peer
+        1 -> Registry or cross-domain peer
+
+    P_norm:
+        normalized current path congestion proxy.
     """
 
     def __init__(
         self,
         alpha=1.0,
-        beta=0.02,
-        gamma=1.0,
+        beta=1.0,
+        gamma=0.5,
         source_concurrency=0,
     ):
         self.alpha = float(alpha)
@@ -193,11 +201,81 @@ class ScoutOptimizer:
         if active is None:
             active = []
 
-        current_usage = Counter()
+        # ------------------------------------------------
+        # Current path occupancy.
+        #
+        # active/pending flows are treated as already
+        # reserving network resources for SCOUT's
+        # communication-aware decision.
+        # ------------------------------------------------
+
+        usage = Counter()
 
         for flow in active:
             for lid in flow["path"]:
-                current_usage[lid] += 1
+                usage[lid] += 1
+
+        def estimated_bandwidth(path):
+
+            return min(
+                topology.capacity[lid]
+                / (
+                    1.0
+                    + usage[lid]
+                )
+                for lid in path
+            )
+
+        def transfer_time(
+            path,
+            size_mb,
+        ):
+            bw = estimated_bandwidth(
+                path
+            )
+
+            propagation = (
+                topology
+                .path_latency_ms(path)
+                / 1000.0
+            )
+
+            return (
+                propagation
+                + size_mb
+                / max(
+                    bw,
+                    EPS,
+                )
+            )
+
+        def normalized_congestion(
+            path
+        ):
+            """
+            Convert path occupancy into a
+            dimensionless [0,1) quantity.
+
+            A link with q currently reserved
+            transfers contributes q/(1+q).
+            """
+
+            if not path:
+                return 0.0
+
+            values = [
+                usage[lid]
+                / (
+                    1.0
+                    + usage[lid]
+                )
+                for lid in path
+            ]
+
+            return (
+                sum(values)
+                / len(values)
+            )
 
         def communication_cost(
             source,
@@ -205,12 +283,15 @@ class ScoutOptimizer:
             size_mb,
         ):
             if source is None:
+
                 path = (
                     topology.registry_path(
                         dst
                     )
                 )
+
             else:
+
                 path = (
                     topology.peer_path(
                         source,
@@ -218,60 +299,100 @@ class ScoutOptimizer:
                     )
                 )
 
-            estimated_bw = min(
-                topology.capacity[lid]
-                / (
-                    1.0
-                    + current_usage[lid]
+            candidate_time = (
+                transfer_time(
+                    path,
+                    size_mb,
                 )
-                for lid in path
             )
 
-            transfer_time = (
-                topology.path_latency_ms(
-                    path
+            # ------------------------------------------------
+            # Time normalization.
+            #
+            # Registry delivery for this exact
+            # (dst, layer size) is the reference.
+            # This prevents raw time magnitudes from
+            # changing by one order of magnitude when
+            # WAN capacity changes from 10 -> 100 MB/s.
+            # ------------------------------------------------
+
+            registry_path = (
+                topology.registry_path(
+                    dst
                 )
-                / 1000.0
-                + size_mb
+            )
+
+            reference_time = (
+                transfer_time(
+                    registry_path,
+                    size_mb,
+                )
+            )
+
+            time_norm = (
+                candidate_time
                 / max(
-                    estimated_bw,
+                    reference_time,
                     EPS,
                 )
             )
 
-            # 当前路径拥塞代价
-            path_congestion = sum(
-                current_usage[lid]
-                / max(
-                    topology.capacity[
-                        lid
-                    ],
-                    EPS,
-                )
-                for lid in path
-            )
-
-            wan_bytes = 0.0
+            # ------------------------------------------------
+            # Communication-scope cost.
+            #
+            # Same-domain P2P does not consume
+            # higher-level network resources.
+            #
+            # Registry and cross-domain transfer
+            # both receive unit communication cost.
+            # ------------------------------------------------
 
             if source is None:
-                wan_bytes = size_mb
 
-            elif not topology.same_domain(
+                # External Registry / cloud-backhaul
+                # communication has the highest
+                # communication-scope cost.
+                traffic_norm = 1.0
+
+            elif topology.same_domain(
                 source,
                 dst,
             ):
-                # 跨域通信也属于需要控制的
-                # higher-level network traffic。
-                wan_bytes = size_mb
+
+                # Same-domain P2P stays inside the
+                # local edge domain.
+                traffic_norm = 0.0
+
+            else:
+
+                # Cross-domain P2P and Registry both
+                # consume upper-level/shared network
+                # resources in the normalized cost.
+                traffic_norm = 1.0
+
+            congestion_norm = (
+                normalized_congestion(
+                    path
+                )
+            )
+
+            cost = (
+                self.alpha
+                * time_norm
+                + self.beta
+                * traffic_norm
+                + self.gamma
+                * congestion_norm
+            )
 
             return (
-                self.alpha
-                * transfer_time
-                + self.beta
-                * wan_bytes
-                + self.gamma
-                * path_congestion
+                cost,
+                path,
             )
+
+        # ------------------------------------------------
+        # Min-Cost Max-Flow graph.
+        # ------------------------------------------------
 
         SRC = "__SRC__"
         SNK = "__SNK__"
@@ -281,7 +402,7 @@ class ScoutOptimizer:
 
         k = len(demands)
 
-        # Registry.
+        # Registry may serve all demands.
         mcf.add_edge(
             SRC,
             REG,
@@ -292,6 +413,7 @@ class ScoutOptimizer:
         peer_sources = set()
 
         for item in demands:
+
             for src, cache in (
                 relay_cache.items()
             ):
@@ -306,7 +428,7 @@ class ScoutOptimizer:
 
         for src in peer_sources:
 
-            cap = (
+            source_cap = (
                 k
                 if self.source_concurrency
                 <= 0
@@ -316,7 +438,7 @@ class ScoutOptimizer:
             mcf.add_edge(
                 SRC,
                 f"peer:{src}",
-                cap,
+                source_cap,
                 0.0,
             )
 
@@ -336,18 +458,23 @@ class ScoutOptimizer:
                 0.0,
             )
 
+            # -----------------------------
             # Registry candidate
-            cost = communication_cost(
-                source=None,
-                dst=item.node,
-                size_mb=item.size_mb,
+            # -----------------------------
+
+            registry_cost, _ = (
+                communication_cost(
+                    source=None,
+                    dst=item.node,
+                    size_mb=item.size_mb,
+                )
             )
 
             edge = mcf.add_edge(
                 REG,
                 demand_node,
                 1,
-                cost,
+                registry_cost,
             )
 
             candidate_edges[
@@ -357,7 +484,10 @@ class ScoutOptimizer:
                 )
             ] = edge
 
-            # Edge peer candidates
+            # -----------------------------
+            # Peer candidates
+            # -----------------------------
+
             for src in peer_sources:
 
                 if (
@@ -368,7 +498,7 @@ class ScoutOptimizer:
                 ):
                     continue
 
-                cost = (
+                peer_cost, _ = (
                     communication_cost(
                         source=src,
                         dst=item.node,
@@ -380,7 +510,7 @@ class ScoutOptimizer:
                     f"peer:{src}",
                     demand_node,
                     1,
-                    cost,
+                    peer_cost,
                 )
 
                 candidate_edges[
@@ -398,7 +528,7 @@ class ScoutOptimizer:
 
         if flow != k:
             raise RuntimeError(
-                f"SCOUT only assigned "
+                f"SCOUT assigned only "
                 f"{flow}/{k} demands"
             )
 
@@ -407,7 +537,7 @@ class ScoutOptimizer:
         for i, item in enumerate(
             demands
         ):
-            selected_source = None
+            chosen = None
             found = False
 
             for (
@@ -419,18 +549,21 @@ class ScoutOptimizer:
                 if idx != i:
                     continue
 
-                # capacity 1 -> 0 means selected.
+                # Initial candidate capacity is 1.
+                # cap == 0 means this edge carries
+                # one unit of MCMF flow.
                 if edge[1] == 0:
-                    selected_source = (
-                        source
-                    )
+
+                    chosen = source
                     found = True
                     break
 
             if not found:
                 raise RuntimeError(
-                    "SCOUT demand has "
-                    "no selected source"
+                    "SCOUT selected no "
+                    "source for demand "
+                    f"({item.node}, "
+                    f"{item.layer})"
                 )
 
             assignment[
@@ -438,6 +571,6 @@ class ScoutOptimizer:
                     item.node,
                     item.layer,
                 )
-            ] = selected_source
+            ] = chosen
 
         return assignment
