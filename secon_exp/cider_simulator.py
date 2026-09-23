@@ -95,6 +95,7 @@ def simulate_cider(
     pulse_budget_mb=2048.0,
     pulse_max_transfers=0,
     pulse_quantum_mb=8.0,
+    pulse_refill_ratio=0.5,
 
     scout_alpha=1.0,
     scout_beta=0.02,
@@ -318,415 +319,640 @@ def simulate_cider(
 
     wan_busy_time_s = 0.0
 
+    # =========================================================
+    # Event-driven CIDER
+    #
+    # A scheduling cycle is triggered whenever transmission
+    # slots become available.
+    #
+    # We DO NOT wait for all flows selected in the previous
+    # PULSE decision to finish.
+    #
+    # PULSE remains a global layer-selection optimization;
+    # SCOUT remains a joint source-assignment optimization;
+    # KEEP is executed on layers completed at the current
+    # event boundary.
+    # =========================================================
+
+    active = []
+    pending = []
+
+    inflight_pairs = set()
+
+    # Fair global concurrency constraint shared with baselines.
+    max_total_transfers = (
+        int(pulse_max_transfers)
+        if pulse_max_transfers > 0
+        else len(nodes)
+    )
+
+    safety = 0
+
     while (
         len(ready)
         < accepted
     ):
-        scheduling_cycles += 1
+        safety += 1
 
-        remaining_pairs = sum(
-            len(
-                need[node]
-                - acquired[node]
+        if safety > 10_000_000:
+            raise RuntimeError(
+                "CIDER event-loop safety "
+                "limit exceeded"
             )
-            for node in nodes
+
+        # -----------------------------------------------------
+        # Activate flows whose propagation delay elapsed.
+        # -----------------------------------------------------
+
+        newly_active = [
+            f
+            for f in pending
+            if (
+                f["ready_at"]
+                <= now + EPS
+            )
+        ]
+
+        for f in newly_active:
+            pending.remove(f)
+            active.append(f)
+
+        # -----------------------------------------------------
+        # PULSE + SCOUT refill.
+        # -----------------------------------------------------
+
+        free_slots = max(
+            0,
+            max_total_transfers
+            - len(active)
+            - len(pending),
         )
 
-        if remaining_pairs <= 0:
+        refill_threshold = max(
+            1,
+            int(
+                math.ceil(
+                    max_total_transfers
+                    * pulse_refill_ratio
+                )
+            ),
+        )
+
+        should_refill = (
+            free_slots
+            >= refill_threshold
+            or (
+                not active
+                and not pending
+            )
+        )
+
+        if (
+            free_slots > 0
+            and should_refill
+        ):
+
+            remaining_pairs = sum(
+                len(
+                    need[node]
+                    - acquired[node]
+                )
+                for node in nodes
+            )
+
+            if remaining_pairs > 0:
+
+                # Layers already in flight are excluded from
+                # the current PULSE candidate set by treating
+                # them as provisionally acquired.
+                acquired_for_pulse = {
+                    node: set(
+                        acquired[node]
+                    )
+                    for node in nodes
+                }
+
+                for (
+                    dst,
+                    layer,
+                ) in inflight_pairs:
+                    acquired_for_pulse[
+                        dst
+                    ].add(
+                        layer
+                    )
+
+                t0 = time.perf_counter()
+
+                selected = pulse.select(
+                    nodes=list(nodes),
+                    groups=groups,
+                    tasks=tasks,
+                    acquired=(
+                        acquired_for_pulse
+                    ),
+                    need=need,
+                    sizes=sizes,
+                    budget_mb=(
+                        pulse_budget_mb
+                    ),
+                    max_transfers=(
+                        free_slots
+                    ),
+                )
+
+                pulse_ms += (
+                    time.perf_counter()
+                    - t0
+                ) * 1000.0
+
+                if selected:
+
+                    t0 = (
+                        time.perf_counter()
+                    )
+
+                    assignment = (
+                        scout.choose(
+                            demands=selected,
+                            relay_cache=(
+                                relay_cache
+                            ),
+                            topology=topology,
+                            active=(
+                                active
+                                + pending
+                            ),
+                        )
+                    )
+
+                    scout_ms += (
+                        time.perf_counter()
+                        - t0
+                    ) * 1000.0
+
+                    # Common transport-level coalescing.
+                    #
+                    # If a layer is already being fetched from
+                    # Registry, another demand whose SCOUT
+                    # decision is also Registry waits until the
+                    # first copy becomes available.
+                    #
+                    # Dragonfly/PeerSync baseline already use
+                    # the same behavior, so this is a simulator
+                    # fairness rule rather than a CIDER novelty.
+                    cloud_layers_inflight = {
+                        f["layer"]
+                        for f in (
+                            active
+                            + pending
+                        )
+                        if f["src"] is None
+                    }
+
+                    started_this_epoch = 0
+
+                    for item in selected:
+
+                        pair = (
+                            item.node,
+                            item.layer,
+                        )
+
+                        if (
+                            pair
+                            in inflight_pairs
+                        ):
+                            raise RuntimeError(
+                                "duplicate in-flight "
+                                f"demand: {pair}"
+                            )
+
+                        src = assignment[
+                            pair
+                        ]
+
+                        if (
+                            src is None
+                            and item.layer
+                            in cloud_layers_inflight
+                        ):
+                            # Defer this demand.
+                            # It remains missing and can be
+                            # reconsidered by the next PULSE
+                            # scheduling epoch.
+                            continue
+
+                        if src is None:
+                            path = (
+                                topology
+                                .registry_path(
+                                    item.node
+                                )
+                            )
+
+                            cloud_layers_inflight.add(
+                                item.layer
+                            )
+                        else:
+                            path = (
+                                topology
+                                .peer_path(
+                                    src,
+                                    item.node,
+                                )
+                            )
+
+                        latency_s = (
+                            topology
+                            .path_latency_ms(
+                                path
+                            )
+                            / 1000.0
+                        )
+
+                        flow = {
+                            "dst": item.node,
+                            "src": src,
+                            "layer": item.layer,
+                            "size": (
+                                item.size_mb
+                            ),
+                            "remaining": (
+                                item.size_mb
+                            ),
+                            "path": tuple(path),
+                            "created_at": now,
+                            "ready_at": (
+                                now
+                                + latency_s
+                            ),
+                        }
+
+                        inflight_pairs.add(
+                            pair
+                        )
+
+                        started_this_epoch += 1
+
+                        if (
+                            latency_s
+                            <= EPS
+                        ):
+                            active.append(
+                                flow
+                            )
+                        else:
+                            pending.append(
+                                flow
+                            )
+
+                    if started_this_epoch > 0:
+                        scheduling_cycles += 1
+                        pulse_selected_total += (
+                            started_this_epoch
+                        )
+
+        # -----------------------------------------------------
+        # If nothing is transferring, move to next activation.
+        # -----------------------------------------------------
+
+        if not active:
+
+            if pending:
+
+                next_time = min(
+                    f["ready_at"]
+                    for f in pending
+                )
+
+                dt_idle = max(
+                    0.0,
+                    next_time - now,
+                )
+
+                keep.update_virtual_queue(
+                    registry_mb=0.0,
+                    duration_s=(
+                        dt_idle
+                    ),
+                )
+
+                now = next_time
+                continue
+
+            remaining_pairs = sum(
+                len(
+                    need[node]
+                    - acquired[node]
+                )
+                for node in nodes
+            )
+
+            if remaining_pairs > 0:
+                raise RuntimeError(
+                    "CIDER deadlock: "
+                    f"{remaining_pairs} "
+                    "layer demands remain"
+                )
+
             break
 
-        # -------------------------------------
-        # 1. PULSE
-        # -------------------------------------
+        # -----------------------------------------------------
+        # Network event.
+        # -----------------------------------------------------
 
-        k = (
-            int(
-                pulse_max_transfers
+        rates = fair_rates(
+            [
+                f["path"]
+                for f in active
+            ],
+            topology.capacity,
+        )
+
+        dt_completion = min(
+            f["remaining"]
+            / max(
+                rates[i],
+                EPS,
             )
+            for i, f
+            in enumerate(active)
         )
 
-        if k <= 0:
-            # K(t): current scheduling window
-            # transmission concurrency budget.
-            #
-            # Use N slots by default, but unlike
-            # previous implementation multiple
-            # items may belong to the same node.
-            k = len(nodes)
+        dt = dt_completion
 
-        t0 = (
-            time.perf_counter()
-        )
+        if pending:
 
-        selected = pulse.select(
-            nodes=list(nodes),
-            groups=groups,
-            tasks=tasks,
-            acquired=acquired,
-            need=need,
-            sizes=sizes,
-            budget_mb=(
-                pulse_budget_mb
+            next_activation = min(
+                f["ready_at"]
+                for f in pending
+            )
+
+            until_activation = (
+                next_activation - now
+            )
+
+            if (
+                until_activation
+                > EPS
+            ):
+                dt = min(
+                    dt,
+                    until_activation,
+                )
+
+        if dt <= EPS:
+            now += EPS
+            continue
+
+        # -----------------------------------------------------
+        # Link utilization.
+        # -----------------------------------------------------
+
+        link_rate = Counter()
+
+        for i, f in enumerate(
+            active
+        ):
+            rate = rates[i]
+
+            for lid in f["path"]:
+                link_rate[lid] += (
+                    rate
+                )
+
+        for lid, cap in (
+            topology.capacity.items()
+        ):
+            util = min(
+                1.0,
+                link_rate.get(
+                    lid,
+                    0.0,
+                )
+                / cap,
+            )
+
+            link_peak[lid] = max(
+                link_peak[lid],
+                util,
+            )
+
+            util_samples.append(
+                (
+                    util,
+                    dt,
+                )
+            )
+
+            if util > EPS:
+                link_busy[lid] += (
+                    dt
+                )
+
+        if (
+            link_rate.get(
+                "wan",
+                0.0,
+            )
+            > EPS
+        ):
+            wan_busy_time_s += (
+                dt
+            )
+
+        # -----------------------------------------------------
+        # Transfer data during [now, now+dt].
+        # -----------------------------------------------------
+
+        registry_interval_mb = 0.0
+
+        for i, f in enumerate(
+            active
+        ):
+            amount = min(
+                f["remaining"],
+                rates[i] * dt,
+            )
+
+            f["remaining"] -= (
+                amount
+            )
+
+            if f["src"] is None:
+                registry_interval_mb += (
+                    amount
+                )
+
+            for lid in f["path"]:
+                link_bytes[lid] += (
+                    amount
+                )
+
+        # Lyapunov queue uses actual WAN bytes
+        # during this event interval.
+        keep.update_virtual_queue(
+            registry_mb=(
+                registry_interval_mb
             ),
-            max_transfers=k,
+            duration_s=dt,
         )
 
-        pulse_ms += (
-            time.perf_counter()
-            - t0
-        ) * 1000.0
+        now += dt
 
-        if not selected:
-            raise RuntimeError(
-                "PULSE selected no layer "
-                f"with {remaining_pairs} "
-                "missing demands remaining. "
-                "Increase pulse budget."
+        # -----------------------------------------------------
+        # Process completed transfers.
+        # -----------------------------------------------------
+
+        completed = [
+            f
+            for f in active
+            if (
+                f["remaining"]
+                <= EPS
             )
+        ]
 
-        pulse_selected_total += (
-            len(selected)
-        )
-
-        # -------------------------------------
-        # 2. SCOUT
-        # -------------------------------------
-
-        t0 = (
-            time.perf_counter()
-        )
-
-        assignment = scout.choose(
-            demands=selected,
-            relay_cache=relay_cache,
-            topology=topology,
-            active=[],
-        )
-
-        scout_ms += (
-            time.perf_counter()
-            - t0
-        ) * 1000.0
-
-        # -------------------------------------
-        # 3. Build complete batch.
-        # -------------------------------------
-
-        active = []
-        pending = []
-
-        batch_registry_mb = 0.0
+        if not completed:
+            continue
 
         newly_arrived = {
             node: set()
             for node in nodes
         }
 
-        batch_start = now
+        for f in completed:
 
-        for item in selected:
+            active.remove(f)
 
-            src = assignment[
+            dst = f["dst"]
+            src = f["src"]
+            layer = f["layer"]
+            size = f["size"]
+
+            inflight_pairs.discard(
                 (
-                    item.node,
-                    item.layer,
+                    dst,
+                    layer,
                 )
-            ]
+            )
+
+            acquired[dst].add(
+                layer
+            )
+
+            newly_arrived[
+                dst
+            ].add(
+                layer
+            )
+
+            transfer_times.append(
+                now
+                - f["created_at"]
+            )
 
             if src is None:
-                path = (
-                    topology.registry_path(
-                        item.node
-                    )
+
+                registry_mb += (
+                    size
                 )
+
             else:
-                path = (
-                    topology.peer_path(
-                        src,
-                        item.node,
-                    )
+
+                peer_mb += (
+                    size
                 )
 
-            latency_s = (
-                topology.path_latency_ms(
-                    path
-                )
-                / 1000.0
-            )
-
-            flow = {
-                "dst": item.node,
-                "src": src,
-                "layer": item.layer,
-                "size": item.size_mb,
-                "remaining": item.size_mb,
-                "path": tuple(path),
-                "created_at": now,
-                "ready_at": (
-                    now + latency_s
-                ),
-            }
-
-            if latency_s <= EPS:
-                active.append(
-                    flow
-                )
-            else:
-                pending.append(
-                    flow
-                )
-
-        # -------------------------------------
-        # 4. Execute WHOLE batch.
-        #
-        # No new PULSE scheduling is allowed
-        # before this batch becomes empty.
-        # -------------------------------------
-
-        while (
-            active or pending
-        ):
-            newly_active = [
-                f
-                for f in pending
                 if (
-                    f["ready_at"]
-                    <= now + EPS
-                )
-            ]
-
-            for f in newly_active:
-                pending.remove(f)
-                active.append(f)
-
-            if not active:
-
-                now = min(
-                    f["ready_at"]
-                    for f in pending
-                )
-
-                continue
-
-            rates = fair_rates(
-                [
-                    f["path"]
-                    for f in active
-                ],
-                topology.capacity,
-            )
-
-            dt = min(
-                f["remaining"]
-                / max(
-                    rates[i],
-                    EPS,
-                )
-                for i, f
-                in enumerate(active)
-            )
-
-            if pending:
-
-                next_activation = min(
-                    f["ready_at"]
-                    for f
-                    in pending
-                )
-
-                delta = (
-                    next_activation
-                    - now
-                )
-
-                if delta > EPS:
-                    dt = min(
-                        dt,
-                        delta,
-                    )
-
-            if dt <= EPS:
-                now += EPS
-                continue
-
-            link_rate = Counter()
-
-            for i, f in (
-                enumerate(active)
-            ):
-                for lid in f["path"]:
-
-                    link_rate[lid] += (
-                        rates[i]
-                    )
-
-            for lid, cap in (
-                topology.capacity.items()
-            ):
-                util = min(
-                    1.0,
-                    link_rate.get(
-                        lid,
-                        0.0,
-                    )
-                    / cap,
-                )
-
-                link_peak[lid] = max(
-                    link_peak[lid],
-                    util,
-                )
-
-                util_samples.append(
-                    (
-                        util,
-                        dt,
-                    )
-                )
-
-                if util > EPS:
-                    link_busy[lid] += (
-                        dt
-                    )
-
-            if (
-                link_rate.get(
-                    "wan",
-                    0.0,
-                )
-                > EPS
-            ):
-                wan_busy_time_s += (
-                    dt
-                )
-
-            for i, f in (
-                enumerate(active)
-            ):
-                amount = min(
-                    f["remaining"],
-                    rates[i] * dt,
-                )
-
-                f["remaining"] -= (
-                    amount
-                )
-
-                for lid in f["path"]:
-                    link_bytes[lid] += (
-                        amount
-                    )
-
-            now += dt
-
-            completed = [
-                f
-                for f in active
-                if (
-                    f["remaining"]
-                    <= EPS
-                )
-            ]
-
-            for f in completed:
-
-                active.remove(f)
-
-                dst = f["dst"]
-                src = f["src"]
-                layer = f["layer"]
-                size = f["size"]
-
-                acquired[dst].add(
-                    layer
-                )
-
-                newly_arrived[
-                    dst
-                ].add(
-                    layer
-                )
-
-                transfer_times.append(
-                    now
-                    - f["created_at"]
-                )
-
-                if src is None:
-
-                    registry_mb += (
-                        size
-                    )
-
-                    batch_registry_mb += (
-                        size
-                    )
-
-                else:
-                    peer_mb += (
-                        size
-                    )
-
-                    if topology.same_domain(
+                    topology
+                    .same_domain(
                         src,
                         dst,
-                    ):
-                        same_domain_peer_mb += (
-                            size
-                        )
-                    else:
-                        cross_domain_peer_mb += (
-                            size
-                        )
+                    )
+                ):
+                    same_domain_peer_mb += (
+                        size
+                    )
+                else:
+                    cross_domain_peer_mb += (
+                        size
+                    )
 
-                # Container readiness can become
-                # true immediately when a layer
-                # completes, even though the next
-                # scheduling cycle waits for the
-                # full batch.
-                update_ready(
-                    now
-                )
-
-        batch_duration = (
-            now - batch_start
+        update_ready(
+            now
         )
 
-        # -------------------------------------
-        # 5. KEEP
+        # -----------------------------------------------------
+        # KEEP:
+        # optimize preservation for layers completed at this
+        # event boundary.
         #
-        # One unified retention decision per
-        # node AFTER the whole batch.
-        # -------------------------------------
+        # Layers currently serving as active/pending sources
+        # are pinned until their transmissions finish.
+        # -----------------------------------------------------
 
-        t0 = (
-            time.perf_counter()
-        )
+        t0 = time.perf_counter()
 
         for node in nodes:
 
-            if not newly_arrived[node]:
+            if not newly_arrived[
+                node
+            ]:
                 continue
 
             old_cache = set(
                 relay_cache[node]
             )
 
-            candidates = (
-                old_cache
-                | newly_arrived[node]
+            pins = {
+                f["layer"]
+                for f in (
+                    active + pending
+                )
+                if (
+                    f["src"]
+                    == node
+                )
+            }
+
+            pinned_bytes = sum(
+                sizes[layer]
+                for layer in pins
             )
 
-            selected_cache = (
+            if (
+                pinned_bytes
+                > cache_capacity[node]
+                + EPS
+            ):
+                raise RuntimeError(
+                    "active source pins exceed "
+                    f"cache capacity at {node}"
+                )
+
+            candidate_nonpins = (
+                (
+                    old_cache
+                    | newly_arrived[node]
+                )
+                - pins
+            )
+
+            remaining_capacity = (
+                cache_capacity[node]
+                - pinned_bytes
+            )
+
+            selected_nonpins = (
                 keep.choose_retention(
                     node=node,
                     candidate_layers=(
-                        candidates
+                        candidate_nonpins
                     ),
                     capacity_mb=(
-                        cache_capacity[
-                            node
-                        ]
+                        remaining_capacity
                     ),
                     nodes=list(nodes),
                     relay_cache=(
@@ -734,6 +960,13 @@ def simulate_cider(
                     ),
                     topology=topology,
                     sizes=sizes,
+                )
+            )
+
+            selected_cache = (
+                set(pins)
+                | set(
+                    selected_nonpins
                 )
             )
 
@@ -749,7 +982,8 @@ def simulate_cider(
 
             not_preserved_mb += sum(
                 sizes[x]
-                for x in (
+                for x
+                in (
                     newly_arrived[node]
                     - selected_cache
                 )
@@ -781,20 +1015,6 @@ def simulate_cider(
             time.perf_counter()
             - t0
         ) * 1000.0
-
-        # -------------------------------------
-        # 6. Lyapunov Q(t+1)
-        # -------------------------------------
-
-        keep.update_virtual_queue(
-            registry_mb=(
-                batch_registry_mb
-            ),
-            duration_s=max(
-                batch_duration,
-                EPS,
-            ),
-        )
 
     ready_values = list(
         ready.values()

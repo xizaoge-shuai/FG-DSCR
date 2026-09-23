@@ -117,6 +117,16 @@ def main():
         default=0,
     )
 
+    ap.add_argument(
+        "--pulse-refill-ratio",
+        type=float,
+        default=0.50,
+        help=(
+            "Trigger a new PULSE epoch when this "
+            "fraction of global transfer slots is free."
+        ),
+    )
+
     # SCOUT
     ap.add_argument(
         "--scout-source-concurrency",
@@ -325,6 +335,10 @@ def main():
 
             pulse_max_transfers=(
                 args.pulse_max_transfers
+            ),
+
+            pulse_refill_ratio=(
+                args.pulse_refill_ratio
             ),
 
             scout_source_concurrency=(
