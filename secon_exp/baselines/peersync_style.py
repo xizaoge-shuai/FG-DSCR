@@ -1,14 +1,19 @@
 from secon_exp.policies.base import PolicySpec
 
-# PeerSync-style idea-level reproduction:
+# PeerSync-style idea-level reproduction.
 #
-# - P2P / Registry 混合；
-# - 网络位置和实时速率感知 peer selection；
-# - 内容流行度参与 peer 评价；
-# - replica/popularity-aware retention。
+# Shared ideas:
+# - P2P / Registry hybrid delivery;
+# - network-position-aware peer selection;
+# - replica-aware preservation;
+# - cloud fallback.
 #
-# 当前统一模拟器不模拟 DHT discovery delay 和 block-level Merkle
-# verification，因此这是思想级复现而不是官方 PeerSync 实现。
+# The unified simulator intentionally does not model
+# PeerSync's complete protocol stack, block-level transfer,
+# tracker/DHT overhead, or verification protocol.
+#
+# Therefore this MUST be reported as a PeerSync-inspired
+# idea-level reproduction rather than the official system.
 POLICY = PolicySpec(
     name="peersync_style",
     source_mode="peersync",

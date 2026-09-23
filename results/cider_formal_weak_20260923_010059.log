@@ -1,0 +1,161 @@
+nohup: ignoring input
+============================================================
+PHASE 1: corrected external baselines
+============================================================
+FG warmup: nodes=20 seed=1
+FG target placement: nodes=20 seed=1
+[1/60] N=20 seed=1  WAN=10   registry                    mean=655.24 p95=1822.34 reg=18812 peer=0 cross=0 offload=0.0%
+[2/60] N=20 seed=1  WAN=10   dragonfly_style             mean=61.54 p95=247.20 reg=3068 peer=15744 cross=9383 offload=83.7%
+[3/60] N=20 seed=1  WAN=10   peersync_style              mean=54.05 p95=224.01 reg=2813 peer=15999 cross=8301 offload=85.0%
+[4/60] N=20 seed=1  WAN=10   metapipe_reactive_style     mean=54.58 p95=230.60 reg=2871 peer=15941 cross=7528 offload=84.7%
+[5/60] N=20 seed=1  WAN=10   ilrsa_style                 mean=808.96 p95=1773.46 reg=18812 peer=0 cross=0 offload=0.0%
+[6/60] N=20 seed=1  WAN=30   registry                    mean=218.41 p95=607.40 reg=18812 peer=0 cross=0 offload=0.0%
+[7/60] N=20 seed=1  WAN=30   dragonfly_style             mean=22.24 p95=83.22 reg=2846 peer=15966 cross=10049 offload=84.9%
+[8/60] N=20 seed=1  WAN=30   peersync_style              mean=22.81 p95=83.25 reg=2944 peer=15868 cross=9699 offload=84.4%
+[9/60] N=20 seed=1  WAN=30   metapipe_reactive_style     mean=22.17 p95=79.41 reg=2748 peer=16064 cross=8343 offload=85.4%
+[10/60] N=20 seed=1  WAN=30   ilrsa_style                 mean=269.63 p95=590.79 reg=18812 peer=0 cross=0 offload=0.0%
+[11/60] N=20 seed=1  WAN=100  registry                    mean=65.53 p95=182.20 reg=18812 peer=0 cross=0 offload=0.0%
+[12/60] N=20 seed=1  WAN=100  dragonfly_style             mean=14.45 p95=44.28 reg=2789 peer=16023 cross=10615 offload=85.2%
+[13/60] N=20 seed=1  WAN=100  peersync_style              mean=15.52 p95=51.21 reg=2510 peer=16302 cross=10940 offload=86.7%
+[14/60] N=20 seed=1  WAN=100  metapipe_reactive_style     mean=14.57 p95=42.55 reg=3079 peer=15733 cross=8694 offload=83.6%
+[15/60] N=20 seed=1  WAN=100  ilrsa_style                 mean=80.88 p95=176.86 reg=18812 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=30 seed=1
+FG target placement: nodes=30 seed=1
+[16/60] N=30 seed=1  WAN=10   registry                    mean=711.99 p95=2204.95 reg=22216 peer=0 cross=0 offload=0.0%
+[17/60] N=30 seed=1  WAN=10   dragonfly_style             mean=37.78 p95=237.52 reg=2451 peer=19765 cross=15211 offload=89.0%
+[18/60] N=30 seed=1  WAN=10   peersync_style              mean=33.18 p95=202.02 reg=2095 peer=20121 cross=13894 offload=90.6%
+[19/60] N=30 seed=1  WAN=10   metapipe_reactive_style     mean=44.99 p95=258.66 reg=2662 peer=19554 cross=12516 offload=88.0%
+[20/60] N=30 seed=1  WAN=10   ilrsa_style                 mean=853.23 p95=2218.53 reg=22216 peer=0 cross=0 offload=0.0%
+[21/60] N=30 seed=1  WAN=30   registry                    mean=237.32 p95=735.02 reg=22216 peer=0 cross=0 offload=0.0%
+[22/60] N=30 seed=1  WAN=30   dragonfly_style             mean=16.70 p95=76.08 reg=2334 peer=19882 cross=18459 offload=89.5%
+[23/60] N=30 seed=1  WAN=30   peersync_style              mean=23.95 p95=97.38 reg=1940 peer=20276 cross=18221 offload=91.3%
+[24/60] N=30 seed=1  WAN=30   metapipe_reactive_style     mean=19.80 p95=76.49 reg=2346 peer=19870 cross=14974 offload=89.4%
+[25/60] N=30 seed=1  WAN=30   ilrsa_style                 mean=284.45 p95=739.53 reg=22216 peer=0 cross=0 offload=0.0%
+[26/60] N=30 seed=1  WAN=100  registry                    mean=71.19 p95=220.54 reg=22216 peer=0 cross=0 offload=0.0%
+[27/60] N=30 seed=1  WAN=100  dragonfly_style             mean=11.39 p95=39.93 reg=2126 peer=20090 cross=18499 offload=90.4%
+[28/60] N=30 seed=1  WAN=100  peersync_style              mean=20.41 p95=97.87 reg=1940 peer=20276 cross=18290 offload=91.3%
+[29/60] N=30 seed=1  WAN=100  metapipe_reactive_style     mean=15.07 p95=65.41 reg=2128 peer=20088 cross=18128 offload=90.4%
+[30/60] N=30 seed=1  WAN=100  ilrsa_style                 mean=85.38 p95=221.88 reg=22216 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=40 seed=1
+FG target placement: nodes=40 seed=1
+[31/60] N=40 seed=1  WAN=10   registry                    mean=806.88 p95=2866.94 reg=28957 peer=0 cross=0 offload=0.0%
+[32/60] N=40 seed=1  WAN=10   dragonfly_style             mean=76.75 p95=328.59 reg=3428 peer=25529 cross=15422 offload=88.2%
+[33/60] N=40 seed=1  WAN=10   peersync_style              mean=69.49 p95=293.52 reg=3065 peer=25892 cross=13947 offload=89.4%
+[34/60] N=40 seed=1  WAN=10   metapipe_reactive_style     mean=73.83 p95=300.17 reg=3093 peer=25864 cross=13845 offload=89.3%
+[35/60] N=40 seed=1  WAN=10   ilrsa_style                 mean=940.82 p95=2786.77 reg=28957 peer=0 cross=0 offload=0.0%
+[36/60] N=40 seed=1  WAN=30   registry                    mean=268.96 p95=955.67 reg=28957 peer=0 cross=0 offload=0.0%
+[37/60] N=40 seed=1  WAN=30   dragonfly_style             mean=27.40 p95=98.45 reg=3104 peer=25853 cross=15985 offload=89.3%
+[38/60] N=40 seed=1  WAN=30   peersync_style              mean=26.98 p95=97.17 reg=3065 peer=25892 cross=13901 offload=89.4%
+[39/60] N=40 seed=1  WAN=30   metapipe_reactive_style     mean=28.99 p95=102.12 reg=3087 peer=25870 cross=14264 offload=89.3%
+[40/60] N=40 seed=1  WAN=30   ilrsa_style                 mean=313.63 p95=928.90 reg=28957 peer=0 cross=0 offload=0.0%
+[41/60] N=40 seed=1  WAN=100  registry                    mean=80.70 p95=286.72 reg=28957 peer=0 cross=0 offload=0.0%
+[42/60] N=40 seed=1  WAN=100  dragonfly_style             mean=12.29 p95=36.79 reg=3301 peer=25656 cross=17298 offload=88.6%
+[43/60] N=40 seed=1  WAN=100  peersync_style              mean=12.19 p95=36.24 reg=3065 peer=25892 cross=13602 offload=89.4%
+[44/60] N=40 seed=1  WAN=100  metapipe_reactive_style     mean=13.61 p95=36.99 reg=3509 peer=25448 cross=13813 offload=87.9%
+[45/60] N=40 seed=1  WAN=100  ilrsa_style                 mean=94.11 p95=278.65 reg=28957 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=50 seed=1
+FG target placement: nodes=50 seed=1
+[46/60] N=50 seed=1  WAN=10   registry                    mean=857.74 p95=3173.43 reg=32186 peer=0 cross=0 offload=0.0%
+[47/60] N=50 seed=1  WAN=10   dragonfly_style             mean=32.60 p95=223.30 reg=2428 peer=29758 cross=24727 offload=92.5%
+[48/60] N=50 seed=1  WAN=10   peersync_style              mean=25.98 p95=150.07 reg=1813 peer=30373 cross=20501 offload=94.4%
+[49/60] N=50 seed=1  WAN=10   metapipe_reactive_style     mean=34.47 p95=225.53 reg=2448 peer=29738 cross=20521 offload=92.4%
+[50/60] N=50 seed=1  WAN=10   ilrsa_style                 mean=1060.61 p95=3218.63 reg=32186 peer=0 cross=0 offload=0.0%
+[51/60] N=50 seed=1  WAN=30   registry                    mean=285.89 p95=1057.83 reg=32186 peer=0 cross=0 offload=0.0%
+[52/60] N=50 seed=1  WAN=30   dragonfly_style             mean=14.03 p95=72.02 reg=2267 peer=29919 cross=23021 offload=93.0%
+[53/60] N=50 seed=1  WAN=30   peersync_style              mean=13.89 p95=63.31 reg=1835 peer=30351 cross=19201 offload=94.3%
+[54/60] N=50 seed=1  WAN=30   metapipe_reactive_style     mean=15.25 p95=72.73 reg=2285 peer=29901 cross=19937 offload=92.9%
+[55/60] N=50 seed=1  WAN=30   ilrsa_style                 mean=353.55 p95=1072.90 reg=32186 peer=0 cross=0 offload=0.0%
+[56/60] N=50 seed=1  WAN=100  registry                    mean=85.74 p95=317.37 reg=32186 peer=0 cross=0 offload=0.0%
+[57/60] N=50 seed=1  WAN=100  dragonfly_style             mean=8.50 p95=32.66 reg=2430 peer=29756 cross=24051 offload=92.5%
+[58/60] N=50 seed=1  WAN=100  peersync_style              mean=9.91 p95=39.39 reg=1811 peer=30375 cross=19630 offload=94.4%
+[59/60] N=50 seed=1  WAN=100  metapipe_reactive_style     mean=9.59 p95=34.78 reg=2929 peer=29257 cross=19878 offload=90.9%
+[60/60] N=50 seed=1  WAN=100  ilrsa_style                 mean=106.09 p95=321.89 reg=32186 peer=0 cross=0 offload=0.0%
+
+Scale baseline sweep completed.
+Saved: /home/zhjia/FG-DSCR/results/cider_formal_weak_baselines_20260923_010059/raw.csv
+
+============================================================
+PHASE 2: CIDER
+============================================================
+
+------------------------------------------------------------
+CIDER WAN=10 MB/s
+------------------------------------------------------------
+
+================================================================================
+CIDER N=20 domains=4 WAN=10
+================================================================================
+mean=37.17s p95=139.96s registry=2045MB peer=16767MB cross=12292MB offload=89.1% scheduler=1694.02ms
+
+================================================================================
+CIDER N=30 domains=5 WAN=10
+================================================================================
+mean=27.54s p95=190.23s registry=1991MB peer=20225MB cross=17869MB offload=91.0% scheduler=2504.79ms
+
+================================================================================
+CIDER N=40 domains=8 WAN=10
+================================================================================
+mean=71.56s p95=292.31s registry=3083MB peer=25874MB cross=14062MB offload=89.4% scheduler=5773.25ms
+
+================================================================================
+CIDER N=50 domains=10 WAN=10
+================================================================================
+mean=30.64s p95=185.13s registry=1851MB peer=30335MB cross=20044MB offload=94.2% scheduler=10766.83ms
+
+Saved: /home/zhjia/FG-DSCR/results/cider_formal_weak_cider_20260923_010059/wan10/raw.csv
+
+------------------------------------------------------------
+CIDER WAN=30 MB/s
+------------------------------------------------------------
+
+================================================================================
+CIDER N=20 domains=4 WAN=30
+================================================================================
+mean=19.43s p95=70.88s registry=2187MB peer=16625MB cross=12219MB offload=88.4% scheduler=1645.22ms
+
+================================================================================
+CIDER N=30 domains=5 WAN=30
+================================================================================
+mean=15.12s p95=56.69s registry=1991MB peer=20225MB cross=18416MB offload=91.0% scheduler=2543.27ms
+
+================================================================================
+CIDER N=40 domains=8 WAN=30
+================================================================================
+mean=25.34s p95=96.60s registry=3083MB peer=25874MB cross=14062MB offload=89.4% scheduler=5850.46ms
+
+================================================================================
+CIDER N=50 domains=10 WAN=30
+================================================================================
+mean=13.36s p95=70.39s registry=2205MB peer=29981MB cross=20201MB offload=93.1% scheduler=10558.85ms
+
+Saved: /home/zhjia/FG-DSCR/results/cider_formal_weak_cider_20260923_010059/wan30/raw.csv
+
+------------------------------------------------------------
+CIDER WAN=100 MB/s
+------------------------------------------------------------
+
+================================================================================
+CIDER N=20 domains=4 WAN=100
+================================================================================
+mean=13.53s p95=42.93s registry=4836MB peer=13976MB cross=9459MB offload=74.3% scheduler=1658.96ms
+
+================================================================================
+CIDER N=30 domains=5 WAN=100
+================================================================================
+mean=10.85s p95=33.79s registry=4131MB peer=18085MB cross=16400MB offload=81.4% scheduler=2643.78ms
+
+================================================================================
+CIDER N=40 domains=8 WAN=100
+================================================================================
+mean=10.22s p95=37.86s registry=4103MB peer=24854MB cross=13146MB offload=85.8% scheduler=5223.17ms
+
+================================================================================
+CIDER N=50 domains=10 WAN=100
+================================================================================
+mean=7.48s p95=30.47s registry=3135MB peer=29051MB cross=19473MB offload=90.3% scheduler=9892.85ms
+
+Saved: /home/zhjia/FG-DSCR/results/cider_formal_weak_cider_20260923_010059/wan100/raw.csv
+
+============================================================
+ALL FORMAL MAINLINE RUNS FINISHED
+============================================================

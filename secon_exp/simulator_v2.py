@@ -425,26 +425,21 @@ def simulate_v2(
                 in relay_cache[other]
             )
 
-            pending_demand = sum(
-                1
-                for other in nodes
-                if layer
-                in missing_layers(
-                    other
-                )
-            )
-
+            # min() chooses victim.
+            #
+            # 1. 尽量不删最后一个 edge replica；
+            # 2. 更久未使用的先删；
+            # 3. 副本较多的更适合删除；
+            # 4. 同等条件下大 layer 优先释放空间。
+            #
+            # 不再读取未来 target demand。
             return (
                 holders <= 1,
-                pending_demand,
-                layer_popularity.get(
-                    layer,
-                    0,
-                ),
                 touched[node].get(
                     layer,
                     0.0,
                 ),
+                -holders,
                 -sizes[layer],
                 layer,
             )
@@ -751,13 +746,22 @@ def simulate_v2(
                 return options[0]
 
             def key(opt):
-                src, path, rate = opt
+                src, path, _ = opt
 
+                # PeerSync-style 不读取 simulator
+                # 当前 active-flow 的精确剩余带宽，
+                # 只使用可观测的网络位置、
+                # nominal path capacity 和 latency。
                 local = int(
                     topology.same_domain(
                         src,
                         node,
                     )
+                )
+
+                nominal_rate = min(
+                    topology.capacity[r]
+                    for r in path
                 )
 
                 latency = (
@@ -767,18 +771,10 @@ def simulate_v2(
                     )
                 )
 
-                uploads = sum(
-                    1
-                    for f in active
-                    if f["src"]
-                    == src
-                )
-
                 return (
                     local,
-                    rate,
+                    nominal_rate,
                     -latency,
-                    -uploads,
                     src,
                 )
 
@@ -807,12 +803,19 @@ def simulate_v2(
     def schedule_new():
         started = 0
 
-        busy = {
-            f["dst"]
-            for f in (
-                active + pending
-            )
-        }
+        # 与 CIDER 使用相同的全局并发预算：
+        # K = number of edge nodes.
+        max_total_transfers = len(nodes)
+
+        slots = max(
+            0,
+            max_total_transfers
+            - len(active)
+            - len(pending),
+        )
+
+        if slots <= 0:
+            return 0
 
         layers_inflight = {
             f["layer"]
@@ -821,97 +824,137 @@ def simulate_v2(
             )
         }
 
-        for node in nodes:
-            if node in busy:
-                continue
-
-            missing = list(
-                missing_layers(node)
+        inflight_pairs = {
+            (
+                f["dst"],
+                f["layer"],
             )
+            for f in (
+                active + pending
+            )
+        }
 
-            if not missing:
-                continue
+        # Round-robin:
+        # 每轮每个 node 最多补一个，
+        # 若仍有空槽则进入下一轮，
+        # 避免系统后期只剩少数节点时出现人为 idle。
+        progress = True
 
-            missing.sort(
-                key=lambda l:
-                    layer_order_key(
+        while (
+            slots > 0
+            and progress
+        ):
+            progress = False
+
+            for node in nodes:
+
+                if slots <= 0:
+                    break
+
+                missing = [
+                    layer
+                    for layer
+                    in missing_layers(node)
+                    if (
                         node,
-                        l,
+                        layer,
                     )
-            )
+                    not in inflight_pairs
+                ]
 
-            chosen = None
+                if not missing:
+                    continue
 
-            for layer in missing:
+                missing.sort(
+                    key=lambda l:
+                        layer_order_key(
+                            node,
+                            l,
+                        )
+                )
 
-                src, path, rate = (
-                    choose_source(
+                chosen = None
+
+                for layer in missing:
+
+                    src, path, rate = (
+                        choose_source(
+                            node,
+                            layer,
+                        )
+                    )
+
+                    if (
+                        policy.coalesce
+                        and src is None
+                        and layer
+                        in layers_inflight
+                    ):
+                        continue
+
+                    chosen = (
+                        layer,
+                        src,
+                        path,
+                        rate,
+                    )
+                    break
+
+                if chosen is None:
+                    continue
+
+                (
+                    layer,
+                    src,
+                    path,
+                    _,
+                ) = chosen
+
+                latency_s = (
+                    topology
+                    .path_latency_ms(path)
+                    / 1000.0
+                )
+
+                flow = {
+                    "dst": node,
+                    "src": src,
+                    "layer": layer,
+                    "path": tuple(path),
+                    "remaining": (
+                        sizes[layer]
+                    ),
+                    "size": (
+                        sizes[layer]
+                    ),
+                    "ready_at": (
+                        now + latency_s
+                    ),
+                }
+
+                if latency_s <= EPS:
+                    active.append(
+                        flow
+                    )
+                else:
+                    pending.append(
+                        flow
+                    )
+
+                inflight_pairs.add(
+                    (
                         node,
                         layer,
                     )
                 )
 
-                # Coalescing:
-                # 如果某 layer 正在网络中传播，而当前只能回源，
-                # 则等待第一个副本完成后再通过 P2P 获取。
-                if (
-                    policy.coalesce
-                    and src is None
-                    and layer
-                    in layers_inflight
-                ):
-                    continue
-
-                chosen = (
-                    layer,
-                    src,
-                    path,
-                    rate,
-                )
-                break
-
-            if chosen is None:
-                continue
-
-            (
-                layer,
-                src,
-                path,
-                _
-            ) = chosen
-
-            latency_s = (
-                topology
-                .path_latency_ms(path)
-                / 1000.0
-            )
-
-            flow = {
-                "dst": node,
-                "src": src,
-                "layer": layer,
-                "path": tuple(path),
-                "remaining": (
-                    sizes[layer]
-                ),
-                "size": (
-                    sizes[layer]
-                ),
-                "ready_at": (
-                    now + latency_s
-                ),
-            }
-
-            if latency_s <= EPS:
-                active.append(
-                    flow
-                )
-            else:
-                pending.append(
-                    flow
+                layers_inflight.add(
+                    layer
                 )
 
-            started += 1
+                slots -= 1
+                started += 1
+                progress = True
 
         return started
 

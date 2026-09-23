@@ -1,0 +1,344 @@
+nohup: ignoring input
+FG warmup: nodes=20 seed=1
+FG target placement: nodes=20 seed=1
+[1/300] N=20 seed=1  WAN=10   registry                    mean=764.82 p95=2126.91 reg=23281 peer=0 cross=0 offload=0.0%
+[2/300] N=20 seed=1  WAN=10   dragonfly_style             mean=199.29 p95=539.87 reg=6675 peer=16606 cross=7143 offload=71.3%
+[3/300] N=20 seed=1  WAN=10   peersync_style              mean=181.68 p95=468.08 reg=4746 peer=18535 cross=10599 offload=79.6%
+[4/300] N=20 seed=1  WAN=10   metapipe_reactive_style     mean=253.87 p95=655.03 reg=5577 peer=17704 cross=14864 offload=76.0%
+[5/300] N=20 seed=1  WAN=10   ilrsa_style                 mean=1170.14 p95=2274.43 reg=23281 peer=0 cross=0 offload=0.0%
+[6/300] N=20 seed=1  WAN=30   registry                    mean=254.90 p95=708.78 reg=23281 peer=0 cross=0 offload=0.0%
+[7/300] N=20 seed=1  WAN=30   dragonfly_style             mean=66.75 p95=176.14 reg=6586 peer=16695 cross=8894 offload=71.7%
+[8/300] N=20 seed=1  WAN=30   peersync_style              mean=62.68 p95=156.11 reg=4796 peer=18485 cross=9662 offload=79.4%
+[9/300] N=20 seed=1  WAN=30   metapipe_reactive_style     mean=101.26 p95=280.81 reg=5788 peer=17493 cross=13768 offload=75.1%
+[10/300] N=20 seed=1  WAN=30   ilrsa_style                 mean=390.15 p95=758.23 reg=23281 peer=0 cross=0 offload=0.0%
+[11/300] N=20 seed=1  WAN=100  registry                    mean=76.43 p95=212.43 reg=23281 peer=0 cross=0 offload=0.0%
+[12/300] N=20 seed=1  WAN=100  dragonfly_style             mean=30.84 p95=101.63 reg=5139 peer=18142 cross=13519 offload=77.9%
+[13/300] N=20 seed=1  WAN=100  peersync_style              mean=31.95 p95=109.42 reg=4204 peer=19077 cross=14413 offload=81.9%
+[14/300] N=20 seed=1  WAN=100  metapipe_reactive_style     mean=43.74 p95=152.73 reg=6138 peer=17143 cross=13450 offload=73.6%
+[15/300] N=20 seed=1  WAN=100  ilrsa_style                 mean=117.22 p95=227.57 reg=23281 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=20 seed=2
+FG target placement: nodes=20 seed=2
+[16/300] N=20 seed=2  WAN=10   registry                    mean=764.40 p95=2309.19 reg=25528 peer=0 cross=0 offload=0.0%
+[17/300] N=20 seed=2  WAN=10   dragonfly_style             mean=100.75 p95=418.12 reg=5156 peer=20372 cross=9870 offload=79.8%
+[18/300] N=20 seed=2  WAN=10   peersync_style              mean=83.96 p95=324.42 reg=3621 peer=21907 cross=12297 offload=85.8%
+[19/300] N=20 seed=2  WAN=10   metapipe_reactive_style     mean=92.82 p95=385.39 reg=4659 peer=20869 cross=9725 offload=81.7%
+[20/300] N=20 seed=2  WAN=10   ilrsa_style                 mean=1102.92 p95=2531.15 reg=25528 peer=0 cross=0 offload=0.0%
+[21/300] N=20 seed=2  WAN=30   registry                    mean=254.78 p95=769.66 reg=25528 peer=0 cross=0 offload=0.0%
+[22/300] N=20 seed=2  WAN=30   dragonfly_style             mean=32.87 p95=113.60 reg=4634 peer=20894 cross=12283 offload=81.8%
+[23/300] N=20 seed=2  WAN=30   peersync_style              mean=30.22 p95=100.40 reg=3492 peer=22036 cross=12681 offload=86.3%
+[24/300] N=20 seed=2  WAN=30   metapipe_reactive_style     mean=33.02 p95=130.32 reg=4689 peer=20839 cross=10059 offload=81.6%
+[25/300] N=20 seed=2  WAN=30   ilrsa_style                 mean=367.75 p95=843.87 reg=25528 peer=0 cross=0 offload=0.0%
+[26/300] N=20 seed=2  WAN=100  registry                    mean=76.42 p95=230.82 reg=25528 peer=0 cross=0 offload=0.0%
+[27/300] N=20 seed=2  WAN=100  dragonfly_style             mean=26.54 p95=103.32 reg=4169 peer=21359 cross=18361 offload=83.7%
+[28/300] N=20 seed=2  WAN=100  peersync_style              mean=26.44 p95=103.42 reg=2807 peer=22721 cross=19342 offload=89.0%
+[29/300] N=20 seed=2  WAN=100  metapipe_reactive_style     mean=32.35 p95=125.98 reg=4847 peer=20681 cross=11314 offload=81.0%
+[30/300] N=20 seed=2  WAN=100  ilrsa_style                 mean=110.47 p95=253.14 reg=25528 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=20 seed=3
+FG target placement: nodes=20 seed=3
+[31/300] N=20 seed=3  WAN=10   registry                    mean=1005.88 p95=2366.07 reg=26721 peer=0 cross=0 offload=0.0%
+[32/300] N=20 seed=3  WAN=10   dragonfly_style             mean=289.38 p95=629.23 reg=5456 peer=21265 cross=13993 offload=79.6%
+[33/300] N=20 seed=3  WAN=10   peersync_style              mean=268.18 p95=575.33 reg=4917 peer=21804 cross=13868 offload=81.6%
+[34/300] N=20 seed=3  WAN=10   metapipe_reactive_style     mean=260.33 p95=572.48 reg=4660 peer=22061 cross=17162 offload=82.6%
+[35/300] N=20 seed=3  WAN=10   ilrsa_style                 mean=1583.50 p95=2622.09 reg=26721 peer=0 cross=0 offload=0.0%
+[36/300] N=20 seed=3  WAN=30   registry                    mean=335.25 p95=788.69 reg=26721 peer=0 cross=0 offload=0.0%
+[37/300] N=20 seed=3  WAN=30   dragonfly_style             mean=107.45 p95=269.33 reg=5469 peer=21252 cross=13778 offload=79.5%
+[38/300] N=20 seed=3  WAN=30   peersync_style              mean=100.60 p95=250.93 reg=4917 peer=21804 cross=13733 offload=81.6%
+[39/300] N=20 seed=3  WAN=30   metapipe_reactive_style     mean=103.17 p95=261.91 reg=4663 peer=22058 cross=17161 offload=82.5%
+[40/300] N=20 seed=3  WAN=30   ilrsa_style                 mean=527.96 p95=874.88 reg=26721 peer=0 cross=0 offload=0.0%
+[41/300] N=20 seed=3  WAN=100  registry                    mean=100.54 p95=236.60 reg=26721 peer=0 cross=0 offload=0.0%
+[42/300] N=20 seed=3  WAN=100  dragonfly_style             mean=43.58 p95=142.56 reg=5462 peer=21259 cross=14263 offload=79.6%
+[43/300] N=20 seed=3  WAN=100  peersync_style              mean=41.92 p95=137.39 reg=4917 peer=21804 cross=14667 offload=81.6%
+[44/300] N=20 seed=3  WAN=100  metapipe_reactive_style     mean=37.00 p95=101.25 reg=9987 peer=16734 cross=12068 offload=62.6%
+[45/300] N=20 seed=3  WAN=100  ilrsa_style                 mean=158.61 p95=263.44 reg=26721 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=20 seed=4
+FG target placement: nodes=20 seed=4
+[46/300] N=20 seed=4  WAN=10   registry                    mean=727.87 p95=1905.24 reg=21090 peer=0 cross=0 offload=0.0%
+[47/300] N=20 seed=4  WAN=10   dragonfly_style             mean=159.51 p95=410.74 reg=3220 peer=17870 cross=13253 offload=84.7%
+[48/300] N=20 seed=4  WAN=10   peersync_style              mean=144.75 p95=379.84 reg=2911 peer=18179 cross=13132 offload=86.2%
+[49/300] N=20 seed=4  WAN=10   metapipe_reactive_style     mean=162.55 p95=404.03 reg=3153 peer=17937 cross=12435 offload=85.0%
+[50/300] N=20 seed=4  WAN=10   ilrsa_style                 mean=911.16 p95=2063.33 reg=21090 peer=0 cross=0 offload=0.0%
+[51/300] N=20 seed=4  WAN=30   registry                    mean=242.60 p95=634.97 reg=21090 peer=0 cross=0 offload=0.0%
+[52/300] N=20 seed=4  WAN=30   dragonfly_style             mean=69.35 p95=200.84 reg=3363 peer=17727 cross=13116 offload=84.1%
+[53/300] N=20 seed=4  WAN=30   peersync_style              mean=63.36 p95=185.77 reg=2911 peer=18179 cross=13132 offload=86.2%
+[54/300] N=20 seed=4  WAN=30   metapipe_reactive_style     mean=68.18 p95=195.49 reg=3357 peer=17733 cross=12191 offload=84.1%
+[55/300] N=20 seed=4  WAN=30   ilrsa_style                 mean=303.79 p95=688.02 reg=21090 peer=0 cross=0 offload=0.0%
+[56/300] N=20 seed=4  WAN=100  registry                    mean=72.76 p95=190.38 reg=21090 peer=0 cross=0 offload=0.0%
+[57/300] N=20 seed=4  WAN=100  dragonfly_style             mean=36.40 p95=121.54 reg=3394 peer=17696 cross=13052 offload=83.9%
+[58/300] N=20 seed=4  WAN=100  peersync_style              mean=35.34 p95=119.09 reg=2911 peer=18179 cross=12852 offload=86.2%
+[59/300] N=20 seed=4  WAN=100  metapipe_reactive_style     mean=36.26 p95=121.76 reg=3480 peer=17610 cross=11820 offload=83.5%
+[60/300] N=20 seed=4  WAN=100  ilrsa_style                 mean=91.23 p95=206.65 reg=21090 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=20 seed=5
+FG target placement: nodes=20 seed=5
+[61/300] N=20 seed=5  WAN=10   registry                    mean=699.22 p95=1943.38 reg=22886 peer=0 cross=0 offload=0.0%
+[62/300] N=20 seed=5  WAN=10   dragonfly_style             mean=161.49 p95=469.50 reg=4232 peer=18654 cross=12856 offload=81.5%
+[63/300] N=20 seed=5  WAN=10   peersync_style              mean=116.97 p95=373.80 reg=2762 peer=20124 cross=14262 offload=87.9%
+[64/300] N=20 seed=5  WAN=10   metapipe_reactive_style     mean=153.32 p95=465.40 reg=4186 peer=18700 cross=13218 offload=81.7%
+[65/300] N=20 seed=5  WAN=10   ilrsa_style                 mean=1090.75 p95=2268.56 reg=22886 peer=0 cross=0 offload=0.0%
+[66/300] N=20 seed=5  WAN=30   registry                    mean=233.05 p95=647.78 reg=22886 peer=0 cross=0 offload=0.0%
+[67/300] N=20 seed=5  WAN=30   dragonfly_style             mean=62.32 p95=214.99 reg=4052 peer=18834 cross=13039 offload=82.3%
+[68/300] N=20 seed=5  WAN=30   peersync_style              mean=50.82 p95=189.12 reg=2762 peer=20124 cross=14262 offload=87.9%
+[69/300] N=20 seed=5  WAN=30   metapipe_reactive_style     mean=61.24 p95=211.33 reg=4186 peer=18700 cross=12868 offload=81.7%
+[70/300] N=20 seed=5  WAN=30   ilrsa_style                 mean=363.66 p95=757.03 reg=22886 peer=0 cross=0 offload=0.0%
+[71/300] N=20 seed=5  WAN=100  registry                    mean=69.89 p95=194.32 reg=22886 peer=0 cross=0 offload=0.0%
+[72/300] N=20 seed=5  WAN=100  dragonfly_style             mean=30.49 p95=131.56 reg=3903 peer=18983 cross=13836 offload=82.9%
+[73/300] N=20 seed=5  WAN=100  peersync_style              mean=27.89 p95=124.25 reg=2762 peer=20124 cross=14357 offload=87.9%
+[74/300] N=20 seed=5  WAN=100  metapipe_reactive_style     mean=30.06 p95=124.80 reg=3984 peer=18902 cross=12197 offload=82.6%
+[75/300] N=20 seed=5  WAN=100  ilrsa_style                 mean=109.19 p95=227.93 reg=22886 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=30 seed=1
+FG target placement: nodes=30 seed=1
+[76/300] N=30 seed=1  WAN=10   registry                    mean=728.48 p95=2505.96 reg=27712 peer=0 cross=0 offload=0.0%
+[77/300] N=30 seed=1  WAN=10   dragonfly_style             mean=66.36 p95=284.74 reg=3471 peer=24241 cross=11063 offload=87.5%
+[78/300] N=30 seed=1  WAN=10   peersync_style              mean=57.02 p95=225.21 reg=2361 peer=25351 cross=10673 offload=91.5%
+[79/300] N=30 seed=1  WAN=10   metapipe_reactive_style     mean=67.03 p95=340.10 reg=4361 peer=23351 cross=10982 offload=84.3%
+[80/300] N=30 seed=1  WAN=10   ilrsa_style                 mean=1021.92 p95=2752.81 reg=27712 peer=0 cross=0 offload=0.0%
+[81/300] N=30 seed=1  WAN=30   registry                    mean=242.83 p95=835.23 reg=27712 peer=0 cross=0 offload=0.0%
+[82/300] N=30 seed=1  WAN=30   dragonfly_style             mean=24.98 p95=95.40 reg=3472 peer=24240 cross=11391 offload=87.5%
+[83/300] N=30 seed=1  WAN=30   peersync_style              mean=21.76 p95=85.38 reg=2721 peer=24991 cross=10313 offload=90.2%
+[84/300] N=30 seed=1  WAN=30   metapipe_reactive_style     mean=23.71 p95=106.98 reg=3808 peer=23904 cross=11541 offload=86.3%
+[85/300] N=30 seed=1  WAN=30   ilrsa_style                 mean=340.72 p95=917.66 reg=27712 peer=0 cross=0 offload=0.0%
+[86/300] N=30 seed=1  WAN=100  registry                    mean=72.85 p95=250.47 reg=27712 peer=0 cross=0 offload=0.0%
+[87/300] N=30 seed=1  WAN=100  dragonfly_style             mean=10.70 p95=36.82 reg=2955 peer=24757 cross=13167 offload=89.3%
+[88/300] N=30 seed=1  WAN=100  peersync_style              mean=9.53 p95=32.05 reg=2330 peer=25382 cross=9632 offload=91.6%
+[89/300] N=30 seed=1  WAN=100  metapipe_reactive_style     mean=9.22 p95=35.70 reg=3045 peer=24667 cross=11963 offload=89.0%
+[90/300] N=30 seed=1  WAN=100  ilrsa_style                 mean=102.30 p95=275.36 reg=27712 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=30 seed=2
+FG target placement: nodes=30 seed=2
+[91/300] N=30 seed=2  WAN=10   registry                    mean=706.53 p95=2810.25 reg=31583 peer=0 cross=0 offload=0.0%
+[92/300] N=30 seed=2  WAN=10   dragonfly_style             mean=37.71 p95=177.24 reg=2096 peer=29487 cross=15361 offload=93.4%
+[93/300] N=30 seed=2  WAN=10   peersync_style              mean=36.93 p95=175.76 reg=1896 peer=29687 cross=14633 offload=94.0%
+[94/300] N=30 seed=2  WAN=10   metapipe_reactive_style     mean=42.60 p95=196.62 reg=2137 peer=29446 cross=12530 offload=93.2%
+[95/300] N=30 seed=2  WAN=10   ilrsa_style                 mean=1080.81 p95=3057.60 reg=31583 peer=0 cross=0 offload=0.0%
+[96/300] N=30 seed=2  WAN=30   registry                    mean=235.50 p95=936.65 reg=31583 peer=0 cross=0 offload=0.0%
+[97/300] N=30 seed=2  WAN=30   dragonfly_style             mean=16.91 p95=60.46 reg=1836 peer=29747 cross=20315 offload=94.2%
+[98/300] N=30 seed=2  WAN=30   peersync_style              mean=15.86 p95=58.39 reg=1669 peer=29914 cross=17902 offload=94.7%
+[99/300] N=30 seed=2  WAN=30   metapipe_reactive_style     mean=17.77 p95=68.32 reg=1623 peer=29960 cross=20827 offload=94.9%
+[100/300] N=30 seed=2  WAN=30   ilrsa_style                 mean=360.33 p95=1019.47 reg=31583 peer=0 cross=0 offload=0.0%
+[101/300] N=30 seed=2  WAN=100  registry                    mean=70.64 p95=280.89 reg=31583 peer=0 cross=0 offload=0.0%
+[102/300] N=30 seed=2  WAN=100  dragonfly_style             mean=15.50 p95=68.73 reg=1711 peer=29872 cross=22628 offload=94.6%
+[103/300] N=30 seed=2  WAN=100  peersync_style              mean=15.39 p95=68.35 reg=1574 peer=30009 cross=20967 offload=95.0%
+[104/300] N=30 seed=2  WAN=100  metapipe_reactive_style     mean=24.44 p95=153.62 reg=1906 peer=29677 cross=18650 offload=94.0%
+[105/300] N=30 seed=2  WAN=100  ilrsa_style                 mean=108.18 p95=306.05 reg=31583 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=30 seed=3
+FG target placement: nodes=30 seed=3
+[106/300] N=30 seed=3  WAN=10   registry                    mean=753.62 p95=2476.58 reg=28649 peer=0 cross=0 offload=0.0%
+[107/300] N=30 seed=3  WAN=10   dragonfly_style             mean=49.39 p95=219.12 reg=2447 peer=26202 cross=11959 offload=91.5%
+[108/300] N=30 seed=3  WAN=10   peersync_style              mean=45.09 p95=177.87 reg=2078 peer=26571 cross=11545 offload=92.7%
+[109/300] N=30 seed=3  WAN=10   metapipe_reactive_style     mean=39.80 p95=175.85 reg=2406 peer=26243 cross=14446 offload=91.6%
+[110/300] N=30 seed=3  WAN=10   ilrsa_style                 mean=1044.21 p95=2723.39 reg=28649 peer=0 cross=0 offload=0.0%
+[111/300] N=30 seed=3  WAN=30   registry                    mean=251.19 p95=825.45 reg=28649 peer=0 cross=0 offload=0.0%
+[112/300] N=30 seed=3  WAN=30   dragonfly_style             mean=19.67 p95=75.92 reg=2453 peer=26196 cross=14721 offload=91.4%
+[113/300] N=30 seed=3  WAN=30   peersync_style              mean=17.60 p95=59.19 reg=1773 peer=26876 cross=12690 offload=93.8%
+[114/300] N=30 seed=3  WAN=30   metapipe_reactive_style     mean=16.23 p95=60.90 reg=2437 peer=26212 cross=15936 offload=91.5%
+[115/300] N=30 seed=3  WAN=30   ilrsa_style                 mean=348.14 p95=907.91 reg=28649 peer=0 cross=0 offload=0.0%
+[116/300] N=30 seed=3  WAN=100  registry                    mean=75.34 p95=247.55 reg=28649 peer=0 cross=0 offload=0.0%
+[117/300] N=30 seed=3  WAN=100  dragonfly_style             mean=17.18 p95=71.12 reg=2429 peer=26220 cross=19047 offload=91.5%
+[118/300] N=30 seed=3  WAN=100  peersync_style              mean=16.75 p95=72.57 reg=1773 peer=26876 cross=18899 offload=93.8%
+[119/300] N=30 seed=3  WAN=100  metapipe_reactive_style     mean=14.61 p95=54.20 reg=2656 peer=25993 cross=19344 offload=90.7%
+[120/300] N=30 seed=3  WAN=100  ilrsa_style                 mean=104.54 p95=272.77 reg=28649 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=30 seed=4
+FG target placement: nodes=30 seed=4
+[121/300] N=30 seed=4  WAN=10   registry                    mean=543.47 p95=2165.73 reg=24990 peer=0 cross=0 offload=0.0%
+[122/300] N=30 seed=4  WAN=10   dragonfly_style             mean=109.59 p95=329.65 reg=3492 peer=21498 cross=10659 offload=86.0%
+[123/300] N=30 seed=4  WAN=10   peersync_style              mean=102.98 p95=312.14 reg=3190 peer=21800 cross=9631 offload=87.2%
+[124/300] N=30 seed=4  WAN=10   metapipe_reactive_style     mean=94.82 p95=301.37 reg=3146 peer=21844 cross=9984 offload=87.4%
+[125/300] N=30 seed=4  WAN=10   ilrsa_style                 mean=816.98 p95=2439.72 reg=24990 peer=0 cross=0 offload=0.0%
+[126/300] N=30 seed=4  WAN=30   registry                    mean=181.14 p95=721.86 reg=24990 peer=0 cross=0 offload=0.0%
+[127/300] N=30 seed=4  WAN=30   dragonfly_style             mean=37.91 p95=109.63 reg=3451 peer=21539 cross=11009 offload=86.2%
+[128/300] N=30 seed=4  WAN=30   peersync_style              mean=36.01 p95=107.32 reg=3190 peer=21800 cross=10004 offload=87.2%
+[129/300] N=30 seed=4  WAN=30   metapipe_reactive_style     mean=34.48 p95=107.24 reg=3533 peer=21457 cross=11238 offload=85.9%
+[130/300] N=30 seed=4  WAN=30   ilrsa_style                 mean=272.41 p95=813.59 reg=24990 peer=0 cross=0 offload=0.0%
+[131/300] N=30 seed=4  WAN=100  registry                    mean=54.33 p95=216.51 reg=24990 peer=0 cross=0 offload=0.0%
+[132/300] N=30 seed=4  WAN=100  dragonfly_style             mean=13.78 p95=48.33 reg=3260 peer=21730 cross=11615 offload=87.0%
+[133/300] N=30 seed=4  WAN=100  peersync_style              mean=12.78 p95=38.54 reg=3190 peer=21800 cross=11184 offload=87.2%
+[134/300] N=30 seed=4  WAN=100  metapipe_reactive_style     mean=17.06 p95=89.91 reg=3329 peer=21661 cross=14962 offload=86.7%
+[135/300] N=30 seed=4  WAN=100  ilrsa_style                 mean=81.81 p95=244.45 reg=24990 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=30 seed=5
+FG target placement: nodes=30 seed=5
+[136/300] N=30 seed=5  WAN=10   registry                    mean=636.76 p95=2478.79 reg=28079 peer=0 cross=0 offload=0.0%
+[137/300] N=30 seed=5  WAN=10   dragonfly_style             mean=44.96 p95=230.58 reg=2988 peer=25091 cross=14294 offload=89.4%
+[138/300] N=30 seed=5  WAN=10   peersync_style              mean=40.67 p95=202.93 reg=2411 peer=25668 cross=11807 offload=91.4%
+[139/300] N=30 seed=5  WAN=10   metapipe_reactive_style     mean=47.81 p95=287.49 reg=3718 peer=24361 cross=12227 offload=86.8%
+[140/300] N=30 seed=5  WAN=10   ilrsa_style                 mean=1018.50 p95=2734.97 reg=28079 peer=0 cross=0 offload=0.0%
+[141/300] N=30 seed=5  WAN=30   registry                    mean=212.25 p95=826.15 reg=28079 peer=0 cross=0 offload=0.0%
+[142/300] N=30 seed=5  WAN=30   dragonfly_style             mean=17.03 p95=73.15 reg=2784 peer=25295 cross=16813 offload=90.1%
+[143/300] N=30 seed=5  WAN=30   peersync_style              mean=16.05 p95=74.36 reg=2335 peer=25744 cross=15639 offload=91.7%
+[144/300] N=30 seed=5  WAN=30   metapipe_reactive_style     mean=15.31 p95=67.50 reg=2818 peer=25261 cross=15507 offload=90.0%
+[145/300] N=30 seed=5  WAN=30   ilrsa_style                 mean=339.58 p95=911.81 reg=28079 peer=0 cross=0 offload=0.0%
+[146/300] N=30 seed=5  WAN=100  registry                    mean=63.67 p95=247.72 reg=28079 peer=0 cross=0 offload=0.0%
+[147/300] N=30 seed=5  WAN=100  dragonfly_style             mean=9.94 p95=45.24 reg=2706 peer=25373 cross=19238 offload=90.4%
+[148/300] N=30 seed=5  WAN=100  peersync_style              mean=9.91 p95=45.45 reg=2134 peer=25945 cross=16928 offload=92.4%
+[149/300] N=30 seed=5  WAN=100  metapipe_reactive_style     mean=9.09 p95=36.40 reg=3121 peer=24958 cross=18146 offload=88.9%
+[150/300] N=30 seed=5  WAN=100  ilrsa_style                 mean=101.97 p95=273.72 reg=28079 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=40 seed=1
+FG target placement: nodes=40 seed=1
+[151/300] N=40 seed=1  WAN=10   registry                    mean=731.52 p95=2627.22 reg=28813 peer=0 cross=0 offload=0.0%
+[152/300] N=40 seed=1  WAN=10   dragonfly_style             mean=36.10 p95=188.25 reg=2169 peer=26644 cross=18100 offload=92.5%
+[153/300] N=40 seed=1  WAN=10   peersync_style              mean=34.62 p95=171.85 reg=1905 peer=26908 cross=16193 offload=93.4%
+[154/300] N=40 seed=1  WAN=10   metapipe_reactive_style     mean=38.82 p95=207.74 reg=2360 peer=26453 cross=15610 offload=91.8%
+[155/300] N=40 seed=1  WAN=10   ilrsa_style                 mean=1018.04 p95=2790.72 reg=28813 peer=0 cross=0 offload=0.0%
+[156/300] N=40 seed=1  WAN=30   registry                    mean=243.84 p95=875.66 reg=28813 peer=0 cross=0 offload=0.0%
+[157/300] N=40 seed=1  WAN=30   dragonfly_style             mean=15.54 p95=72.60 reg=2362 peer=26451 cross=17873 offload=91.8%
+[158/300] N=40 seed=1  WAN=30   peersync_style              mean=14.37 p95=63.17 reg=1905 peer=26908 cross=16193 offload=93.4%
+[159/300] N=40 seed=1  WAN=30   metapipe_reactive_style     mean=15.43 p95=73.00 reg=2362 peer=26451 cross=15756 offload=91.8%
+[160/300] N=40 seed=1  WAN=30   ilrsa_style                 mean=339.42 p95=930.52 reg=28813 peer=0 cross=0 offload=0.0%
+[161/300] N=40 seed=1  WAN=100  registry                    mean=73.15 p95=262.61 reg=28813 peer=0 cross=0 offload=0.0%
+[162/300] N=40 seed=1  WAN=100  dragonfly_style             mean=7.93 p95=31.25 reg=2237 peer=26576 cross=19720 offload=92.2%
+[163/300] N=40 seed=1  WAN=100  peersync_style              mean=7.31 p95=27.86 reg=1905 peer=26908 cross=17963 offload=93.4%
+[164/300] N=40 seed=1  WAN=100  metapipe_reactive_style     mean=7.84 p95=27.51 reg=2564 peer=26249 cross=17463 offload=91.1%
+[165/300] N=40 seed=1  WAN=100  ilrsa_style                 mean=101.91 p95=279.44 reg=28813 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=40 seed=2
+FG target placement: nodes=40 seed=2
+[166/300] N=40 seed=2  WAN=10   registry                    mean=1168.90 p95=3365.85 reg=36981 peer=0 cross=0 offload=0.0%
+[167/300] N=40 seed=2  WAN=10   dragonfly_style             mean=31.51 p95=147.99 reg=1839 peer=35142 cross=23331 offload=95.0%
+[168/300] N=40 seed=2  WAN=10   peersync_style              mean=29.79 p95=122.63 reg=1387 peer=35594 cross=21620 offload=96.2%
+[169/300] N=40 seed=2  WAN=10   metapipe_reactive_style     mean=28.87 p95=125.65 reg=1473 peer=35508 cross=24894 offload=96.0%
+[170/300] N=40 seed=2  WAN=10   ilrsa_style                 mean=1490.35 p95=3479.44 reg=36981 peer=0 cross=0 offload=0.0%
+[171/300] N=40 seed=2  WAN=30   registry                    mean=389.63 p95=1121.92 reg=36981 peer=0 cross=0 offload=0.0%
+[172/300] N=40 seed=2  WAN=30   dragonfly_style             mean=24.46 p95=86.45 reg=1758 peer=35223 cross=25492 offload=95.2%
+[173/300] N=40 seed=2  WAN=30   peersync_style              mean=24.42 p95=86.39 reg=1513 peer=35468 cross=22932 offload=95.9%
+[174/300] N=40 seed=2  WAN=30   metapipe_reactive_style     mean=23.84 p95=81.44 reg=1827 peer=35154 cross=25532 offload=95.1%
+[175/300] N=40 seed=2  WAN=30   ilrsa_style                 mean=496.84 p95=1160.20 reg=36981 peer=0 cross=0 offload=0.0%
+[176/300] N=40 seed=2  WAN=100  registry                    mean=116.90 p95=336.54 reg=36981 peer=0 cross=0 offload=0.0%
+[177/300] N=40 seed=2  WAN=100  dragonfly_style             mean=24.25 p95=87.32 reg=1620 peer=35361 cross=25555 offload=95.6%
+[178/300] N=40 seed=2  WAN=100  peersync_style              mean=24.44 p95=87.12 reg=1387 peer=35594 cross=22952 offload=96.2%
+[179/300] N=40 seed=2  WAN=100  metapipe_reactive_style     mean=19.84 p95=63.33 reg=2376 peer=34605 cross=25020 offload=93.6%
+[180/300] N=40 seed=2  WAN=100  ilrsa_style                 mean=149.17 p95=348.47 reg=36981 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=40 seed=3
+FG target placement: nodes=40 seed=3
+[181/300] N=40 seed=3  WAN=10   registry                    mean=786.28 p95=2679.99 reg=29063 peer=0 cross=0 offload=0.0%
+[182/300] N=40 seed=3  WAN=10   dragonfly_style             mean=53.25 p95=238.30 reg=2991 peer=26072 cross=15727 offload=89.7%
+[183/300] N=40 seed=3  WAN=10   peersync_style              mean=43.46 p95=206.01 reg=2302 peer=26761 cross=15866 offload=92.1%
+[184/300] N=40 seed=3  WAN=10   metapipe_reactive_style     mean=42.64 p95=200.01 reg=2577 peer=26486 cross=17552 offload=91.1%
+[185/300] N=40 seed=3  WAN=10   ilrsa_style                 mean=1047.30 p95=2843.64 reg=29063 peer=0 cross=0 offload=0.0%
+[186/300] N=40 seed=3  WAN=30   registry                    mean=262.08 p95=893.26 reg=29063 peer=0 cross=0 offload=0.0%
+[187/300] N=40 seed=3  WAN=30   dragonfly_style             mean=17.09 p95=69.18 reg=2536 peer=26527 cross=17929 offload=91.3%
+[188/300] N=40 seed=3  WAN=30   peersync_style              mean=16.99 p95=69.01 reg=2302 peer=26761 cross=17618 offload=92.1%
+[189/300] N=40 seed=3  WAN=30   metapipe_reactive_style     mean=16.96 p95=69.65 reg=2345 peer=26718 cross=19502 offload=91.9%
+[190/300] N=40 seed=3  WAN=30   ilrsa_style                 mean=349.16 p95=948.15 reg=29063 peer=0 cross=0 offload=0.0%
+[191/300] N=40 seed=3  WAN=100  registry                    mean=78.61 p95=267.90 reg=29063 peer=0 cross=0 offload=0.0%
+[192/300] N=40 seed=3  WAN=100  dragonfly_style             mean=8.61 p95=28.17 reg=2676 peer=26387 cross=21841 offload=90.8%
+[193/300] N=40 seed=3  WAN=100  peersync_style              mean=9.05 p95=31.36 reg=2629 peer=26434 cross=19907 offload=91.0%
+[194/300] N=40 seed=3  WAN=100  metapipe_reactive_style     mean=10.59 p95=44.20 reg=2059 peer=27004 cross=21541 offload=92.9%
+[195/300] N=40 seed=3  WAN=100  ilrsa_style                 mean=104.82 p95=284.56 reg=29063 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=40 seed=4
+FG target placement: nodes=40 seed=4
+[196/300] N=40 seed=4  WAN=10   registry                    mean=1035.23 p95=3114.96 reg=33371 peer=0 cross=0 offload=0.0%
+[197/300] N=40 seed=4  WAN=10   dragonfly_style             mean=43.75 p95=232.41 reg=2708 peer=30663 cross=20115 offload=91.9%
+[198/300] N=40 seed=4  WAN=10   peersync_style              mean=41.41 p95=217.08 reg=2225 peer=31146 cross=18713 offload=93.3%
+[199/300] N=40 seed=4  WAN=10   metapipe_reactive_style     mean=42.44 p95=195.65 reg=2477 peer=30894 cross=21533 offload=92.6%
+[200/300] N=40 seed=4  WAN=10   ilrsa_style                 mean=1401.98 p95=3212.30 reg=33371 peer=0 cross=0 offload=0.0%
+[201/300] N=40 seed=4  WAN=30   registry                    mean=345.06 p95=1038.22 reg=33371 peer=0 cross=0 offload=0.0%
+[202/300] N=40 seed=4  WAN=30   dragonfly_style             mean=19.48 p95=79.17 reg=2708 peer=30663 cross=22714 offload=91.9%
+[203/300] N=40 seed=4  WAN=30   peersync_style              mean=19.30 p95=72.67 reg=2225 peer=31146 cross=20480 offload=93.3%
+[204/300] N=40 seed=4  WAN=30   metapipe_reactive_style     mean=22.03 p95=68.53 reg=2365 peer=31006 cross=24436 offload=92.9%
+[205/300] N=40 seed=4  WAN=30   ilrsa_style                 mean=467.41 p95=1070.99 reg=33371 peer=0 cross=0 offload=0.0%
+[206/300] N=40 seed=4  WAN=100  registry                    mean=103.51 p95=311.36 reg=33371 peer=0 cross=0 offload=0.0%
+[207/300] N=40 seed=4  WAN=100  dragonfly_style             mean=14.05 p95=45.55 reg=3359 peer=30012 cross=23823 offload=89.9%
+[208/300] N=40 seed=4  WAN=100  peersync_style              mean=14.12 p95=48.44 reg=3139 peer=30232 cross=22429 offload=90.6%
+[209/300] N=40 seed=4  WAN=100  metapipe_reactive_style     mean=17.69 p95=62.30 reg=2153 peer=31218 cross=26754 offload=93.5%
+[210/300] N=40 seed=4  WAN=100  ilrsa_style                 mean=140.34 p95=321.53 reg=33371 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=40 seed=5
+FG target placement: nodes=40 seed=5
+[211/300] N=40 seed=5  WAN=10   registry                    mean=673.79 p95=2537.57 reg=27641 peer=0 cross=0 offload=0.0%
+[212/300] N=40 seed=5  WAN=10   dragonfly_style             mean=24.89 p95=176.20 reg=1817 peer=25824 cross=14717 offload=93.4%
+[213/300] N=40 seed=5  WAN=10   peersync_style              mean=20.94 p95=149.93 reg=1524 peer=26117 cross=13800 offload=94.5%
+[214/300] N=40 seed=5  WAN=10   metapipe_reactive_style     mean=21.09 p95=148.08 reg=1884 peer=25757 cross=15185 offload=93.2%
+[215/300] N=40 seed=5  WAN=10   ilrsa_style                 mean=914.76 p95=2690.00 reg=27641 peer=0 cross=0 offload=0.0%
+[216/300] N=40 seed=5  WAN=30   registry                    mean=224.60 p95=845.83 reg=27641 peer=0 cross=0 offload=0.0%
+[217/300] N=40 seed=5  WAN=30   dragonfly_style             mean=9.85 p95=52.90 reg=1623 peer=26018 cross=16302 offload=94.1%
+[218/300] N=40 seed=5  WAN=30   peersync_style              mean=9.31 p95=49.91 reg=1524 peer=26117 cross=14688 offload=94.5%
+[219/300] N=40 seed=5  WAN=30   metapipe_reactive_style     mean=10.34 p95=49.80 reg=1730 peer=25911 cross=17984 offload=93.7%
+[220/300] N=40 seed=5  WAN=30   ilrsa_style                 mean=304.98 p95=896.82 reg=27641 peer=0 cross=0 offload=0.0%
+[221/300] N=40 seed=5  WAN=100  registry                    mean=67.38 p95=253.73 reg=27641 peer=0 cross=0 offload=0.0%
+[222/300] N=40 seed=5  WAN=100  dragonfly_style             mean=6.05 p95=22.35 reg=1526 peer=26115 cross=18518 offload=94.5%
+[223/300] N=40 seed=5  WAN=100  peersync_style              mean=5.95 p95=22.31 reg=1524 peer=26117 cross=17594 offload=94.5%
+[224/300] N=40 seed=5  WAN=100  metapipe_reactive_style     mean=7.18 p95=32.59 reg=1771 peer=25870 cross=18209 offload=93.6%
+[225/300] N=40 seed=5  WAN=100  ilrsa_style                 mean=91.56 p95=269.26 reg=27641 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=50 seed=1
+FG target placement: nodes=50 seed=1
+[226/300] N=50 seed=1  WAN=10   registry                    mean=785.84 p95=3061.18 reg=33148 peer=0 cross=0 offload=0.0%
+[227/300] N=50 seed=1  WAN=10   dragonfly_style             mean=35.45 p95=205.05 reg=2157 peer=30991 cross=23304 offload=93.5%
+[228/300] N=50 seed=1  WAN=10   peersync_style              mean=34.25 p95=198.97 reg=2096 peer=31052 cross=21999 offload=93.7%
+[229/300] N=50 seed=1  WAN=10   metapipe_reactive_style     mean=33.21 p95=189.79 reg=2041 peer=31107 cross=22296 offload=93.8%
+[230/300] N=50 seed=1  WAN=10   ilrsa_style                 mean=1085.51 p95=3177.46 reg=33148 peer=0 cross=0 offload=0.0%
+[231/300] N=50 seed=1  WAN=30   registry                    mean=261.94 p95=1020.25 reg=33148 peer=0 cross=0 offload=0.0%
+[232/300] N=50 seed=1  WAN=30   dragonfly_style             mean=14.55 p95=71.83 reg=2154 peer=30994 cross=23057 offload=93.5%
+[233/300] N=50 seed=1  WAN=30   peersync_style              mean=13.97 p95=69.90 reg=2096 peer=31052 cross=21064 offload=93.7%
+[234/300] N=50 seed=1  WAN=30   metapipe_reactive_style     mean=13.65 p95=63.78 reg=2034 peer=31114 cross=23039 offload=93.9%
+[235/300] N=50 seed=1  WAN=30   ilrsa_style                 mean=361.93 p95=1059.77 reg=33148 peer=0 cross=0 offload=0.0%
+[236/300] N=50 seed=1  WAN=100  registry                    mean=78.58 p95=305.92 reg=33148 peer=0 cross=0 offload=0.0%
+[237/300] N=50 seed=1  WAN=100  dragonfly_style             mean=7.37 p95=28.80 reg=2276 peer=30872 cross=24269 offload=93.1%
+[238/300] N=50 seed=1  WAN=100  peersync_style              mean=6.88 p95=26.80 reg=2096 peer=31052 cross=21236 offload=93.7%
+[239/300] N=50 seed=1  WAN=100  metapipe_reactive_style     mean=7.11 p95=28.99 reg=2288 peer=30860 cross=22992 offload=93.1%
+[240/300] N=50 seed=1  WAN=100  ilrsa_style                 mean=108.69 p95=318.58 reg=33148 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=50 seed=2
+FG target placement: nodes=50 seed=2
+[241/300] N=50 seed=2  WAN=10   registry                    mean=1193.04 p95=3795.23 reg=40168 peer=0 cross=0 offload=0.0%
+[242/300] N=50 seed=2  WAN=10   dragonfly_style             mean=40.17 p95=233.78 reg=2807 peer=37361 cross=24275 offload=93.0%
+[243/300] N=50 seed=2  WAN=10   peersync_style              mean=37.95 p95=221.86 reg=2506 peer=37662 cross=22310 offload=93.8%
+[244/300] N=50 seed=2  WAN=10   metapipe_reactive_style     mean=30.14 p95=168.42 reg=1935 peer=38233 cross=24234 offload=95.2%
+[245/300] N=50 seed=2  WAN=10   ilrsa_style                 mean=1596.16 p95=3939.05 reg=40168 peer=0 cross=0 offload=0.0%
+[246/300] N=50 seed=2  WAN=30   registry                    mean=397.68 p95=1265.23 reg=40168 peer=0 cross=0 offload=0.0%
+[247/300] N=50 seed=2  WAN=30   dragonfly_style             mean=16.69 p95=78.18 reg=2802 peer=37366 cross=24303 offload=93.0%
+[248/300] N=50 seed=2  WAN=30   peersync_style              mean=15.99 p95=74.39 reg=2512 peer=37656 cross=22310 offload=93.7%
+[249/300] N=50 seed=2  WAN=30   metapipe_reactive_style     mean=14.58 p95=62.21 reg=1934 peer=38234 cross=22637 offload=95.2%
+[250/300] N=50 seed=2  WAN=30   ilrsa_style                 mean=532.13 p95=1312.98 reg=40168 peer=0 cross=0 offload=0.0%
+[251/300] N=50 seed=2  WAN=100  registry                    mean=119.30 p95=379.73 reg=40168 peer=0 cross=0 offload=0.0%
+[252/300] N=50 seed=2  WAN=100  dragonfly_style             mean=10.02 p95=34.38 reg=2155 peer=38013 cross=28845 offload=94.6%
+[253/300] N=50 seed=2  WAN=100  peersync_style              mean=9.89 p95=34.74 reg=2055 peer=38113 cross=24368 offload=94.9%
+[254/300] N=50 seed=2  WAN=100  metapipe_reactive_style     mean=10.13 p95=36.69 reg=2424 peer=37744 cross=26208 offload=94.0%
+[255/300] N=50 seed=2  WAN=100  ilrsa_style                 mean=159.72 p95=393.86 reg=40168 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=50 seed=3
+FG target placement: nodes=50 seed=3
+[256/300] N=50 seed=3  WAN=10   registry                    mean=797.89 p95=2759.54 reg=29086 peer=0 cross=0 offload=0.0%
+[257/300] N=50 seed=3  WAN=10   dragonfly_style             mean=51.55 p95=263.29 reg=2820 peer=26266 cross=16109 offload=90.3%
+[258/300] N=50 seed=3  WAN=10   peersync_style              mean=47.53 p95=241.99 reg=2471 peer=26615 cross=15542 offload=91.5%
+[259/300] N=50 seed=3  WAN=10   metapipe_reactive_style     mean=49.29 p95=234.68 reg=2625 peer=26461 cross=14856 offload=91.0%
+[260/300] N=50 seed=3  WAN=10   ilrsa_style                 mean=1031.69 p95=2777.26 reg=29086 peer=0 cross=0 offload=0.0%
+[261/300] N=50 seed=3  WAN=30   registry                    mean=265.96 p95=919.87 reg=29086 peer=0 cross=0 offload=0.0%
+[262/300] N=50 seed=3  WAN=30   dragonfly_style             mean=19.19 p95=87.72 reg=2818 peer=26268 cross=17456 offload=90.3%
+[263/300] N=50 seed=3  WAN=30   peersync_style              mean=18.03 p95=80.73 reg=2471 peer=26615 cross=15542 offload=91.5%
+[264/300] N=50 seed=3  WAN=30   metapipe_reactive_style     mean=18.57 p95=81.42 reg=2623 peer=26463 cross=14858 offload=91.0%
+[265/300] N=50 seed=3  WAN=30   ilrsa_style                 mean=343.96 p95=925.98 reg=29086 peer=0 cross=0 offload=0.0%
+[266/300] N=50 seed=3  WAN=100  registry                    mean=79.79 p95=275.99 reg=29086 peer=0 cross=0 offload=0.0%
+[267/300] N=50 seed=3  WAN=100  dragonfly_style             mean=8.12 p95=28.49 reg=2817 peer=26269 cross=18771 offload=90.3%
+[268/300] N=50 seed=3  WAN=100  peersync_style              mean=8.30 p95=29.46 reg=2471 peer=26615 cross=16313 offload=91.5%
+[269/300] N=50 seed=3  WAN=100  metapipe_reactive_style     mean=9.60 p95=36.33 reg=3003 peer=26083 cross=17111 offload=89.7%
+[270/300] N=50 seed=3  WAN=100  ilrsa_style                 mean=103.26 p95=278.03 reg=29086 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=50 seed=4
+FG target placement: nodes=50 seed=4
+[271/300] N=50 seed=4  WAN=10   registry                    mean=705.20 p95=2842.11 reg=29975 peer=0 cross=0 offload=0.0%
+[272/300] N=50 seed=4  WAN=10   dragonfly_style             mean=17.19 p95=117.22 reg=1379 peer=28596 cross=18075 offload=95.4%
+[273/300] N=50 seed=4  WAN=10   peersync_style              mean=17.13 p95=115.70 reg=1363 peer=28612 cross=15064 offload=95.5%
+[274/300] N=50 seed=4  WAN=10   metapipe_reactive_style     mean=20.45 p95=143.68 reg=1594 peer=28381 cross=16932 offload=94.7%
+[275/300] N=50 seed=4  WAN=10   ilrsa_style                 mean=905.28 p95=2898.68 reg=29975 peer=0 cross=0 offload=0.0%
+[276/300] N=50 seed=4  WAN=30   registry                    mean=235.06 p95=947.31 reg=29975 peer=0 cross=0 offload=0.0%
+[277/300] N=50 seed=4  WAN=30   dragonfly_style             mean=8.57 p95=45.71 reg=1396 peer=28579 cross=21505 offload=95.3%
+[278/300] N=50 seed=4  WAN=30   peersync_style              mean=8.30 p95=44.62 reg=1363 peer=28612 cross=16702 offload=95.5%
+[279/300] N=50 seed=4  WAN=30   metapipe_reactive_style     mean=9.37 p95=49.18 reg=1591 peer=28384 cross=18621 offload=94.7%
+[280/300] N=50 seed=4  WAN=30   ilrsa_style                 mean=301.81 p95=966.21 reg=29975 peer=0 cross=0 offload=0.0%
+[281/300] N=50 seed=4  WAN=100  registry                    mean=70.52 p95=284.13 reg=29975 peer=0 cross=0 offload=0.0%
+[282/300] N=50 seed=4  WAN=100  dragonfly_style             mean=6.47 p95=29.30 reg=1387 peer=28588 cross=20671 offload=95.4%
+[283/300] N=50 seed=4  WAN=100  peersync_style              mean=6.05 p95=27.05 reg=1363 peer=28612 cross=16655 offload=95.5%
+[284/300] N=50 seed=4  WAN=100  metapipe_reactive_style     mean=6.19 p95=28.49 reg=1377 peer=28598 cross=21295 offload=95.4%
+[285/300] N=50 seed=4  WAN=100  ilrsa_style                 mean=90.60 p95=290.07 reg=29975 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=50 seed=5
+FG target placement: nodes=50 seed=5
+[286/300] N=50 seed=5  WAN=10   registry                    mean=906.43 p95=3274.66 reg=35536 peer=0 cross=0 offload=0.0%
+[287/300] N=50 seed=5  WAN=10   dragonfly_style             mean=31.81 p95=181.99 reg=2319 peer=33217 cross=21250 offload=93.5%
+[288/300] N=50 seed=5  WAN=10   peersync_style              mean=29.99 p95=170.69 reg=1925 peer=33611 cross=19301 offload=94.6%
+[289/300] N=50 seed=5  WAN=10   metapipe_reactive_style     mean=42.91 p95=235.49 reg=2463 peer=33073 cross=18931 offload=93.1%
+[290/300] N=50 seed=5  WAN=10   ilrsa_style                 mean=1270.05 p95=3453.41 reg=35536 peer=0 cross=0 offload=0.0%
+[291/300] N=50 seed=5  WAN=30   registry                    mean=302.14 p95=1091.46 reg=35536 peer=0 cross=0 offload=0.0%
+[292/300] N=50 seed=5  WAN=30   dragonfly_style             mean=13.45 p95=66.43 reg=2334 peer=33202 cross=21495 offload=93.4%
+[293/300] N=50 seed=5  WAN=30   peersync_style              mean=12.75 p95=61.25 reg=1926 peer=33610 cross=20626 offload=94.6%
+[294/300] N=50 seed=5  WAN=30   metapipe_reactive_style     mean=17.04 p95=78.97 reg=2600 peer=32936 cross=19607 offload=92.7%
+[295/300] N=50 seed=5  WAN=30   ilrsa_style                 mean=423.42 p95=1151.30 reg=35536 peer=0 cross=0 offload=0.0%
+[296/300] N=50 seed=5  WAN=100  registry                    mean=90.66 p95=327.34 reg=35536 peer=0 cross=0 offload=0.0%
+[297/300] N=50 seed=5  WAN=100  dragonfly_style             mean=7.53 p95=29.11 reg=2030 peer=33506 cross=25654 offload=94.3%
+[298/300] N=50 seed=5  WAN=100  peersync_style              mean=7.30 p95=27.25 reg=1927 peer=33609 cross=22870 offload=94.6%
+[299/300] N=50 seed=5  WAN=100  metapipe_reactive_style     mean=8.66 p95=36.81 reg=2633 peer=32903 cross=22915 offload=92.6%
+[300/300] N=50 seed=5  WAN=100  ilrsa_style                 mean=127.15 p95=345.55 reg=35536 peer=0 cross=0 offload=0.0%
+
+Scale baseline sweep completed.
+Saved: /home/zhjia/FG-DSCR/results/cider_scale_baselines_5seed_20260921_235518/raw.csv
