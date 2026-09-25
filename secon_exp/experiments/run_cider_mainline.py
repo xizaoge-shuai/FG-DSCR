@@ -50,6 +50,12 @@ FIELDS = [
     "keep_virtual_queue",
 
     "wall_runtime_s",
+    "keep_retained_new_pairs",
+    "keep_reused_retained_pairs",
+    "keep_retained_reuse_pct",
+    "keep_rejected_pairs",
+    "keep_rejected_then_needed",
+    "keep_rejected_needed_pct",
 ]
 
 
@@ -172,6 +178,25 @@ def main():
     ap.add_argument(
         "--out",
         required=True,
+    )
+
+    
+    ap.add_argument(
+        "--registry-latency-ms",
+        type=float,
+        default=40.0,
+    )
+
+    ap.add_argument(
+        "--inter-domain-latency-ms",
+        type=float,
+        default=10.0,
+    )
+
+    ap.add_argument(
+        "--intra-domain-latency-ms",
+        type=float,
+        default=2.0,
     )
 
     args = ap.parse_args()
@@ -316,9 +341,9 @@ def main():
                 args.peer_upload
             ),
 
-            registry_latency_ms=40.0,
-            inter_domain_latency_ms=10.0,
-            intra_domain_latency_ms=2.0,
+            registry_latency_ms=args.registry_latency_ms,
+            inter_domain_latency_ms=args.inter_domain_latency_ms,
+            intra_domain_latency_ms=args.intra_domain_latency_ms,
         )
 
         print()
@@ -478,6 +503,42 @@ def main():
             "not_preserved_mb": (
                 result[
                     "not_preserved_mb"
+                ]
+            ),
+
+            "keep_retained_new_pairs": (
+                result[
+                    "keep_retained_new_pairs"
+                ]
+            ),
+
+            "keep_reused_retained_pairs": (
+                result[
+                    "keep_reused_retained_pairs"
+                ]
+            ),
+
+            "keep_retained_reuse_pct": (
+                result[
+                    "keep_retained_reuse_pct"
+                ]
+            ),
+
+            "keep_rejected_pairs": (
+                result[
+                    "keep_rejected_pairs"
+                ]
+            ),
+
+            "keep_rejected_then_needed": (
+                result[
+                    "keep_rejected_then_needed"
+                ]
+            ),
+
+            "keep_rejected_needed_pct": (
+                result[
+                    "keep_rejected_needed_pct"
                 ]
             ),
 

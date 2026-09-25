@@ -215,39 +215,155 @@ class FGDSCRAdapter:
         seed: int = 1,
     ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
         """
-        Randomly select warm-up/target requests while preserving original
-        request order within each window.
+        Split historical warm-up and target requests.
+
+        Arrival-aware cases:
+            use a chronological split so the warm-up
+            window strictly precedes the target window.
+
+        Legacy cases without arrival_time_s:
+            preserve the previous seeded random split.
         """
+
         if not 0 < warmup_fraction < 1:
-            raise ValueError("warmup_fraction must be in (0, 1)")
+            raise ValueError(
+                "warmup_fraction must be in (0, 1)"
+            )
 
-        containers = list(case["containers"])
-        cids = [c["cid"] for c in containers]
+        containers = list(
+            case["containers"]
+        )
 
-        rng = random.Random(seed)
-        shuffled = list(cids)
-        rng.shuffle(shuffled)
+        if len(containers) < 2:
+            raise ValueError(
+                "at least two containers are required"
+            )
 
         n_warm = max(
             1,
             min(
-                len(shuffled) - 1,
-                int(round(len(shuffled) * warmup_fraction)),
+                len(containers) - 1,
+                int(
+                    round(
+                        len(containers)
+                        * warmup_fraction
+                    )
+                ),
             ),
         )
 
-        warm_ids = set(shuffled[:n_warm])
+        has_arrivals = all(
+            "arrival_time_s" in c
+            for c in containers
+        )
 
         warm = copy.deepcopy(case)
         target = copy.deepcopy(case)
 
-        warm["containers"] = [
+        if has_arrivals:
+
+            ordered = sorted(
+                containers,
+                key=lambda c: (
+                    float(
+                        c["arrival_time_s"]
+                    ),
+                    str(c["cid"]),
+                ),
+            )
+
+            warm[
+                "containers"
+            ] = [
+                copy.deepcopy(c)
+                for c in ordered[:n_warm]
+            ]
+
+            target[
+                "containers"
+            ] = [
+                copy.deepcopy(c)
+                for c in ordered[n_warm:]
+            ]
+
+            # Rebase each independent simulation window
+            # to t=0 while preserving all relative gaps.
+            for window_name, window in (
+                ("warmup", warm),
+                ("target", target),
+            ):
+
+                cs = window[
+                    "containers"
+                ]
+
+                t0 = min(
+                    float(
+                        c["arrival_time_s"]
+                    )
+                    for c in cs
+                )
+
+                for c in cs:
+                    c[
+                        "arrival_time_s"
+                    ] = (
+                        float(
+                            c[
+                                "arrival_time_s"
+                            ]
+                        )
+                        - t0
+                    )
+
+                meta = window.setdefault(
+                    "meta",
+                    {},
+                )
+
+                meta[
+                    "window_split"
+                ] = "chronological"
+
+                meta[
+                    "window_role"
+                ] = window_name
+
+                meta[
+                    "window_original_t0_s"
+                ] = t0
+
+            return warm, target
+
+        # ----------------------------------------------------
+        # Legacy behavior for old cases without arrival times.
+        # ----------------------------------------------------
+
+        cids = [
+            c["cid"]
+            for c in containers
+        ]
+
+        rng = random.Random(seed)
+
+        shuffled = list(cids)
+        rng.shuffle(shuffled)
+
+        warm_ids = set(
+            shuffled[:n_warm]
+        )
+
+        warm[
+            "containers"
+        ] = [
             copy.deepcopy(c)
             for c in containers
             if c["cid"] in warm_ids
         ]
 
-        target["containers"] = [
+        target[
+            "containers"
+        ] = [
             copy.deepcopy(c)
             for c in containers
             if c["cid"] not in warm_ids

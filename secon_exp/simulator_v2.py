@@ -162,17 +162,72 @@ def simulate_v2(
     # Per-node required layers.
     # ------------------------------------------------
 
-    need = {}
+    # =================================================
+    # ARRIVAL_AWARE_BASELINE_V1
+    #
+    # A request contributes layer demand only after
+    # its release/arrival event.
+    # =================================================
 
-    for n in nodes:
-        x = set()
-
-        for cid in groups[n]:
-            x.update(
-                tasks[cid]
+    arrival_time = {
+        cid: float(
+            containers[cid].get(
+                "arrival_time_s",
+                0.0,
             )
+        )
+        for cid in assigned
+    }
 
-        need[n] = x
+    released = set()
+
+    need = {
+        n: set()
+        for n in nodes
+    }
+
+    def release_due(now):
+        newly_released = []
+
+        for n in nodes:
+
+            for cid in groups[n]:
+
+                if cid in released:
+                    continue
+
+                if (
+                    arrival_time[cid]
+                    <= now + EPS
+                ):
+                    released.add(cid)
+
+                    need[n].update(
+                        tasks[cid]
+                    )
+
+                    newly_released.append(
+                        cid
+                    )
+
+        return newly_released
+
+    def next_arrival_after(now):
+        future = [
+            arrival_time[cid]
+            for cid in assigned
+            if (
+                cid not in released
+                and arrival_time[cid]
+                > now + EPS
+            )
+        ]
+
+        if not future:
+            return None
+
+        return min(future)
+
 
     # acquired:
     # 当前 deployment 可直接使用的 layer。
@@ -244,9 +299,13 @@ def simulate_v2(
             changed = False
 
             for n in nodes:
+
                 for cid in groups[n]:
 
-                    if cid in ready:
+                    if (
+                        cid not in released
+                        or cid in ready
+                    ):
                         continue
 
                     if (
@@ -256,6 +315,7 @@ def simulate_v2(
                         ready[cid] = now
                         changed = True
 
+    release_due(0.0)
     update_ready(0.0)
 
     # ------------------------------------------------
@@ -279,7 +339,8 @@ def simulate_v2(
                 groups[node]
             ):
                 if (
-                    cid not in ready
+                    cid in released
+                    and cid not in ready
                     and layer
                     in (
                         tasks[cid]
@@ -307,7 +368,8 @@ def simulate_v2(
                 1
                 for cid in groups[node]
                 if (
-                    cid not in ready
+                    cid in released
+                    and cid not in ready
                     and layer
                     in (
                         tasks[cid]
@@ -452,7 +514,8 @@ def simulate_v2(
                 1
                 for cid in groups[node]
                 if (
-                    cid not in ready
+                    cid in released
+                    and cid not in ready
                     and layer
                     in tasks[cid]
                 )
@@ -978,6 +1041,10 @@ def simulate_v2(
                 "exceeded"
             )
 
+        # Release request-arrival events first.
+        release_due(now)
+        update_ready(now)
+
         # Activate flows whose propagation
         # delay has elapsed.
         newly_active = [
@@ -995,18 +1062,40 @@ def simulate_v2(
         schedule_new()
 
         if not active:
+
+            event_times = []
+
             if pending:
+                event_times.append(
+                    min(
+                        f["ready_at"]
+                        for f in pending
+                    )
+                )
+
+            next_arrival = (
+                next_arrival_after(
+                    now
+                )
+            )
+
+            if next_arrival is not None:
+                event_times.append(
+                    next_arrival
+                )
+
+            if event_times:
+
                 next_time = min(
-                    f["ready_at"]
-                    for f in pending
+                    event_times
                 )
 
-                now = max(
-                    now,
-                    next_time,
-                )
-
-                continue
+                if (
+                    next_time
+                    > now + EPS
+                ):
+                    now = next_time
+                    continue
 
             # No flow but unfinished requests.
             # Usually caused by coalescing:
@@ -1133,6 +1222,25 @@ def simulate_v2(
                 dt = 0.0
         else:
             dt = dt_complete
+
+        next_arrival = (
+            next_arrival_after(
+                now
+            )
+        )
+
+        if next_arrival is not None:
+
+            dt_arrival = (
+                next_arrival
+                - now
+            )
+
+            if dt_arrival > EPS:
+                dt = min(
+                    dt,
+                    dt_arrival,
+                )
 
         if dt <= EPS:
             # activate pending flows
@@ -1271,9 +1379,14 @@ def simulate_v2(
 
         update_ready(now)
 
-    ready_values = list(
-        ready.values()
-    )
+    ready_values = [
+        max(
+            0.0,
+            ready[cid]
+            - arrival_time[cid],
+        )
+        for cid in ready
+    ]
 
     mean_ready = (
         statistics.mean(
@@ -1288,9 +1401,13 @@ def simulate_v2(
         0.95,
     )
 
+    # Absolute completion time of the target
+    # arrival window.
     makespan = (
-        max(ready_values)
-        if ready_values
+        max(
+            ready.values()
+        )
+        if ready
         else 0.0
     )
 

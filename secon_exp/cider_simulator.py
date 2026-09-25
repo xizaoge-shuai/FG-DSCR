@@ -176,18 +176,72 @@ def simulate_cider(
         for cid in assigned
     }
 
-    need = {}
+    # =========================================================
+    # ARRIVAL_AWARE_CIDER_V1
+    #
+    # Only released requests may contribute demand.
+    # Requests without arrival_time_s retain legacy t=0 behavior.
+    # =========================================================
 
-    for node in nodes:
-
-        required = set()
-
-        for cid in groups[node]:
-            required.update(
-                tasks[cid]
+    arrival_time = {
+        cid: float(
+            containers[cid].get(
+                "arrival_time_s",
+                0.0,
             )
+        )
+        for cid in assigned
+    }
 
-        need[node] = required
+    released = set()
+
+    need = {
+        node: set()
+        for node in nodes
+    }
+
+    def release_due(now):
+        newly_released = []
+
+        for node in nodes:
+
+            for cid in groups[node]:
+
+                if cid in released:
+                    continue
+
+                if (
+                    arrival_time[cid]
+                    <= now + EPS
+                ):
+                    released.add(cid)
+
+                    need[node].update(
+                        tasks[cid]
+                    )
+
+                    newly_released.append(
+                        cid
+                    )
+
+        return newly_released
+
+    def next_arrival_after(now):
+        future = [
+            arrival_time[cid]
+            for cid in assigned
+            if (
+                cid not in released
+                and arrival_time[cid]
+                > now + EPS
+            )
+        ]
+
+        if not future:
+            return None
+
+        return min(future)
+
 
     acquired = {}
     relay_cache = {}
@@ -232,24 +286,24 @@ def simulate_cider(
 
         for node in nodes:
 
-            for cid in (
-                groups[node]
-            ):
+            for cid in groups[node]:
 
-                if cid in ready:
+                if (
+                    cid not in released
+                    or cid in ready
+                ):
                     continue
 
                 if (
                     tasks[cid]
                     <= acquired[node]
                 ):
-                    ready[cid] = (
-                        now
-                    )
+                    ready[cid] = now
 
-    update_ready(
-        0.0
-    )
+    # Target windows are rebased so their first
+    # arrival occurs at t=0.
+    release_due(0.0)
+    update_ready(0.0)
 
     pulse = PulseScheduler(
         quantum_mb=(
@@ -287,6 +341,26 @@ def simulate_cider(
 
     evicted_mb = 0.0
     not_preserved_mb = 0.0
+
+    # KEEP realized-value diagnostics.
+    #
+    # retained_new_pairs:
+    #   (node, layer) that was newly delivered and preserved.
+    #
+    # reused_retained_pairs:
+    #   preserved pairs later actually selected by SCOUT
+    #   as a peer source.
+    #
+    # rejected_pairs:
+    #   newly delivered but not preserved.
+    #
+    # rejected_then_needed:
+    #   a rejected (node, layer) whose layer is later required
+    #   somewhere again.
+    retained_new_pairs = set()
+    reused_retained_pairs = set()
+    rejected_pairs = set()
+    rejected_then_needed = set()
 
     transfer_times = []
 
@@ -359,6 +433,13 @@ def simulate_cider(
                 "CIDER event-loop safety "
                 "limit exceeded"
             )
+
+        # -----------------------------------------------------
+        # Release requests whose arrival event has fired.
+        # -----------------------------------------------------
+
+        release_due(now)
+        update_ready(now)
 
         # -----------------------------------------------------
         # Activate flows whose propagation delay elapsed.
@@ -446,7 +527,15 @@ def simulate_cider(
 
                 selected = pulse.select(
                     nodes=list(nodes),
-                    groups=groups,
+                    groups={
+                        node: [
+                            cid
+                            for cid
+                            in groups[node]
+                            if cid in released
+                        ]
+                        for node in nodes
+                    },
                     tasks=tasks,
                     acquired=(
                         acquired_for_pulse
@@ -467,6 +556,24 @@ def simulate_cider(
                 ) * 1000.0
 
                 if selected:
+
+                    for item in selected:
+
+                        for (
+                            rejected_node,
+                            rejected_layer,
+                        ) in rejected_pairs:
+
+                            if (
+                                rejected_layer
+                                == item.layer
+                            ):
+                                rejected_then_needed.add(
+                                    (
+                                        rejected_node,
+                                        rejected_layer,
+                                    )
+                                )
 
                     t0 = (
                         time.perf_counter()
@@ -555,6 +662,20 @@ def simulate_cider(
                                 item.layer
                             )
                         else:
+
+                            source_pair = (
+                                src,
+                                item.layer,
+                            )
+
+                            if (
+                                source_pair
+                                in retained_new_pairs
+                            ):
+                                reused_retained_pairs.add(
+                                    source_pair
+                                )
+
                             path = (
                                 topology
                                 .peer_path(
@@ -619,11 +740,31 @@ def simulate_cider(
 
         if not active:
 
+            event_times = []
+
             if pending:
+                event_times.append(
+                    min(
+                        f["ready_at"]
+                        for f in pending
+                    )
+                )
+
+            next_arrival = (
+                next_arrival_after(
+                    now
+                )
+            )
+
+            if next_arrival is not None:
+                event_times.append(
+                    next_arrival
+                )
+
+            if event_times:
 
                 next_time = min(
-                    f["ready_at"]
-                    for f in pending
+                    event_times
                 )
 
                 dt_idle = max(
@@ -633,12 +774,14 @@ def simulate_cider(
 
                 keep.update_virtual_queue(
                     registry_mb=0.0,
-                    duration_s=(
-                        dt_idle
-                    ),
+                    duration_s=dt_idle,
                 )
 
-                now = next_time
+                now = max(
+                    now,
+                    next_time,
+                )
+
                 continue
 
             remaining_pairs = sum(
@@ -653,7 +796,17 @@ def simulate_cider(
                 raise RuntimeError(
                     "CIDER deadlock: "
                     f"{remaining_pairs} "
-                    "layer demands remain"
+                    "released layer demands remain"
+                )
+
+            if (
+                len(released)
+                < accepted
+            ):
+                raise RuntimeError(
+                    "CIDER deadlock: "
+                    "unreleased requests remain "
+                    "without a future arrival event"
                 )
 
             break
@@ -700,6 +853,25 @@ def simulate_cider(
                 dt = min(
                     dt,
                     until_activation,
+                )
+
+        next_arrival = (
+            next_arrival_after(
+                now
+            )
+        )
+
+        if next_arrival is not None:
+
+            until_arrival = (
+                next_arrival
+                - now
+            )
+
+            if until_arrival > EPS:
+                dt = min(
+                    dt,
+                    until_arrival,
                 )
 
         if dt <= EPS:
@@ -980,14 +1152,37 @@ def simulate_cider(
                 for x in removed
             )
 
+            rejected_new = (
+                newly_arrived[node]
+                - selected_cache
+            )
+
+            retained_new = (
+                newly_arrived[node]
+                & selected_cache
+            )
+
             not_preserved_mb += sum(
                 sizes[x]
                 for x
-                in (
-                    newly_arrived[node]
-                    - selected_cache
-                )
+                in rejected_new
             )
+
+            for layer in retained_new:
+                retained_new_pairs.add(
+                    (
+                        node,
+                        layer,
+                    )
+                )
+
+            for layer in rejected_new:
+                rejected_pairs.add(
+                    (
+                        node,
+                        layer,
+                    )
+                )
 
             relay_cache[node] = (
                 selected_cache
@@ -1016,9 +1211,16 @@ def simulate_cider(
             - t0
         ) * 1000.0
 
-    ready_values = list(
-        ready.values()
-    )
+    # Startup latency is measured from each
+    # request's own release time.
+    ready_values = [
+        max(
+            0.0,
+            ready[cid]
+            - arrival_time[cid],
+        )
+        for cid in ready
+    ]
 
     mean_ready = (
         statistics.mean(
@@ -1033,9 +1235,13 @@ def simulate_cider(
         0.95,
     )
 
+    # Makespan is the absolute completion time of
+    # the rebased target window, not max startup delay.
     makespan = (
-        max(ready_values)
-        if ready_values
+        max(
+            ready.values()
+        )
+        if ready
         else 0.0
     )
 
@@ -1120,6 +1326,56 @@ def simulate_cider(
 
         "not_preserved_mb": (
             not_preserved_mb
+        ),
+
+        "keep_retained_new_pairs": (
+            len(
+                retained_new_pairs
+            )
+        ),
+
+        "keep_reused_retained_pairs": (
+            len(
+                reused_retained_pairs
+            )
+        ),
+
+        "keep_retained_reuse_pct": (
+            100.0
+            * len(
+                reused_retained_pairs
+            )
+            / max(
+                1,
+                len(
+                    retained_new_pairs
+                ),
+            )
+        ),
+
+        "keep_rejected_pairs": (
+            len(
+                rejected_pairs
+            )
+        ),
+
+        "keep_rejected_then_needed": (
+            len(
+                rejected_then_needed
+            )
+        ),
+
+        "keep_rejected_needed_pct": (
+            100.0
+            * len(
+                rejected_then_needed
+            )
+            / max(
+                1,
+                len(
+                    rejected_pairs
+                ),
+            )
         ),
 
         "pulse_ms": (
