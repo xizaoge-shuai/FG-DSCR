@@ -29,7 +29,7 @@ class KeepOptimizer:
         self,
         history_probability,
         V=1.0,
-        registry_budget_rate_mb_s=3.0,
+        upper_budget_rate_mb_s=3.0,
         quantum_mb=8.0,
     ):
         self.p_hat = dict(
@@ -38,8 +38,17 @@ class KeepOptimizer:
 
         self.V = float(V)
 
-        self.registry_budget_rate_mb_s = float(
-            registry_budget_rate_mb_s
+        # KEEP_UPPER_LYAPUNOV_V1
+        #
+        # Long-term budget applies to:
+        #
+        #   upper-network traffic
+        #   = Registry traffic
+        #   + cross-domain peer traffic
+        #
+        # Same-domain peer traffic is not charged.
+        self.upper_budget_rate_mb_s = float(
+            upper_budget_rate_mb_s
         )
 
         self.quantum_mb = float(
@@ -96,15 +105,29 @@ class KeepOptimizer:
 
     def update_virtual_queue(
         self,
-        registry_mb,
+        upper_mb,
         duration_s,
     ):
+        """
+        KEEP_UPPER_LYAPUNOV_V1
+
+        Q(t+1) =
+            [Q(t)
+             + B_upper(t)
+             - B_upper_budget * dt]^+
+
+        where
+
+            B_upper
+              = Registry bytes
+              + cross-domain peer bytes.
+        """
         self.virtual_queue = max(
             0.0,
             self.virtual_queue
-            + float(registry_mb)
+            + float(upper_mb)
             - (
-                self.registry_budget_rate_mb_s
+                self.upper_budget_rate_mb_s
                 * float(duration_s)
             ),
         )
@@ -240,7 +263,7 @@ class KeepOptimizer:
             sum_j
             [C_alt(j,l)-C_n(j,l)]^+
 
-        and expected WAN avoidance DeltaB.
+        and expected upper-network avoidance DeltaB.
         """
 
         p = float(
@@ -261,12 +284,59 @@ class KeepOptimizer:
         )
 
         communication_gain = 0.0
-        wan_avoidance = 0.0
+
+        # Expected upper-network bytes avoided if this
+        # replica creates a same-domain delivery option.
+        upper_avoidance = 0.0
 
         for dst in nodes:
 
             if dst == node:
                 continue
+
+            # ------------------------------------------------
+            # KEEP_UPPER_LYAPUNOV_V1
+            #
+            # Marginal same-domain coverage.
+            # ------------------------------------------------
+
+            if (
+                topology.same_domain(
+                    node,
+                    dst,
+                )
+                and layer
+                not in relay_cache[dst]
+            ):
+
+                other_same_domain_copy = False
+
+                for src in nodes:
+
+                    if (
+                        src == node
+                        or src == dst
+                    ):
+                        continue
+
+                    if not topology.same_domain(
+                        src,
+                        dst,
+                    ):
+                        continue
+
+                    if (
+                        layer
+                        in relay_cache[src]
+                    ):
+                        other_same_domain_copy = True
+                        break
+
+                if not other_same_domain_copy:
+
+                    upper_avoidance += (
+                        p * size
+                    )
 
             candidate_path = (
                 topology.peer_path(
@@ -347,18 +417,9 @@ class KeepOptimizer:
                 )
             )
 
-            if (
-                alt_is_registry
-                and candidate_cost
-                < registry_cost
-            ):
-                wan_avoidance += (
-                    p * size
-                )
-
         return (
             communication_gain,
-            wan_avoidance,
+            upper_avoidance,
         )
 
     def choose_retention(

@@ -166,12 +166,17 @@ def main():
     )
 
     ap.add_argument(
+        "--keep-upper-budget-ratio",
         "--keep-registry-budget-ratio",
+        dest="keep_upper_budget_ratio",
         type=float,
         default=0.30,
         help=(
-            "Long-term Registry traffic budget "
-            "as a fraction of WAN capacity."
+            "Long-term upper-network traffic budget "
+            "(Registry + cross-domain peer) "
+            "as a fraction of WAN capacity. "
+            "The old --keep-registry-budget-ratio "
+            "name is retained as a compatibility alias."
         ),
     )
 
@@ -405,9 +410,9 @@ def main():
                 args.keep_v
             ),
 
-            keep_registry_budget_rate_mb_s=(
+            keep_upper_budget_rate_mb_s=(
                 args.wan
-                * args.keep_registry_budget_ratio
+                * args.keep_upper_budget_ratio
             ),
         )
 

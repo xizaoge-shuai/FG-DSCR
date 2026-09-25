@@ -103,7 +103,7 @@ def simulate_cider(
     scout_source_concurrency=0,
 
     keep_v=1.0,
-    keep_registry_budget_rate_mb_s=3.0,
+    keep_upper_budget_rate_mb_s=3.0,
 ):
     """
     Strict CIDER scheduling semantics:
@@ -325,8 +325,8 @@ def simulate_cider(
             history_probability
         ),
         V=keep_v,
-        registry_budget_rate_mb_s=(
-            keep_registry_budget_rate_mb_s
+        upper_budget_rate_mb_s=(
+            keep_upper_budget_rate_mb_s
         ),
         quantum_mb=8.0,
     )
@@ -773,7 +773,7 @@ def simulate_cider(
                 )
 
                 keep.update_virtual_queue(
-                    registry_mb=0.0,
+                    upper_mb=0.0,
                     duration_s=dt_idle,
                 )
 
@@ -938,7 +938,15 @@ def simulate_cider(
         # Transfer data during [now, now+dt].
         # -----------------------------------------------------
 
-        registry_interval_mb = 0.0
+        # KEEP_UPPER_LYAPUNOV_V1
+        #
+        # Upper-network traffic consists of:
+        #
+        #   1. Registry -> edge
+        #   2. cross-domain peer -> edge
+        #
+        # Same-domain peer traffic is excluded.
+        upper_interval_mb = 0.0
 
         for i, f in enumerate(
             active
@@ -952,8 +960,21 @@ def simulate_cider(
                 amount
             )
 
-            if f["src"] is None:
-                registry_interval_mb += (
+            src = f["src"]
+            dst = f["dst"]
+
+            if src is None:
+
+                upper_interval_mb += (
+                    amount
+                )
+
+            elif not topology.same_domain(
+                src,
+                dst,
+            ):
+
+                upper_interval_mb += (
                     amount
                 )
 
@@ -962,11 +983,11 @@ def simulate_cider(
                     amount
                 )
 
-        # Lyapunov queue uses actual WAN bytes
-        # during this event interval.
+        # Lyapunov queue uses ACTUAL upper-network
+        # bytes during this event interval.
         keep.update_virtual_queue(
-            registry_mb=(
-                registry_interval_mb
+            upper_mb=(
+                upper_interval_mb
             ),
             duration_s=dt,
         )
