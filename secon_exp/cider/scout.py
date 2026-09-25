@@ -188,6 +188,13 @@ class ScoutOptimizer:
             source_concurrency
         )
 
+        # SCOUT_LOCALITY_DIAG_V1
+        #
+        # Permanent aggregate diagnostic counters.
+        # They do NOT affect source selection.
+        self.diag = Counter()
+        self.diag_mb = Counter()
+
     def choose(
         self,
         demands,
@@ -391,6 +398,120 @@ class ScoutOptimizer:
             )
 
         # ------------------------------------------------
+        # Candidate-locality diagnostic.
+        #
+        # For every PULSE-selected demand determine whether
+        # a currently preserved peer replica exists:
+        #
+        #   same-domain candidate
+        #   cross-domain candidate
+        #   no peer candidate (Registry only)
+        #
+        # Important:
+        # this only OBSERVES the current relay_cache.
+        # It does not change the MCMF graph or costs.
+        # ------------------------------------------------
+
+        availability = {}
+
+        for i, item in enumerate(
+            demands
+        ):
+
+            has_same = False
+            has_cross = False
+
+            for src, cache in (
+                relay_cache.items()
+            ):
+
+                if src == item.node:
+                    continue
+
+                if item.layer not in cache:
+                    continue
+
+                if topology.same_domain(
+                    src,
+                    item.node,
+                ):
+                    has_same = True
+                else:
+                    has_cross = True
+
+            availability[i] = (
+                has_same,
+                has_cross,
+            )
+
+            size = float(
+                item.size_mb
+            )
+
+            self.diag[
+                "demands"
+            ] += 1
+
+            self.diag_mb[
+                "demand_mb"
+            ] += size
+
+            if has_same:
+
+                self.diag[
+                    "has_same"
+                ] += 1
+
+                self.diag_mb[
+                    "has_same_mb"
+                ] += size
+
+            if has_cross:
+
+                self.diag[
+                    "has_cross"
+                ] += 1
+
+                self.diag_mb[
+                    "has_cross_mb"
+                ] += size
+
+            if (
+                has_same
+                or has_cross
+            ):
+
+                self.diag[
+                    "has_any_peer"
+                ] += 1
+
+                self.diag_mb[
+                    "has_any_peer_mb"
+                ] += size
+
+            else:
+
+                self.diag[
+                    "registry_only"
+                ] += 1
+
+                self.diag_mb[
+                    "registry_only_mb"
+                ] += size
+
+            if not has_same:
+
+                # This demand cannot avoid upper-network
+                # traffic under the CURRENT replica state.
+                self.diag[
+                    "no_same_candidate"
+                ] += 1
+
+                self.diag_mb[
+                    "no_same_candidate_mb"
+                ] += size
+
+        # ------------------------------------------------
         # Min-Cost Max-Flow graph.
         # ------------------------------------------------
 
@@ -572,5 +693,64 @@ class ScoutOptimizer:
                     item.layer,
                 )
             ] = chosen
+
+            size = float(
+                item.size_mb
+            )
+
+            has_same, has_cross = (
+                availability[i]
+            )
+
+            if chosen is None:
+
+                self.diag[
+                    "chosen_registry"
+                ] += 1
+
+                self.diag_mb[
+                    "chosen_registry_mb"
+                ] += size
+
+                if has_same:
+                    self.diag[
+                        "missed_same_for_registry"
+                    ] += 1
+
+                    self.diag_mb[
+                        "missed_same_for_registry_mb"
+                    ] += size
+
+            elif topology.same_domain(
+                chosen,
+                item.node,
+            ):
+
+                self.diag[
+                    "chosen_same"
+                ] += 1
+
+                self.diag_mb[
+                    "chosen_same_mb"
+                ] += size
+
+            else:
+
+                self.diag[
+                    "chosen_cross"
+                ] += 1
+
+                self.diag_mb[
+                    "chosen_cross_mb"
+                ] += size
+
+                if has_same:
+                    self.diag[
+                        "missed_same_for_cross"
+                    ] += 1
+
+                    self.diag_mb[
+                        "missed_same_for_cross_mb"
+                    ] += size
 
         return assignment

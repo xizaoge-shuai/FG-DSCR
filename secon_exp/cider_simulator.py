@@ -1213,6 +1213,149 @@ def simulate_cider(
 
     # Startup latency is measured from each
     # request's own release time.
+    # =====================================================
+    # SCOUT LOCALITY DIAGNOSTIC
+    # =====================================================
+
+    d = scout.diag
+    b = scout.diag_mb
+
+    total_d = max(
+        1,
+        d["demands"],
+    )
+
+    total_mb = max(
+        EPS,
+        b["demand_mb"],
+    )
+
+    print()
+    print(
+        "===== SCOUT LOCALITY DIAGNOSTIC ====="
+    )
+
+    print(
+        "demands                 =",
+        d["demands"],
+    )
+
+    print(
+        "demand_mb               =",
+        round(
+            b["demand_mb"],
+            2,
+        ),
+    )
+
+    print(
+        "has_same                =",
+        d["has_same"],
+        f"({100*d['has_same']/total_d:.2f}%)",
+    )
+
+    print(
+        "has_same_mb             =",
+        round(
+            b["has_same_mb"],
+            2,
+        ),
+        f"({100*b['has_same_mb']/total_mb:.2f}%)",
+    )
+
+    print(
+        "has_cross               =",
+        d["has_cross"],
+        f"({100*d['has_cross']/total_d:.2f}%)",
+    )
+
+    print(
+        "registry_only           =",
+        d["registry_only"],
+        f"({100*d['registry_only']/total_d:.2f}%)",
+    )
+
+    print(
+        "no_same_candidate       =",
+        d["no_same_candidate"],
+        f"({100*d['no_same_candidate']/total_d:.2f}%)",
+    )
+
+    print(
+        "no_same_candidate_mb    =",
+        round(
+            b["no_same_candidate_mb"],
+            2,
+        ),
+        f"({100*b['no_same_candidate_mb']/total_mb:.2f}%)",
+    )
+
+    print()
+    print(
+        "chosen_registry         =",
+        d["chosen_registry"],
+    )
+
+    print(
+        "chosen_same             =",
+        d["chosen_same"],
+    )
+
+    print(
+        "chosen_cross            =",
+        d["chosen_cross"],
+    )
+
+    print(
+        "chosen_registry_mb      =",
+        round(
+            b["chosen_registry_mb"],
+            2,
+        ),
+    )
+
+    print(
+        "chosen_same_mb          =",
+        round(
+            b["chosen_same_mb"],
+            2,
+        ),
+    )
+
+    print(
+        "chosen_cross_mb         =",
+        round(
+            b["chosen_cross_mb"],
+            2,
+        ),
+    )
+
+    print()
+    print(
+        "missed_same_for_registry=",
+        d["missed_same_for_registry"],
+        "MB=",
+        round(
+            b["missed_same_for_registry_mb"],
+            2,
+        ),
+    )
+
+    print(
+        "missed_same_for_cross   =",
+        d["missed_same_for_cross"],
+        "MB=",
+        round(
+            b["missed_same_for_cross_mb"],
+            2,
+        ),
+    )
+
+    print(
+        "======================================="
+    )
+    print()
+
     ready_values = [
         max(
             0.0,
