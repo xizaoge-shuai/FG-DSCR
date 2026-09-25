@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import math
+import os
+import atexit
 
 
 EPS = 1e-9
@@ -46,6 +48,52 @@ class KeepOptimizer:
 
         self.virtual_queue = 0.0
 
+        # ----------------------------------------------------
+        # Optional diagnostic instrumentation.
+        # Does NOT alter KEEP decisions.
+        # ----------------------------------------------------
+
+        self.debug_enabled = (
+            os.environ.get(
+                "CIDER_KEEP_DEBUG",
+                "0",
+            )
+            == "1"
+        )
+
+        self._dbg = {
+            "items": 0,
+            "g_zero": 0,
+            "db_zero": 0,
+            "vg_dominant": 0,
+
+            "g_sum": 0.0,
+            "g_min": float("inf"),
+            "g_max": 0.0,
+
+            "db_sum": 0.0,
+            "db_min": float("inf"),
+            "db_max": 0.0,
+
+            "vg_sum": 0.0,
+            "vg_min": float("inf"),
+            "vg_max": 0.0,
+
+            "qdb_sum": 0.0,
+            "qdb_min": float("inf"),
+            "qdb_max": 0.0,
+
+            "ratio_sum": 0.0,
+
+            "q_sum": 0.0,
+            "q_max": 0.0,
+        }
+
+        if self.debug_enabled:
+            atexit.register(
+                self._print_debug_summary
+            )
+
     def update_virtual_queue(
         self,
         registry_mb,
@@ -60,6 +108,96 @@ class KeepOptimizer:
                 * float(duration_s)
             ),
         )
+
+    def _print_debug_summary(self):
+        if not self.debug_enabled:
+            return
+
+        d = self._dbg
+        n = max(
+            1,
+            d["items"],
+        )
+
+        probs = [
+            float(x)
+            for x in self.p_hat.values()
+            if float(x) > 0
+        ]
+
+        if probs:
+            p_min = min(probs)
+            p_max = max(probs)
+            p_mean = (
+                sum(probs)
+                / len(probs)
+            )
+        else:
+            p_min = 0.0
+            p_max = 0.0
+            p_mean = 0.0
+
+        def safe_min(name):
+            x = d[name]
+            if x == float("inf"):
+                return 0.0
+            return x
+
+        print()
+        print(
+            "KEEP_DEBUG "
+            f"V={self.V:g} "
+            f"items={d['items']} "
+            f"p_count={len(probs)} "
+            f"p_min={p_min:.8g} "
+            f"p_mean={p_mean:.8g} "
+            f"p_max={p_max:.8g}"
+        )
+
+        print(
+            "KEEP_DEBUG "
+            "G "
+            f"min={safe_min('g_min'):.8g} "
+            f"mean={d['g_sum']/n:.8g} "
+            f"max={d['g_max']:.8g} "
+            f"zero={d['g_zero']/n:.4f}"
+        )
+
+        print(
+            "KEEP_DEBUG "
+            "DeltaB "
+            f"min={safe_min('db_min'):.8g} "
+            f"mean={d['db_sum']/n:.8g} "
+            f"max={d['db_max']:.8g} "
+            f"zero={d['db_zero']/n:.4f}"
+        )
+
+        print(
+            "KEEP_DEBUG "
+            "V*G "
+            f"min={safe_min('vg_min'):.8g} "
+            f"mean={d['vg_sum']/n:.8g} "
+            f"max={d['vg_max']:.8g}"
+        )
+
+        print(
+            "KEEP_DEBUG "
+            "Q*DeltaB "
+            f"min={safe_min('qdb_min'):.8g} "
+            f"mean={d['qdb_sum']/n:.8g} "
+            f"max={d['qdb_max']:.8g}"
+        )
+
+        print(
+            "KEEP_DEBUG "
+            f"mean_VG_over_QDB="
+            f"{d['ratio_sum']/n:.8g} "
+            f"VG_dominant_fraction="
+            f"{d['vg_dominant']/n:.4f} "
+            f"Q_mean={d['q_sum']/n:.8g} "
+            f"Q_max={d['q_max']:.8g}"
+        )
+
 
     @staticmethod
     def path_cost(
@@ -233,7 +371,9 @@ class KeepOptimizer:
         topology,
         sizes,
     ):
-        candidate_layers = list(
+        # Deterministic ordering is required because
+        # DP tie-breaking follows item insertion order.
+        candidate_layers = sorted(
             set(candidate_layers)
         )
 
@@ -279,10 +419,92 @@ class KeepOptimizer:
                 )
             )
 
-            objective = (
-                self.V * g
-                + self.virtual_queue
+            vg = (
+                self.V
+                * g
+            )
+
+            qdb = (
+                self.virtual_queue
                 * delta_b
+            )
+
+            if self.debug_enabled:
+
+                d = self._dbg
+
+                d["items"] += 1
+
+                d["g_sum"] += g
+                d["g_min"] = min(
+                    d["g_min"],
+                    g,
+                )
+                d["g_max"] = max(
+                    d["g_max"],
+                    g,
+                )
+
+                d["db_sum"] += delta_b
+                d["db_min"] = min(
+                    d["db_min"],
+                    delta_b,
+                )
+                d["db_max"] = max(
+                    d["db_max"],
+                    delta_b,
+                )
+
+                d["vg_sum"] += vg
+                d["vg_min"] = min(
+                    d["vg_min"],
+                    vg,
+                )
+                d["vg_max"] = max(
+                    d["vg_max"],
+                    vg,
+                )
+
+                d["qdb_sum"] += qdb
+                d["qdb_min"] = min(
+                    d["qdb_min"],
+                    qdb,
+                )
+                d["qdb_max"] = max(
+                    d["qdb_max"],
+                    qdb,
+                )
+
+                if g <= EPS:
+                    d["g_zero"] += 1
+
+                if delta_b <= EPS:
+                    d["db_zero"] += 1
+
+                if vg > qdb:
+                    d[
+                        "vg_dominant"
+                    ] += 1
+
+                d["ratio_sum"] += (
+                    vg
+                    / max(
+                        qdb,
+                        EPS,
+                    )
+                )
+
+                d["q_sum"] += (
+                    self.virtual_queue
+                )
+
+                d["q_max"] = max(
+                    d["q_max"],
+                    self.virtual_queue,
+                )
+
+            objective = (
+                vg + qdb
             )
 
             weight = max(

@@ -117,7 +117,7 @@ class PulseScheduler:
                 - acquired[node]
             )
 
-            for layer in missing:
+            for layer in sorted(missing):
 
                 u = self.layer_utility(
                     node=node,
