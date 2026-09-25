@@ -195,9 +195,20 @@ def simulate_cider(
 
     released = set()
 
-    need = {
-        node: set()
-        for node in nodes
+    # REQUEST_SCOPED_ACQUISITION_V1
+    #
+    # obtained[cid]:
+    #   layers already obtained by THIS released request.
+    #
+    # relay_cache[node]:
+    #   persistent reusable layers available to FUTURE requests.
+    #
+    # A delivered but non-retained layer therefore remains
+    # available to current waiters, but does not create a
+    # permanent free hit for requests arriving later.
+    obtained = {
+        cid: set()
+        for cid in assigned
     }
 
     def release_due(now):
@@ -216,8 +227,11 @@ def simulate_cider(
                 ):
                     released.add(cid)
 
-                    need[node].update(
+                    # Future requests only inherit layers that
+                    # are actually retained at release time.
+                    obtained[cid] = set(
                         tasks[cid]
+                        & relay_cache[node]
                     )
 
                     newly_released.append(
@@ -243,7 +257,6 @@ def simulate_cider(
         return min(future)
 
 
-    acquired = {}
     relay_cache = {}
 
     for node in nodes:
@@ -257,10 +270,6 @@ def simulate_cider(
 
         initial &= set(
             sizes
-        )
-
-        acquired[node] = set(
-            initial
         )
 
         relay_cache[node] = set(
@@ -296,9 +305,35 @@ def simulate_cider(
 
                 if (
                     tasks[cid]
-                    <= acquired[node]
+                    <= obtained[cid]
                 ):
                     ready[cid] = now
+
+    def current_need():
+        """
+        Union of residual layers required by currently
+        released, non-ready requests on each node.
+        """
+        result = {
+            node: set()
+            for node in nodes
+        }
+
+        for node in nodes:
+            for cid in groups[node]:
+
+                if (
+                    cid not in released
+                    or cid in ready
+                ):
+                    continue
+
+                result[node].update(
+                    tasks[cid]
+                    - obtained[cid]
+                )
+
+        return result
 
     # Target windows are rebased so their first
     # arrival occurs at t=0.
@@ -493,23 +528,50 @@ def simulate_cider(
             and should_refill
         ):
 
+            need_now = current_need()
+
             remaining_pairs = sum(
                 len(
-                    need[node]
-                    - acquired[node]
+                    need_now[node]
                 )
                 for node in nodes
             )
 
             if remaining_pairs > 0:
 
-                # Layers already in flight are excluded from
-                # the current PULSE candidate set by treating
-                # them as provisionally acquired.
-                acquired_for_pulse = {
-                    node: set(
-                        acquired[node]
+                # Request-scoped PULSE view.
+                #
+                # Each request exposes only its own residual
+                # layers. Layers already being transferred to
+                # the node are provisionally excluded so that
+                # another transfer is not launched.
+                groups_for_pulse = {
+                    node: [
+                        cid
+                        for cid
+                        in groups[node]
+                        if (
+                            cid in released
+                            and cid not in ready
+                        )
+                    ]
+                    for node in nodes
+                }
+
+                tasks_for_pulse = {
+                    cid: set(
+                        tasks[cid]
+                        - obtained[cid]
                     )
+                    for node in nodes
+                    for cid
+                    in groups_for_pulse[
+                        node
+                    ]
+                }
+
+                provisional_for_pulse = {
+                    node: set()
                     for node in nodes
                 }
 
@@ -517,7 +579,7 @@ def simulate_cider(
                     dst,
                     layer,
                 ) in inflight_pairs:
-                    acquired_for_pulse[
+                    provisional_for_pulse[
                         dst
                     ].add(
                         layer
@@ -527,20 +589,16 @@ def simulate_cider(
 
                 selected = pulse.select(
                     nodes=list(nodes),
-                    groups={
-                        node: [
-                            cid
-                            for cid
-                            in groups[node]
-                            if cid in released
-                        ]
-                        for node in nodes
-                    },
-                    tasks=tasks,
-                    acquired=(
-                        acquired_for_pulse
+                    groups=(
+                        groups_for_pulse
                     ),
-                    need=need,
+                    tasks=(
+                        tasks_for_pulse
+                    ),
+                    acquired=(
+                        provisional_for_pulse
+                    ),
+                    need=need_now,
                     sizes=sizes,
                     budget_mb=(
                         pulse_budget_mb
@@ -784,10 +842,11 @@ def simulate_cider(
 
                 continue
 
+            need_now = current_need()
+
             remaining_pairs = sum(
                 len(
-                    need[node]
-                    - acquired[node]
+                    need_now[node]
                 )
                 for node in nodes
             )
@@ -994,6 +1053,13 @@ def simulate_cider(
 
         now += dt
 
+        # Requests arriving exactly at this event boundary
+        # are released BEFORE completed flows are delivered.
+        # They may therefore benefit from a transfer that was
+        # already in flight, without a duplicate download.
+        release_due(now)
+        update_ready(now)
+
         # -----------------------------------------------------
         # Process completed transfers.
         # -----------------------------------------------------
@@ -1031,9 +1097,18 @@ def simulate_cider(
                 )
             )
 
-            acquired[dst].add(
-                layer
-            )
+            for cid in groups[dst]:
+
+                if (
+                    cid not in released
+                    or cid in ready
+                ):
+                    continue
+
+                if layer in tasks[cid]:
+                    obtained[cid].add(
+                        layer
+                    )
 
             newly_arrived[
                 dst

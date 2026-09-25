@@ -181,6 +181,27 @@ def simulate_v2(
 
     released = set()
 
+    # REQUEST_SCOPED_BASELINE_V1
+    #
+    # relay_cache[node]:
+    #   persistent reusable state.
+    #
+    # obtained[cid]:
+    #   layers obtained by this request only.
+    #
+    # Layers removed from relay_cache must NOT remain as
+    # permanent free hits for requests arriving later.
+    obtained = {
+        cid: set()
+        for cid in assigned
+    }
+
+    request_node = {
+        cid: node
+        for node in nodes
+        for cid in groups[node]
+    }
+
     need = {
         n: set()
         for n in nodes
@@ -201,6 +222,14 @@ def simulate_v2(
                     <= now + EPS
                 ):
                     released.add(cid)
+
+                    obtained[cid] = set(
+                        tasks[cid]
+                        & relay_cache[
+                            request_node[cid]
+                        ]
+                    )
+
 
                     need[n].update(
                         tasks[cid]
@@ -236,7 +265,6 @@ def simulate_v2(
     # 可作为未来 P2P source 的可复用压缩 layer。
     # ------------------------------------------------
 
-    acquired = {}
     relay_cache = {}
 
     for n in nodes:
@@ -248,10 +276,6 @@ def simulate_v2(
         )
 
         initial &= set(sizes)
-
-        acquired[n] = set(
-            initial
-        )
 
         relay_cache[n] = set(
             initial
@@ -309,8 +333,7 @@ def simulate_v2(
                         continue
 
                     if (
-                        tasks[cid]
-                        <= acquired[n]
+                        tasks[cid] <= obtained[cid]
                     ):
                         ready[cid] = now
                         changed = True
@@ -323,9 +346,38 @@ def simulate_v2(
     # ------------------------------------------------
 
     def missing_layers(node):
-        return (
-            need[node]
-            - acquired[node]
+        """
+        Residual layers of currently released,
+        non-ready requests on this node.
+        """
+        missing = set()
+
+        for cid in groups[node]:
+
+            if (
+                cid not in released
+                or cid in ready
+            ):
+                continue
+
+            missing.update(
+                tasks[cid]
+                - obtained[cid]
+            )
+
+        return missing
+
+    def observed_popularity(layer):
+        """
+        Online-only popularity.
+
+        Uses requests released up to current simulation time.
+        It never looks at future target requests.
+        """
+        return sum(
+            1
+            for cid in released
+            if layer in tasks[cid]
         )
 
     def layer_order_key(
@@ -343,8 +395,7 @@ def simulate_v2(
                     and cid not in ready
                     and layer
                     in (
-                        tasks[cid]
-                        - acquired[node]
+                        tasks[cid] - obtained[cid]
                     )
                 ):
                     first_index = min(
@@ -372,8 +423,7 @@ def simulate_v2(
                     and cid not in ready
                     and layer
                     in (
-                        tasks[cid]
-                        - acquired[node]
+                        tasks[cid] - obtained[cid]
                     )
                 )
             )
@@ -403,10 +453,7 @@ def simulate_v2(
             score = (
                 waiters
                 + 0.25
-                * layer_popularity.get(
-                    layer,
-                    0,
-                )
+                * observed_popularity(layer)
             ) / max(
                 sizes[layer],
                 EPS,
@@ -421,12 +468,14 @@ def simulate_v2(
         score = 0.0
 
         for cid in groups[node]:
-            if cid in ready:
+            if (
+                cid not in released
+                or cid in ready
+            ):
                 continue
 
             remaining = (
-                tasks[cid]
-                - acquired[node]
+                tasks[cid] - obtained[cid]
             )
 
             if (
@@ -1025,6 +1074,9 @@ def simulate_v2(
     # Simulation loop.
     # ------------------------------------------------
 
+    release_due(0.0)
+    update_ready(0.0)
+
     schedule_new()
 
     safety = 0
@@ -1320,6 +1372,11 @@ def simulate_v2(
 
         now += dt
 
+        # Boundary arrivals can join a transfer that was
+        # already in flight before this timestamp.
+        release_due(now)
+        update_ready(now)
+
         completed = [
             f
             for f in active
@@ -1338,9 +1395,18 @@ def simulate_v2(
             layer = f["layer"]
             size = f["size"]
 
-            acquired[dst].add(
-                layer
-            )
+            for cid in groups[dst]:
+
+                if (
+                    cid not in released
+                    or cid in ready
+                ):
+                    continue
+
+                if layer in tasks[cid]:
+                    obtained[cid].add(
+                        layer
+                    )
 
             touched[dst][
                 layer
