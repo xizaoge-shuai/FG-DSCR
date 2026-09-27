@@ -7,7 +7,13 @@ image_overlap.csv
 layer_to_image.csv
 paper_case_*.json
 case_*.json
+# 忽略所有以 LATEST_DEV_ 开头的文件夹
+LATEST_DEV_*/
 
+# 忽略 results 目录下的所有 raw.csv 文件 (按需保留)
+results/**/raw.csv
+# 如果整个 results 目录都不需要提交，可以直接写：
+# results/
 # 运行结果
 result*.json
 fg_dscr_result.json

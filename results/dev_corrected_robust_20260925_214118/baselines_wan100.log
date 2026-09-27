@@ -1,0 +1,10 @@
+FG warmup: nodes=40 seed=1
+FG target placement: nodes=40 seed=1
+[1/5] N=40 seed=1  WAN=100  registry                    mean=107.58 p95=301.93 reg=35637 peer=0 cross=0 offload=0.0%
+[2/5] N=40 seed=1  WAN=100  dragonfly_style             mean=3.05 p95=14.00 reg=4734 peer=53337 cross=37043 offload=91.8%
+[3/5] N=40 seed=1  WAN=100  peersync_style              mean=8.44 p95=49.42 reg=2477 peer=56300 cross=39164 offload=95.8%
+[4/5] N=40 seed=1  WAN=100  metapipe_reactive_style     mean=3.37 p95=15.27 reg=5468 peer=52321 cross=36780 offload=90.5%
+[5/5] N=40 seed=1  WAN=100  ilrsa_style                 mean=110.63 p95=309.98 reg=36192 peer=0 cross=0 offload=0.0%
+
+Scale baseline sweep completed.
+Saved: /home/zhjia/FG-DSCR/results/dev_corrected_robust_20260925_214118/baselines_wan100/raw.csv

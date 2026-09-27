@@ -1,0 +1,9 @@
+reuse FG state: cider_nodes40_domains8_req800_weak seed=1
+[1/5] N=40 seed=1  WAN=125  registry                    mean=82.87 p95=239.50 reg=37054 peer=0 cross=0 offload=0.0%
+[2/5] N=40 seed=1  WAN=125  dragonfly_style             mean=106.36 p95=418.40 reg=2270 peer=32089 cross=26456 offload=93.4%
+[3/5] N=40 seed=1  WAN=125  peersync_style              mean=336.89 p95=1573.52 reg=1824 peer=32707 cross=22945 offload=94.7%
+[4/5] N=40 seed=1  WAN=125  metapipe_reactive_style     mean=102.54 p95=834.76 reg=23598 peer=14029 cross=10703 offload=37.3%
+[5/5] N=40 seed=1  WAN=125  ilrsa_style                 mean=83.83 p95=240.79 reg=36835 peer=0 cross=0 offload=0.0%
+
+Scale baseline sweep completed.
+Saved: /home/zhjia/FG-DSCR/results/dev_fixedstate_netcal_20260927_111841/wan125_peer5_baselines/raw.csv

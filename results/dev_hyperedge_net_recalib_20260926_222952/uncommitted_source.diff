@@ -1,0 +1,644 @@
+diff --git a/secon_exp/cider_simulator.py b/secon_exp/cider_simulator.py
+index a3457d23..d5373448 100644
+--- a/secon_exp/cider_simulator.py
++++ b/secon_exp/cider_simulator.py
+@@ -104,6 +104,9 @@ def simulate_cider(
+ 
+     keep_v=1.0,
+     keep_upper_budget_rate_mb_s=3.0,
++
++    # CIDER_ABLATION_V1
++    ablation="full",
+ ):
+     """
+     Strict CIDER scheduling semantics:
+@@ -118,6 +121,20 @@ def simulate_cider(
+         7. Enter next cycle
+     """
+ 
++    valid_ablations = {
++        "full",
++        "no_pulse",
++        "no_scout",
++        "no_keep",
++    }
++
++    if ablation not in valid_ablations:
++        raise ValueError(
++            "unknown CIDER ablation: "
++            f"{ablation}; expected one of "
++            f"{sorted(valid_ablations)}"
++        )
++
+     sizes = {
+         str(k): float(v)
+         for k, v in case[
+@@ -229,11 +246,27 @@ def simulate_cider(
+ 
+                     # Future requests only inherit layers that
+                     # are actually retained at release time.
+-                    obtained[cid] = set(
++                    local_hits = set(
+                         tasks[cid]
+                         & relay_cache[node]
+                     )
+ 
++                    obtained[cid] = (
++                        local_hits
++                    )
++
++                    if (
++                        ablation
++                        == "no_keep"
++                    ):
++                        for layer in sorted(
++                            local_hits
++                        ):
++                            touch_cache(
++                                node,
++                                layer,
++                            )
++
+                     newly_released.append(
+                         cid
+                     )
+@@ -289,6 +322,38 @@ def simulate_cider(
+         for node in nodes
+     }
+ 
++    # ---------------------------------------------------------
++    # no-KEEP control: neutral LRU cache.
++    #
++    # Full CIDER never reads these timestamps.
++    # ---------------------------------------------------------
++
++    lru_tick = 0
++
++    lru_last_touch = {
++        (
++            node,
++            layer,
++        ): 0
++        for node in nodes
++        for layer in relay_cache[node]
++    }
++
++    def touch_cache(
++        node,
++        layer,
++    ):
++        nonlocal lru_tick
++
++        lru_tick += 1
++
++        lru_last_touch[
++            (
++                node,
++                layer,
++            )
++        ] = lru_tick
++
+     ready = {}
+ 
+     def update_ready(now):
+@@ -366,6 +431,177 @@ def simulate_cider(
+         quantum_mb=8.0,
+     )
+ 
++    def choose_sources_greedy(
++        demands,
++        current_flows,
++    ):
++        """
++        no-SCOUT control.
++
++        Each selected demand chooses its source greedily
++        using estimated completion time.
++
++        Candidate set is identical to SCOUT:
++          Registry + all currently retained peer replicas.
++
++        Existing active/pending flows contribute current
++        link occupancy. Selected demands are not jointly
++        optimized through min-cost flow.
++        """
++
++        usage = {}
++
++        for flow in current_flows:
++            for lid in flow["path"]:
++                usage[lid] = (
++                    usage.get(
++                        lid,
++                        0,
++                    )
++                    + 1
++                )
++
++        source_used = {}
++
++        for flow in current_flows:
++            src = flow["src"]
++
++            if src is None:
++                continue
++
++            source_used[src] = (
++                source_used.get(
++                    src,
++                    0,
++                )
++                + 1
++            )
++
++        def estimated_time(
++            path,
++            size_mb,
++        ):
++            bw = min(
++                topology.capacity[lid]
++                / (
++                    1.0
++                    + usage.get(
++                        lid,
++                        0,
++                    )
++                )
++                for lid in path
++            )
++
++            return (
++                topology.path_latency_ms(
++                    path
++                )
++                / 1000.0
++                + float(size_mb)
++                / max(
++                    bw,
++                    EPS,
++                )
++            )
++
++        assignment = {}
++
++        for item in demands:
++
++            registry_path = (
++                topology.registry_path(
++                    item.node
++                )
++            )
++
++            options = [
++                (
++                    estimated_time(
++                        registry_path,
++                        item.size_mb,
++                    ),
++                    1,
++                    "",
++                    None,
++                )
++            ]
++
++            for src in sorted(
++                relay_cache
++            ):
++
++                if src == item.node:
++                    continue
++
++                if (
++                    item.layer
++                    not in relay_cache[
++                        src
++                    ]
++                ):
++                    continue
++
++                if (
++                    scout_source_concurrency
++                    > 0
++                    and source_used.get(
++                        src,
++                        0,
++                    )
++                    >= scout_source_concurrency
++                ):
++                    continue
++
++                path = (
++                    topology.peer_path(
++                        src,
++                        item.node,
++                    )
++                )
++
++                options.append(
++                    (
++                        estimated_time(
++                            path,
++                            item.size_mb,
++                        ),
++
++                        # Prefer a peer only on an
++                        # exact timing tie.
++                        0,
++
++                        str(src),
++                        src,
++                    )
++                )
++
++            options.sort()
++
++            src = options[0][3]
++
++            assignment[
++                (
++                    item.node,
++                    item.layer,
++                )
++            ] = src
++
++            if (
++                src is not None
++                and scout_source_concurrency
++                > 0
++            ):
++                source_used[src] = (
++                    source_used.get(
++                        src,
++                        0,
++                    )
++                    + 1
++                )
++
++        return assignment
++
+     now = 0.0
+ 
+     registry_mb = 0.0
+@@ -587,26 +823,116 @@ def simulate_cider(
+ 
+                 t0 = time.perf_counter()
+ 
+-                selected = pulse.select(
+-                    nodes=list(nodes),
+-                    groups=(
+-                        groups_for_pulse
+-                    ),
+-                    tasks=(
+-                        tasks_for_pulse
+-                    ),
+-                    acquired=(
+-                        provisional_for_pulse
+-                    ),
+-                    need=need_now,
+-                    sizes=sizes,
+-                    budget_mb=(
+-                        pulse_budget_mb
+-                    ),
+-                    max_transfers=(
+-                        free_slots
+-                    ),
+-                )
++                if (
++                    ablation
++                    == "no_pulse"
++                ):
++                    candidates = (
++                        pulse.build_candidates(
++                            nodes=list(nodes),
++                            groups=(
++                                groups_for_pulse
++                            ),
++                            tasks=(
++                                tasks_for_pulse
++                            ),
++                            acquired=(
++                                provisional_for_pulse
++                            ),
++                            need=need_now,
++                            sizes=sizes,
++                        )
++                    )
++
++                    def fifo_key(item):
++                        waiters = [
++                            cid
++                            for cid
++                            in groups_for_pulse[
++                                item.node
++                            ]
++                            if (
++                                item.layer
++                                in (
++                                    tasks_for_pulse[
++                                        cid
++                                    ]
++                                    - provisional_for_pulse[
++                                        item.node
++                                    ]
++                                )
++                            )
++                        ]
++
++                        first_arrival = min(
++                            (
++                                arrival_time[cid]
++                                for cid
++                                in waiters
++                            ),
++                            default=float(
++                                "inf"
++                            ),
++                        )
++
++                        return (
++                            first_arrival,
++                            item.node,
++                            item.layer,
++                        )
++
++                    candidates.sort(
++                        key=fifo_key
++                    )
++
++                    selected = []
++                    used_mb = 0.0
++
++                    for item in candidates:
++
++                        if (
++                            len(selected)
++                            >= free_slots
++                        ):
++                            break
++
++                        if (
++                            used_mb
++                            + item.size_mb
++                            > pulse_budget_mb
++                            + EPS
++                        ):
++                            continue
++
++                        selected.append(
++                            item
++                        )
++
++                        used_mb += (
++                            item.size_mb
++                        )
++
++                else:
++                    selected = pulse.select(
++                        nodes=list(nodes),
++                        groups=(
++                            groups_for_pulse
++                        ),
++                        tasks=(
++                            tasks_for_pulse
++                        ),
++                        acquired=(
++                            provisional_for_pulse
++                        ),
++                        need=need_now,
++                        sizes=sizes,
++                        budget_mb=(
++                            pulse_budget_mb
++                        ),
++                        max_transfers=(
++                            free_slots
++                        ),
++                    )
+ 
+                 pulse_ms += (
+                     time.perf_counter()
+@@ -637,19 +963,34 @@ def simulate_cider(
+                         time.perf_counter()
+                     )
+ 
+-                    assignment = (
+-                        scout.choose(
+-                            demands=selected,
+-                            relay_cache=(
+-                                relay_cache
+-                            ),
+-                            topology=topology,
+-                            active=(
+-                                active
+-                                + pending
+-                            ),
++                    if (
++                        ablation
++                        == "no_scout"
++                    ):
++                        assignment = (
++                            choose_sources_greedy(
++                                demands=selected,
++                                current_flows=(
++                                    active
++                                    + pending
++                                ),
++                            )
++                        )
++
++                    else:
++                        assignment = (
++                            scout.choose(
++                                demands=selected,
++                                relay_cache=(
++                                    relay_cache
++                                ),
++                                topology=topology,
++                                active=(
++                                    active
++                                    + pending
++                                ),
++                            )
+                         )
+-                    )
+ 
+                     scout_ms += (
+                         time.perf_counter()
+@@ -697,6 +1038,16 @@ def simulate_cider(
+                             pair
+                         ]
+ 
++                        if (
++                            ablation
++                            == "no_keep"
++                            and src is not None
++                        ):
++                            touch_cache(
++                                src,
++                                item.layer,
++                            )
++
+                         if (
+                             src is None
+                             and item.layer
+@@ -1116,6 +1467,15 @@ def simulate_cider(
+                 layer
+             )
+ 
++            if (
++                ablation
++                == "no_keep"
++            ):
++                touch_cache(
++                    dst,
++                    layer,
++                )
++
+             transfer_times.append(
+                 now
+                 - f["created_at"]
+@@ -1213,23 +1573,69 @@ def simulate_cider(
+                 - pinned_bytes
+             )
+ 
+-            selected_nonpins = (
+-                keep.choose_retention(
+-                    node=node,
+-                    candidate_layers=(
+-                        candidate_nonpins
+-                    ),
+-                    capacity_mb=(
+-                        remaining_capacity
+-                    ),
+-                    nodes=list(nodes),
+-                    relay_cache=(
+-                        relay_cache
+-                    ),
+-                    topology=topology,
+-                    sizes=sizes,
++            if (
++                ablation
++                == "no_keep"
++            ):
++                # Start from every available non-pinned
++                # cached layer, then evict the least
++                # recently used item until capacity fits.
++                selected_nonpins = set(
++                    candidate_nonpins
++                )
++
++                used_nonpins = sum(
++                    sizes[layer]
++                    for layer
++                    in selected_nonpins
++                )
++
++                while (
++                    selected_nonpins
++                    and used_nonpins
++                    > remaining_capacity
++                    + EPS
++                ):
++                    victim = min(
++                        selected_nonpins,
++                        key=lambda layer: (
++                            lru_last_touch.get(
++                                (
++                                    node,
++                                    layer,
++                                ),
++                                0,
++                            ),
++                            layer,
++                        ),
++                    )
++
++                    selected_nonpins.remove(
++                        victim
++                    )
++
++                    used_nonpins -= (
++                        sizes[victim]
++                    )
++
++            else:
++                selected_nonpins = (
++                    keep.choose_retention(
++                        node=node,
++                        candidate_layers=(
++                            candidate_nonpins
++                        ),
++                        capacity_mb=(
++                            remaining_capacity
++                        ),
++                        nodes=list(nodes),
++                        relay_cache=(
++                            relay_cache
++                        ),
++                        topology=topology,
++                        sizes=sizes,
++                    )
+                 )
+-            )
+ 
+             selected_cache = (
+                 set(pins)
+diff --git a/secon_exp/experiments/run_cider_mainline.py b/secon_exp/experiments/run_cider_mainline.py
+index 68d0adf4..2cad75de 100644
+--- a/secon_exp/experiments/run_cider_mainline.py
++++ b/secon_exp/experiments/run_cider_mainline.py
+@@ -18,6 +18,7 @@ FIELDS = [
+     "num_domains",
+     "seed",
+     "wan_mb_s",
++    "ablation",
+ 
+     "accepted",
+     "excluded",
+@@ -158,6 +159,18 @@ def main():
+         default=0,
+     )
+ 
++    # Controlled component ablation.
++    ap.add_argument(
++        "--ablation",
++        choices=(
++            "full",
++            "no_pulse",
++            "no_scout",
++            "no_keep",
++        ),
++        default="full",
++    )
++
+     # KEEP
+     ap.add_argument(
+         "--keep-v",
+@@ -359,7 +372,8 @@ def main():
+         print(
+             f"CIDER N={num_nodes} "
+             f"domains={num_domains} "
+-            f"WAN={args.wan:g}"
++            f"WAN={args.wan:g} "
++            f"ablation={args.ablation}"
+         )
+ 
+         print(
+@@ -414,6 +428,10 @@ def main():
+                 args.wan
+                 * args.keep_upper_budget_ratio
+             ),
++
++            ablation=(
++                args.ablation
++            ),
+         )
+ 
+         wall_runtime = (
+@@ -429,6 +447,7 @@ def main():
+             ),
+             "seed": args.seed,
+             "wan_mb_s": args.wan,
++            "ablation": args.ablation,
+ 
+             "accepted": (
+                 result["accepted"]

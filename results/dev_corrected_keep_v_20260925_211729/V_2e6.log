@@ -1,0 +1,36 @@
+
+================================================================================
+CIDER N=40 domains=8 WAN=30
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 1517
+demand_mb               = 58663.0
+has_same                = 637 (41.99%)
+has_same_mb             = 33348.0 (56.85%)
+has_cross               = 1313 (86.55%)
+registry_only           = 152 (10.02%)
+no_same_candidate       = 880 (58.01%)
+no_same_candidate_mb    = 25315.0 (43.15%)
+
+chosen_registry         = 152
+chosen_same             = 636
+chosen_cross            = 729
+chosen_registry_mb      = 2215.0
+chosen_same_mb          = 33301.0
+chosen_cross_mb         = 23147.0
+
+missed_same_for_registry= 0 MB= 0
+missed_same_for_cross   = 1 MB= 47.0
+=======================================
+
+mean=3.14s p95=13.38s registry=2215MB peer=56448MB cross=23147MB offload=96.2% scheduler=10882.33ms
+
+Saved: /home/zhjia/FG-DSCR/results/dev_corrected_keep_v_20260925_211729/V_2e6/raw.csv
+
+KEEP_DEBUG V=2e+06 items=5156 p_count=574 p_min=0.00027389756 p_mean=0.0017421603 p_max=0.0673788
+KEEP_DEBUG G min=0 mean=0.0023413428 max=0.32789763 zero=0.0733
+KEEP_DEBUG DeltaB min=0 mean=1.9151587 max=110.78389 zero=0.2438
+KEEP_DEBUG V*G min=0 mean=4682.6855 max=655795.26
+KEEP_DEBUG Q*DeltaB min=0 mean=32740.309 max=2687743.9
+KEEP_DEBUG mean_VG_over_QDB=5.3136947e+10 VG_dominant_fraction=0.5531 Q_mean=16121.926 Q_max=24267.044

@@ -1,0 +1,29 @@
+
+================================================================================
+CIDER N=40 domains=8 WAN=125 ablation=full
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 1707
+demand_mb               = 381152.0
+has_same                = 561 (32.86%)
+has_same_mb             = 67892.0 (17.81%)
+has_cross               = 1511 (88.52%)
+registry_only           = 168 (9.84%)
+no_same_candidate       = 1146 (67.14%)
+no_same_candidate_mb    = 313260.0 (82.19%)
+
+chosen_registry         = 1407
+chosen_same             = 300
+chosen_cross            = 0
+chosen_registry_mb      = 374652.0
+chosen_same_mb          = 6500.0
+chosen_cross_mb         = 0
+
+missed_same_for_registry= 261 MB= 61392.0
+missed_same_for_cross   = 0 MB= 0
+=======================================
+
+mean=36.84s p95=171.16s registry=31938MB peer=6500MB cross=0MB offload=16.9% scheduler=7752.04ms
+
+Saved: /home/zhjia/FG-DSCR/results/dev_fixedstate_netcal_20260927_111841/wan125_peer5_cider/raw.csv

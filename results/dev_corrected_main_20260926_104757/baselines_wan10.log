@@ -1,0 +1,31 @@
+FG warmup: nodes=20 seed=1
+FG target placement: nodes=20 seed=1
+[1/20] N=20 seed=1  WAN=10   registry                    mean=1189.32 p95=2413.02 reg=24906 peer=0 cross=0 offload=0.0%
+[2/20] N=20 seed=1  WAN=10   dragonfly_style             mean=293.73 p95=575.12 reg=5370 peer=19915 cross=14691 offload=78.8%
+[3/20] N=20 seed=1  WAN=10   peersync_style              mean=264.32 p95=532.92 reg=4948 peer=20300 cross=14696 offload=80.4%
+[4/20] N=20 seed=1  WAN=10   metapipe_reactive_style     mean=298.54 p95=583.92 reg=5458 peer=19884 cross=14257 offload=78.5%
+[5/20] N=20 seed=1  WAN=10   ilrsa_style                 mean=1194.18 p95=2408.05 reg=24866 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=30 seed=1
+FG target placement: nodes=30 seed=1
+[6/20] N=30 seed=1  WAN=10   registry                    mean=1171.97 p95=2411.83 reg=25331 peer=0 cross=0 offload=0.0%
+[7/20] N=30 seed=1  WAN=10   dragonfly_style             mean=106.33 p95=355.78 reg=4136 peer=32022 cross=19883 offload=88.6%
+[8/20] N=30 seed=1  WAN=10   peersync_style              mean=70.78 p95=253.58 reg=2945 peer=34627 cross=18951 offload=92.2%
+[9/20] N=30 seed=1  WAN=10   metapipe_reactive_style     mean=107.93 p95=353.90 reg=4046 peer=32669 cross=18844 offload=89.0%
+[10/20] N=30 seed=1  WAN=10   ilrsa_style                 mean=1187.89 p95=2430.72 reg=25329 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=40 seed=1
+FG target placement: nodes=40 seed=1
+[11/20] N=40 seed=1  WAN=10   registry                    mean=1189.44 p95=3135.21 reg=32736 peer=0 cross=0 offload=0.0%
+[12/20] N=40 seed=1  WAN=10   dragonfly_style             mean=33.08 p95=227.21 reg=3482 peer=47228 cross=33181 offload=93.1%
+[13/20] N=40 seed=1  WAN=10   peersync_style              mean=15.26 p95=77.29 reg=1982 peer=53514 cross=35341 offload=96.4%
+[14/20] N=40 seed=1  WAN=10   metapipe_reactive_style     mean=40.64 p95=272.31 reg=4082 peer=48627 cross=32174 offload=92.3%
+[15/20] N=40 seed=1  WAN=10   ilrsa_style                 mean=1386.19 p95=3371.62 reg=34909 peer=0 cross=0 offload=0.0%
+FG warmup: nodes=50 seed=1
+FG target placement: nodes=50 seed=1
+[16/20] N=50 seed=1  WAN=10   registry                    mean=936.11 p95=3146.74 reg=32591 peer=0 cross=0 offload=0.0%
+[17/20] N=50 seed=1  WAN=10   dragonfly_style             mean=30.21 p95=219.01 reg=2963 peer=59879 cross=39160 offload=95.3%
+[18/20] N=50 seed=1  WAN=10   peersync_style              mean=17.88 p95=101.61 reg=1477 peer=48890 cross=34845 offload=97.1%
+[19/20] N=50 seed=1  WAN=10   metapipe_reactive_style     mean=32.18 p95=226.11 reg=3033 peer=58224 cross=35451 offload=95.0%
+[20/20] N=50 seed=1  WAN=10   ilrsa_style                 mean=934.61 p95=3144.25 reg=32591 peer=0 cross=0 offload=0.0%
+
+Scale baseline sweep completed.
+Saved: /home/zhjia/FG-DSCR/results/dev_corrected_main_20260926_104757/baselines_wan10/raw.csv

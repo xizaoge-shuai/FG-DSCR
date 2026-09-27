@@ -1,0 +1,110 @@
+
+================================================================================
+CIDER N=20 domains=4 WAN=100
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 1052
+demand_mb               = 131803.0
+has_same                = 350 (33.27%)
+has_same_mb             = 19462.0 (14.77%)
+has_cross               = 661 (62.83%)
+registry_only           = 337 (32.03%)
+no_same_candidate       = 702 (66.73%)
+no_same_candidate_mb    = 112341.0 (85.23%)
+
+chosen_registry         = 377
+chosen_same             = 346
+chosen_cross            = 329
+chosen_registry_mb      = 99546.0
+chosen_same_mb          = 19320.0
+chosen_cross_mb         = 12937.0
+
+missed_same_for_registry= 2 MB= 26.0
+missed_same_for_cross   = 2 MB= 116.0
+=======================================
+
+mean=6.46s p95=21.88s registry=10737MB peer=32257MB cross=12937MB offload=75.0% scheduler=2530.04ms
+
+================================================================================
+CIDER N=30 domains=5 WAN=100
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 1240
+demand_mb               = 68720.0
+has_same                = 489 (39.44%)
+has_same_mb             = 34493.0 (50.19%)
+has_cross               = 930 (75.00%)
+registry_only           = 291 (23.47%)
+no_same_candidate       = 751 (60.56%)
+no_same_candidate_mb    = 34227.0 (49.81%)
+
+chosen_registry         = 312
+chosen_same             = 488
+chosen_cross            = 440
+chosen_registry_mb      = 21851.0
+chosen_same_mb          = 33606.0
+chosen_cross_mb         = 13263.0
+
+missed_same_for_registry= 0 MB= 0
+missed_same_for_cross   = 1 MB= 887.0
+=======================================
+
+mean=4.85s p95=19.04s registry=7444MB peer=46869MB cross=13263MB offload=86.3% scheduler=5352.26ms
+
+================================================================================
+CIDER N=40 domains=8 WAN=100
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 1485
+demand_mb               = 60142.0
+has_same                = 625 (42.09%)
+has_same_mb             = 32752.0 (54.46%)
+has_cross               = 1252 (84.31%)
+registry_only           = 192 (12.93%)
+no_same_candidate       = 860 (57.91%)
+no_same_candidate_mb    = 27390.0 (45.54%)
+
+chosen_registry         = 224
+chosen_same             = 621
+chosen_cross            = 640
+chosen_registry_mb      = 7539.0
+chosen_same_mb          = 32613.0
+chosen_cross_mb         = 19990.0
+
+missed_same_for_registry= 0 MB= 0
+missed_same_for_cross   = 4 MB= 139.0
+=======================================
+
+mean=2.99s p95=13.16s registry=6659MB peer=52603MB cross=19990MB offload=88.8% scheduler=11021.43ms
+
+================================================================================
+CIDER N=50 domains=10 WAN=100
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 1382
+demand_mb               = 74892.0
+has_same                = 497 (35.96%)
+has_same_mb             = 42700.0 (57.02%)
+has_cross               = 1182 (85.53%)
+registry_only           = 183 (13.24%)
+no_same_candidate       = 885 (64.04%)
+no_same_candidate_mb    = 32192.0 (42.98%)
+
+chosen_registry         = 210
+chosen_same             = 493
+chosen_cross            = 679
+chosen_registry_mb      = 14594.0
+chosen_same_mb          = 42153.0
+chosen_cross_mb         = 18145.0
+
+missed_same_for_registry= 0 MB= 0
+missed_same_for_cross   = 4 MB= 547.0
+=======================================
+
+mean=2.45s p95=12.72s registry=5060MB peer=60298MB cross=18145MB offload=92.3% scheduler=15382.85ms
+
+Saved: /home/zhjia/FG-DSCR/results/dev_corrected_main_20260926_104757/cider_wan100/raw.csv

@@ -1,0 +1,10 @@
+FG warmup: nodes=40 seed=1
+FG target placement: nodes=40 seed=1
+[1/5] N=40 seed=1  WAN=500  registry                    mean=4.76 p95=20.69 reg=57521 peer=0 cross=0 offload=0.0%
+[2/5] N=40 seed=1  WAN=500  dragonfly_style             mean=106.10 p95=418.00 reg=2272 peer=32087 cross=26365 offload=93.4%
+[3/5] N=40 seed=1  WAN=500  peersync_style              mean=336.89 p95=1573.52 reg=1824 peer=32707 cross=22945 offload=94.7%
+[4/5] N=40 seed=1  WAN=500  metapipe_reactive_style     mean=19.14 p95=125.85 reg=47676 peer=830 cross=459 offload=1.7%
+[5/5] N=40 seed=1  WAN=500  ilrsa_style                 mean=4.11 p95=20.62 reg=54409 peer=0 cross=0 offload=0.0%
+
+Scale baseline sweep completed.
+Saved: /home/zhjia/FG-DSCR/results/dev_hyperedge_net_recalib_20260926_222952/wan500_peer5_baselines/raw.csv

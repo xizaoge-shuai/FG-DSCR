@@ -1,0 +1,14 @@
+
+================================================================================
+CIDER N=40 domains=8 WAN=30
+================================================================================
+mean=25.31s p95=96.55s registry=3081MB peer=25876MB cross=14062MB offload=89.4% scheduler=5864.99ms
+
+Saved: /home/zhjia/FG-DSCR/results/cider_keep_debug/V_1/raw.csv
+
+KEEP_DEBUG V=1 items=2123 p_count=539 p_min=0.00027816412 p_mean=0.0018552876 p_max=0.068984701
+KEEP_DEBUG G min=0 mean=0.001461352 max=0.3588931 zero=0.0787
+KEEP_DEBUG DeltaB min=0 mean=0.072616426 max=19.852573 zero=0.5572
+KEEP_DEBUG V*G min=0 mean=0.001461352 max=0.3588931
+KEEP_DEBUG Q*DeltaB min=0 mean=109.49521 max=42575.885
+KEEP_DEBUG mean_VG_over_QDB=52725.728 VG_dominant_fraction=0.4786 Q_mean=1163.7091 Q_max=2156.7

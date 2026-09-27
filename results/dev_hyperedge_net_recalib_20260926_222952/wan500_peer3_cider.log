@@ -1,0 +1,29 @@
+
+================================================================================
+CIDER N=40 domains=8 WAN=500 ablation=full
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 4229
+demand_mb               = 2100212.0
+has_same                = 1757 (41.55%)
+has_same_mb             = 734870.0 (34.99%)
+has_cross               = 3952 (93.45%)
+registry_only           = 244 (5.77%)
+no_same_candidate       = 2472 (58.45%)
+no_same_candidate_mb    = 1365342.0 (65.01%)
+
+chosen_registry         = 4226
+chosen_same             = 3
+chosen_cross            = 0
+chosen_registry_mb      = 2100011.0
+chosen_same_mb          = 201.0
+chosen_cross_mb         = 0
+
+missed_same_for_registry= 1754 MB= 734669.0
+missed_same_for_cross   = 0 MB= 0
+=======================================
+
+mean=14.08s p95=86.46s registry=48815MB peer=201MB cross=0MB offload=0.4% scheduler=11152.29ms
+
+Saved: /home/zhjia/FG-DSCR/results/dev_hyperedge_net_recalib_20260926_222952/wan500_peer3_cider/raw.csv

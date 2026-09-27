@@ -18,6 +18,7 @@ FIELDS = [
     "num_domains",
     "seed",
     "wan_mb_s",
+    "ablation",
 
     "accepted",
     "excluded",
@@ -156,6 +157,18 @@ def main():
         "--scout-source-concurrency",
         type=int,
         default=0,
+    )
+
+    # Controlled component ablation.
+    ap.add_argument(
+        "--ablation",
+        choices=(
+            "full",
+            "no_pulse",
+            "no_scout",
+            "no_keep",
+        ),
+        default="full",
     )
 
     # KEEP
@@ -359,7 +372,8 @@ def main():
         print(
             f"CIDER N={num_nodes} "
             f"domains={num_domains} "
-            f"WAN={args.wan:g}"
+            f"WAN={args.wan:g} "
+            f"ablation={args.ablation}"
         )
 
         print(
@@ -414,6 +428,10 @@ def main():
                 args.wan
                 * args.keep_upper_budget_ratio
             ),
+
+            ablation=(
+                args.ablation
+            ),
         )
 
         wall_runtime = (
@@ -429,6 +447,7 @@ def main():
             ),
             "seed": args.seed,
             "wan_mb_s": args.wan,
+            "ablation": args.ablation,
 
             "accepted": (
                 result["accepted"]

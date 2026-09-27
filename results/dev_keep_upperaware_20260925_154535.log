@@ -1,0 +1,29 @@
+
+================================================================================
+CIDER N=40 domains=8 WAN=30
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 766
+demand_mb               = 32676.0
+has_same                = 178 (23.24%)
+has_same_mb             = 7878.0 (24.11%)
+has_cross               = 620 (80.94%)
+registry_only           = 128 (16.71%)
+no_same_candidate       = 588 (76.76%)
+no_same_candidate_mb    = 24798.0 (75.89%)
+
+chosen_registry         = 129
+chosen_same             = 178
+chosen_cross            = 459
+chosen_registry_mb      = 2456.0
+chosen_same_mb          = 7878.0
+chosen_cross_mb         = 22342.0
+
+missed_same_for_registry= 0 MB= 0
+missed_same_for_cross   = 0 MB= 0
+=======================================
+
+mean=1.88s p95=10.92s registry=2456MB peer=30220MB cross=22342MB offload=92.5% scheduler=5920.18ms
+
+Saved: /home/zhjia/FG-DSCR/results/dev_keep_upperaware_20260925_154535/raw.csv

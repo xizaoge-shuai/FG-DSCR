@@ -1,0 +1,29 @@
+
+================================================================================
+CIDER N=40 domains=8 WAN=30 ablation=no_scout
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 0
+demand_mb               = 0
+has_same                = 0 (0.00%)
+has_same_mb             = 0 (0.00%)
+has_cross               = 0 (0.00%)
+registry_only           = 0 (0.00%)
+no_same_candidate       = 0 (0.00%)
+no_same_candidate_mb    = 0 (0.00%)
+
+chosen_registry         = 0
+chosen_same             = 0
+chosen_cross            = 0
+chosen_registry_mb      = 0
+chosen_same_mb          = 0
+chosen_cross_mb         = 0
+
+missed_same_for_registry= 0 MB= 0
+missed_same_for_cross   = 0 MB= 0
+=======================================
+
+mean=3.19s p95=13.38s registry=2212MB peer=57147MB cross=28554MB offload=96.3% scheduler=10375.70ms
+
+Saved: /home/zhjia/FG-DSCR/results/dev_ablation_20260926_145254/no_scout/raw.csv
