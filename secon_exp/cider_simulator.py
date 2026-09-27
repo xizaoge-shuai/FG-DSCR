@@ -1679,6 +1679,10 @@ def simulate_cider(
                         ),
                         topology=topology,
                         sizes=sizes,
+                    current_flows=(
+                        active
+                        + pending
+                    ),
                     )
                 )
 

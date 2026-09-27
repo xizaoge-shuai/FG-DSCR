@@ -227,9 +227,34 @@ class KeepOptimizer:
         topology,
         path,
         size_mb,
+        link_usage=None,
     ):
+        """
+        Congestion-aware transfer-time estimate.
+
+        Keep this consistent with SCOUT:
+
+            effective_bw(e)
+              = capacity(e) / (1 + q_e)
+
+        where q_e is the number of currently reserved
+        active/pending transfers using link e.
+        """
+
+        if link_usage is None:
+            link_usage = {}
+
         bw = min(
             topology.capacity[x]
+            / (
+                1.0
+                + float(
+                    link_usage.get(
+                        x,
+                        0,
+                    )
+                )
+            )
             for x in path
         )
 
@@ -253,6 +278,7 @@ class KeepOptimizer:
         relay_cache,
         topology,
         sizes,
+        link_usage=None,
     ):
         """
         Compute:
@@ -350,6 +376,7 @@ class KeepOptimizer:
                     topology,
                     candidate_path,
                     size,
+                    link_usage=link_usage,
                 )
             )
 
@@ -366,6 +393,7 @@ class KeepOptimizer:
                     topology,
                     registry_path,
                     size,
+                    link_usage=link_usage,
                 )
             )
 
@@ -399,6 +427,7 @@ class KeepOptimizer:
                     topology,
                     path,
                     size,
+                    link_usage=link_usage,
                 )
 
                 if (
@@ -431,7 +460,29 @@ class KeepOptimizer:
         relay_cache,
         topology,
         sizes,
+        current_flows=None,
     ):
+        # KEEP_CONGESTION_AWARE_G_V1
+        #
+        # Use the same occupancy proxy as SCOUT so that
+        # KEEP does not evaluate future replicas under an
+        # inconsistent uncongested network model.
+        link_usage = {}
+
+        if current_flows is not None:
+
+            for flow in current_flows:
+
+                for lid in flow["path"]:
+
+                    link_usage[lid] = (
+                        link_usage.get(
+                            lid,
+                            0,
+                        )
+                        + 1
+                    )
+
         # Deterministic ordering is required because
         # DP tie-breaking follows item insertion order.
         candidate_layers = sorted(
@@ -477,6 +528,7 @@ class KeepOptimizer:
                     ),
                     topology=topology,
                     sizes=sizes,
+                    link_usage=link_usage,
                 )
             )
 
