@@ -6,7 +6,7 @@ import time
 from collections import Counter
 
 from secon_exp.simulator import fair_rates
-from secon_exp.cider.pulse import PulseScheduler
+from secon_exp.cider.pulse import PulseScheduler, PulseItem
 from secon_exp.cider.scout import ScoutOptimizer
 from secon_exp.cider.keep import KeepOptimizer
 
@@ -192,6 +192,51 @@ def simulate_cider(
         )
         for cid in assigned
     }
+
+    # PULSE_BUDGET_FEASIBILITY_V1
+    # Layers are indivisible. A hard byte budget smaller
+    # than a required layer can never schedule that layer.
+
+    if pulse_budget_mb <= 0:
+        raise ValueError(
+            "pulse_budget_mb must be positive"
+        )
+
+    required_layers = set()
+
+    for cid in tasks:
+        required_layers.update(
+            tasks[cid]
+        )
+
+    oversized_required = [
+        (
+            float(sizes[layer]),
+            layer,
+        )
+        for layer in required_layers
+        if (
+            float(sizes[layer])
+            > pulse_budget_mb + EPS
+        )
+    ]
+
+    if oversized_required:
+
+        largest_size, largest_layer = max(
+            oversized_required
+        )
+
+        raise ValueError(
+            "PULSE byte budget is infeasible for "
+            "indivisible required layers: "
+            f"budget={pulse_budget_mb:.3f} MB, "
+            f"largest_required_layer="
+            f"{largest_size:.3f} MB "
+            f"({largest_layer}), "
+            f"oversized_required_layers="
+            f"{len(oversized_required)}"
+        )
 
     # =========================================================
     # ARRIVAL_AWARE_CIDER_V1
@@ -827,22 +872,22 @@ def simulate_cider(
                     ablation
                     == "no_pulse"
                 ):
-                    candidates = (
-                        pulse.build_candidates(
-                            nodes=list(nodes),
-                            groups=(
-                                groups_for_pulse
-                            ),
-                            tasks=(
-                                tasks_for_pulse
-                            ),
-                            acquired=(
-                                provisional_for_pulse
-                            ),
-                            need=need_now,
-                            sizes=sizes,
+                    # Pure FIFO ablation: construct residual
+                    # node-layer demands directly, without
+                    # calling any PULSE utility logic.
+                    candidates = [
+                        PulseItem(
+                            node=node,
+                            layer=layer,
+                            size_mb=float(sizes[layer]),
+                            utility=0.0,
                         )
-                    )
+                        for node in nodes
+                        for layer in sorted(
+                            need_now[node]
+                            - provisional_for_pulse[node]
+                        )
+                    ]
 
                     def fifo_key(item):
                         waiters = [

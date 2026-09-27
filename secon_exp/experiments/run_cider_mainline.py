@@ -179,6 +179,18 @@ def main():
     )
 
     ap.add_argument(
+        "--keep-upper-budget-mb-s",
+        type=float,
+        default=None,
+        help=(
+            "Absolute long-term upper-network "
+            "traffic budget in MB/s. "
+            "When set, it is independent of "
+            "WAN capacity."
+        ),
+    )
+
+    ap.add_argument(
         "--keep-upper-budget-ratio",
         "--keep-registry-budget-ratio",
         dest="keep_upper_budget_ratio",
@@ -425,8 +437,15 @@ def main():
             ),
 
             keep_upper_budget_rate_mb_s=(
-                args.wan
-                * args.keep_upper_budget_ratio
+                args.keep_upper_budget_mb_s
+                if (
+                    args.keep_upper_budget_mb_s
+                    is not None
+                )
+                else (
+                    args.wan
+                    * args.keep_upper_budget_ratio
+                )
             ),
 
             ablation=(
