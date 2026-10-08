@@ -1,0 +1,23 @@
+ M secon_exp/baselines/peersync_style.py
+ M secon_exp/simulator_v2.py
+?? results/LATEST_DEV_FINAL_ABLATION
+?? results/LATEST_DEV_FINAL_KEEP_V
+?? results/LATEST_DEV_KEEP_UPPER_BUDGET
+?? results/LATEST_DEV_KEEP_V_AFTER_GFIX
+?? results/LATEST_DEV_NEWNET_SCOUT_BETA
+?? results/LATEST_DEV_PEERSYNC_FIX
+?? results/LATEST_FORMAL_CIDER_ALL
+?? results/LATEST_FORMAL_DENSE_ALLMETHODS
+?? results/LATEST_FORMAL_DENSE_CORRECTED
+?? results/LATEST_FORMAL_PEERSYNC_CORRECTED
+?? results/LATEST_FORMAL_PEERSYNC_WAN_RECHECK
+?? results/dev_final_ablation_20260927_154658/
+?? results/dev_final_keep_v_20260927_150234/
+?? results/dev_keep_upper_budget_20260927_152407/
+?? results/dev_keep_v_after_gfix_20260927_153546/
+?? results/dev_newnet_scout_beta_20260927_145001/
+?? results/formal_cider_all_20260927_160853/
+?? results/formal_dense_allmethods_20260930_002130/
+?? results/formal_dense_corrected_20260930_004011/
+?? results/formal_peersync_corrected_20260927_225613/
+?? results/formal_peersync_wan_recheck_20260928_232342/

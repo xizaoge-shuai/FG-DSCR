@@ -1,0 +1,201 @@
+nohup: ignoring input
+
+========================================
+KEEP upper budget=100 MB/s
+========================================
+
+================================================================================
+CIDER N=40 domains=8 WAN=250 ablation=full
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 1817
+demand_mb               = 386991.0
+has_same                = 494 (27.19%)
+has_same_mb             = 27885.0 (7.21%)
+has_cross               = 1586 (87.29%)
+registry_only           = 198 (10.90%)
+no_same_candidate       = 1323 (72.81%)
+no_same_candidate_mb    = 359106.0 (92.79%)
+
+chosen_registry         = 1337
+chosen_same             = 437
+chosen_cross            = 43
+chosen_registry_mb      = 366408.0
+chosen_same_mb          = 18647.0
+chosen_cross_mb         = 1936.0
+
+missed_same_for_registry= 57 MB= 9238.0
+missed_same_for_cross   = 0 MB= 0
+=======================================
+
+mean=12.02s p95=57.98s registry=28571MB peer=20583MB cross=1936MB offload=41.9% scheduler=10338.32ms
+
+Saved: /home/zhjia/FG-DSCR/results/dev_keep_upper_budget_20260927_152407/B_100/raw.csv
+
+KEEP_DEBUG V=3e+06 items=4166 p_count=574 p_min=0.00027389756 p_mean=0.0017421603 p_max=0.0673788
+KEEP_DEBUG G min=0 mean=3.5402483e-05 max=0.047528075 zero=0.8053
+KEEP_DEBUG DeltaB min=0 mean=1.4482767 max=110.78389 zero=0.1829
+KEEP_DEBUG V*G min=0 mean=106.20745 max=142584.22
+KEEP_DEBUG Q*DeltaB min=0 mean=15396.154 max=1732996.2
+KEEP_DEBUG mean_VG_over_QDB=4.7429567e+09 VG_dominant_fraction=0.0893 Q_mean=10069.567 Q_max=15925.79
+
+========================================
+KEEP upper budget=125 MB/s
+========================================
+
+================================================================================
+CIDER N=40 domains=8 WAN=250 ablation=full
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 1768
+demand_mb               = 381155.0
+has_same                = 487 (27.55%)
+has_same_mb             = 28078.0 (7.37%)
+has_cross               = 1548 (87.56%)
+registry_only           = 190 (10.75%)
+no_same_candidate       = 1281 (72.45%)
+no_same_candidate_mb    = 353077.0 (92.63%)
+
+chosen_registry         = 1280
+chosen_same             = 444
+chosen_cross            = 44
+chosen_registry_mb      = 360418.0
+chosen_same_mb          = 18681.0
+chosen_cross_mb         = 2056.0
+
+missed_same_for_registry= 43 MB= 9397.0
+missed_same_for_cross   = 0 MB= 0
+=======================================
+
+mean=10.88s p95=52.68s registry=27482MB peer=20737MB cross=2056MB offload=43.0% scheduler=10139.84ms
+
+Saved: /home/zhjia/FG-DSCR/results/dev_keep_upper_budget_20260927_152407/B_125/raw.csv
+
+KEEP_DEBUG V=3e+06 items=4045 p_count=574 p_min=0.00027389756 p_mean=0.0017421603 p_max=0.0673788
+KEEP_DEBUG G min=0 mean=0.00036297501 max=0.71533361 zero=0.7740
+KEEP_DEBUG DeltaB min=0 mean=1.5581636 max=110.78389 zero=0.1852
+KEEP_DEBUG V*G min=0 mean=1088.925 max=2146000.8
+KEEP_DEBUG Q*DeltaB min=0 mean=12789.138 max=1262126.6
+KEEP_DEBUG mean_VG_over_QDB=1.9988458e+10 VG_dominant_fraction=0.1239 Q_mean=7661.0332 Q_max=11484.696
+
+========================================
+KEEP upper budget=150 MB/s
+========================================
+
+================================================================================
+CIDER N=40 domains=8 WAN=250 ablation=full
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 1762
+demand_mb               = 381158.0
+has_same                = 487 (27.64%)
+has_same_mb             = 28078.0 (7.37%)
+has_cross               = 1540 (87.40%)
+registry_only           = 192 (10.90%)
+no_same_candidate       = 1275 (72.36%)
+no_same_candidate_mb    = 353080.0 (92.63%)
+
+chosen_registry         = 1274
+chosen_same             = 444
+chosen_cross            = 44
+chosen_registry_mb      = 360421.0
+chosen_same_mb          = 18681.0
+chosen_cross_mb         = 2056.0
+
+missed_same_for_registry= 43 MB= 9397.0
+missed_same_for_cross   = 0 MB= 0
+=======================================
+
+mean=10.88s p95=52.68s registry=27485MB peer=20737MB cross=2056MB offload=43.0% scheduler=10163.29ms
+
+Saved: /home/zhjia/FG-DSCR/results/dev_keep_upper_budget_20260927_152407/B_150/raw.csv
+
+KEEP_DEBUG V=3e+06 items=4053 p_count=574 p_min=0.00027389756 p_mean=0.0017421603 p_max=0.0673788
+KEEP_DEBUG G min=0 mean=0.00037022855 max=0.71533361 zero=0.7745
+KEEP_DEBUG DeltaB min=0 mean=1.5550091 max=110.78389 zero=0.1853
+KEEP_DEBUG V*G min=0 mean=1110.6857 max=2146000.8
+KEEP_DEBUG Q*DeltaB min=0 mean=9481.3211 max=906212.56
+KEEP_DEBUG mean_VG_over_QDB=1.9949004e+10 VG_dominant_fraction=0.1283 Q_mean=5625.3181 Q_max=8317.1629
+
+========================================
+KEEP upper budget=175 MB/s
+========================================
+
+================================================================================
+CIDER N=40 domains=8 WAN=250 ablation=full
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 1789
+demand_mb               = 389432.0
+has_same                = 479 (26.77%)
+has_same_mb             = 29468.0 (7.57%)
+has_cross               = 1570 (87.76%)
+registry_only           = 186 (10.40%)
+no_same_candidate       = 1310 (73.23%)
+no_same_candidate_mb    = 359964.0 (92.43%)
+
+chosen_registry         = 1318
+chosen_same             = 419
+chosen_cross            = 52
+chosen_registry_mb      = 369270.0
+chosen_same_mb          = 18202.0
+chosen_cross_mb         = 1960.0
+
+missed_same_for_registry= 60 MB= 11266.0
+missed_same_for_cross   = 0 MB= 0
+=======================================
+
+mean=11.77s p95=56.74s registry=28405MB peer=20162MB cross=1960MB offload=41.5% scheduler=10206.12ms
+
+Saved: /home/zhjia/FG-DSCR/results/dev_keep_upper_budget_20260927_152407/B_175/raw.csv
+
+KEEP_DEBUG V=3e+06 items=4116 p_count=574 p_min=0.00027389756 p_mean=0.0017421603 p_max=0.0673788
+KEEP_DEBUG G min=0 mean=1.1166716e-05 max=0.002021364 zero=0.8115
+KEEP_DEBUG DeltaB min=0 mean=1.4795281 max=110.78389 zero=0.1788
+KEEP_DEBUG V*G min=0 mean=33.500147 max=6064.092
+KEEP_DEBUG Q*DeltaB min=0 mean=6323.9552 max=665253.11
+KEEP_DEBUG mean_VG_over_QDB=1.0965738e+10 VG_dominant_fraction=0.1057 Q_mean=3961.7529 Q_max=6019.0361
+
+========================================
+KEEP upper budget=200 MB/s
+========================================
+
+================================================================================
+CIDER N=40 domains=8 WAN=250 ablation=full
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 1739
+demand_mb               = 387762.0
+has_same                = 485 (27.89%)
+has_same_mb             = 31814.0 (8.20%)
+has_cross               = 1529 (87.92%)
+registry_only           = 176 (10.12%)
+no_same_candidate       = 1254 (72.11%)
+no_same_candidate_mb    = 355948.0 (91.80%)
+
+chosen_registry         = 1256
+chosen_same             = 433
+chosen_cross            = 50
+chosen_registry_mb      = 366586.0
+chosen_same_mb          = 18679.0
+chosen_cross_mb         = 2497.0
+
+missed_same_for_registry= 52 MB= 13135.0
+missed_same_for_cross   = 0 MB= 0
+=======================================
+
+mean=11.58s p95=54.39s registry=27332MB peer=21176MB cross=2497MB offload=43.7% scheduler=9870.48ms
+
+Saved: /home/zhjia/FG-DSCR/results/dev_keep_upper_budget_20260927_152407/B_200/raw.csv
+
+KEEP_DEBUG V=3e+06 items=3975 p_count=574 p_min=0.00027389756 p_mean=0.0017421603 p_max=0.0673788
+KEEP_DEBUG G min=0 mean=6.8765116e-05 max=0.040902478 zero=0.7691
+KEEP_DEBUG DeltaB min=0 mean=1.4752099 max=110.78389 zero=0.1897
+KEEP_DEBUG V*G min=0 mean=206.29535 max=122707.43
+KEEP_DEBUG Q*DeltaB min=0 mean=2275.3339 max=285507.98
+KEEP_DEBUG mean_VG_over_QDB=6.3452415e+09 VG_dominant_fraction=0.1748 Q_mean=1379.5492 Q_max=2589.3825

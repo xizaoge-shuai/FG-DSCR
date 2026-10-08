@@ -854,46 +854,130 @@ def simulate_v2(
             policy.source_mode
             == "peersync"
         ):
-            if not peers:
-                return options[0]
+            # ------------------------------------------------
+            # PeerSync-inspired request dispatcher.
+            #
+            # The real PeerSync system:
+            #   1. prefers LAN-local replicas;
+            #   2. directly fetches tiny layers upstream;
+            #   3. uses network-aware peer selection;
+            #   4. falls back to the upstream Registry.
+            #
+            # Our unified simulator is layer-level rather than
+            # PeerSync's block-level multi-source downloader,
+            # so estimate_rate() is used as the observable
+            # throughput proxy.
+            # ------------------------------------------------
 
-            def key(opt):
-                src, path, _ = opt
+            registry = options[0]
 
-                # PeerSync-style 不读取 simulator
-                # 当前 active-flow 的精确剩余带宽，
-                # 只使用可观测的网络位置、
-                # nominal path capacity 和 latency。
-                local = int(
-                    topology.same_domain(
-                        src,
-                        node,
-                    )
-                )
+            def transfer_time(opt):
+                src, path, rate = opt
 
-                nominal_rate = min(
-                    topology.capacity[r]
-                    for r in path
-                )
-
-                latency = (
+                latency_s = (
                     topology
                     .path_latency_ms(
                         path
                     )
+                    / 1000.0
                 )
 
                 return (
-                    local,
-                    nominal_rate,
-                    -latency,
-                    src,
+                    latency_s
+                    + sizes[layer]
+                    / max(
+                        rate,
+                        EPS,
+                    )
                 )
 
-            return max(
+            # --------------------------------------------
+            # Stage 1:
+            # LAN-local replicas are preferred.
+            # Among local replicas, use the one with the
+            # best current estimated completion time.
+            # --------------------------------------------
+
+            local_peers = [
+                opt
+                for opt in peers
+                if topology.same_domain(
+                    opt[0],
+                    node,
+                )
+            ]
+
+            if local_peers:
+
+                return min(
+                    local_peers,
+                    key=lambda opt: (
+                        transfer_time(
+                            opt
+                        ),
+                        -opt[2],
+                        str(opt[0]),
+                    ),
+                )
+
+            # --------------------------------------------
+            # Stage 2:
+            # PeerSync sends very small layers directly
+            # upstream because discovery/coordination
+            # overhead can dominate.
+            #
+            # The paper uses a configurable threshold
+            # and gives 1 MiB as an example.
+            # --------------------------------------------
+
+            if (
+                float(sizes[layer])
+                < 1.0
+            ):
+                return registry
+
+            # --------------------------------------------
+            # Stage 3:
+            # No LAN-local copy.
+            #
+            # Use current observable throughput to decide
+            # whether remote P2P is actually preferable
+            # to direct upstream fetching.
+            #
+            # This prevents the old pathological behavior:
+            # "any peer exists -> always use peer".
+            # --------------------------------------------
+
+            if not peers:
+                return registry
+
+            best_peer = min(
                 peers,
-                key=key,
+                key=lambda opt: (
+                    transfer_time(
+                        opt
+                    ),
+                    -opt[2],
+                    str(opt[0]),
+                ),
             )
+
+            peer_time = transfer_time(
+                best_peer
+            )
+
+            registry_time = transfer_time(
+                registry
+            )
+
+            if (
+                peer_time
+                + EPS
+                < registry_time
+            ):
+                return best_peer
+
+            return registry
 
         # generic P2P:
         # choose fastest current path.

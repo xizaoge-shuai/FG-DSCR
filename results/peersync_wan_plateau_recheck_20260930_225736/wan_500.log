@@ -1,0 +1,5 @@
+reuse FG state: cider_nodes40_domains8_req800_weak seed=1
+[1/1] N=40 seed=1  WAN=500  peersync_style              mean=38.23 p95=248.40 reg=20391 peer=24469 cross=8757 offload=54.5%
+
+Scale baseline sweep completed.
+Saved: /home/zhjia/FG-DSCR/results/peersync_wan_plateau_recheck_20260930_225736/wan_500/raw.csv

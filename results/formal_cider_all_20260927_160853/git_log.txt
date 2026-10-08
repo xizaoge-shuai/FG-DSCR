@@ -1,0 +1,10 @@
+05b491f4 Make KEEP gain congestion aware
+7a164279 Finalize CIDER budget and ablation semantics
+fd3759a8 重新调参数
+c3894074 Fix request-scoped acquisition and baseline future leakage
+4cc36e76 Align KEEP Lyapunov control with upper-network traffic
+962fb34f Checkpoint current PULSE and KEEP implementation
+30115343 Add SCOUT locality and source-selection diagnostics
+46929741 Add arrival-aware workloads and request-driven simulation
+6002b9ba feat(cider): freeze normalized SCOUT communication cost
+29ac76a6 实验初步结果

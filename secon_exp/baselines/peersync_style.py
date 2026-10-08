@@ -1,19 +1,25 @@
 from secon_exp.policies.base import PolicySpec
 
-# PeerSync-style idea-level reproduction.
+# PeerSync-inspired idea-level reproduction:
 #
-# Shared ideas:
-# - P2P / Registry hybrid delivery;
-# - network-position-aware peer selection;
-# - replica-aware preservation;
-# - cloud fallback.
+# - Prefer replicas within the same edge domain / LAN.
+# - For non-local retrieval, use network-aware source selection
+#   and allow fallback to the upstream Registry.
+# - Tiny layers may be fetched directly from the Registry.
+# - Cache replacement uses replica/popularity-aware retention.
+# - Same destination-layer transfers are coalesced.
 #
-# The unified simulator intentionally does not model
-# PeerSync's complete protocol stack, block-level transfer,
-# tracker/DHT overhead, or verification protocol.
+# Important:
+# The unified simulator operates at image-layer granularity.
+# It does NOT reproduce PeerSync's complete block-level
+# multi-source downloader, EWMA throughput history,
+# tracker/DHT discovery, Merkle verification, or timeout
+# protocol.
 #
-# Therefore this MUST be reported as a PeerSync-inspired
-# idea-level reproduction rather than the official system.
+# Therefore this baseline MUST be reported as a
+# PeerSync-inspired idea-level reproduction, not as the
+# official PeerSync implementation.
+
 POLICY = PolicySpec(
     name="peersync_style",
     source_mode="peersync",

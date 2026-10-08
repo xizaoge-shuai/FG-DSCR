@@ -1,0 +1,133 @@
+nohup: ignoring input
+
+==============================================
+KEEP V=3e5
+==============================================
+
+================================================================================
+CIDER N=40 domains=8 WAN=250 ablation=full
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 1818
+demand_mb               = 391908.0
+has_same                = 497 (27.34%)
+has_same_mb             = 31411.0 (8.01%)
+has_cross               = 1520 (83.61%)
+registry_only           = 265 (14.58%)
+no_same_candidate       = 1321 (72.66%)
+no_same_candidate_mb    = 360497.0 (91.99%)
+
+chosen_registry         = 1343
+chosen_same             = 440
+chosen_cross            = 35
+chosen_registry_mb      = 371017.0
+chosen_same_mb          = 18573.0
+chosen_cross_mb         = 2318.0
+
+missed_same_for_registry= 57 MB= 12838.0
+missed_same_for_cross   = 0 MB= 0
+=======================================
+
+mean=11.38s p95=50.72s registry=27762MB peer=20891MB cross=2318MB offload=42.9% scheduler=8677.75ms
+
+Saved: /home/zhjia/FG-DSCR/results/dev_final_keep_v_20260927_150234/V_3e5/raw.csv
+
+==============================================
+KEEP V=1e6
+==============================================
+
+================================================================================
+CIDER N=40 domains=8 WAN=250 ablation=full
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 1818
+demand_mb               = 391908.0
+has_same                = 497 (27.34%)
+has_same_mb             = 31411.0 (8.01%)
+has_cross               = 1520 (83.61%)
+registry_only           = 265 (14.58%)
+no_same_candidate       = 1321 (72.66%)
+no_same_candidate_mb    = 360497.0 (91.99%)
+
+chosen_registry         = 1343
+chosen_same             = 440
+chosen_cross            = 35
+chosen_registry_mb      = 371017.0
+chosen_same_mb          = 18573.0
+chosen_cross_mb         = 2318.0
+
+missed_same_for_registry= 57 MB= 12838.0
+missed_same_for_cross   = 0 MB= 0
+=======================================
+
+mean=11.38s p95=50.72s registry=27762MB peer=20891MB cross=2318MB offload=42.9% scheduler=8669.69ms
+
+Saved: /home/zhjia/FG-DSCR/results/dev_final_keep_v_20260927_150234/V_1e6/raw.csv
+
+==============================================
+KEEP V=3e6
+==============================================
+
+================================================================================
+CIDER N=40 domains=8 WAN=250 ablation=full
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 1818
+demand_mb               = 391908.0
+has_same                = 497 (27.34%)
+has_same_mb             = 31411.0 (8.01%)
+has_cross               = 1520 (83.61%)
+registry_only           = 265 (14.58%)
+no_same_candidate       = 1321 (72.66%)
+no_same_candidate_mb    = 360497.0 (91.99%)
+
+chosen_registry         = 1343
+chosen_same             = 440
+chosen_cross            = 35
+chosen_registry_mb      = 371017.0
+chosen_same_mb          = 18573.0
+chosen_cross_mb         = 2318.0
+
+missed_same_for_registry= 57 MB= 12838.0
+missed_same_for_cross   = 0 MB= 0
+=======================================
+
+mean=11.38s p95=50.72s registry=27762MB peer=20891MB cross=2318MB offload=42.9% scheduler=8599.88ms
+
+Saved: /home/zhjia/FG-DSCR/results/dev_final_keep_v_20260927_150234/V_3e6/raw.csv
+
+==============================================
+KEEP V=1e7
+==============================================
+
+================================================================================
+CIDER N=40 domains=8 WAN=250 ablation=full
+================================================================================
+
+===== SCOUT LOCALITY DIAGNOSTIC =====
+demands                 = 1818
+demand_mb               = 391908.0
+has_same                = 497 (27.34%)
+has_same_mb             = 31411.0 (8.01%)
+has_cross               = 1520 (83.61%)
+registry_only           = 265 (14.58%)
+no_same_candidate       = 1321 (72.66%)
+no_same_candidate_mb    = 360497.0 (91.99%)
+
+chosen_registry         = 1343
+chosen_same             = 440
+chosen_cross            = 35
+chosen_registry_mb      = 371017.0
+chosen_same_mb          = 18573.0
+chosen_cross_mb         = 2318.0
+
+missed_same_for_registry= 57 MB= 12838.0
+missed_same_for_cross   = 0 MB= 0
+=======================================
+
+mean=11.38s p95=50.72s registry=27762MB peer=20891MB cross=2318MB offload=42.9% scheduler=8604.52ms
+
+Saved: /home/zhjia/FG-DSCR/results/dev_final_keep_v_20260927_150234/V_1e7/raw.csv

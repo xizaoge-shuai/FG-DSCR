@@ -1,0 +1,16 @@
+nohup: ignoring input
+
+============================================================
+BUILD DENSE SCALE NODE CASES
+============================================================
+
+===== BUILD N=20 domains=4 requests=400 =====
+usage: build_fg_case_from_catalog_and_trace.py [-h] --catalog CATALOG
+                                               --trace-profile TRACE_PROFILE
+                                               [--sizes SIZES [SIZES ...]]
+                                               [--num-nodes NUM_NODES]
+                                               [--seed SEED]
+                                               [--out-prefix OUT_PREFIX]
+                                               [--repo-capacity-mb REPO_CAPACITY_MB]
+                                               [--warm-cache-ratio WARM_CACHE_RATIO]
+build_fg_case_from_catalog_and_trace.py: error: the following arguments are required: --catalog, --trace-profile
