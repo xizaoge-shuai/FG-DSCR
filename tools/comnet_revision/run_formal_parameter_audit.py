@@ -117,14 +117,26 @@ def run_one(mod,path,profile,overrides,provision_s):
         beta_slot=2.,rho_centrality=.2,kappa_overshoot=.5,
         cache_policy="pgdsf",order_policy="dynamic_state",
     )
-    kw.update(PROFILES[profile]);kw.update(overrides)
+    kw.update(PROFILES[profile])
+    # Underscore-prefixed overrides are protocol controls, not scheduler knobs.
+    # In particular, a genuine input-order queue is NOT the same as the
+    # legacy order_policy="arrival", which returns greedy assignment order.
+    input_order_queue = bool(overrides.get("_input_order_queue", False))
+    kw.update({k:v for k,v in overrides.items() if not k.startswith("_")})
     s=mod.FGDscrScheduler(**kw);s.set_data(cs,ns)
+    if input_order_queue:
+        # Case JSON's container sequence is used as the deterministic
+        # FCFS proxy; do not claim physical arrival timestamps are measured.
+        position={c.cid:i for i,c in enumerate(cs)}
+        s.order_node=lambda cids,node: sorted(cids,key=lambda cid:position[cid])
     t0=time.perf_counter();out=s.run();wall_ms=(time.perf_counter()-t0)*1000
     metrics=raw_article_metrics(raw,out,provision_s)
     metrics['assignment_signature']=fingerprint(out['assignment'])
     metrics['ordering_signature']=fingerprint(out['ordered_queues'])
     metrics['cache_trace_signature']=fingerprint(out['node_step_logs'])
-    return metrics,wall_ms,kw,out
+    effective=kw.copy()
+    effective["effective_queue_order"] = "case_input_sequence" if input_order_queue else kw["order_policy"]
+    return metrics,wall_ms,effective,out
 
 def paper_results(path):
     with path.open(newline="",encoding="utf-8") as f:items=list(csv.DictReader(f))
