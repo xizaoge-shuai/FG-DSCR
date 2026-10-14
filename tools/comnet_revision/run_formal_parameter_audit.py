@@ -9,6 +9,7 @@ fixed paper normalization references; never reports the legacy scheduler Obj.
 from __future__ import annotations
 import argparse
 import csv
+import hashlib
 import importlib.util
 import json
 import math
@@ -102,6 +103,9 @@ def raw_article_metrics(case,result,provision_s):
                 downloaded_mb=float(result["summary"].get("downloaded_mb",0)),
                 edge_scheduled=len(edge),cloud_requests=len(ca_ids))
 
+def fingerprint(value):
+    return hashlib.sha256(json.dumps(value,sort_keys=True,ensure_ascii=False,default=str).encode('utf-8')).hexdigest()[:16]
+
 def run_one(mod,path,profile,overrides,provision_s):
     raw=json.loads(path.read_text(encoding="utf-8"))
     cs,ns,layers=mod.load_case(str(path))
@@ -117,6 +121,9 @@ def run_one(mod,path,profile,overrides,provision_s):
     s=mod.FGDscrScheduler(**kw);s.set_data(cs,ns)
     t0=time.perf_counter();out=s.run();wall_ms=(time.perf_counter()-t0)*1000
     metrics=raw_article_metrics(raw,out,provision_s)
+    metrics['assignment_signature']=fingerprint(out['assignment'])
+    metrics['ordering_signature']=fingerprint(out['ordered_queues'])
+    metrics['cache_trace_signature']=fingerprint(out['node_step_logs'])
     return metrics,wall_ms,kw,out
 
 def paper_results(path):
@@ -151,11 +158,16 @@ def main():
             for factor in factors:
                 if base is None:raise ValueError("Unknown param "+name)
                 if base==0.:
-                    # Zero-weight sensitivities must actually change the parameter.
-                    if factor==.5:actual=0.
-                    else:actual=.1
-                else:actual=base*factor
-                jobs.append((args.profile,f"{name}_x{factor:g}",{name:actual}))
+                    # A multiplicative sweep around zero is undefined.
+                    # The profile keeps the true zero baseline; an absolute
+                    # 0.1 alternative tests the effect of activating this term.
+                    if factor == .5: continue
+                    actual=.1
+                    label=f"{name}_absolute_{actual:g}"
+                else:
+                    actual=base*factor
+                    label=f"{name}_x{factor:g}"
+                jobs.append((args.profile,label,{name:actual}))
     rows=[];metadata=[]
     for profile,tag,changes in jobs:
         for n in scales:
@@ -189,7 +201,9 @@ def main():
           "Manuscript declared and archived profiles are competing provenance hypotheses.",
           "Matching J alone is NOT proof of matching original code path. Check placements and provenance.",
           "Changing parameters re-runs decisions; this is not a post-hoc reweighting experiment.",
-          "Cloud latency is the published synthetic edge-like quantile replay + 300 s provisioning."
+          "Cloud latency is the published synthetic edge-like quantile replay + 300 s provisioning.",
+          "Controller parameters can have identical outputs when decisions and cache traces are unchanged; inspect fingerprint columns.",
+          "Any profile whose recorded J differs materially from the submission is NOT a valid basis for manuscript sensitivity claims."
         ]
     },indent=2,ensure_ascii=False),encoding="utf-8")
     if args.mode=="audit":
