@@ -26,8 +26,8 @@ from run_formal_parameter_audit import PROFILES, modload, run_one, REF_D, REF_CA
 VARIANTS = {
     "full": {},
     "no_fgp_refine": {"max_best_response_rounds": 0},
-    "no_dco": {"order_policy": "arrival"},
-    "no_both": {"max_best_response_rounds": 0, "order_policy": "arrival"},
+    "no_dco": {"_input_order_queue": True},
+    "no_both": {"max_best_response_rounds": 0, "_input_order_queue": True},
     "no_future_share": {"disable_future_share": True},
 }
 
@@ -100,7 +100,7 @@ def main():
         writer=csv.DictWriter(f,fieldnames=list(summaries[0]));writer.writeheader();writer.writerows(summaries)
     provenance={
         "manuscript_comment":"R2.5",
-        "experiment":"2x2 FGP refinement x DCO ordering, plus DCO FutureShare ablation",
+        "experiment":"2x2 FGP refinement x DCO ordering, plus DCO FutureShare ablation with true case-sequence no-DCO comparator",
         "profile":args.profile,
         "algorithm":args.algorithm,
         "cases":[str(Path(args.case_dir)/f"drtp_img88_cacheonly_1024mb_{n}.json") for n in scales],
@@ -111,7 +111,7 @@ def main():
         "limitations":[
             "paper_declared FGP weights reproduce a DIFFERENT absolute result from archived Fig. 8. Do not compare absolute J against historical 2.697.",
             "No FGP means no best-response refinement; greedy initialization stays in place for valid node assignment.",
-            "No DCO means arrival order, while PGDSF cache policy and queue simulation are unchanged.",
+            "No DCO means case input sequence (FCFS proxy), while PGDSF cache policy and queue simulation are unchanged.",
             "Cache replacement comparisons against standard LRU/LFU/GDSF are NOT provided by this experiment.",
             "Cloud times are simulator-model quantile replay, not real Kubernetes latency.",
             "Nine request-size scenarios are not nine independent random seeds."
