@@ -18,7 +18,8 @@ section "Memory"
 run free -h
 section "Disk space and filesystems"
 run df -hT / /var /home
-run lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS
+run lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINT
+run df -i /
 section "Container / orchestration commands"
 for c in kubectl kubeadm k3s k3d kind minikube helm docker podman ctr crictl containerd nerdctl virsh VBoxManage vagrant;do
   if command -v "$c" >/dev/null 2>&1;then printf '%-14s %s\n' "$c" "$(command -v "$c")";else printf '%-14s %s\n' "$c" "not installed";fi
@@ -36,6 +37,11 @@ print('python=',sys.version.split()[0],'arch=',platform.machine())
 for name in ('kubernetes','yaml','psutil','docker'):
     print(name, 'installed' if importlib.util.find_spec(name) else 'missing')
 PY
+section "Disk-space safety"
+free_kb=$(df -Pk / | awk 'END{print $4}')
+if [[ "$free_kb" =~ ^[0-9]+$ ]] && (( free_kb < 30 * 1024 * 1024 )); then
+  printf 'BLOCKER: only %.2f GiB free on root; do not install or create VM images here.\\n' "$(awk -v k="$free_kb" 'BEGIN{print k/1024/1024}')"
+fi
 section "Notes"
 echo "This preflight performs NO Kubernetes installation, privileged command, node reset or image eviction."
 echo "Avoid running cache-flush / image-removal commands on a shared production cluster."
