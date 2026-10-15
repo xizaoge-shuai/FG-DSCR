@@ -21,7 +21,7 @@ import csv
 import json
 from pathlib import Path
 from statistics import mean
-from run_formal_parameter_audit import PROFILES, modload, run_one, REF_D, REF_CA, REF_FRAG
+from run_formal_parameter_audit import PROFILES, modload, run_one, fingerprint, REF_D, REF_CA, REF_FRAG
 
 VARIANTS = {
     "full": {},
@@ -38,19 +38,61 @@ def main():
     ap.add_argument("--case-dir", default="cases/drtp_cache_only_sweep_88")
     ap.add_argument("--out-dir", default="results/comnet_revision/ablation_paper_j")
     ap.add_argument("--provision-sec", type=float, default=300.)
+    ap.add_argument("--historical-fig8", action="store_true",
+                    help="Use Fig.8 original move-only, move-topK=6 configuration. "
+                         "Requires --profile archived_candidate and prefix cases.")
+    ap.add_argument("--mainline-results",default="results/drtp/k8s_same_scale/fig5_overall_prefix",
+                    help="Existing Fig8 raw scheduler outputs for verifying Full parity.")
     args=ap.parse_args()
     out=Path(args.out_dir);out.mkdir(parents=True,exist_ok=True)
+    if args.historical_fig8 and args.profile!="archived_candidate":
+        raise ValueError("--historical-fig8 must use --profile archived_candidate")
+    if args.historical_fig8 and not args.case_dir.endswith("_prefix"):
+        raise ValueError("--historical-fig8 must use original _prefix workload")
     mod=modload(args.algorithm)
-    rows=[];settings={}
+    rows=[];settings={};mainline_checks=[]
+    historical={
+        "phase1_neighbor_mode":"move",
+        "move_topk_per_node":6,
+        "max_best_response_rounds":5,
+        "beam_width":1,
+        "greedy_load_factor":0.8,
+        "init_order":"resource_asc",
+        "lambda_cong":1.0,
+        "lambda_frag":10.0,
+        "lambda_aff":0.0,
+        "lambda_task_load":0.03,
+    } if args.historical_fig8 else {}
     scales=list(range(200,1001,100))
     for n in scales:
         path=Path(args.case_dir)/f"drtp_img88_cacheonly_1024mb_{n}.json"
         if not path.is_file():
             raise FileNotFoundError(path)
         for variant,overrides in VARIANTS.items():
+            effective_overrides={**historical,**overrides}
             metrics,elapsed,parameters,result=run_one(
-                mod,path,args.profile,overrides,args.provision_sec
+                mod,path,args.profile,effective_overrides,args.provision_sec
             )
+            if args.historical_fig8 and variant=="full":
+                reference=Path(args.mainline_results)/f"fg_prefix_req{n}.json"
+                if not reference.is_file():
+                    raise FileNotFoundError(f"Missing original Fig8 result: {reference}")
+                original=json.loads(reference.read_text(encoding="utf-8"))
+                reference_assignment=fingerprint(original["assignment"])
+                reference_order=fingerprint(original["ordered_queues"])
+                check={
+                    "requests":n,
+                    "placement_parity":int(metrics["assignment_signature"]==reference_assignment),
+                    "order_parity":int(metrics["ordering_signature"]==reference_order),
+                    "recomputed_J":metrics["J"],
+                    "paper_result_J":None,
+                    "download_difference_MB":metrics["downloaded_mb"]-
+                        float(original["summary"]["downloaded_mb"]),
+                }
+                mainline_checks.append(check)
+                print(f"[MAINLINE] req={n} placement={check['placement_parity']} "
+                      f"order={check['order_parity']} "
+                      f"DLdiff={check['download_difference_MB']:+.3f}MB",flush=True)
             settings[variant]=parameters
             rows.append({
                 "profile":args.profile,
@@ -78,6 +120,20 @@ def main():
     dest=out/"module_ablation_by_scale.csv"
     with dest.open("w",newline="",encoding="utf-8") as f:
         writer=csv.DictWriter(f,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
+    if mainline_checks:
+        with (out/"original_fig8_parity.csv").open("w",newline="",encoding="utf-8") as f:
+            w=csv.DictWriter(f,fieldnames=list(mainline_checks[0]))
+            w.writeheader();w.writerows(mainline_checks)
+        failures=[r for r in mainline_checks if not (
+            r["placement_parity"] and r["order_parity"]
+            and abs(r["download_difference_MB"])<1e-6
+        )]
+        if failures:
+            raise AssertionError(
+                f"Full FALCONS does not reproduce original Fig8 at "
+                f"{[r['requests'] for r in failures]}; "
+                "see original_fig8_parity.csv; don't treat ablations as formal yet."
+            )
     summaries=[]
     base={n:index["full",n] for n in scales}
     for variant in VARIANTS:
@@ -103,13 +159,16 @@ def main():
         "experiment":"2x2 FGP refinement x DCO ordering, plus DCO FutureShare ablation with true case-sequence no-DCO comparator",
         "profile":args.profile,
         "algorithm":args.algorithm,
+        "historical_fig8":args.historical_fig8,
+        "original_mainline_parity_file":"original_fig8_parity.csv" if mainline_checks else None,
         "cases":[str(Path(args.case_dir)/f"drtp_img88_cacheonly_1024mb_{n}.json") for n in scales],
         "J_formula":"J = (.5*all_mean+.5*all_p95)/D_ref + cloud_fraction/CA_ref + fragmentation/Frag_ref",
         "references":{"D_ref":REF_D,"CA_ref":REF_CA,"Frag_ref":REF_FRAG},
         "cloud_provision_s":args.provision_sec,
         "parameters_by_variant":settings,
         "limitations":[
-            "paper_declared FGP weights reproduce a DIFFERENT absolute result from archived Fig. 8. Do not compare absolute J against historical 2.697.",
+            "If historical_fig8: Full has been checked for exact assignment, ordering, and downloads against archived Fig.8 output.",
+            "If paper_declared: this profile produces a different J from archived Fig.8 and cannot be mixed with it.",
             "No FGP means no best-response refinement; greedy initialization stays in place for valid node assignment.",
             "No DCO means case input sequence (FCFS proxy), while PGDSF cache policy and queue simulation are unchanged.",
             "Cache replacement comparisons against standard LRU/LFU/GDSF are NOT provided by this experiment.",
