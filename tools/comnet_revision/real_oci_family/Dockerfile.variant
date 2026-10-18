@@ -1,0 +1,5 @@
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+ARG VARIANT
+COPY payloads/${VARIANT}.bin /opt/falcons/app.bin
+CMD ["/bin/sh","-c","sleep 8; echo falcons-test-completed"]
