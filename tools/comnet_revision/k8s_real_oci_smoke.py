@@ -38,7 +38,7 @@ def main():
     ap.add_argument("--timeout",type=int,default=900)
     ap.add_argument("--out-root",default="results/comnet_revision/k8s_real_testbed/real_oci_smoke")
     a=ap.parse_args()
-    if a.count not in (3,6,9,12,20,40):ap.error("count must be 3/6/9/12/20/40")
+    if a.count not in (3,6,9,10,12,20,40):ap.error("count must be 3/6/9/10/12/20/40")
     if not 1<=a.max_inflight<=a.count:ap.error("bad inflight cap")
     if not 120<=a.timeout<=3600:ap.error("timeout must be 120..3600")
     catalog=json.loads(pathlib.Path(a.catalog).read_text(encoding="utf-8"))
