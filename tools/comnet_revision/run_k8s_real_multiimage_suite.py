@@ -106,7 +106,7 @@ def main():
                 log=pathlib.Path(row["log_path"])
                 if not log.is_file():p.error("Missing completed run log: "+str(log))
                 import re
-                ids=re.findall(r"^RUN (oci-[a-f0-9]+)\\b",log.read_text(encoding="utf-8",errors="replace"),re.M)
+                ids=re.findall(r"^RUN (oci-[a-f0-9]+)\b",log.read_text(encoding="utf-8",errors="replace"),re.M)
                 if len(ids)!=1:p.error("Cannot verify exactly one completed RUN in "+str(log))
                 summaryfile=run_artifacts/ids[0]/"summary.json"
                 if not summaryfile.is_file():p.error("Missing completed summary: "+str(summaryfile))
