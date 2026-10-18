@@ -33,6 +33,8 @@ def main():
     ap.add_argument("--count",type=int,default=9)
     ap.add_argument("--max-inflight",type=int,default=3)
     ap.add_argument("--profile",choices=["paper_declared","archived_fig8"],default="paper_declared")
+    ap.add_argument("--cache-model",choices=["empty_assumed","warm_all_verified"],default="empty_assumed",
+       help="After independent full image prewarm verification, warm_all_verified initializes all manifest layers on each node")
     ap.add_argument("--timeout",type=int,default=900)
     ap.add_argument("--out-root",default="results/comnet_revision/k8s_real_testbed/real_oci_smoke")
     a=ap.parse_args()
@@ -65,7 +67,16 @@ def main():
              "mem":qnum(alloc["memory"],"mem")*.8,
              "disk":qnum(alloc["ephemeral-storage"],"mem")*.8},
              "repo_capacity_mb":1024,"bandwidth_mb_s":10.0,"initial_cache":[]})
-    # model init cache empty is an exploratory assumption, not measured.
+    if a.cache_model=="warm_all_verified":
+        # This is an ASSERTED test precondition, not an automatic containerd check.
+        # The user must first prewarm all three immutable digests on ALL workers,
+        # then check successful Pods/content store on each worker.
+        for n in nodes:
+            n["initial_cache"]=list(layers)
+        print("[CACHE MODEL] all verified manifest layers assumed present on each Worker; "
+              "run per-worker prewarm probe before using this option",flush=True)
+    else:
+        print("[CACHE MODEL] EMPTY ASSUMED; physical cache not verified",flush=True)
     containers=[]
     real_images={}
     for i in range(a.count):
@@ -75,7 +86,7 @@ def main():
              "resources":{"cpu":.15,"mem":.12,"disk":.12},
              "run_time":8.0,"service_type":im["source"]})
     case={"nodes":nodes,"containers":containers,
-          "layer_sizes_mb":{d:max(1,int(round(v/1000000))) for d,v in layers.items()}}
+          "layer_sizes_mb":{d:v/1000000.0 for d,v in layers.items()}}
     rid="oci-"+uuid.uuid4().hex[:8]
     dest=pathlib.Path(a.out_root).resolve()/rid;dest.mkdir(parents=True)
     store(dest/"workload.json",case)
@@ -114,8 +125,8 @@ def main():
     store(dest/"provenance.json",{
       "policy":a.mode,"profile":a.profile,"real_oci_manifest_refs":[x["image_ref"] for x in images],
       "layer_count":len(layers),"exact_compressed_sizes_file":"layer_sizes_bytes.json",
-      "simulator_layer_size_mapping":"ceil-round bytes to integer MB with minimum 1 MB; disk and bandwidth modeled",
-      "initial_cache_model":"empty UNVERIFIED, real caches may already contain blobs",
+      "simulator_layer_size_mapping":"exact compressed bytes divided by 1e6 (decimal MB), floats; disk and bandwidth modeled",
+      "initial_cache_model":a.cache_model+"; not automatically validated by this adapter",
       "algorithm_parameters":config,"algorithm_wall_ms":wall,
       "cache_mode":"uncontrolled, warm/cold NOT established",
       "admission":"precomputed static resource constraints, not dynamic Kubernetes reservation",
@@ -202,7 +213,14 @@ def main():
              "submitted":len(submitted),"succeeded":success,
              "planner_ms":wall,"global_inflight":a.max_inflight,
              "batch_controller_wall_s":round(time.perf_counter()-t0,3),
+             "cache_model":a.cache_model,
              "mean_request_to_finish_s":round(statistics.mean(finished.values()),3) if finished else None,
+             "p95_request_to_finish_s":(
+                 round(sorted(finished.values())[int(round(.95*(len(finished)-1)))],3)
+                 if finished else None
+             ),
+             "worker_distribution":dict(__import__("collections").Counter(
+                 x["node"] for x in rows)),
              "failure":fail,"scientific_scope":"real immutable OCI images & real Pods; physical cache uncontrolled; exploratory"}
     store(dest/"summary.json",summary)
     print(json.dumps(summary,indent=2),flush=True)
