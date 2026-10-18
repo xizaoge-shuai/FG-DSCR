@@ -164,6 +164,9 @@ def prepare(args):
     originals=original["containers"]
     for seed in args.seeds:
         p=casefile(args,seed,1000)
+        # Original case generator writes directly to --out-prefix without
+        # creating the output directory. Create it here before invocation.
+        p.parent.mkdir(parents=True,exist_ok=True)
         if not p.exists():
             cmd=[sys.executable,"scripts/build_fg_case_from_catalog_and_trace.py",
                  "--catalog","data/catalog/image_catalog_large_v2.json",
