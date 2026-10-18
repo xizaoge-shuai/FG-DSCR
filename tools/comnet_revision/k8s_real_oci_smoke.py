@@ -93,6 +93,7 @@ def main():
     store(dest/"layer_sizes_bytes.json",layers)
     repo=pathlib.Path(__file__).resolve().parents[2]
     result=None;wall=None;config=None
+    phase_timing={"fgp_ms":None,"dco_ms":None}
     if a.mode!="default":
         path=repo/"scripts/fg_dscr_incremental.py"
         spec=importlib.util.spec_from_file_location("falcons_real_oci",str(path))
@@ -111,7 +112,23 @@ def main():
             config.update(lambda_cong=1.,lambda_frag=10.,lambda_aff=0.,
                 lambda_task_load=.03,init_order="resource_asc",greedy_load_factor=.8)
         alg=mo.FGDscrScheduler(**config);alg.set_data(cs,ns)
+        # Non-invasive timer wrappers: the original planner remains unchanged.
+        # FGP includes best-response search. DCO aggregates ALL per-node order_node calls.
+        fgp_orig=alg.best_response_assignment
+        dco_orig=alg.order_node
+        phase_timing={"fgp_ms":0.0,"dco_ms":0.0}
+        def fgp_timed(*args,**kwargs):
+            t=time.perf_counter()
+            try:return fgp_orig(*args,**kwargs)
+            finally:phase_timing["fgp_ms"]+=(time.perf_counter()-t)*1000
+        def dco_timed(*args,**kwargs):
+            t=time.perf_counter()
+            try:return dco_orig(*args,**kwargs)
+            finally:phase_timing["dco_ms"]+=(time.perf_counter()-t)*1000
+        alg.best_response_assignment=fgp_timed
+        alg.order_node=dco_timed
         z=time.perf_counter();result=alg.run();wall=round((time.perf_counter()-z)*1000,3)
+        phase_timing={k:round(v,3) for k,v in phase_timing.items()}
         store(dest/"scheduler_output.json",result)
         node_queues={}
         for node,cids in result["assignment"].items():
@@ -128,6 +145,8 @@ def main():
       "simulator_layer_size_mapping":"exact compressed bytes divided by 1e6 (decimal MB), floats; disk and bandwidth modeled",
       "initial_cache_model":a.cache_model+"; not automatically validated by this adapter",
       "algorithm_parameters":config,"algorithm_wall_ms":wall,
+      "phase1_placement_ms":phase_timing["fgp_ms"],
+      "phase2_ordering_ms":phase_timing["dco_ms"],
       "cache_mode":"uncontrolled, warm/cold NOT established",
       "admission":"precomputed static resource constraints, not dynamic Kubernetes reservation",
       "limitations":"real OCI digests, real Pods, external FGP/DCO plan; no physical PGDSF eviction; external nodeName binding vs native kube-scheduler; fixed global inflight cap does not imply full baseline fairness"})
@@ -211,7 +230,10 @@ def main():
     success=sum(x["phase"]=="Succeeded" and x["exit_code"]==0 for x in rows)
     summary={"run":rid,"namespace":nsname,"mode":a.mode,"count":a.count,
              "submitted":len(submitted),"succeeded":success,
-             "planner_ms":wall,"global_inflight":a.max_inflight,
+             "planner_ms":wall,
+             "phase1_placement_ms":phase_timing["fgp_ms"],
+             "phase2_ordering_ms":phase_timing["dco_ms"],
+             "global_inflight":a.max_inflight,
              "batch_controller_wall_s":round(time.perf_counter()-t0,3),
              "cache_model":a.cache_model,
              "mean_request_to_finish_s":round(statistics.mean(finished.values()),3) if finished else None,
