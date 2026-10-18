@@ -21,7 +21,7 @@ def operation(opener,url,headers=None,timeout=30):
     try:
         with opener.open(req,timeout=timeout) as response:
             raw=response.read()
-            return json.loads(raw),dict(response.headers),round(time.perf_counter()-start,3)
+            return json.loads(raw),dict(response.headers),round(time.perf_counter()-start,3),("sha256:"+hashlib.sha256(raw).hexdigest())
     except urllib.error.HTTPError as e:
         txt=e.read(500).decode(errors="replace")
         raise RuntimeError(f"HTTP {e.code} at {url.split('?')[0]}: {txt}") from e
@@ -40,9 +40,6 @@ def normalize(name):
     if "/" not in path:path="library/"+path
     return path,ref
 
-def digest(js):
-    return "sha256:"+hashlib.sha256(json.dumps(
-        js,sort_keys=True,separators=(",",":"),ensure_ascii=False).encode()).hexdigest()
 
 def main():
     ap=argparse.ArgumentParser()
@@ -64,11 +61,15 @@ def main():
             path,tag=normalize(text)
             token_url="https://auth.docker.io/token?"+urllib.parse.urlencode({
                 "service":"registry.docker.io","scope":f"repository:{path}:pull"})
-            tok,_,td=operation(opener,token_url,timeout=a.timeout)
+            tok,_,td,_=operation(opener,token_url,timeout=a.timeout)
             hdr={"Authorization":"Bearer "+tok["token"],"Accept":ACCEPT}
             url=f"https://registry-1.docker.io/v2/{path}/manifests/{tag}"
-            ix,ixh,ixdur=operation(opener,url,hdr,a.timeout)
-            ix_digest=ixh.get("Docker-Content-Digest")
+            ix,ixh,ixdur,ix_body_digest=operation(opener,url,hdr,a.timeout)
+            ix_digest=ixh.get("Docker-Content-Digest") or ix_body_digest
+            if ix_digest!=ix_body_digest:
+                raise RuntimeError("Registry manifest body digest disagrees with response header: "+text)
+            if tag.startswith("sha256:") and ix_digest!=tag:
+                raise RuntimeError("Requested digest does not match retrieved manifest: "+text)
             manifest=ix
             chosen_digest=ix_digest
             if "manifests" in ix:
@@ -78,11 +79,15 @@ def main():
                     m.get("platform",{}).get("variant") in (None,"")]
                 if not opts:raise RuntimeError("No supported "+a.platform+" manifest in index")
                 chosen_digest=opts[0]["digest"]
-                manifest,mh,mdur=operation(opener,
+                manifest,mh,mdur,manifest_body_digest=operation(opener,
                     f"https://registry-1.docker.io/v2/{path}/manifests/{chosen_digest}",
                     hdr,a.timeout)
+                if manifest_body_digest!=chosen_digest:
+                    raise RuntimeError("Platform manifest digest mismatch: "+text)
             else:
                 mdur=0.
+            if not chosen_digest or not chosen_digest.startswith("sha256:"):
+                raise RuntimeError("No verified immutable platform manifest digest: "+text)
             if "layers" not in manifest:
                 raise RuntimeError("Image does not have a manifest layers array")
             layers=[{"digest":z["digest"],"size_bytes":int(z["size"]),
@@ -95,7 +100,8 @@ def main():
                    "platform":a.platform,"layers":layers,
                    "compressed_layer_total_bytes":sum(z["size_bytes"] for z in layers),
                    "layer_count":len(layers),"manifest_fetch_seconds":ixdur+mdur,
-                   "token_fetch_seconds":td}
+                   "token_fetch_seconds":td,
+                   "manifest_digest_source":"descriptor" if "manifests" in ix else "verified_raw_response_sha256"}
             catalog.append(entry)
             raw_records[text]={"manifest":manifest,"index":ix}
             print(f"OK {text:<32} layers={len(layers):2d} "
