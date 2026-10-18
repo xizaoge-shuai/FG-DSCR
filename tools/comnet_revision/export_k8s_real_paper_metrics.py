@@ -162,7 +162,7 @@ def collect(root,catalog):
             "Frag_static_placement_projection":frag,
             "Frag_live_measurement":None,
             "image_logical_request_sum_MiB":imtotal/1048576 if not missing_img else None,
-            "OCI_unique_per_node_cold_upper_bound_MiB":logical_unique/1048576 if not missing_img else None,
+            "OCI_unique_per_node_ideal_cold_floor_MiB":logical_unique/1048576 if not missing_img else None,
             "OCI_possible_duplicate_elimination_MiB":(imtotal-logical_unique)/1048576 if not missing_img else None,
             "actual_network_download_MB":None,
             "physical_PGDSF_evicted_MB":None,
@@ -249,7 +249,7 @@ def main():
         "Frag_static_placement_projection matches per-node FGP fragmentation_penalty mathematical form, "
         "using observed actual Pod node assignment but summing all Pod declared requests at once: "
         "NOT live residual resource fragmentation during concurrent execution",
-        "Manifest unique layer bytes per node under hypothetical cold cache, NOT measured transfer"
+        "Manifest unique layer bytes per node under hypothetical initially empty cache and ideal one-download-per-blob reuse: model lower bound on content payload, NOT measured transfer"
       ],
       "unavailable_metrics":[
         "Manuscript CA cloud fallback rate: K8s trial has no modeled/real cloud fallback path; Pod success is not CA",
