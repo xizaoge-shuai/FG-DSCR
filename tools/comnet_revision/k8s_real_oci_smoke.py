@@ -6,7 +6,7 @@ layer sizes, common global inflight cap. Does not claim PGDSF is deployed in
 containerd or represent controlled cold cache. Records Pod/event evidence and
 total request-to-finish time from common batch start (controller wall time).
 """
-import argparse,csv,datetime as dt,importlib.util,json,pathlib,statistics,subprocess,sys,time,uuid
+import argparse,csv,datetime as dt,importlib.util,json,pathlib,random,statistics,subprocess,sys,time,uuid
 from collections import Counter
 
 WORKERS=("falcons-worker1","falcons-worker2","falcons-worker3")
@@ -33,6 +33,15 @@ def main():
     ap.add_argument("--count",type=int,default=9)
     ap.add_argument("--max-inflight",type=int,default=3)
     ap.add_argument("--profile",choices=["paper_declared","archived_fig8"],default="paper_declared")
+    ap.add_argument("--image-count",type=int,default=0,
+       help="Number of first images from catalog to use (0=all); 4/8/12 for v2 corpus")
+    ap.add_argument("--image-selection",choices=["round_robin","zipf_like"],default="round_robin",
+       help="Fixed seeded Zipf-like request popularity or reproducible cyclic workload")
+    ap.add_argument("--zipf-alpha",type=float,default=1.1)
+    ap.add_argument("--seed",type=int,default=42,
+       help="Controls workload choice and variable application demands; same seed preserves N prefixes")
+    ap.add_argument("--task-profile",choices=["uniform","mixed"],default="uniform",
+       help="mixed varies CPU/memory requests and actual sleep duration 8..40s")
     ap.add_argument("--cache-model",choices=["empty_assumed","warm_all_verified"],default="empty_assumed",
        help="After independent full image prewarm verification, warm_all_verified initializes all manifest layers on each node")
     ap.add_argument("--timeout",type=int,default=900)
@@ -43,7 +52,11 @@ def main():
     if not 120<=a.timeout<=3600:ap.error("timeout must be 120..3600")
     catalog=json.loads(pathlib.Path(a.catalog).read_text(encoding="utf-8"))
     images=catalog["images"]
-    if len(images)<3:raise ValueError("Expected three real OCI images")
+    if a.image_count:
+        if not 1<=a.image_count<=len(images):ap.error("image-count outside catalog size")
+        images=images[:a.image_count]
+    if len(images)<3:raise ValueError("Expected at least three real OCI images")
+    if not 0<=a.zipf_alpha<=2.5:ap.error("zipf-alpha must be 0..2.5")
     if catalog.get("errors"):raise ValueError("Catalog has errors")
     layers={}
     for img in images:
@@ -79,18 +92,37 @@ def main():
         print("[CACHE MODEL] EMPTY ASSUMED; physical cache not verified",flush=True)
     containers=[]
     real_images={}
+    rng=random.Random(a.seed)
+    ranks=list(range(len(images)))
+    weights=[(i+1)**(-a.zipf_alpha) for i in ranks]
+    # Per-request stochastic generation: identical workload prefixes for
+    # counts 10/20/40 with same catalog, seed and profile.
     for i in range(a.count):
-        im=images[i%3];cid=f"r{i:03d}"
+        idx=(i % len(images)) if a.image_selection=="round_robin" else rng.choices(ranks,weights=weights,k=1)[0]
+        im=images[idx];cid=f"r{i:03d}"
         real_images[cid]=im["image_ref"]
+        if a.task_profile=="mixed":
+            cpu=rng.choice((.06,.08,.10,.12,.16))
+            mem=rng.choice((.125,.1875,.25,.3125))
+            runtime=rng.choice((8,12,20,32,40))
+            disk=rng.choice((.10,.15,.20))
+        else:
+            cpu,mem,runtime,disk=.15,.12,8,.12
         containers.append({"cid":cid,"layers":[l["digest"] for l in im["layers"]],
-             "resources":{"cpu":.15,"mem":.12,"disk":.12},
-             "run_time":8.0,"service_type":im["source"]})
+             "resources":{"cpu":cpu,"mem":mem,"disk":disk},
+             "run_time":float(runtime),"service_type":im["source"]})
     case={"nodes":nodes,"containers":containers,
           "layer_sizes_mb":{d:v/1000000.0 for d,v in layers.items()}}
     rid="oci-"+uuid.uuid4().hex[:8]
     dest=pathlib.Path(a.out_root).resolve()/rid;dest.mkdir(parents=True)
     store(dest/"workload.json",case)
     store(dest/"layer_sizes_bytes.json",layers)
+    bycid={x["cid"]:x for x in containers}
+    image_hist={}
+    for cid,ref in real_images.items():image_hist[ref]=image_hist.get(ref,0)+1
+    print("[WORKLOAD] images",len(images),"selection",a.image_selection,
+          "task_profile",a.task_profile,"seed",a.seed,
+          "histogram",image_hist,flush=True)
     repo=pathlib.Path(__file__).resolve().parents[2]
     result=None;wall=None;config=None
     phase_timing={"fgp_ms":None,"dco_ms":None}
@@ -141,6 +173,10 @@ def main():
     store(dest/"queues.json",node_queues)
     store(dest/"provenance.json",{
       "policy":a.mode,"profile":a.profile,"real_oci_manifest_refs":[x["image_ref"] for x in images],
+      "image_count":len(images),"image_selection":a.image_selection,
+      "zipf_alpha":a.zipf_alpha,"seed":a.seed,
+      "task_profile":a.task_profile,
+      "workload_scope":"controlled small-scale OCI microservice diversity; NOT the original 88-image trace",
       "layer_count":len(layers),"exact_compressed_sizes_file":"layer_sizes_bytes.json",
       "simulator_layer_size_mapping":"exact compressed bytes divided by 1e6 (decimal MB), floats; disk and bandwidth modeled",
       "initial_cache_model":a.cache_model+"; not automatically validated by this adapter",
@@ -183,6 +219,11 @@ def main():
                         selected=(n,node_queues[n].pop(0));cursor=(idx+1)%len(node_names);break
                 if not selected:break
                 n,cid=selected
+                req=bycid[cid]["resources"]
+                job_seconds=int(bycid[cid]["run_time"])
+                cpu_milli=max(1,round(req["cpu"]*1000))
+                memory_mib=max(1,round(req["mem"]*1024))
+                disk_mib=max(1,round(req["disk"]*1024))
                 p={"apiVersion":"v1","kind":"Pod",
                    "metadata":{"name":"job-"+cid,"namespace":nsname,
                        "labels":{"app.kubernetes.io/part-of":"falcons-oci-experiment"}},
@@ -190,9 +231,12 @@ def main():
                      "terminationGracePeriodSeconds":1,
                      "containers":[{"name":"app","image":real_images[cid],
                        "imagePullPolicy":"IfNotPresent",
-                       "command":["/bin/sh","-c"],"args":["sleep 8; echo DONE"],
-                       "resources":{"requests":{"cpu":"150m","memory":"120Mi","ephemeral-storage":"120Mi"},
-                                    "limits":{"cpu":"500m","memory":"240Mi","ephemeral-storage":"350Mi"}}}]}}
+                       "command":["/bin/sh","-c"],"args":[f"sleep {job_seconds}; echo DONE"],
+                       "resources":{"requests":{"cpu":f"{cpu_milli}m","memory":f"{memory_mib}Mi",
+                                                "ephemeral-storage":f"{disk_mib}Mi"},
+                                    "limits":{"cpu":f"{max(250,cpu_milli*2)}m",
+                                              "memory":f"{memory_mib*2}Mi",
+                                              "ephemeral-storage":f"{disk_mib*2}Mi"}}}]}}
                 if a.mode!="default":p["spec"]["nodeName"]=n
                 z=time.perf_counter()
                 kc("create","-f","-",stdin=json.dumps(p))
@@ -236,6 +280,8 @@ def main():
              "global_inflight":a.max_inflight,
              "batch_controller_wall_s":round(time.perf_counter()-t0,3),
              "cache_model":a.cache_model,
+             "image_count":len(images),"image_selection":a.image_selection,
+             "task_profile":a.task_profile,"workload_seed":a.seed,
              "mean_request_to_finish_s":round(statistics.mean(finished.values()),3) if finished else None,
              "p95_request_to_finish_s":(
                  round(sorted(finished.values())[int(round(.95*(len(finished)-1)))],3)
