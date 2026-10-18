@@ -147,6 +147,8 @@ def collect(root,catalog):
             "create_to_finish_mean_s":mn(finish_from_create),
             "create_to_finish_P95_s":pctl(finish_from_create,.95),
             "FGP_DCO_combined_controller_ms":summary.get("planner_ms"),
+            "FGP_placement_ms":summary.get("phase1_placement_ms"),
+            "DCO_ordering_ms":summary.get("phase2_ordering_ms"),
             "api_ack_mean_ms":mn(ack),
             "pulling_events":len(pull),"pulled_events":len(pulled),
             "already_present_events":len(cached),
@@ -198,7 +200,8 @@ def group_rows(rows):
         grouped[(row["requests"],row["cache_model"],row["mode"])].append(row)
     metrics=["ACT_all_real_s","P95_all_real_s","AMS_global_real_s",
              "D_real_s","batch_wall_s","create_to_start_mean_s",
-             "FGP_DCO_combined_controller_ms","api_ack_mean_ms",
+             "FGP_DCO_combined_controller_ms","FGP_placement_ms",
+             "DCO_ordering_ms","api_ack_mean_ms",
              "Frag_static_placement_projection"]
     out=[]
     for (n,cache,mode),group in sorted(grouped.items()):
