@@ -111,6 +111,9 @@ def collect(root,catalog):
         seconds=[event_pull_seconds(e.get("message","")) for e in actual_pull]
         seconds=[x for x in seconds if x is not None]
         frag,nodefrags,nodecounts=frag_projected(case,pods)
+        observed_images=Counter(
+            (p.get("spec",{}).get("containers") or [{}])[0].get("image","")
+            for p in pods)
         imtotal=0;missing_img=[]
         for p in pods:
             ref=(p.get("spec",{}).get("containers") or [{}])[0].get("image","")
@@ -136,6 +139,8 @@ def collect(root,catalog):
             "requests":n,"cache_model":summary.get("cache_model","unknown"),
             "image_count":summary.get("image_count",len(set(x.get("image") for x in rawrows))),
             "image_selection":summary.get("image_selection","legacy"),
+            "effective_images_used":len(observed_images),
+            "largest_image_popularity_fraction":max(observed_images.values())/n if observed_images else None,
             "task_profile":summary.get("task_profile","legacy"),
             "workload_seed":summary.get("workload_seed"),
             "n_pods_observed":len(pods),"successes":success,
