@@ -46,7 +46,7 @@ def main():
                     default="Always")
     ap.add_argument("--out-root",default="results/comnet_revision/k8s_real_testbed/registry_probe")
     a=ap.parse_args()
-    if not (30<=a.timeout<=600):ap.error("--timeout must be 30..600")
+    if not (30<=a.timeout<=1800):ap.error("--timeout must be 30..1800")
     current=json.loads(kubectl("get","nodes","-o","json"))
     nodes={x["metadata"]["name"]:x for x in current["items"]}
     for worker in a.workers:
@@ -127,7 +127,8 @@ def main():
     print("Artifacts:",dest,flush=True)
     print("Clean only this namespace AFTER collecting evidence:",
           "kubectl delete namespace "+ns,flush=True)
-    print("WARNING: Always checks registry reachability; cached layers may still be reused. "
+    print("NOTE: pull policy =",a.image_pull_policy,
+          "; IfNotPresent allows local reuse; Always resolves registry but may reuse cached content blobs. "
           "This is NOT a controlled cold-cache experiment.",flush=True)
     return 0 if ok else 2
 
