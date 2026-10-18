@@ -1,0 +1,4 @@
+# Controlled shared OCI layer family for research benchmarks only.
+FROM alpine:3.20
+COPY payloads/shared.bin /opt/falcons/shared.bin
+CMD ["/bin/sh","-c","sleep 8; echo falcons-test-completed"]
