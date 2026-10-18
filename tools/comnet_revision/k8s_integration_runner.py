@@ -10,7 +10,7 @@ The scheduler's layer IDs/sizes are explicit PLACEHOLDER workload metadata,
 not verified OCI layer digests. The observed containerd caching cannot be
 attributed to PGDSF. Intended only for integration and timing smoke checks.
 """
-import argparse,csv,datetime as dt,importlib.util,json,pathlib,statistics,subprocess,sys,time,uuid
+import argparse,csv,datetime as dt,importlib.util,json,pathlib,statistics,subprocess,sys,time,uuid,threading
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 
@@ -44,14 +44,14 @@ def percentile(xs,p):
     i=(len(xs)-1)*p; lo=int(i);hi=min(lo+1,len(xs)-1)
     return round(xs[lo]*(hi-i)+xs[hi]*(i-lo),4) if lo!=hi else round(xs[lo],4)
 
-def build_case(nodes,count):
+def build_case(nodes,count,only_nginx=False):
     # Proxy logical layers are strictly ALGORITHM-INPUT DEMONSTRATORS:
     # these names/MB sizes do NOT claim to be OCI digests or measured downloads.
     shared={"common":3,"nginx":12,"busy":2,"alpine":3}
     containers=[]
     for i in range(count):
-        image=IMAGES[i%len(IMAGES)]
-        parts={0:["common","nginx"],1:["busy"],2:["common","alpine"]}[i%3]
+        image=IMAGES[0] if only_nginx else IMAGES[i%len(IMAGES)]
+        parts=["nginx"] if only_nginx else {0:["common","nginx"],1:["busy"],2:["common","alpine"]}[i%3]
         containers.append({"cid":f"r{i:03d}","layers":parts,
             "resources":{"cpu":.15,"mem":.12,"disk":.12},
             "run_time":8.0,"service_type":image})
@@ -100,13 +100,39 @@ def create_pod(obj):
     kc("create","-f","-",stdin=json.dumps(obj))
     return round((time.perf_counter()-t)*1000,3)
 
-def wait_pod(ns,name,seconds):
+def wait_pod(ns,name,seconds,abort=None):
     until=time.monotonic()+seconds
+    next_report=0.0
+    error_reasons={"ErrImagePull","ImagePullBackOff","InvalidImageName",
+                   "CreateContainerConfigError","CreateContainerError",
+                   "RunContainerError","CrashLoopBackOff","ErrImageNeverPull"}
     while time.monotonic()<until:
+        if abort is not None and abort.is_set():
+            raise RuntimeError(f"{name}: aborted after another Pod failed")
         p=json.loads(kc("-n",ns,"get","pod",name,"-o","json"))
-        if p.get("status",{}).get("phase") in ("Succeeded","Failed"):return p
-        time.sleep(1)
-    return json.loads(kc("-n",ns,"get","pod",name,"-o","json"))
+        state=p.get("status",{})
+        phase=state.get("phase","Unknown")
+        statuses=state.get("containerStatuses",[])
+        waiting=[(x.get("state",{}).get("waiting") or {}) for x in statuses]
+        problems=[(w.get("reason",""),w.get("message","")) for w in waiting
+                  if w.get("reason") in error_reasons]
+        if problems:
+            raise RuntimeError(f"{name}: container cannot start: {problems}; "
+                               f"inspect kubectl -n {ns} describe pod {name}")
+        if phase=="Failed":
+            raise RuntimeError(f"{name}: Pod Failed, status={state.get('reason','')}: "
+                               f"{state.get('message','')}")
+        if phase=="Succeeded":return p
+        now=time.monotonic()
+        if now>=next_report:
+            desc="; ".join(x.get("reason","") for x in waiting if x.get("reason"))
+            print(f"[WAIT] pod={name} node={p['spec'].get('nodeName','<scheduler>')} "
+                  f"phase={phase} waiting={desc or '-'} elapsed={seconds-(until-now):.1f}s",
+                  flush=True)
+            next_report=now+5
+        time.sleep(2)
+    raise TimeoutError(f"{name}: exceeded {seconds:.1f}s, "
+                       f"run kubectl -n {ns} describe pod {name}")
 
 def main():
     ap=argparse.ArgumentParser()
@@ -115,6 +141,8 @@ def main():
     ap.add_argument("--timeout",type=int,default=240)
     ap.add_argument("--out-dir",default="results/comnet_revision/k8s_real_testbed/integration")
     ap.add_argument("--repo",default=None)
+    ap.add_argument("--only-nginx",action="store_true",
+      help="Use only previously verified nginx image (functional smoke only; no layer diversity)")
     a=ap.parse_args()
     if a.count not in (3,6,9,12,20,40):ap.error("choose count 3, 6, 9, 12, 20 or 40")
     if a.timeout<90:ap.error("timeout must be >=90")
@@ -127,7 +155,7 @@ def main():
         if n not in byname:raise SystemExit("Missing worker "+n)
         if not any(c["type"]=="Ready" and c["status"]=="True" for c in byname[n]["status"]["conditions"]):
             raise SystemExit("NotReady worker "+n)
-    case=build_case([byname[n] for n in WORKERS],a.count)
+    case=build_case([byname[n] for n in WORKERS],a.count,only_nginx=a.only_nginx)
     (out/"case_for_algorithm.json").write_text(json.dumps(case,indent=2))
     # scheduler_result expects case alongside workdir; run with own isolated case path via copy
     result=None; algorithm_ms=None
@@ -164,26 +192,57 @@ def main():
     unknown=set(cids)-{cid for queue in node_queues.values() for cid in queue}
     if unknown:raise RuntimeError(f"Algorithm rejected requests: {unknown}. Not a comparable experiment.")
     (out/"planned_queues.json").write_text(json.dumps(node_queues,indent=2))
+    print(f"[PLAN] algorithm={algorithm_ms}ms images="+str(sorted(set(images.values())))+
+          " queues="+str({k:len(v) for k,v in node_queues.items()}),flush=True)
     api_ack={}
     entries={}
+    abort=threading.Event()
+    start=time.perf_counter()
+    global_deadline=start+a.timeout
+
     def run_queue(node,queue):
         for cid in queue:
+            if abort.is_set():return
+            remain=global_deadline-time.perf_counter()
+            if remain<=0:
+                abort.set()
+                raise TimeoutError("Global run deadline exhausted before "+cid)
             name="falc-"+cid
-            doc=pod_obj(ns,name,None if a.mode=="default" else node,images[cid],a.timeout)
-            api_ack[cid]=create_pod(doc)
-            if a.mode!="default":
-                entries[cid]=wait_pod(ns,name,a.timeout)
-    start=time.perf_counter()
-    if a.mode=="default":
-        # Native scheduler; launch together, then wait globally.
-        for cid in cids:
-            doc=pod_obj(ns,"falc-"+cid,None,images[cid],a.timeout)
-            api_ack[cid]=create_pod(doc)
-    else:
-        with ThreadPoolExecutor(max_workers=len(node_queues)) as pool:
-            futures=[pool.submit(run_queue,node,queue) for node,queue in node_queues.items()]
-            for future in futures:future.result()
-    until=time.monotonic()+a.timeout
+            doc=pod_obj(ns,name,node,images[cid],a.timeout)
+            print(f"[SUBMIT] node={node} pod={name} image={images[cid]}",flush=True)
+            try:
+                api_ack[cid]=create_pod(doc)
+                entries[cid]=wait_pod(ns,name,remain,abort)
+                print(f"[DONE] node={node} pod={name} phase=Succeeded",flush=True)
+            except Exception:
+                abort.set()
+                raise
+
+    try:
+        if a.mode=="default":
+            # Native scheduler: concurrent Pods, different queuing semantics.
+            for cid in cids:
+                doc=pod_obj(ns,"falc-"+cid,None,images[cid],a.timeout)
+                print(f"[SUBMIT] native pod=falc-{cid} image={images[cid]}",flush=True)
+                api_ack[cid]=create_pod(doc)
+        else:
+            with ThreadPoolExecutor(max_workers=len(node_queues)) as pool:
+                futures=[pool.submit(run_queue,node,queue) for node,queue in node_queues.items()]
+                for future in futures:future.result()
+    except (RuntimeError,TimeoutError) as exc:
+        abort.set()
+        print(f"[ABORT] {type(exc).__name__}: {exc}",file=sys.stderr,flush=True)
+        for name,command in (("pods_on_failure.json",("get","pods","-o","json")),
+                             ("events_on_failure.json",("get","events","-o","json"))):
+            try:
+                (out/name).write_text(kc("-n",ns,*command))
+            except Exception as snapshot_exc:
+                print(f"[DIAGNOSTIC] could not collect {name}: {snapshot_exc}",file=sys.stderr)
+        print(f"[DIAGNOSTIC] kubectl -n {ns} get pods -o wide",file=sys.stderr)
+        print(f"[DIAGNOSTIC] kubectl -n {ns} get events --sort-by=.metadata.creationTimestamp",file=sys.stderr)
+        print(f"[DIAGNOSTIC] namespace retained, log directory: {out}",file=sys.stderr)
+        return 4
+    until=global_deadline
     while True:
         raw=json.loads(kc("-n",ns,"get","pods","-o","json"))
         phases=[p["status"].get("phase","Pending") for p in raw["items"]]
@@ -220,7 +279,7 @@ def main():
     starts=[r["create_to_start_s"] for r in rows if r["create_to_start_s"] is not None]
     finishes=[r["create_to_finish_s"] for r in rows if r["create_to_finish_s"] is not None]
     summary={
-        "mode":a.mode,"namespace":ns,"count":a.count,"completed":len(rows),
+        "mode":a.mode,"only_nginx":a.only_nginx,"namespace":ns,"count":a.count,"completed":len(rows),
         "succeeded":sum(r["phase"]=="Succeeded" and r["exit_code"]==0 for r in rows),
         "algorithm_wall_ms":algorithm_ms,
         "api_ack_mean_ms":round(statistics.mean(api_ack.values()),3) if api_ack else None,
