@@ -89,7 +89,7 @@ def main():
         for k in ("stage","scenarios","repeats","seed_base","modes","cache_model",
                   "image_selection","zipf_alpha","task_profile","max_inflight",
                   "catalog","run_artifacts","with_telemetry"):
-            if old.get(k)!=config.get(k):
+            if (list(map(tuple,old.get(k,[])))!=list(map(tuple,config.get(k,[]))) if k=="scenarios" else old.get(k)!=config.get(k)):
                 p.error(f"Resume configuration mismatch {k}: old={old.get(k)!r} current={config.get(k)!r}. "
                         "Use the EXACT options from the original suite.")
         with manifest.open(newline="",encoding="utf-8") as saved:
