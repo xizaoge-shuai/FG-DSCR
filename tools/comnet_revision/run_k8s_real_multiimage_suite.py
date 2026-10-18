@@ -55,6 +55,8 @@ def main():
     telemetry_script=pathlib.Path(__file__).with_name("k8s_real_kubelet_sampler.py")
     out=pathlib.Path(a.out_dir)/("suite-"+dt.datetime.now().strftime("%Y%m%d-%H%M%S")+"-"+uuid.uuid4().hex[:6])
     out.mkdir(parents=True,exist_ok=False)
+    run_artifacts=out/"runs"
+    run_artifacts.mkdir()
     manifest=out/"trials.csv"
     fields=["stage","requests","image_count","trial","seed","mode",
             "mode_order","start_utc","wall_s","exit_code","log_path","telemetry_dir","profile",
@@ -65,6 +67,7 @@ def main():
         "seed_base":a.base_seed,"modes":a.modes,"cache_model":"warm_all_verified",
         "image_selection":"zipf_like","zipf_alpha":1.1,"task_profile":"mixed",
         "max_inflight":a.max_inflight,"catalog":a.catalog,
+        "run_artifacts":str(run_artifacts),
         "with_telemetry":a.with_telemetry,
         "limitation":"All 12 images must be verified cached on all 3 workers before running; no automatic cache reset/physical PGDSF."
     },indent=2,ensure_ascii=False),encoding="utf-8")
@@ -90,7 +93,8 @@ def main():
                          "--max-inflight",str(a.max_inflight),
                          "--profile","paper_declared",
                          "--cache-model","warm_all_verified",
-                         "--timeout",str(a.timeout)]
+                         "--timeout",str(a.timeout),
+                         "--out-root",str(run_artifacts)]
                     print(f"\n===== {a.stage} N={n} images={imcount} "
                           f"trial={trial+1}/{a.repeats} seed={seed} "
                           f"mode={mode} position={index} =====",flush=True)
