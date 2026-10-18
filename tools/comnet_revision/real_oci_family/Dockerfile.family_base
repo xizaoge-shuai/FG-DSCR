@@ -1,0 +1,5 @@
+# Shared-family intermediate OCI image. Different groups share only Alpine base.
+FROM alpine:3.20
+ARG GROUP
+COPY payloads/shared-${GROUP}.bin /opt/falcons/shared.bin
+CMD ["/bin/sh","-c","sleep 8; echo falcons-test-completed"]
