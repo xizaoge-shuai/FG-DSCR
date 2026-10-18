@@ -11,7 +11,7 @@ cache. Fixed global inflight limit of 3 is not a fully equivalent Kubernetes
 scheduling treatment. Do not interpret observed differences as PGDSF evidence.
 Logs and manifests retained. No namespace/image cleanup.
 """
-import argparse,csv,datetime as dt,json,os,pathlib,random,subprocess,sys,time,uuid
+import argparse,csv,datetime as dt,json,os,pathlib,random,signal,subprocess,sys,time,uuid
 
 MODES=("falcons","fgp_fcfs","default")
 def log_run(cmd,log_path,env):
@@ -38,6 +38,7 @@ def main():
     p.add_argument("--max-inflight",type=int,default=3)
     p.add_argument("--timeout",type=int,default=900)
     p.add_argument("--modes",nargs="+",choices=list(MODES),default=list(MODES))
+    p.add_argument("--with-telemetry",action="store_true",help="Sample kubelet node/Pod CPU/memory/network for each policy run")
     p.add_argument("--out-dir",default="results/comnet_revision/k8s_real_testbed/multiimage_suite")
     a=p.parse_args()
     if not 1<=a.repeats<=20:p.error("repeats must be 1..20")
@@ -51,11 +52,12 @@ def main():
     else:
         scenarios=[(10,12),(20,12),(40,12)]
     job_script=pathlib.Path(__file__).with_name("k8s_real_oci_smoke.py")
+    telemetry_script=pathlib.Path(__file__).with_name("k8s_real_kubelet_sampler.py")
     out=pathlib.Path(a.out_dir)/("suite-"+dt.datetime.now().strftime("%Y%m%d-%H%M%S")+"-"+uuid.uuid4().hex[:6])
     out.mkdir(parents=True,exist_ok=False)
     manifest=out/"trials.csv"
     fields=["stage","requests","image_count","trial","seed","mode",
-            "mode_order","start_utc","wall_s","exit_code","log_path","profile",
+            "mode_order","start_utc","wall_s","exit_code","log_path","telemetry_dir","profile",
             "image_selection","task_profile"]
     env=dict(os.environ);env["PYTHONHASHSEED"]="2"
     (out/"suite_config.json").write_text(json.dumps({
@@ -63,6 +65,7 @@ def main():
         "seed_base":a.base_seed,"modes":a.modes,"cache_model":"warm_all_verified",
         "image_selection":"zipf_like","zipf_alpha":1.1,"task_profile":"mixed",
         "max_inflight":a.max_inflight,"catalog":a.catalog,
+        "with_telemetry":a.with_telemetry,
         "limitation":"All 12 images must be verified cached on all 3 workers before running; no automatic cache reset/physical PGDSF."
     },indent=2,ensure_ascii=False),encoding="utf-8")
     with manifest.open("w",encoding="utf-8",newline="") as f:
@@ -92,9 +95,31 @@ def main():
                           f"trial={trial+1}/{a.repeats} seed={seed} "
                           f"mode={mode} position={index} =====",flush=True)
                     t0=time.monotonic()
-                    code=log_run(cmd,log_path,env)
+                    sampler=None;sampler_handle=None;telemetry_dir=None
+                    if a.with_telemetry:
+                        telemetry_dir=out/f"telemetry_n{n}_img{imcount}_trial{trial+1:02d}_{mode}"
+                        telemetry_dir.mkdir()
+                        sampler_handle=(telemetry_dir/"sampler.log").open("w",encoding="utf-8")
+                        sampler=subprocess.Popen([
+                            sys.executable,"-u",str(telemetry_script),
+                            "--interval","3","--max-duration",str(a.timeout+90),
+                            "--out-dir",str(telemetry_dir),
+                        ],stdout=sampler_handle,stderr=subprocess.STDOUT,env=env)
+                        time.sleep(1.5)
+                    try:
+                        code=log_run(cmd,log_path,env)
+                    finally:
+                        if sampler is not None:
+                            if sampler.poll() is None:
+                                sampler.send_signal(signal.SIGINT)
+                            try:sampler.wait(timeout=30)
+                            except subprocess.TimeoutExpired:
+                                sampler.terminate()
+                                sampler.wait(timeout=10)
+                            sampler_handle.close()
                     record.update(wall_s=round(time.monotonic()-t0,3),
-                                  exit_code=code,log_path=str(log_path))
+                                  exit_code=code,log_path=str(log_path),
+                                  telemetry_dir=str(telemetry_dir) if telemetry_dir else "")
                     wr.writerow(record);f.flush()
                     if code:
                         print(f"FAILED code={code}. Stop preserving K8s namespace and raw evidence. "
