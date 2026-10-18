@@ -134,6 +134,10 @@ def collect(root,catalog):
         row={
             "run_id":summary.get("run",folder.name),"mode":mode,
             "requests":n,"cache_model":summary.get("cache_model","unknown"),
+            "image_count":summary.get("image_count",len(set(x.get("image") for x in rawrows))),
+            "image_selection":summary.get("image_selection","legacy"),
+            "task_profile":summary.get("task_profile","legacy"),
+            "workload_seed":summary.get("workload_seed"),
             "n_pods_observed":len(pods),"successes":success,
             "success_rate":success/n,"failure_count":n-success,
             "FCT_samples_count":len(fct),
@@ -174,7 +178,11 @@ def collect(root,catalog):
         output.append(row)
         for r in rawrows:
             request_rows.append({"run_id":row["run_id"],"mode":mode,"requests":n,
-                                 "cache_model":row["cache_model"],**r})
+                                 "cache_model":row["cache_model"],
+                                 "image_count":row["image_count"],
+                                 "image_selection":row["image_selection"],
+                                 "task_profile":row["task_profile"],
+                                 "workload_seed":row["workload_seed"],**r})
         print(f"{row['run_id']:<16} {mode:<10} N={n:<3} "
               f"success={success}/{n} ACT={row['ACT_all_real_s']} "
               f"P95={row['P95_all_real_s']} D={observed_D} "
@@ -197,15 +205,18 @@ def t95(n):
 def group_rows(rows):
     grouped=defaultdict(list)
     for row in rows:
-        grouped[(row["requests"],row["cache_model"],row["mode"])].append(row)
+        grouped[(row["requests"],row["cache_model"],row["mode"],
+                 row["image_count"],row["image_selection"],row["task_profile"])].append(row)
     metrics=["ACT_all_real_s","P95_all_real_s","AMS_global_real_s",
              "D_real_s","batch_wall_s","create_to_start_mean_s",
              "FGP_DCO_combined_controller_ms","FGP_placement_ms",
              "DCO_ordering_ms","api_ack_mean_ms",
              "Frag_static_placement_projection"]
     out=[]
-    for (n,cache,mode),group in sorted(grouped.items()):
+    for (n,cache,mode,image_count,image_selection,task_profile),group in sorted(grouped.items()):
         entry={"requests":n,"cache_model":cache,"mode":mode,
+               "image_count":image_count,"image_selection":image_selection,
+               "task_profile":task_profile,
                "independent_runs":len(group),
                "all_successful_runs":sum(x["successes"]==n for x in group)}
         for col in metrics:
@@ -258,6 +269,7 @@ def main():
         "Manuscript-normalized J cannot be compared directly with current physical runs"
       ],
       "statistical_warning":"A 95% CI is reported only when at least two runs exist. Five or more independent repeated trials are recommended; equal workload requests within a run are NOT independent experimental replicates.",
+      "grouping_warning":"Groups are split by request count, image count, image selection, task profile, cache model and method. Workload seeds are randomized replicates; compare methods paired on identical seeds.",
       "timestamp_warning":"Controller observed completion times have polling granularity; Pod create/start/finish timestamps are node-reported and may have clock offset.",
       "image_warning":"The current container command only sleeps eight seconds; no throughput or realistic application responsiveness is measured."
     }
