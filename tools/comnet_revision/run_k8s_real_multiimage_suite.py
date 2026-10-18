@@ -40,6 +40,7 @@ def main():
     p.add_argument("--modes",nargs="+",choices=list(MODES),default=list(MODES))
     p.add_argument("--with-telemetry",action="store_true",help="Sample kubelet node/Pod CPU/memory/network for each policy run")
     p.add_argument("--out-dir",default="results/comnet_revision/k8s_real_testbed/multiimage_suite")
+    p.add_argument("--resume-dir",default="",help="Resume an interrupted existing suite, skipping only verified completed runs")
     a=p.parse_args()
     if not 1<=a.repeats<=20:p.error("repeats must be 1..20")
     catalog=json.loads(pathlib.Path(a.catalog).read_text(encoding="utf-8"))
@@ -53,16 +54,25 @@ def main():
         scenarios=[(10,12),(20,12),(40,12)]
     job_script=pathlib.Path(__file__).with_name("k8s_real_oci_smoke.py")
     telemetry_script=pathlib.Path(__file__).with_name("k8s_real_kubelet_sampler.py")
-    out=pathlib.Path(a.out_dir)/("suite-"+dt.datetime.now().strftime("%Y%m%d-%H%M%S")+"-"+uuid.uuid4().hex[:6])
-    out.mkdir(parents=True,exist_ok=False)
+    resuming=bool(a.resume_dir)
+    out=(pathlib.Path(a.resume_dir) if resuming else
+         pathlib.Path(a.out_dir)/("suite-"+dt.datetime.now().strftime("%Y%m%d-%H%M%S")+"-"+uuid.uuid4().hex[:6]))
+    if resuming:
+        if not out.is_dir():p.error("Resume suite directory does not exist: "+str(out))
+    else:
+        out.mkdir(parents=True,exist_ok=False)
     run_artifacts=out/"runs"
-    run_artifacts.mkdir()
+    if resuming:
+        if not run_artifacts.is_dir():p.error("Missing historical runs directory: "+str(run_artifacts))
+    else:
+        run_artifacts.mkdir()
     manifest=out/"trials.csv"
     fields=["stage","requests","image_count","trial","seed","mode",
             "mode_order","start_utc","wall_s","exit_code","log_path","telemetry_dir","profile",
             "image_selection","task_profile"]
     env=dict(os.environ);env["PYTHONHASHSEED"]="2"
-    (out/"suite_config.json").write_text(json.dumps({
+    configfile=out/"suite_config.json"
+    config={
         "stage":a.stage,"scenarios":scenarios,"repeats":a.repeats,
         "seed_base":a.base_seed,"modes":a.modes,"cache_model":"warm_all_verified",
         "image_selection":"zipf_like","zipf_alpha":1.1,"task_profile":"mixed",
@@ -70,21 +80,69 @@ def main():
         "run_artifacts":str(run_artifacts),
         "with_telemetry":a.with_telemetry,
         "limitation":"All 12 images must be verified cached on all 3 workers before running; no automatic cache reset/physical PGDSF."
-    },indent=2,ensure_ascii=False),encoding="utf-8")
-    with manifest.open("w",encoding="utf-8",newline="") as f:
-        wr=csv.DictWriter(f,fieldnames=fields);wr.writeheader();f.flush()
+    }
+    completed=set()
+    if resuming:
+        if not configfile.is_file() or not manifest.is_file():
+            p.error("Resume requires both suite_config.json and trials.csv")
+        old=json.loads(configfile.read_text(encoding="utf-8"))
+        for k in ("stage","scenarios","repeats","seed_base","modes","cache_model",
+                  "image_selection","zipf_alpha","task_profile","max_inflight",
+                  "catalog","run_artifacts","with_telemetry"):
+            if old.get(k)!=config.get(k):
+                p.error(f"Resume configuration mismatch {k}: old={old.get(k)!r} current={config.get(k)!r}. "
+                        "Use the EXACT options from the original suite.")
+        with manifest.open(newline="",encoding="utf-8") as saved:
+            reader=csv.DictReader(saved)
+            if reader.fieldnames!=fields:
+                p.error("Resume trials.csv schema differs from this runner")
+            for row in reader:
+                if row["exit_code"]!="0":
+                    p.error("trials.csv contains a non-successful recorded row; "
+                            "manually inspect/reconcile the failed attempt before resume")
+                key=(int(row["requests"]),int(row["image_count"]),int(row["trial"]),
+                     int(row["seed"]),row["mode"])
+                if key in completed:p.error("Duplicate successful trial "+str(key))
+                log=pathlib.Path(row["log_path"])
+                if not log.is_file():p.error("Missing completed run log: "+str(log))
+                import re
+                ids=re.findall(r"^RUN (oci-[a-f0-9]+)\\b",log.read_text(encoding="utf-8",errors="replace"),re.M)
+                if len(ids)!=1:p.error("Cannot verify exactly one completed RUN in "+str(log))
+                summaryfile=run_artifacts/ids[0]/"summary.json"
+                if not summaryfile.is_file():p.error("Missing completed summary: "+str(summaryfile))
+                run_summary=json.loads(summaryfile.read_text(encoding="utf-8"))
+                if run_summary.get("failure") or run_summary.get("succeeded")!=int(row["requests"]) or run_summary.get("mode")!=row["mode"]:
+                    p.error("Recorded successful run failed evidence validation: "+str(summaryfile))
+                completed.add(key)
+        print(f"[RESUME] {out}: validated {len(completed)} completed policy runs; "
+              "remaining policies will run in original seeded order. "
+              "Check no old workload process is still running.",flush=True)
+    else:
+        configfile.write_text(json.dumps(config,indent=2,ensure_ascii=False),encoding="utf-8")
+    with manifest.open("a" if resuming else "w",encoding="utf-8",newline="") as f:
+        wr=csv.DictWriter(f,fieldnames=fields)
+        if not resuming:
+            wr.writeheader();f.flush()
         for n,imcount in scenarios:
             for trial in range(a.repeats):
                 seed=a.base_seed+trial
                 modes=list(a.modes)
                 random.Random(113*n+307*imcount+997*trial).shuffle(modes)
                 for index,mode in enumerate(modes,1):
+                    key=(n,imcount,trial+1,seed,mode)
+                    if key in completed:
+                        print(f"[RESUME-SKIP] N={n} images={imcount} trial={trial+1} seed={seed} mode={mode}",flush=True)
+                        continue
                     record={"stage":a.stage,"requests":n,"image_count":imcount,
                             "trial":trial+1,"seed":seed,"mode":mode,
                             "mode_order":index,"start_utc":dt.datetime.now(dt.timezone.utc).isoformat(),
                             "profile":"paper_declared","image_selection":"zipf_like",
                             "task_profile":"mixed"}
                     log_path=(out/f"n{n}_img{imcount}_trial{trial+1:02d}_{mode}.log")
+                    if resuming and log_path.exists():
+                        # An interrupted unrecorded attempt is NOT a completed trial.
+                        # Preserve its log for audit and use a new log file.
+                        log_path=out/f"n{n}_img{imcount}_trial{trial+1:02d}_{mode}_retry_{uuid.uuid4().hex[:6]}.log"
                     cmd=[sys.executable,"-u",str(job_script),
                          "--catalog",a.catalog,"--mode",mode,
                          "--count",str(n),"--image-count",str(imcount),
@@ -102,6 +160,8 @@ def main():
                     sampler=None;sampler_handle=None;telemetry_dir=None
                     if a.with_telemetry:
                         telemetry_dir=out/f"telemetry_n{n}_img{imcount}_trial{trial+1:02d}_{mode}"
+                        if resuming and telemetry_dir.exists():
+                            telemetry_dir=out/f"telemetry_n{n}_img{imcount}_trial{trial+1:02d}_{mode}_retry_{uuid.uuid4().hex[:6]}"
                         telemetry_dir.mkdir()
                         sampler_handle=(telemetry_dir/"sampler.log").open("w",encoding="utf-8")
                         sampler=subprocess.Popen([
