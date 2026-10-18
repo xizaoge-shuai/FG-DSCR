@@ -13,6 +13,8 @@ from pathlib import Path
 
 EXPECTED_METHODS=("FG-DSCR-GC","ILR-SA","LRScheduler","GAHRL","ORR","LASA")
 REF_FIELDS=("D","CA","Frag")
+# Archived paired analyzer used manuscript-rounded denominators, not the full-precision historical means.
+ARCHIVED_REF={"D":440.7696,"CA":0.77924,"Frag":0.180069}
 
 def readcsv(p):
     with p.open(newline="",encoding="utf-8") as f:return list(csv.DictReader(f))
@@ -62,7 +64,8 @@ def main():
         old=sum(nums[k]/float(old_ref[k]) for k in REF_FIELDS)
         new=sum(nums[k]/float(new_ref[k]) for k in REF_FIELDS)
         recorded=float(row["J"])
-        if not math.isclose(old,recorded,rel_tol=1e-8,abs_tol=1e-8):
+        archived=sum(nums[k]/ARCHIVED_REF[k] for k in REF_FIELDS)
+        if not math.isclose(archived,recorded,rel_tol=1e-8,abs_tol=1e-8):
             raise RuntimeError("Archived J fails original-reference check "+str(key))
         keyed[key]={"J_original":old,"J_heldout":new,**nums}
         seeds.add(key[0]);sizes.add(key[1]);methods.add(key[2])
