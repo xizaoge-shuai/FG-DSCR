@@ -159,7 +159,23 @@ def main():
             finally:phase_timing["dco_ms"]+=(time.perf_counter()-t)*1000
         alg.best_response_assignment=fgp_timed
         alg.order_node=dco_timed
-        z=time.perf_counter();result=alg.run();wall=round((time.perf_counter()-z)*1000,3)
+        z=time.perf_counter()
+        if a.mode=="fgp_fcfs":
+            # FCFS ablation must not execute DCO or simulate PGDSF merely to
+            # discard its output; placement is the only planner component.
+            assign=alg.best_response_assignment()
+            bynode={node["eid"]:[] for node in nodes}
+            for cid,eid in assign.items():
+                bynode[eid].append(cid)
+            result={"assignment":bynode,
+                    "ordered_queues":{},
+                    "failed_containers":list(getattr(alg,"failed_container_ids",[])),
+                    "phase1_history":getattr(alg,"phase1_history",[]),
+                    "summary":{"algo":"FGP+FCFS","stage2":"not executed",
+                        "runtime_scope":"FGP placement only"}}
+        else:
+            result=alg.run()
+        wall=round((time.perf_counter()-z)*1000,3)
         phase_timing={k:round(v,3) for k,v in phase_timing.items()}
         store(dest/"scheduler_output.json",result)
         node_queues={}
@@ -185,7 +201,7 @@ def main():
       "phase2_ordering_ms":phase_timing["dco_ms"],
       "cache_mode":"uncontrolled, warm/cold NOT established",
       "admission":"precomputed static resource constraints, not dynamic Kubernetes reservation",
-      "limitations":"real OCI digests, real Pods, external FGP/DCO plan; no physical PGDSF eviction; external nodeName binding vs native kube-scheduler; fixed global inflight cap does not imply full baseline fairness"})
+      "limitations":"real OCI digests, real Pods, external FGP/DCO plan; no physical PGDSF eviction; external nodeName binding vs native kube-scheduler; fixed global inflight cap does not imply full baseline fairness; container sleep is not active CPU workload; v2 mixed Pod resource requests are not utilization measurements"})
     nsname="falcons-oci-"+uuid.uuid4().hex[:8]
     print("RUN",rid,"namespace",nsname,"mode",a.mode,"algorithm_ms",wall,flush=True)
     print("Queues",{n:len(q) for n,q in node_queues.items()},flush=True)
@@ -284,7 +300,8 @@ def main():
              "task_profile":a.task_profile,"workload_seed":a.seed,
              "mean_request_to_finish_s":round(statistics.mean(finished.values()),3) if finished else None,
              "p95_request_to_finish_s":(
-                 round(sorted(finished.values())[int(round(.95*(len(finished)-1)))],3)
+                 round((lambda s,t:s[int(t)]+(s[min(int(t)+1,len(s)-1)]-s[int(t)])*
+                      (t-int(t)))(sorted(finished.values()),.95*(len(finished)-1)),3)
                  if finished else None
              ),
              "worker_distribution":dict(__import__("collections").Counter(
