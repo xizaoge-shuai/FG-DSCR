@@ -29,7 +29,7 @@ def qnum(s,k):
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--catalog",required=True)
-    ap.add_argument("--mode",choices=["falcons","fgp_fcfs","default"],required=True)
+    ap.add_argument("--mode",choices=["falcons","fgp_fcfs","ilrsa","default"],required=True)
     ap.add_argument("--count",type=int,default=9)
     ap.add_argument("--max-inflight",type=int,default=3)
     ap.add_argument("--profile",choices=["paper_declared","archived_fig8"],default="paper_declared")
@@ -144,7 +144,48 @@ def main():
     repo=pathlib.Path(__file__).resolve().parents[2]
     result=None;wall=None;config=None
     phase_timing={"fgp_ms":None,"dco_ms":None}
-    if a.mode!="default":
+    if a.mode=="ilrsa":
+        # Main paper's closest baseline: original ILR-SA placement + layer
+        # similarity sequence, adapted to exactly the SAME OCI case and Pod
+        # executor. No physical ILR-SA image cache replacement is deployed.
+        path=repo/"scripts/ilrsa_reference_impl_k8s_ca.py"
+        spec=importlib.util.spec_from_file_location("ilrsa_real_oci",str(path))
+        mo=importlib.util.module_from_spec(spec);sys.modules[spec.name]=mo
+        spec.loader.exec_module(mo)
+        cs,ns,ls=mo.load_case_from_json(str(dest/"workload.json"))
+        solver=mo.ILRSA(layer_sizes_mb=ls,alpha=.5,exact_threshold=12,
+                        random_seed=a.seed,cache_knapsack="exact",
+                        lambda_ca=1000.0)
+        phase_timing={"fgp_ms":None,"dco_ms":None,
+                      "ilrsa_placement_ms":0.0,"ilrsa_ordering_ms":0.0}
+        original_placement=solver.deploy_phase1
+        original_order=solver.sequence_phase2
+        def placement_timed(*args,**kwargs):
+            t=time.perf_counter()
+            try:return original_placement(*args,**kwargs)
+            finally:phase_timing["ilrsa_placement_ms"]+=(time.perf_counter()-t)*1000
+        def order_timed(*args,**kwargs):
+            t=time.perf_counter()
+            try:return original_order(*args,**kwargs)
+            finally:phase_timing["ilrsa_ordering_ms"]+=(time.perf_counter()-t)*1000
+        solver.deploy_phase1=placement_timed
+        solver.sequence_phase2=order_timed
+        t=time.perf_counter()
+        result_obj=solver.run(cs,ns)
+        wall=round((time.perf_counter()-t)*1000,3)
+        result={"assignment":result_obj.assignment,
+                "ordered_queues":result_obj.ordered_queues,
+                "summary":{"algo":"ILR-SA","reference":result_obj.summary},
+                "node_details":result_obj.node_details}
+        phase_timing={k:round(v,3) if v is not None else None
+                      for k,v in phase_timing.items()}
+        config={"alpha":.5,"exact_threshold":12,"cache_knapsack":"exact",
+                "random_seed":a.seed,"lambda_ca":1000.0,
+                "description":"ILR-SA real OCI external placement and ordering"}
+        store(dest/"scheduler_output.json",result)
+        node_queues={node:list(result["ordered_queues"][node])
+                     for node in result["assignment"]}
+    elif a.mode!="default":
         path=repo/"scripts/fg_dscr_incremental.py"
         spec=importlib.util.spec_from_file_location("falcons_real_oci",str(path))
         mo=importlib.util.module_from_spec(spec);sys.modules[spec.name]=mo;spec.loader.exec_module(mo)
@@ -219,6 +260,8 @@ def main():
       "algorithm_parameters":config,"algorithm_wall_ms":wall,
       "phase1_placement_ms":phase_timing["fgp_ms"],
       "phase2_ordering_ms":phase_timing["dco_ms"],
+      "ilrsa_placement_ms":phase_timing.get("ilrsa_placement_ms"),
+      "ilrsa_ordering_ms":phase_timing.get("ilrsa_ordering_ms"),
       "cache_mode":"uncontrolled, warm/cold NOT established",
       "admission":"precomputed static resource constraints, not dynamic Kubernetes reservation",
       "limitations":"real OCI digests, real Pods, external FGP/DCO plan; no physical PGDSF eviction; external nodeName binding vs native kube-scheduler; global inflight cap is external; pressure CPU and tmpfs memory must be verified with kubelet samples; mixed remains sleep-only"})
@@ -332,6 +375,8 @@ def main():
              "planner_ms":wall,
              "phase1_placement_ms":phase_timing["fgp_ms"],
              "phase2_ordering_ms":phase_timing["dco_ms"],
+             "ilrsa_placement_ms":phase_timing.get("ilrsa_placement_ms"),
+             "ilrsa_ordering_ms":phase_timing.get("ilrsa_ordering_ms"),
              "global_inflight":a.max_inflight,
              "batch_controller_wall_s":round(time.perf_counter()-t0,3),
              "cache_model":a.cache_model,
