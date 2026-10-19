@@ -9,7 +9,7 @@ Physical caches are uncontrolled; no physical PGDSF eviction.
 """
 import argparse,csv,datetime as dt,hashlib,json,os,pathlib,random,re,signal,subprocess,sys,time,uuid
 
-METHODS=("falcons","fgp_fcfs","default")
+METHODS=("falcons","fgp_fcfs","ilrsa","default")
 COLUMNS=["stage","requests","image_count","trial","seed","mode","mode_order",
          "start_utc","wall_s","exit_code","log_path","telemetry_dir","profile",
          "image_selection","task_profile"]
