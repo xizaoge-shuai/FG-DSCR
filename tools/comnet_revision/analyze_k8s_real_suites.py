@@ -16,7 +16,7 @@ from collections import defaultdict
 from export_k8s_real_paper_metrics import collect,load,pctl,t95
 
 METRICS=("ACT_all_real_s","P95_all_real_s","D_real_s","batch_wall_s")
-BASELINES=("fgp_fcfs","default")
+BASELINES=("fgp_fcfs","ilrsa","default")
 
 def csv_write(path,rows):
     if not rows:return
