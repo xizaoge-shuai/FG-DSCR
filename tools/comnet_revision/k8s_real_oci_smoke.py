@@ -40,8 +40,8 @@ def main():
     ap.add_argument("--zipf-alpha",type=float,default=1.1)
     ap.add_argument("--seed",type=int,default=42,
        help="Controls workload choice and variable application demands; same seed preserves N prefixes")
-    ap.add_argument("--task-profile",choices=["uniform","mixed"],default="uniform",
-       help="mixed varies CPU/memory requests and actual sleep duration 8..40s")
+    ap.add_argument("--task-profile",choices=["uniform","mixed","pressure"],default="uniform",
+       help="mixed: sleep-only light workloads; pressure: ~0.4-0.5 CPU, ~0.5-0.75 GiB requests plus actual CPU and RAM stress")
     ap.add_argument("--cache-model",choices=["empty_assumed","warm_all_verified"],default="empty_assumed",
        help="After independent full image prewarm verification, warm_all_verified initializes all manifest layers on each node")
     ap.add_argument("--timeout",type=int,default=900)
@@ -106,6 +106,12 @@ def main():
             mem=rng.choice((.125,.1875,.25,.3125))
             runtime=rng.choice((8,12,20,32,40))
             disk=rng.choice((.10,.15,.20))
+        elif a.task_profile=="pressure":
+            # High reservation AND active work, unlike the legacy sleep-only case.
+            cpu=rng.choice((.40,.45,.50))
+            mem=rng.choice((.50,.625,.75))
+            runtime=rng.choice((16,20,24))
+            disk=rng.choice((.20,.30,.40))
         else:
             cpu,mem,runtime,disk=.15,.12,8,.12
         containers.append({"cid":cid,"layers":[l["digest"] for l in im["layers"]],
@@ -113,6 +119,18 @@ def main():
              "run_time":float(runtime),"service_type":im["source"]})
     case={"nodes":nodes,"containers":containers,
           "layer_sizes_mb":{d:v/1000000.0 for d,v in layers.items()}}
+    if a.task_profile=="pressure":
+        requested={k:sum(c["resources"][k] for c in containers)
+                   for k in ("cpu","mem","disk")}
+        modeled={k:sum(n["resources"][k] for n in nodes)
+                 for k in ("cpu","mem","disk")}
+        print("[RESOURCE PRESSURE] total_requested",requested,
+              "modeled_node_budgets",modeled,flush=True)
+        for k in requested:
+            if requested[k]>modeled[k]+1e-9:
+                raise RuntimeError(
+                    f"Impossible workload aggregate {k}: requested={requested[k]:.3f} "
+                    f"modeled_available={modeled[k]:.3f}; lower count or Pod requests.")
     rid="oci-"+uuid.uuid4().hex[:8]
     dest=pathlib.Path(a.out_root).resolve()/rid;dest.mkdir(parents=True)
     store(dest/"workload.json",case)
@@ -192,6 +210,8 @@ def main():
       "image_count":len(images),"image_selection":a.image_selection,
       "zipf_alpha":a.zipf_alpha,"seed":a.seed,
       "task_profile":a.task_profile,
+      "execution_semantics":("actual CPU busy loop + 192Mi tmpfs payload"
+                              if a.task_profile=="pressure" else "sleep-only"),
       "workload_scope":"controlled small-scale OCI microservice diversity; NOT the original 88-image trace",
       "layer_count":len(layers),"exact_compressed_sizes_file":"layer_sizes_bytes.json",
       "simulator_layer_size_mapping":"exact compressed bytes divided by 1e6 (decimal MB), floats; disk and bandwidth modeled",
@@ -201,7 +221,7 @@ def main():
       "phase2_ordering_ms":phase_timing["dco_ms"],
       "cache_mode":"uncontrolled, warm/cold NOT established",
       "admission":"precomputed static resource constraints, not dynamic Kubernetes reservation",
-      "limitations":"real OCI digests, real Pods, external FGP/DCO plan; no physical PGDSF eviction; external nodeName binding vs native kube-scheduler; fixed global inflight cap does not imply full baseline fairness; container sleep is not active CPU workload; v2 mixed Pod resource requests are not utilization measurements"})
+      "limitations":"real OCI digests, real Pods, external FGP/DCO plan; no physical PGDSF eviction; external nodeName binding vs native kube-scheduler; global inflight cap is external; pressure CPU and tmpfs memory must be verified with kubelet samples; mixed remains sleep-only"})
     nsname="falcons-oci-"+uuid.uuid4().hex[:8]
     print("RUN",rid,"namespace",nsname,"mode",a.mode,"algorithm_ms",wall,flush=True)
     print("Queues",{n:len(q) for n,q in node_queues.items()},flush=True)
@@ -240,6 +260,20 @@ def main():
                 cpu_milli=max(1,round(req["cpu"]*1000))
                 memory_mib=max(1,round(req["mem"]*1024))
                 disk_mib=max(1,round(req["disk"]*1024))
+                if a.task_profile=="pressure":
+                    # No privileged mounts or host mutation. GNU/BusyBox dd,
+                    # date and POSIX sh are supplied by official images.
+                    work_command=(
+                        "set -eu; "
+                        "dd if=/dev/zero of=/work/load.bin bs=1048576 count=192 "
+                        ">/dev/null 2>&1; "
+                        f"stop=$(($(date +%s)+{job_seconds})); "
+                        'while [ "$(date +%s)" -lt "$stop" ]; do '
+                        'i=0; while [ "$i" -lt 15000 ]; do i=$((i+1)); done; '
+                        'done; echo DONE'
+                    )
+                else:
+                    work_command=f"sleep {job_seconds}; echo DONE"
                 p={"apiVersion":"v1","kind":"Pod",
                    "metadata":{"name":"job-"+cid,"namespace":nsname,
                        "labels":{"app.kubernetes.io/part-of":"falcons-oci-experiment"}},
@@ -247,12 +281,17 @@ def main():
                      "terminationGracePeriodSeconds":1,
                      "containers":[{"name":"app","image":real_images[cid],
                        "imagePullPolicy":"IfNotPresent",
-                       "command":["/bin/sh","-c"],"args":[f"sleep {job_seconds}; echo DONE"],
+                       "command":["/bin/sh","-c"],"args":[work_command],
                        "resources":{"requests":{"cpu":f"{cpu_milli}m","memory":f"{memory_mib}Mi",
                                                 "ephemeral-storage":f"{disk_mib}Mi"},
                                     "limits":{"cpu":f"{max(250,cpu_milli*2)}m",
                                               "memory":f"{memory_mib*2}Mi",
                                               "ephemeral-storage":f"{disk_mib*2}Mi"}}}]}}
+                if a.task_profile=="pressure":
+                    p["spec"]["volumes"]=[{"name":"work-mem",
+                        "emptyDir":{"medium":"Memory","sizeLimit":"256Mi"}}]
+                    p["spec"]["containers"][0]["volumeMounts"]=[
+                        {"name":"work-mem","mountPath":"/work"}]
                 if a.mode!="default":p["spec"]["nodeName"]=n
                 z=time.perf_counter()
                 kc("create","-f","-",stdin=json.dumps(p))
@@ -298,6 +337,8 @@ def main():
              "cache_model":a.cache_model,
              "image_count":len(images),"image_selection":a.image_selection,
              "task_profile":a.task_profile,"workload_seed":a.seed,
+             "execution_semantics":("cpu_loop_tmpfs_192Mi"
+                                    if a.task_profile=="pressure" else "sleep"),
              "mean_request_to_finish_s":round(statistics.mean(finished.values()),3) if finished else None,
              "p95_request_to_finish_s":(
                  round((lambda s,t:s[int(t)]+(s[min(int(t)+1,len(s)-1)]-s[int(t)])*
