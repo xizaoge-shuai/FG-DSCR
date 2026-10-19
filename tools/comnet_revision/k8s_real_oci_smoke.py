@@ -6,7 +6,7 @@ layer sizes, common global inflight cap. Does not claim PGDSF is deployed in
 containerd or represent controlled cold cache. Records Pod/event evidence and
 total request-to-finish time from common batch start (controller wall time).
 """
-import argparse,csv,datetime as dt,importlib.util,json,pathlib,random,statistics,subprocess,sys,time,uuid
+import argparse,csv,datetime as dt,importlib.util,json,math,pathlib,random,statistics,subprocess,sys,time,uuid
 from collections import Counter
 
 WORKERS=("falcons-worker1","falcons-worker2","falcons-worker3")
@@ -117,8 +117,16 @@ def main():
         containers.append({"cid":cid,"layers":[l["digest"] for l in im["layers"]],
              "resources":{"cpu":cpu,"mem":mem,"disk":disk},
              "run_time":float(runtime),"service_type":im["source"]})
+    # ILR-SA exact knapsack requires integer MB units. For the NEW pressure
+    # benchmark, discretize OCI compressed sizes consistently for ALL methods.
+    # Retain byte-exact data separately in layer_sizes_bytes.json.
+    case_layer_sizes=(
+        {d:max(1,int(math.ceil(v/1000000.0))) for d,v in layers.items()}
+        if a.task_profile=="pressure"
+        else {d:v/1000000.0 for d,v in layers.items()}
+    )
     case={"nodes":nodes,"containers":containers,
-          "layer_sizes_mb":{d:v/1000000.0 for d,v in layers.items()}}
+          "layer_sizes_mb":case_layer_sizes}
     if a.task_profile=="pressure":
         requested={k:sum(c["resources"][k] for c in containers)
                    for k in ("cpu","mem","disk")}
@@ -255,7 +263,11 @@ def main():
                               if a.task_profile=="pressure" else "sleep-only"),
       "workload_scope":"controlled small-scale OCI microservice diversity; NOT the original 88-image trace",
       "layer_count":len(layers),"exact_compressed_sizes_file":"layer_sizes_bytes.json",
-      "simulator_layer_size_mapping":"exact compressed bytes divided by 1e6 (decimal MB), floats; disk and bandwidth modeled",
+      "simulator_layer_size_mapping":(
+          "pressure: ceil(exact compressed bytes / 1e6) integer decimal MB; "
+          "same case for all methods, exact source bytes in layer_sizes_bytes.json"
+          if a.task_profile=="pressure" else
+          "exact compressed bytes divided by 1e6 (decimal MB), floats; disk and bandwidth modeled"),
       "initial_cache_model":a.cache_model+"; not automatically validated by this adapter",
       "algorithm_parameters":config,"algorithm_wall_ms":wall,
       "phase1_placement_ms":phase_timing["fgp_ms"],
