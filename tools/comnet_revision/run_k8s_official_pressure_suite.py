@@ -72,7 +72,7 @@ def main():
     config={"stage":a.stage,"n":n,"inflight":max_inflight,"repeats":a.repeats,
             "seed_base":a.seed_base,"catalog":str(catalogpath),"catalog_sha256":sha(catalogpath),
             "image_count":12,"task_profile":"pressure","profile":"paper_declared",
-            "cache_model":"empty_assumed","with_telemetry":a.with_telemetry,"timeout":a.timeout}
+            "cache_model":"empty_assumed","image_selection":"round_robin","with_telemetry":a.with_telemetry,"timeout":a.timeout}
     cfgfile=out/"suite_config.json";manifest=out/"trials.csv"
     done=set()
     if a.resume_dir:
@@ -113,7 +113,7 @@ def main():
                 if telemetry.exists():telemetry=out/f"telemetry_trial{trial:02d}_{mode}_retry_{uuid.uuid4().hex[:6]}"
                 cmd=[sys.executable,"-u",str(adapter),"--catalog",str(catalogpath),
                      "--mode",mode,"--count",str(n),"--image-count","12",
-                     "--image-selection","zipf_like","--zipf-alpha","1.1",
+                     "--image-selection","round_robin",
                      "--task-profile","pressure","--seed",str(seed),
                      "--max-inflight",str(max_inflight),"--profile","paper_declared",
                      "--cache-model","empty_assumed","--timeout",str(a.timeout),
@@ -144,7 +144,7 @@ def main():
                      "wall_s":round(time.monotonic()-t,3),"exit_code":code,
                      "log_path":str(logfile),
                      "telemetry_dir":str(telemetry) if a.with_telemetry else "",
-                     "profile":"paper_declared","image_selection":"zipf_like",
+                     "profile":"paper_declared","image_selection":"round_robin",
                      "task_profile":"pressure"}
                 writer.writerow(row);f.flush()
                 if code:return code
