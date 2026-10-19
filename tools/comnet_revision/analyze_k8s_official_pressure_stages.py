@@ -70,6 +70,8 @@ def main():
             "mode":trial["mode"],"run_id":ids[0],"requests":int(trial["requests"]),
             "succeeded":d["successes"],
             "FGP_ms":d["FGP_placement_ms"],"DCO_ms":d["DCO_ordering_ms"],
+            "ILRSA_placement_ms":readjson(suite/"runs"/ids[0]/"summary.json").get("ilrsa_placement_ms"),
+            "ILRSA_ordering_ms":readjson(suite/"runs"/ids[0]/"summary.json").get("ilrsa_ordering_ms"),
             "controller_ms":d["FGP_DCO_combined_controller_ms"],
             "api_ack_mean_ms":d["api_ack_mean_ms"],
             "create_to_start_mean_s":d["create_to_start_mean_s"],
@@ -88,7 +90,8 @@ def main():
     writecsv(suite/"stage_breakdown_by_trial.csv",data)
     groups=defaultdict(list)
     for x in data:groups[(x["stage"],x["mode"])].append(x)
-    columns=("FGP_ms","DCO_ms","controller_ms","api_ack_mean_ms",
+    columns=("FGP_ms","DCO_ms","ILRSA_placement_ms","ILRSA_ordering_ms",
+        "controller_ms","api_ack_mean_ms",
         "create_to_start_mean_s","pull_mean_s","ACT_s","P95_s","D_s",
         "batch_wall_s","frag_static_NOT_LIVE","exp_cpu_peak_cores","exp_mem_peak_MiB")
     summary=[]
@@ -103,13 +106,14 @@ def main():
     lines=[
         "# 官方 Docker Hub 镜像压力实验：阶段性测量","",
         "数值取有效重复的均值；破折号表示不存在该阶段或无有效采样。","",
-        "| 实验 | 方法 | 重复成功 | FGP ms | DCO ms | API ms | Pod启动 s | Pulling | ACT s | P95 s | D s | 实际CPU峰值 core | 实际内存峰值 MiB |",
-        "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|"
+        "| 实验 | 方法 | 重复成功 | FGP ms | DCO ms | ILR-SA放置 ms | ILR-SA排序 ms | API ms | Pod启动 s | Pulling | ACT s | P95 s | D s | 实际CPU峰值 core | 实际内存峰值 MiB |",
+        "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|"
     ]
     for x in summary:
         lines.append(
             f"| {x['stage']} | {x['mode']} | {x['successful_trials']}/{x['trials']} | "
             f"{display(x['FGP_ms_mean'])} | {display(x['DCO_ms_mean'])} | "
+            f"{display(x['ILRSA_placement_ms_mean'])} | {display(x['ILRSA_ordering_ms_mean'])} | "
             f"{display(x['api_ack_mean_ms_mean'])} | "
             f"{display(x['create_to_start_mean_s_mean'])} | {x['pulling_events_total']} | "
             f"{display(x['ACT_s_mean'])} | {display(x['P95_s_mean'])} | "
