@@ -1,0 +1,9 @@
+{
+  "beam_width": 1,
+  "lambda_cong": 1.0,
+  "lambda_aff": 0.2,
+  "k_pin": 6,
+  "cache_policy": "pgdsf",
+  "order_policy": "dynamic_state",
+  "greedy_load_factor": 0.9
+}

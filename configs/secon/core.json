@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "description": "SECON formal core experiment configuration",
+  "fg": {
+    "path": "scripts/fg_dscr.py",
+    "warmup_fraction": 0.5
+  },
+  "network": {
+    "wan_mb_s": [10, 30, 100],
+    "peer_upload_mb_s": 100,
+    "lan_mb_s": 1000
+  },
+  "cache_scales": [0.5, 1.0, 2.0],
+  "seeds": [1, 2, 3, 4, 5],
+  "policies": [
+    "cloud_fifo",
+    "cloud_sjf",
+    "p2p_sjf",
+    "c_lru",
+    "l_lru",
+    "l_lease",
+    "d_lease"
+  ],
+  "fixed_method_parameters": {
+    "lease_rho": 0.5,
+    "debt_lambda": 1.0
+  }
+}

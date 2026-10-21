@@ -1,0 +1,13 @@
+﻿label,file,cycle,phase1_label,potential,fragmented_cpu,fragmented_mem,fragmented_disk,active_nodes,idle_nodes
+baseline,result_500.json,0,greedy_init,356121252.9504195,0.0,0.0,0.0,5,3
+baseline,result_500.json,1,best_response_round_1,356121252.9504195,0.0,0.0,0.0,5,3
+light,result_500_light.json,0,greedy_init,519175628.8123206,0.0,0.0,0.0,7,1
+light,result_500_light.json,1,best_response_round_1,519175628.8123206,0.0,0.0,0.0,7,1
+mid,result_500_mid.json,0,greedy_init,567963556.8894444,0.0,0.0,0.0,8,0
+mid,result_500_mid.json,1,best_response_round_1,567963556.8894444,0.0,0.0,0.0,8,0
+mid2,result_500_mid2.json,0,greedy_init,629989446.6224746,0.0,0.0,0.0,8,0
+mid2,result_500_mid2.json,1,best_response_round_1,629989446.6224746,0.0,0.0,0.0,8,0
+tuned,result_500_tuned.json,0,greedy_init,1165396135.8784935,0.0,0.0,0.0,8,0
+tuned,result_500_tuned.json,1,best_response_round_1,1096330371.659502,0.0,0.0,0.0,8,0
+tuned,result_500_tuned.json,2,best_response_round_2,1096245241.9564466,0.0,0.0,0.0,8,0
+tuned,result_500_tuned.json,3,best_response_round_3,1096245241.9564466,0.0,0.0,0.0,8,0
