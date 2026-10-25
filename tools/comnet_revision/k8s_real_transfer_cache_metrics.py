@@ -95,15 +95,16 @@ def image_repo(image_ref):
 def find_existing_ref(image, image_text):
     rows = parse_image_rows(image_text)
     source_ref = normalize_source_ref(image.get("source", ""))
-    exact = [r["ref"] for r in rows if r["ref"] == source_ref]
-    if exact:
-        return exact[0]
     digests = {
         image.get("index_digest", ""),
         image.get("platform_manifest_digest", ""),
         image.get("image_ref", "").rsplit("@", 1)[-1],
     }
     digests.discard("")
+    exact = [r["ref"] for r in rows
+             if r["ref"] == source_ref and (not digests or r["digest"] in digests)]
+    if exact:
+        return exact[0]
     by_digest = [r["ref"] for r in rows if r["digest"] in digests]
     if by_digest:
         return by_digest[0]
@@ -126,7 +127,7 @@ def refs_to_remove(image, image_text):
     refs = []
     for row in rows:
         ref = row["ref"]
-        if ref == source_ref:
+        if ref == source_ref and row["digest"] in digests:
             refs.append(ref)
         elif row["digest"] in digests and (ref.startswith(repo + "@") or ref.startswith(repo + ":")):
             refs.append(ref)
