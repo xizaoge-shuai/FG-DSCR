@@ -158,8 +158,8 @@ def node_inventory(worker, ip, args):
             "runtime": get_nodes()[worker]["runtime"]}
 
 def content_ref_count(content_text, digest):
-    # One line is the blob itself; each additional occurrence is a content
-    # manifest GC-reference. We only delete a layer referenced by one manifest.
+    # Diagnostic heuristic only: a digest appearing on its own row plus a
+    # manifest GC label is still referenced. Never delete a referenced blob.
     return sum(line.count(digest) for line in content_text.splitlines())
 
 def choose_candidate(catalog, inventories):
@@ -198,7 +198,11 @@ def choose_candidate(catalog, inventories):
     candidates.sort(key=lambda x: (x[0], -x[1], x[3]))
     score, size, ref, digest, image, layer = candidates[0]
     return {"image_ref": ref, "source": image.get("source", ref),
+            "index_digest": image.get("index_digest", ""),
+            "platform_manifest_digest": image.get("platform_manifest_digest", ""),
             "layer_digest": digest, "layer_size_bytes": size,
+            "image_layers": [{"digest": x["digest"], "size_bytes": int(x["size_bytes"])}
+                             for x in image.get("layers", [])],
             "layer_size_MB_decimal": size / 1_000_000,
             "pgdsf_score_proxy": score,
             "score_assumption": "f_hist/f_slot/centrality approximated from catalog occurrence; not a full online PGDSF state replay"}
