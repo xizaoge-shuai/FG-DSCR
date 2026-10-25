@@ -267,9 +267,11 @@ def make_plan(catalog, inventories, workers):
 def start_capture(worker, ip, port, rid, args):
     base = "/tmp/falcons-regcomp-" + rid + "-" + worker
     pcap, pidfile, logfile = base + ".pcap", base + ".pid", base + ".log"
+    # Capture both directions on loopback. Direction filtering on lo can silently
+    # discard the proxy response packets on some Linux/tcpdump combinations.
     inner = (
-        "nohup tcpdump -Q out -i lo -nn -s 0 -U -w " + shlex.quote(pcap) +
-        " 'tcp src port " + str(port) + "' >" + shlex.quote(logfile) +
+        "nohup tcpdump -i lo -nn -s 0 -U -w " + shlex.quote(pcap) +
+        " 'tcp port " + str(port) + "' >" + shlex.quote(logfile) +
         " 2>&1 </dev/null & echo $! > " + shlex.quote(pidfile)
     )
     ssh(
@@ -286,7 +288,7 @@ def stop_capture(worker, ip, cap, local_pcap, args):
         "sudo -n sh -c " + shlex.quote(
             "kill -INT $(cat " + cap["pidfile"] + ") 2>/dev/null || true"
         ) + "; sleep 1; sudo -n tcpdump -nn -tt -r " +
-        shlex.quote(cap["pcap"]) + " 'tcp src port " + str(cap["port"]) + "' 2>/dev/null"
+        shlex.quote(cap["pcap"]) + " 'tcp src port " + str(cap["port"]) + "'"
     )
     p = ssh(worker, ip, stop, args, timeout=120, check=False)
     payloads = [int(x) for x in re.findall(r"\blength\s+(\d+)", p.stdout)]
@@ -318,7 +320,7 @@ def stop_capture(worker, ip, cap, local_pcap, args):
         "proxy_tcp_payload_packets": packets,
         "pcap_local": str(local_pcap) if copied else "",
         "pcap_copy_error": "" if copied else cp.stderr[-400:],
-        "capture_stderr": p.stderr[-400:] if p.returncode else "",
+        "capture_stderr": p.stderr[-800:],
     }
 
 
@@ -390,8 +392,17 @@ def run_level(concurrency, slots, nodes, args, root, run_id):
                         waiting.append(w.get("reason"))
                 states[name] = phase
                 if waiting or phase == "Failed":
+                    details = []
+                    for c in pod.get("status", {}).get("containerStatuses", []):
+                        state = c.get("state", {}).get("waiting") or {}
+                        if state.get("reason") or state.get("message"):
+                            details.append(
+                                str(state.get("reason", "")) + ": " +
+                                str(state.get("message", ""))
+                            )
                     raise RuntimeError(
-                        name + " phase=" + phase + " waiting=" + ",".join(waiting)
+                        name + " phase=" + phase + " waiting=" + ",".join(waiting) +
+                        (" details=" + " | ".join(details) if details else "")
                     )
             if len(states) == concurrency and all(x == "Succeeded" for x in states.values()):
                 break
