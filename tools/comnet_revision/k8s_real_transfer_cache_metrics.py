@@ -173,7 +173,8 @@ def ensure_image_present(worker, ip, image, args, proxy_port):
     content_text = remote(worker, ip, "sudo -n ctr -n k8s.io content ls",
                           args, timeout=120).stdout
     digests = parse_digests(content_text)
-    missing = [x for x in image.get("layers", []) if x["digest"] not in digests]
+    missing = [x for x in image.get("layers", [])
+               if x["digest"] not in digests or blob_size(worker, ip, x["digest"], args) <= 0]
     try:
         find_existing_ref(image, image_text)
         has_ref = True
@@ -191,7 +192,8 @@ def ensure_image_present(worker, ip, image, args, proxy_port):
                           args, timeout=120).stdout
     find_existing_ref(image, image_text)
     digests = parse_digests(content_text)
-    missing = [x for x in image.get("layers", []) if x["digest"] not in digests]
+    missing = [x for x in image.get("layers", [])
+               if x["digest"] not in digests or blob_size(worker, ip, x["digest"], args) <= 0]
     if missing:
         raise RuntimeError(worker + ": image pull returned but layer digests remain absent: " +
                            ", ".join(x["digest"] for x in missing))
@@ -229,8 +231,11 @@ def choose_candidate(catalog, inventories):
                 continue
             if not all(d in inv["digests"] for inv in inventories.values()):
                 continue
-            # Avoid deleting a blob referenced by any additional image manifest.
-            if not all(content_ref_count(inv["content_text"], d) == 2
+            # A count above two means the blob is referenced by additional
+            # manifests in the visible content inventory. Counts of one can occur
+            # when this ctr build omits GC labels from the listing; containerd itself
+            # still validates references when content rm is attempted.
+            if not all(content_ref_count(inv["content_text"], d) <= 2
                        for inv in inventories.values()):
                 continue
             f_hist = freq[d]
@@ -616,7 +621,7 @@ def main():
                             "sudo -n ctr -n k8s.io images ls",a,timeout=120,check=False).stdout
                         local_refs = {x["ref"] for x in parse_image_rows(image_text)}
                         if (target["layer_digest"] not in parse_digests(current) or
-                            normalize_source_ref(target.get("source", target["image_ref"])) not in local_refs):
+                            target["image_ref"] not in local_refs):
                             restored = restore_image(rw,nodes[rw]["ip"],target,a,
                                                      inventories[rw]["proxy_port"])
                             print("[ROLLBACK RESTORE]",rw,"rc",restored.returncode,
