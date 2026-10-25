@@ -430,9 +430,13 @@ def measure_unpack(worker, ip, image, args, rid, out):
     export = timed("falcons-oci-export",
         f"ctr -n k8s.io images export --platform linux/amd64 {shlex.quote(archive)} {shlex.quote(source_ref)}")
     if export["return_code"] == 0:
+        # Do not set --base-name here: ctr treats it as a filter/prefix
+        # for references inside the archive, not as an arbitrary replacement
+        # name. The synthetic name below did not match the exported reference,
+        # so ctr exited 0 while importing zero image records.
         imported = timed("falcons-import-no-unpack",
             f"ctr -n {shlex.quote(ns)} images import --no-unpack --platform linux/amd64 "
-            f"--base-name=local.falcons.test/probe:latest {shlex.quote(archive)}")
+            f"{shlex.quote(archive)}")
     else:
         imported = {"elapsed_ms": None, "return_code": -1,
                     "output_tail": "OCI export failed", "stderr": ""}
