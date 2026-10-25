@@ -85,6 +85,13 @@ def normalize_source_ref(source):
         raw = "library/" + raw
     return "docker.io/" + raw
 
+def image_repo(image_ref):
+    ref = normalize_source_ref(image_ref)
+    if "@" in ref:
+        return ref.split("@", 1)[0]
+    last = ref.rsplit("/", 1)[-1]
+    return ref.rsplit(":", 1)[0] if ":" in last else ref
+
 def find_existing_ref(image, image_text):
     rows = parse_image_rows(image_text)
     source_ref = normalize_source_ref(image.get("source", ""))
@@ -488,6 +495,7 @@ def main():
     if a.mode in ("contention","all"):
         active = json.loads(kubectl("get","pods","-A","-o","json"))
         source_ref = normalize_source_ref(target.get("source", target["image_ref"]))
+        source_repo = image_repo(source_ref)
         target_digests = {target.get("index_digest", ""),
                           target.get("platform_manifest_digest", ""),
                           target["image_ref"].rsplit("@",1)[-1]}
@@ -498,7 +506,8 @@ def main():
                 continue
             refs = [c.get("image","") for c in p.get("spec",{}).get("containers",[])]
             ids = [c.get("imageID","") for c in p.get("status",{}).get("containerStatuses",[])]
-            if (target["image_ref"] in refs or source_ref in refs or
+            same_repo = any(image_repo(x) == source_repo for x in refs)
+            if (target["image_ref"] in refs or source_ref in refs or same_repo or
                 any(any(d in x for d in target_digests) for x in ids)):
                 raise SystemExit("Active Pod may use target image; refusing image-cache eviction: " +
                                  p["metadata"]["namespace"] + "/" + p["metadata"]["name"])
