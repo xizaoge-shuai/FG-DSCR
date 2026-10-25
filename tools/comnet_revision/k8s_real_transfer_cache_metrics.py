@@ -70,6 +70,79 @@ def remote(worker, ip, command, args, timeout=120, check=True):
 def parse_digests(content_ls):
     return set(re.findall(r"(?m)^(sha256:[0-9a-f]{64})\s", content_ls))
 
+
+def parse_image_rows(image_text):
+    rows = []
+    for line in image_text.splitlines()[1:]:
+        cols = line.split()
+        if len(cols) >= 3 and cols[0] not in ("REF",):
+            rows.append({"ref": cols[0], "digest": cols[2]})
+    return rows
+
+def normalize_source_ref(source):
+    raw = source.removeprefix("docker.io/").removeprefix("index.docker.io/")
+    if "/" not in raw:
+        raw = "library/" + raw
+    return "docker.io/" + raw
+
+def find_existing_ref(image, image_text):
+    rows = parse_image_rows(image_text)
+    source_ref = normalize_source_ref(image.get("source", ""))
+    exact = [r["ref"] for r in rows if r["ref"] == source_ref]
+    if exact:
+        return exact[0]
+    digests = {
+        image.get("index_digest", ""),
+        image.get("platform_manifest_digest", ""),
+        image.get("image_ref", "").rsplit("@", 1)[-1],
+    }
+    digests.discard("")
+    by_digest = [r["ref"] for r in rows if r["digest"] in digests]
+    if by_digest:
+        return by_digest[0]
+    repo = source_ref.rsplit(":", 1)[0] if ":" in source_ref.rsplit("/", 1)[-1] else source_ref
+    by_repo = [r["ref"] for r in rows if r["ref"].startswith(repo)]
+    if by_repo:
+        return by_repo[0]
+    raise RuntimeError("No matching local image reference found for " + source_ref)
+
+def refs_to_remove(image, image_text):
+    rows = parse_image_rows(image_text)
+    source_ref = normalize_source_ref(image.get("source", ""))
+    repo = source_ref.rsplit(":", 1)[0] if ":" in source_ref.rsplit("/", 1)[-1] else source_ref
+    digests = {
+        image.get("index_digest", ""),
+        image.get("platform_manifest_digest", ""),
+        image.get("image_ref", "").rsplit("@", 1)[-1],
+    }
+    digests.discard("")
+    refs = []
+    for row in rows:
+        ref = row["ref"]
+        if ref == source_ref:
+            refs.append(ref)
+        elif ref.startswith(repo + "@") and row["digest"] in digests:
+            refs.append(ref)
+    return sorted(set(refs))
+
+def blob_path(digest):
+    return "/var/lib/containerd/io.containerd.content.v1.content/blobs/sha256/" + digest.split(":", 1)[-1]
+
+def blob_size(worker, ip, digest, args):
+    out = remote(worker, ip, "sudo -n stat -c %s " + shlex.quote(blob_path(digest)),
+                 args, timeout=20, check=False).stdout.strip()
+    return int(out) if out.isdigit() else 0
+
+def restore_image(worker, ip, image, args, proxy_port=None):
+    source_ref = normalize_source_ref(image.get("source", image["image_ref"]))
+    env = ""
+    if proxy_port:
+        env = (f"HTTP_PROXY=http://127.0.0.1:{proxy_port} "
+               f"HTTPS_PROXY=http://127.0.0.1:{proxy_port} ")
+    cmd = (f"sudo -n env {env} ctr -n k8s.io images pull "
+           f"--platform linux/amd64 {shlex.quote(source_ref)}")
+    return remote(worker, ip, cmd, args, timeout=900, check=False)
+
 def node_inventory(worker, ip, args):
     env = remote(worker, ip,
         "sudo -n systemctl show containerd -p Environment --value", args).stdout.strip()
