@@ -1,6 +1,6 @@
 # Computer Networks Major Revision: Real Testbed Results Status
 
-**Snapshot date:** 2026-10-25  
+**Snapshot date:** 2026-10-26  
 **Code branch used for experiments:** `comnet-major-revision-2026`  
 **Kubernetes cluster:** `falcons-master` + `falcons-worker1..4`  
 **Purpose:** Preserve the measured real-platform evidence and clearly distinguish completed measurements from outstanding experiments.
@@ -90,7 +90,40 @@ The audit resolved 12 public Docker Hub image references to immutable linux/amd6
 
 An earlier cache inventory snapshot reported worker1 = 12/12, worker2 = 12/12, worker3 = 12/12, worker4 = 4/12 catalog digests present. This is a historical snapshot and must not be treated as the current cache state after subsequent experiments.
 
-## 5. Physical eviction status
+## 5. Registry contention first attempt (2026-10-26; preliminary, not publication-ready)
+
+Run directories on the experiment server:
+
+- `results/comnet_revision/k8s_real_testbed/registry_contention/run-20261026-000640-ae8311/`
+- `results/comnet_revision/k8s_real_testbed/registry_contention/run-20261026-000858-49b5ce/`
+
+### Repetition 1
+
+| Concurrency | Pods succeeded | Batch wall time (s) | Mean successful-pull event duration (s) | Expected missing-layer bytes | Observed proxy TCP payload bytes |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 1/1 | 11.6277 | 7.9970 | 2,211,514 | 0 |
+| 2 | 2/2 | 16.8816 | 11.1675 | 29,782,552 | 0 |
+| 4 | 4/4 | 73.4443 | 34.8755 | 350,149,903 | 0 |
+
+### Repetition 2
+
+| Concurrency | Pods succeeded | Batch wall time (s) | Mean successful-pull event duration (s) | Expected missing-layer bytes | Observed proxy TCP payload bytes |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 1/1 | 16.8225 | 12.4630 | 17,019,999 | 0 |
+| 2 | 0/2 | 7.4747 | unavailable | 41,939,439 | 0 |
+| 4 | not run | — | — | — | — |
+
+Repetition 2 stopped at concurrency 2 after `pull-2` entered `ErrImagePull`. Inspect `events_c2.json` and `pods_c2.json` in the run directory for the exact image-pull error before retrying.
+
+**Critical validity limits:**
+- The proxy TCP payload counter was zero for every level. These runs do not provide measured Registry network bytes and must not be used to claim transfer-volume reductions.
+- The selected image sets and expected missing-layer sizes differed substantially across concurrency levels (for example, repetition 1 expected 2.21 MB at concurrency 1 versus 350.15 MB at concurrency 4). Raw batch times are therefore not a controlled concurrency comparison.
+- Repetition 1 establishes only that the selected Pods succeeded under those run-specific conditions. Repetition 2 is incomplete because of the image-pull failure.
+- The expected missing-layer bytes are catalog/cache-inventory estimates, not observed wire bytes.
+
+The measurement script was subsequently updated on branch `comnet-major-revision-2026` to remove loopback direction filtering from tcpdump and to preserve capture diagnostics. The planner was also updated to select images within a bounded expected missing-layer size range (default 8–60 MiB, target 25 MiB). These changes require a fresh run and validation; they do not retroactively repair the zero-byte measurements above.
+
+## 6. Physical eviction status
 
 **Not completed.** Previous attempts to remove image metadata and wait for containerd GC did not establish that the selected content blob disappeared both from containerd content metadata and from the physical blob path. The script correctly aborted and attempted to restore the image. No result should claim successful physical PGDSF eviction.
 
@@ -98,7 +131,7 @@ The current helper selects a low-score candidate using a **PGDSF-score proxy** d
 
 Do not manually unlink files under `/var/lib/containerd/io.containerd.content.v1.content/blobs/`. Continue only through containerd metadata/GC and verify both the content listing and on-disk blob before claiming eviction.
 
-## 6. Remaining experiments and acceptance criteria
+## 7. Remaining experiments and acceptance criteria
 
 ### A. Registry contention at concurrency 1, 2, and 4
 - Use the same immutable image digest and a controlled, verified cache state for each trial.
@@ -126,7 +159,7 @@ Do not manually unlink files under `/var/lib/containerd/io.containerd.content.v1
 - Define a reproducible fragmentation metric (for example, normalized residual-resource imbalance across CPU, memory, and disk) and calculate it from the recorded per-node state at the same timestamps.
 - Report scheduler-model fragmentation separately from fragmentation measured from actual cluster state.
 
-## 7. Evidence and reproducibility checklist
+## 8. Evidence and reproducibility checklist
 
 For every new run, preserve:
 - immutable image catalog and digests;
