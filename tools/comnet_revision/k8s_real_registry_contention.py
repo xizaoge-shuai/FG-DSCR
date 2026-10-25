@@ -2,10 +2,10 @@
 """Measure concurrent real OCI image pulls without deleting containerd content.
 
 One run uses distinct, immutable image digests for the 1/2/4 concurrency
-levels. Before any Pods are created, the script verifies that every selected
-image manifest and every compressed layer digest is absent from the selected
-worker's containerd content inventory AND that the physical blob file is
-absent. It also avoids reusing a layer on the same worker across levels.
+levels. Before any Pods are created, the script inventories each worker's containerd
+content records and physical blobs. It chooses distinct immutable images with
+at least one missing layer, records each image's exact missing-layer bytes,
+and avoids reusing a missing layer on the same worker across levels.
 
 This is a first-pass, one-trial-per-level experiment. It deliberately does not
 evict content or claim native PGDSF behavior. Registry TCP payload is measured
@@ -116,8 +116,13 @@ def get_nodes(workers):
     return found
 
 
-def digest_set(text):
-    return set(re.findall(r"sha256:[0-9a-f]{64}", text))
+def content_record_digests(text):
+    out = set()
+    for line in text.splitlines()[1:]:
+        cols = line.split()
+        if cols and re.fullmatch(r"sha256:[0-9a-f]{64}", cols[0]):
+            out.add(cols[0])
+    return out
 
 
 def image_rows(text):
@@ -181,7 +186,7 @@ def get_inventory(worker, ip, catalog, args):
         "proxy_port": proxy_port, "tcpdump": "tcpdump" in tools_text,
         "sudo_ok": "SUDO_OK" in tools_text,
         "image_text": image_text, "image_rows": image_rows(image_text),
-        "content_text": content_text, "content_digests": digest_set(content_text),
+        "content_text": content_text, "content_digests": content_record_digests(content_text),
         "blob_sizes": blob_sizes,
     }
 
@@ -192,7 +197,7 @@ def is_shell_image(image):
 
 
 def make_plan(catalog, inventories, workers):
-    """Plan 1 + 2 + 4 unique image pulls; abort before mutation if not fully cold."""
+    """Plan 1 + 2 + 4 unique image pulls with verified missing-layer sets."""
     used_refs = set()
     used_layers_by_worker = {w: set() for w in workers}
     plan = {}
@@ -201,9 +206,14 @@ def make_plan(catalog, inventories, workers):
         for worker in workers[:concurrency]:
             inv = inventories[worker]
             chosen = None
+            chosen_missing = []
             for image in catalog.get("images", []):
                 ref = image.get("image_ref", "")
-                manifest_digest = image.get("platform_manifest_digest", "")
+                manifest_digests = {
+                    image.get("platform_manifest_digest", ""),
+                    image.get("index_digest", ""),
+                }
+                manifest_digests.discard("")
                 if not ref or "@sha256:" not in ref or ref in used_refs:
                     continue
                 if not is_shell_image(image):
@@ -211,38 +221,44 @@ def make_plan(catalog, inventories, workers):
                 layers = [x.get("digest", "") for x in image.get("layers", [])]
                 if not layers or any(not d.startswith("sha256:") for d in layers):
                     continue
-                if set(layers) & used_layers_by_worker[worker]:
+                if any(d in inv["content_digests"] for d in manifest_digests):
                     continue
-                if any(d in inv["content_digests"] or d in inv["blob_sizes"] for d in layers):
+                if any(row["ref"] == ref or row["digest"] in manifest_digests
+                       for row in inv["image_rows"]):
                     continue
-                if manifest_digest and manifest_digest in inv["content_digests"]:
+                missing = [
+                    d for d in layers
+                    if d not in inv["content_digests"] and d not in inv["blob_sizes"]
+                ]
+                if not missing:
                     continue
-                if any(
-                    row["ref"] == ref or
-                    (manifest_digest and row["digest"] == manifest_digest)
-                    for row in inv["image_rows"]
-                ):
+                if set(missing) & used_layers_by_worker[worker]:
                     continue
                 chosen = image
+                chosen_missing = missing
                 break
             if chosen is None:
                 raise RuntimeError(
-                    "Preflight found too few genuinely uncached, shell-capable images "
-                    "for concurrency 1/2/4 without reusing a layer on the same worker. "
-                    "No Pod has been created and no cache was changed. Audit a larger "
-                    "fresh OCI catalog, then rerun. Worker needing a candidate: " + worker
+                    "Preflight found too few image references with missing compressed "
+                    "layers for concurrency 1/2/4 without reusing a missing layer on "
+                    "the same worker. No Pod has been created and no cache was changed. "
+                    "Audit a larger OCI catalog, then rerun. Worker needing a candidate: "
+                    + worker
                 )
             used_refs.add(chosen["image_ref"])
-            used_layers_by_worker[worker].update(
-                x["digest"] for x in chosen["layers"]
-            )
+            used_layers_by_worker[worker].update(chosen_missing)
+            layer_sizes = {x["digest"]: int(x["size_bytes"]) for x in chosen["layers"]}
             slots.append({
                 "worker": worker, "image_ref": chosen["image_ref"],
                 "source": chosen.get("source", ""),
                 "manifest_digest": chosen.get("platform_manifest_digest", ""),
                 "layer_count": len(chosen["layers"]),
-                "compressed_layer_bytes": sum(int(x["size_bytes"]) for x in chosen["layers"]),
+                "preexisting_layer_count": len(chosen["layers"]) - len(chosen_missing),
+                "missing_layer_count": len(chosen_missing),
+                "compressed_layer_bytes": sum(layer_sizes.values()),
+                "missing_layer_bytes": sum(layer_sizes[d] for d in chosen_missing),
                 "layer_digests": [x["digest"] for x in chosen["layers"]],
+                "missing_layer_digests": chosen_missing,
             })
         plan[str(concurrency)] = slots
     return plan
@@ -488,7 +504,8 @@ def main():
     print("[PREFLIGHT PASS] planned unique, uncached image pulls for concurrency 1/2/4",
           flush=True)
     for level, slots in plan.items():
-        print("[PLAN]", level, [(x["worker"], x["source"], x["compressed_layer_bytes"])
+        print("[PLAN]", level, [(x["worker"], x["source"], x["missing_layer_bytes"],
+                                x["missing_layer_count"], "/", x["layer_count"])
                                 for x in slots], flush=True)
 
     all_rows = []
@@ -513,6 +530,7 @@ def main():
             "pods": len(rows),
             "succeeded": sum(r["pod_phase"] == "Succeeded" for r in rows),
             "expected_compressed_layer_bytes": sum(r["compressed_layer_bytes"] for r in rows),
+            "expected_missing_layer_bytes": sum(r["missing_layer_bytes"] for r in rows),
             "proxy_tcp_payload_bytes": sum(r["proxy_tcp_payload_bytes"] for r in rows),
             "batch_wall_s": max((r["batch_wall_s"] for r in rows), default=None),
             "mean_pull_duration_event_s": (
@@ -528,9 +546,9 @@ def main():
         "timestamp_utc": stamp(), "catalog": str(catalog_path),
         "code_script": "k8s_real_registry_contention.py",
         "levels": [1, 2, 4], "repetitions_per_level": 1,
-        "cache_precondition": "each selected image manifest and all its compressed layer digests absent from containerd content listing and physical blob path on that worker before the run; layer digests are not reused on the same worker across levels",
+        "cache_precondition": "each selected image is checked before any Pods are created; missing layer digests are absent from containerd content records and physical blob paths; only those missing layers are counted as expected transfer bytes; missing layer digests are not reused on the same worker across levels",
         "capture": "tcpdump on worker loopback proxy response direction; TCP payload includes registry protocol/TLS overhead and is not identical to compressed layer bytes",
-        "limitation": "different immutable image references are used at each slot to avoid destructive eviction; normalize traffic by declared compressed layer bytes and repeat with a fresh catalog for statistical confidence",
+        "limitation": "different immutable image references are used at each slot to avoid destructive eviction; some layers may already be cached, so compare observed proxy payload against expected missing-layer bytes and repeat with a fresh catalog for statistical confidence",
         "output_dir": str(root),
     })
     print("[SAVED]", root, flush=True)
