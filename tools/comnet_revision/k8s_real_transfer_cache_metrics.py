@@ -350,34 +350,64 @@ def parse_pull_seconds(message):
         return None
     return int(m.group(1) or 0)*3600 + int(m.group(2) or 0)*60 + float(m.group(3))
 
-def measure_unpack(worker, ip, image_ref, args, rid, out):
+def measure_unpack(worker, ip, image, args, rid, out):
+    """Measure snapshot unpack separately using a local OCI archive and --no-unpack import."""
     ns = f"falcons-metrics-{rid[:6]}-{worker[-2:]}"
+    archive = f"/tmp/falcons-metrics-{rid}-{worker}.oci.tar"
     remote(worker, ip, f"sudo -n ctr namespaces create {shlex.quote(ns)}", args, check=False)
-    inv = remote(worker, ip, "sudo -n systemctl show containerd -p Environment --value", args).stdout
-    m = re.search(r"(?:HTTP|HTTPS)_PROXY=(?:http://)?127\.0\.0\.1:(\d+)", inv, re.I)
-    proxy = m.group(1) if m else ""
-    env = (f"HTTP_PROXY=http://127.0.0.1:{proxy} HTTPS_PROXY=http://127.0.0.1:{proxy} "
-           "NO_PROXY=localhost,127.0.0.1,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16")
+    image_text = remote(worker, ip, "sudo -n ctr -n k8s.io images ls", args, timeout=120).stdout
+    source_ref = find_existing_ref(image, image_text)
     def timed(label, command):
         logfile = f"/tmp/{label}-{rid}.log"
         shell = (f"t0=$(date +%s%N); {command} >{logfile} 2>&1; rc=$?; "
                  f"t1=$(date +%s%N); echo ELAPSED_MS=$(((t1-t0)/1000000)); "
                  f"echo RC=$rc; cat {logfile}; exit $rc")
         p = remote(worker, ip, "sudo -n sh -c " + shlex.quote(shell), args,
-                    timeout=900, check=False)
+                   timeout=900, check=False)
         ms = re.search(r"ELAPSED_MS=(\d+)", p.stdout)
         rc = re.search(r"RC=(\d+)", p.stdout)
         return {"elapsed_ms": int(ms.group(1)) if ms else None,
                 "return_code": int(rc.group(1)) if rc else p.returncode,
-                "output_tail": p.stdout[-500:], "stderr": p.stderr[-300:]}
-    pull = timed("falcons-skip-unpack", f"env {env} ctr -n {ns} images pull --skip-unpack --platform linux/amd64 {shlex.quote(image_ref)}")
-    unpack = timed("falcons-unpack", f"ctr -n {ns} images unpack --snapshotter overlayfs --platform linux/amd64 {shlex.quote(image_ref)}") if pull["return_code"] == 0 else {"elapsed_ms":None,"return_code":-1,"output_tail":"pull failed","stderr":""}
-    return {"timestamp_utc":stamp(),"worker":worker,"runtime":get_nodes()[worker]["runtime"],
-            "image_ref":image_ref,"containerd_namespace":ns,
-            "pull_skip_unpack_ms":pull["elapsed_ms"],"pull_return_code":pull["return_code"],
-            "unpack_overlayfs_ms":unpack["elapsed_ms"],"unpack_return_code":unpack["return_code"],
-            "pull_output_tail":pull["output_tail"],"unpack_output_tail":unpack["output_tail"],
-            "interpretation":"unpack runs in a fresh containerd namespace with cached OCI blobs; this isolates unpack/snapshot preparation, not end-to-end cold pull"}
+                "output_tail": p.stdout[-700:], "stderr": p.stderr[-400:]}
+    export = timed("falcons-oci-export",
+        f"ctr -n k8s.io images export --platform linux/amd64 {shlex.quote(archive)} {shlex.quote(source_ref)}")
+    if export["return_code"] == 0:
+        imported = timed("falcons-import-no-unpack",
+            f"ctr -n {shlex.quote(ns)} images import --no-unpack --platform linux/amd64 "
+            f"--base-name=local.falcons.test/probe:latest {shlex.quote(archive)}")
+    else:
+        imported = {"elapsed_ms": None, "return_code": -1,
+                    "output_tail": "OCI export failed", "stderr": ""}
+    imported_ref = ""
+    if imported["return_code"] == 0:
+        refs = remote(worker, ip, f"sudo -n ctr -n {shlex.quote(ns)} images ls -q",
+                      args, timeout=120, check=False).stdout.splitlines()
+        imported_ref = next((x.strip() for x in refs
+                             if x.strip().startswith("local.falcons.test/probe")), "")
+        if not imported_ref and refs:
+            imported_ref = refs[0].strip()
+    if imported["return_code"] == 0 and imported_ref:
+        unpack = timed("falcons-unpack-overlayfs",
+            f"ctr -n {shlex.quote(ns)} images unpack --snapshotter overlayfs "
+            f"--platform linux/amd64 {shlex.quote(imported_ref)}")
+    else:
+        unpack = {"elapsed_ms": None, "return_code": -1,
+                  "output_tail": "no imported image reference", "stderr": ""}
+    remote(worker, ip, "sudo -n rm -f " + shlex.quote(archive), args, check=False)
+    return {"timestamp_utc": stamp(), "worker": worker,
+            "runtime": get_nodes()[worker]["runtime"],
+            "source_image_ref": source_ref, "image_ref": image["image_ref"],
+            "containerd_namespace": ns, "imported_image_ref": imported_ref,
+            "archive_export_ms": export["elapsed_ms"],
+            "archive_export_return_code": export["return_code"],
+            "import_no_unpack_ms": imported["elapsed_ms"],
+            "import_return_code": imported["return_code"],
+            "unpack_overlayfs_ms": unpack["elapsed_ms"],
+            "unpack_return_code": unpack["return_code"],
+            "export_output_tail": export["output_tail"],
+            "import_output_tail": imported["output_tail"],
+            "unpack_output_tail": unpack["output_tail"],
+            "interpretation": "The OCI archive is exported from already-cached content; import uses --no-unpack, then overlayfs unpack is timed separately. This measures cached-content unpack/snapshot preparation, not a cold network pull."}
 
 def main():
     ap = argparse.ArgumentParser()
