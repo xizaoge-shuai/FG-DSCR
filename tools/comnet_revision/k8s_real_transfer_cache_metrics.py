@@ -120,7 +120,9 @@ def choose_candidate(catalog, inventories):
             "No safe common candidate found. Need a shell-capable catalog image "
             "with a layer present on all workers and referenced by exactly one image manifest. "
             "Run --mode inventory and inspect inventory.json; no cache was changed.")
-    candidates.sort(key=lambda x: (x[0], x[1], x[3]))
+    # Among equal low-priority candidates, prefer a larger blob so that the
+    # transfer signal is measurable; the score remains the primary key.
+    candidates.sort(key=lambda x: (x[0], -x[1], x[3]))
     score, size, ref, digest, image, layer = candidates[0]
     return {"image_ref": ref, "source": image.get("source", ref),
             "layer_digest": digest, "layer_size_bytes": size,
