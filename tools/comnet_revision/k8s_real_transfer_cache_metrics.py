@@ -437,20 +437,37 @@ def measure_unpack(worker, ip, image, args, rid, out):
         imported = {"elapsed_ms": None, "return_code": -1,
                     "output_tail": "OCI export failed", "stderr": ""}
     imported_ref = ""
+    imported_manifest_digest = ""
+    imported_listing = ""
     if imported["return_code"] == 0:
-        refs = remote(worker, ip, f"sudo -n ctr -n {shlex.quote(ns)} images ls -q",
-                      args, timeout=120, check=False).stdout.splitlines()
-        imported_ref = next((x.strip() for x in refs
-                             if x.strip().startswith("local.falcons.test/probe")), "")
-        if not imported_ref and refs:
-            imported_ref = refs[0].strip()
-    if imported["return_code"] == 0 and imported_ref:
+        # Use the full tabular listing rather than quiet output. ctr versions
+        # differ in quiet-output behavior, and an empty parse must not silently
+        # turn into a synthetic return code -1.
+        imported_listing = remote(
+            worker, ip, f"sudo -n ctr -n {shlex.quote(ns)} images ls",
+            args, timeout=120, check=False).stdout
+        imported_rows = parse_image_rows(imported_listing)
+        chosen = next((r for r in imported_rows
+                       if r["ref"].startswith("local.falcons.test/probe")), None)
+        if chosen is None and imported_rows:
+            chosen = imported_rows[0]
+        if chosen:
+            imported_ref = chosen["ref"]
+            imported_manifest_digest = chosen["digest"]
+
+    if imported["return_code"] == 0 and imported_ref and imported_manifest_digest.startswith("sha256:"):
+        # unpack is a snapshots subcommand in ctr, not an images subcommand.
+        # It takes the manifest digest and asks containerd to unpack into the
+        # selected snapshotter.
         unpack = timed("falcons-unpack-overlayfs",
-            f"ctr -n {shlex.quote(ns)} images unpack --snapshotter overlayfs "
-            f"--platform linux/amd64 {shlex.quote(imported_ref)}")
+            f"ctr -n {shlex.quote(ns)} snapshots unpack --snapshotter overlayfs "
+            f"{shlex.quote(imported_manifest_digest)}")
     else:
+        details = ("no imported image reference found; images ls output: " +
+                   imported_listing[-500:] if imported["return_code"] == 0
+                   else "image import failed: " + imported["output_tail"][-500:])
         unpack = {"elapsed_ms": None, "return_code": -1,
-                  "output_tail": "no imported image reference", "stderr": ""}
+                  "output_tail": details, "stderr": ""}
     if imported_ref:
         remote(worker, ip, "sudo -n ctr -n " + shlex.quote(ns) +
                " images rm " + shlex.quote(imported_ref), args, timeout=60, check=False)
@@ -469,7 +486,10 @@ def measure_unpack(worker, ip, image, args, rid, out):
             "unpack_return_code": unpack["return_code"],
             "export_output_tail": export["output_tail"],
             "import_output_tail": imported["output_tail"],
+            "imported_image_listing": imported_listing[-1200:],
+            "imported_manifest_digest": imported_manifest_digest,
             "unpack_output_tail": unpack["output_tail"],
+            "unpack_stderr": unpack["stderr"],
             "interpretation": "The OCI archive is exported from already-cached content; import uses --no-unpack, then overlayfs unpack is timed separately. This measures cached-content unpack/snapshot preparation, not a cold network pull."}
 
 def main():
