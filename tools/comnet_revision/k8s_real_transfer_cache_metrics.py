@@ -242,7 +242,7 @@ def stop_capture(worker, ip, cap, args):
             "proxy_tcp_payload_packets": len(payloads),
             "capture_error": p.stderr[-300:] if p.returncode else ""}
 
-def evict_image_cache(worker, ip, image, args):
+def evict_image_cache(worker, ip, image, args, proxy_port=None):
     """Evict an unreferenced image through containerd metadata/GC, never unlink files."""
     image_text = remote(worker, ip, "sudo -n ctr -n k8s.io images ls", args, timeout=120).stdout
     refs = refs_to_remove(image, image_text)
@@ -284,7 +284,7 @@ def evict_image_cache(worker, ip, image, args):
         after_sizes.get(image["layer_digest"], 0) > 0):
         # Removing a tag without observing a physical blob disappearance is
         # not a successful eviction. Restore the image and abort this trial.
-        restored = restore_image(worker, ip, image, args)
+        restored = restore_image(worker, ip, image, args, proxy_port)
         raise RuntimeError(worker + ": containerd GC did not physically evict the selected layer; "
                            "image restore rc=" + str(restored.returncode) +
                            ". No direct deletion of a referenced blob was attempted.")
@@ -514,7 +514,8 @@ def main():
             try:
                 try:
                     for w in workers:
-                        evicted[w] = evict_image_cache(w,nodes[w]["ip"],target,a)
+                        evicted[w] = evict_image_cache(w,nodes[w]["ip"],target,a,
+                                                       inventories[w]["proxy_port"])
                         print("[EVICTED]",w,"refs",evicted[w]["removed_image_refs"],
                               "layers",evicted[w]["evicted_layer_count"],
                               "physical_blob_bytes",evicted[w]["evicted_blob_bytes_observed"],flush=True)
