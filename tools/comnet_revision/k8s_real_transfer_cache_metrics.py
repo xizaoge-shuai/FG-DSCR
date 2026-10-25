@@ -121,7 +121,7 @@ def refs_to_remove(image, image_text):
         ref = row["ref"]
         if ref == source_ref:
             refs.append(ref)
-        elif ref.startswith(repo + "@") and row["digest"] in digests:
+        elif row["digest"] in digests and (ref.startswith(repo + "@") or ref.startswith(repo + ":")):
             refs.append(ref)
     return sorted(set(refs))
 
@@ -242,21 +242,58 @@ def stop_capture(worker, ip, cap, args):
             "proxy_tcp_payload_packets": len(payloads),
             "capture_error": p.stderr[-300:] if p.returncode else ""}
 
-def delete_layer(worker, ip, digest, args):
-    before = remote(worker, ip,
-        f"sudo -n stat -c %s /var/lib/containerd/io.containerd.content.v1.content/blobs/sha256/{digest.split(':',1)[1]}",
-        args, check=False).stdout.strip()
-    if not before.isdigit() or int(before) <= 0:
-        raise RuntimeError(worker + ": cannot verify blob file size before eviction for " + digest)
-    remote(worker, ip, f"sudo -n ctr -n k8s.io content rm {shlex.quote(digest)}", args, timeout=60)
-    ls = remote(worker, ip, "sudo -n ctr -n k8s.io content ls", args, timeout=120).stdout
-    after = remote(worker, ip,
-        f"sudo -n stat -c %s /var/lib/containerd/io.containerd.content.v1.content/blobs/sha256/{digest.split(':',1)[1]}",
-        args, check=False).stdout.strip()
-    if digest in parse_digests(ls) or after.isdigit():
-        raise RuntimeError(worker + ": content rm did not physically remove " + digest +
-                           "; aborting without further changes")
-    return int(before)
+def evict_image_cache(worker, ip, image, args):
+    """Evict an unreferenced image through containerd metadata/GC, never unlink files."""
+    image_text = remote(worker, ip, "sudo -n ctr -n k8s.io images ls", args, timeout=120).stdout
+    refs = refs_to_remove(image, image_text)
+    if not refs:
+        raise RuntimeError(worker + ": no local image reference found for " + image["source"] +
+                           "; refusing to mutate content store")
+    layers = image.get("image_layers", [])
+    before_sizes = {x["digest"]: blob_size(worker, ip, x["digest"], args) for x in layers}
+    if before_sizes.get(image["layer_digest"], 0) <= 0:
+        raise RuntimeError(worker + ": target layer is not physically present before eviction")
+    rm_cmd = "sudo -n ctr -n k8s.io images rm " + " ".join(shlex.quote(x) for x in refs)
+    remote(worker, ip, rm_cmd, args, timeout=120)
+    deadline = time.monotonic() + 40
+    last_content = ""
+    while time.monotonic() < deadline:
+        last_content = remote(worker, ip, "sudo -n ctr -n k8s.io content ls",
+                              args, timeout=120).stdout
+        # Only ask containerd to delete a blob after its GC references have
+        # disappeared (the digest occurs only on its own content row).
+        for layer in layers:
+            d = layer["digest"]
+            if d in parse_digests(last_content) and content_ref_count(last_content, d) <= 1:
+                remote(worker, ip, "sudo -n ctr -n k8s.io content rm " + shlex.quote(d),
+                       args, timeout=60, check=False)
+        current_digests = parse_digests(remote(worker, ip,
+            "sudo -n ctr -n k8s.io content ls", args, timeout=120).stdout)
+        target_on_disk = blob_size(worker, ip, image["layer_digest"], args) > 0
+        if image["layer_digest"] not in current_digests and not target_on_disk:
+            break
+        time.sleep(2)
+    last_content = remote(worker, ip, "sudo -n ctr -n k8s.io content ls",
+                          args, timeout=120).stdout
+    after_sizes = {x["digest"]: blob_size(worker, ip, x["digest"], args) for x in layers}
+    removed = [d for d, n in before_sizes.items()
+               if n > 0 and after_sizes.get(d, 0) == 0 and
+               d not in parse_digests(last_content)]
+    if (image["layer_digest"] not in removed or
+        image["layer_digest"] in parse_digests(last_content) or
+        after_sizes.get(image["layer_digest"], 0) > 0):
+        # Removing a tag without observing a physical blob disappearance is
+        # not a successful eviction. Restore the image and abort this trial.
+        restored = restore_image(worker, ip, image, args)
+        raise RuntimeError(worker + ": containerd GC did not physically evict the selected layer; "
+                           "image restore rc=" + str(restored.returncode) +
+                           ". No direct deletion of a referenced blob was attempted.")
+    return {"removed_image_refs": refs,
+            "evicted_blob_bytes_observed": sum(before_sizes[d] for d in removed),
+            "evicted_layer_count": len(removed),
+            "evicted_layer_digests": removed,
+            "layer_bytes_before": before_sizes,
+            "layer_bytes_after": after_sizes}
 
 def pull_pods(namespace, image_ref, workers, args, rid, timeout):
     ns_obj = {"apiVersion":"v1","kind":"Namespace","metadata":{"name":namespace,
