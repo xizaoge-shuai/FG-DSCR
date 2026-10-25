@@ -95,24 +95,20 @@ def image_repo(image_ref):
 def find_existing_ref(image, image_text):
     rows = parse_image_rows(image_text)
     source_ref = normalize_source_ref(image.get("source", ""))
+    pinned_ref = image.get("image_ref", "")
     digests = {
-        image.get("index_digest", ""),
         image.get("platform_manifest_digest", ""),
-        image.get("image_ref", "").rsplit("@", 1)[-1],
+        pinned_ref.rsplit("@", 1)[-1] if "@" in pinned_ref else "",
     }
     digests.discard("")
     exact = [r["ref"] for r in rows
-             if r["ref"] == source_ref and (not digests or r["digest"] in digests)]
+             if r["ref"] == source_ref and r["digest"] in digests]
     if exact:
         return exact[0]
     by_digest = [r["ref"] for r in rows if r["digest"] in digests]
     if by_digest:
         return by_digest[0]
-    repo = source_ref.rsplit(":", 1)[0] if ":" in source_ref.rsplit("/", 1)[-1] else source_ref
-    by_repo = [r["ref"] for r in rows if r["ref"].startswith(repo)]
-    if by_repo:
-        return by_repo[0]
-    raise RuntimeError("No matching local image reference found for " + source_ref)
+    raise RuntimeError("Pinned image digest is not present locally for " + pinned_ref)
 
 def refs_to_remove(image, image_text):
     rows = parse_image_rows(image_text)
@@ -142,7 +138,10 @@ def blob_size(worker, ip, digest, args):
     return int(out) if out.isdigit() else 0
 
 def restore_image(worker, ip, image, args, proxy_port=None):
-    source_ref = normalize_source_ref(image.get("source", image["image_ref"]))
+    # Always use the immutable platform-specific manifest reference from catalog.
+    source_ref = image.get("image_ref", "")
+    if "@sha256:" not in source_ref:
+        raise RuntimeError("Refusing to pull an unpinned image: " + str(source_ref))
     env = ""
     if proxy_port:
         env = (f"HTTP_PROXY=http://127.0.0.1:{proxy_port} "
@@ -150,6 +149,52 @@ def restore_image(worker, ip, image, args, proxy_port=None):
     cmd = (f"sudo -n env {env} ctr -n k8s.io images pull "
            f"--platform linux/amd64 {shlex.quote(source_ref)}")
     return remote(worker, ip, cmd, args, timeout=900, check=False)
+
+def choose_preload_image(catalog):
+    images = catalog.get("images", [])
+    freq = Counter(layer["digest"] for im in images for layer in im.get("layers", []))
+    candidates = []
+    for im in images:
+        name = (im.get("source", "") + " " + im.get("image_ref", "")).lower()
+        if not any(token in name for token in SHELL_IMAGES):
+            continue
+        unique_layers = [x for x in im.get("layers", []) if freq[x["digest"]] == 1]
+        if unique_layers:
+            candidates.append((max(int(x["size_bytes"]) for x in unique_layers),
+                               im.get("source", ""), im))
+    if not candidates:
+        raise RuntimeError("Catalog has no shell-capable image with a catalog-unique layer")
+    candidates.sort(key=lambda x: (-x[0], x[1]))
+    return candidates[0][2]
+
+def ensure_image_present(worker, ip, image, args, proxy_port):
+    image_text = remote(worker, ip, "sudo -n ctr -n k8s.io images ls",
+                        args, timeout=120).stdout
+    content_text = remote(worker, ip, "sudo -n ctr -n k8s.io content ls",
+                          args, timeout=120).stdout
+    digests = parse_digests(content_text)
+    missing = [x for x in image.get("layers", []) if x["digest"] not in digests]
+    try:
+        find_existing_ref(image, image_text)
+        has_ref = True
+    except RuntimeError:
+        has_ref = False
+    if not has_ref or missing:
+        print("[PREPARE PULL]", worker, image["image_ref"],
+              "missing_layers", len(missing), flush=True)
+        pulled = restore_image(worker, ip, image, args, proxy_port)
+        if pulled.returncode:
+            raise RuntimeError(worker + ": pinned image pull failed: " + pulled.stderr[-800:])
+    image_text = remote(worker, ip, "sudo -n ctr -n k8s.io images ls",
+                        args, timeout=120).stdout
+    content_text = remote(worker, ip, "sudo -n ctr -n k8s.io content ls",
+                          args, timeout=120).stdout
+    find_existing_ref(image, image_text)
+    digests = parse_digests(content_text)
+    missing = [x for x in image.get("layers", []) if x["digest"] not in digests]
+    if missing:
+        raise RuntimeError(worker + ": image pull returned but layer digests remain absent: " +
+                           ", ".join(x["digest"] for x in missing))
 
 def node_inventory(worker, ip, args):
     env = remote(worker, ip,
