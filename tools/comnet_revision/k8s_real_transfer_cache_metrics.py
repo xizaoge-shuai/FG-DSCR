@@ -400,6 +400,11 @@ def measure_unpack(worker, ip, image, args, rid, out):
     else:
         unpack = {"elapsed_ms": None, "return_code": -1,
                   "output_tail": "no imported image reference", "stderr": ""}
+    if imported_ref:
+        remote(worker, ip, "sudo -n ctr -n " + shlex.quote(ns) +
+               " images rm " + shlex.quote(imported_ref), args, timeout=60, check=False)
+    remote(worker, ip, "sudo -n ctr namespaces rm " + shlex.quote(ns),
+           args, timeout=60, check=False)
     remote(worker, ip, "sudo -n rm -f " + shlex.quote(archive), args, check=False)
     return {"timestamp_utc": stamp(), "worker": worker,
             "runtime": get_nodes()[worker]["runtime"],
