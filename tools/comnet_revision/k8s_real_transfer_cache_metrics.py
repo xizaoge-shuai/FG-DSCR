@@ -281,8 +281,9 @@ def main():
         ap.error("--timeout must be 60..1200")
     if a.mode in ("contention","all") and not a.apply_eviction:
         ap.error("contention/all physically evict one test blob; pass --apply-eviction explicitly")
+    raw_ssh_targets = a.ssh_targets
     a.ssh_targets = {}
-    for entry in ap.parse_args().ssh_targets:
+    for entry in raw_ssh_targets:
         if "=" in entry:
             k,v = entry.split("=",1); a.ssh_targets[k] = v
     catalog = json.loads(pathlib.Path(a.catalog).read_text(encoding="utf-8"))
