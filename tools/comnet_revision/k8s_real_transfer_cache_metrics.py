@@ -510,26 +510,48 @@ def main():
             raise SystemExit("sudo -n failed on " + w + "; configure non-interactive sudo or run the commands manually")
         if a.mode in ("contention","all") and not inv["tcpdump"]:
             raise SystemExit("tcpdump missing on " + w + "; install tcpdump on all workers before contention measurement")
-    jsonwrite(out/"inventory.json", {w:{"ip":v["ip"],"runtime":v["runtime"],
-        "digests_present":len(v["digests"]),"tcpdump":v["tcpdump"],
-        "proxy_port":v["proxy_port"],"image_inventory_tail":v["images_text"][-2000:]}
-        for w,v in inventories.items()})
-    invrows = []
-    for w,v in inventories.items():
-        for im in catalog["images"]:
-            for layer in im.get("layers",[]):
-                invrows.append({"worker":w,"image_ref":im.get("image_ref",""),
-                    "layer_digest":layer["digest"],"compressed_bytes":layer["size_bytes"],
-                    "present":layer["digest"] in v["digests"],
-                    "content_ref_line_count":content_ref_count(v["content_text"],layer["digest"])})
-    csvwrite(out/"layer_inventory.csv",invrows)
+    def persist_inventory():
+        jsonwrite(out/"inventory.json", {w:{"ip":v["ip"],"runtime":v["runtime"],
+            "digests_present":len(v["digests"]),"tcpdump":v["tcpdump"],
+            "proxy_port":v["proxy_port"],"image_inventory_tail":v["images_text"][-2000:]}
+            for w,v in inventories.items()})
+        invrows = []
+        for w,v in inventories.items():
+            for im in catalog["images"]:
+                for layer in im.get("layers",[]):
+                    invrows.append({"worker":w,"image_ref":im.get("image_ref",""),
+                        "layer_digest":layer["digest"],"compressed_bytes":layer["size_bytes"],
+                        "present":layer["digest"] in v["digests"],
+                        "content_ref_line_count":content_ref_count(v["content_text"],layer["digest"])})
+        csvwrite(out/"layer_inventory.csv",invrows)
+
+    persist_inventory()
     print("[SAVED]",out,flush=True)
     if a.mode == "inventory":
         return 0
-    target = choose_candidate(catalog, inventories)
-    jsonwrite(out/"selected_pgdsf_layer.json", target)
-    print("[TARGET]",target["image_ref"],target["layer_digest"],
-          "bytes",target["layer_size_bytes"],"PGDSF-score-proxy",target["pgdsf_score_proxy"],flush=True)
+
+    seed = None
+    if a.mode in ("unpack","all"):
+        seed = choose_preload_image(catalog)
+        print("[PREPARE IMAGE]",seed["source"],seed["image_ref"],flush=True)
+        for w in a.workers:
+            ensure_image_present(w,nodes[w]["ip"],seed,a,inventories[w]["proxy_port"])
+        # Refresh real cache state after any pre-pull. The later candidate
+        # selector must use observed, not assumed, cache state.
+        inventories = {w:node_inventory(w,nodes[w]["ip"],a) for w in a.workers}
+        persist_inventory()
+        print("[INVENTORY REFRESHED]",out/"layer_inventory.csv",flush=True)
+
+    if a.mode == "unpack":
+        target = seed
+        print("[TARGET UNPACK]",target["image_ref"],
+              "layers",len(target.get("layers",[])),flush=True)
+    else:
+        target = choose_candidate(catalog, inventories)
+        jsonwrite(out/"selected_pgdsf_layer.json", target)
+        print("[TARGET]",target["image_ref"],target["layer_digest"],
+              "bytes",target["layer_size_bytes"],
+              "PGDSF-score-proxy",target["pgdsf_score_proxy"],flush=True)
     if a.mode in ("unpack","all"):
         unpackrows = []
         for w in a.workers:
