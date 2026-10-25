@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Measure real-node OCI transfer, unpack time, and one-layer physical eviction.
+"""Measure real-node OCI transfer, cached-content unpack, and image-level eviction.
 
-Safety: inventory/unpack are non-destructive. The contention mode deletes one
-verified, catalog-unique blob from containerd on participating workers and
-requires --apply-eviction. It refuses active Pods using the selected image.
-Host RX/TX is only contextual; tcpdump on the containerd proxy path records
-TCP payload bytes, while the catalog gives exact compressed blob bytes.
+Inventory/unpack are non-destructive. The contention mode removes image metadata
+only after checking for active Pods, then relies on containerd GC and counts a
+blob as evicted only if both content metadata and the physical file disappear.
+It never unlinks content-store files directly. Host RX/TX is contextual;
+tcpdump on the containerd proxy path records TCP payload bytes.
 """
 import argparse, csv, datetime as dt, json, pathlib, re, shlex, subprocess
 import sys, time, uuid
@@ -426,14 +426,14 @@ def main():
                     help="Optional worker=host or worker=user@host overrides")
     ap.add_argument("--mode", choices=["inventory","unpack","contention","all"], default="all")
     ap.add_argument("--apply-eviction", action="store_true",
-                    help="Required for contention/all; physically deletes one verified layer blob then checks repull")
+                    help="Required for contention/all; removes an inactive image reference, verifies containerd GC eviction, then tests repull")
     ap.add_argument("--timeout", type=int, default=240)
     ap.add_argument("--out-root", default="results/comnet_revision/k8s_real_testbed/transfer_cache_metrics")
     a = ap.parse_args()
     if a.timeout < 60 or a.timeout > 1200:
         ap.error("--timeout must be 60..1200")
     if a.mode in ("contention","all") and not a.apply_eviction:
-        ap.error("contention/all physically evict one test blob; pass --apply-eviction explicitly")
+        ap.error("contention/all performs image-cache eviction through containerd GC; pass --apply-eviction explicitly")
     raw_ssh_targets = a.ssh_targets
     a.ssh_targets = {}
     for entry in raw_ssh_targets:
