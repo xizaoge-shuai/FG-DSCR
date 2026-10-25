@@ -357,13 +357,29 @@ def main():
                 caps[w] = start_capture(w,nodes[w]["ip"],inventories[w],a,rid+f"-c{concurrency}")
             evicted = {}
             try:
-                for w in workers:
-                    evicted[w] = delete_layer(w,nodes[w]["ip"],target["layer_digest"],a)
-                    print("[EVICTED]",w,target["layer_digest"],"physical_blob_bytes",evicted[w],flush=True)
-                ns = "falcons-xfer-" + uuid.uuid4().hex[:8]
-                pods,events = pull_pods(ns,target["image_ref"],workers,a,rid+f"c{concurrency}",a.timeout)
-                jsonwrite(out/f"pods_c{concurrency}.json",pods)
-                jsonwrite(out/f"events_c{concurrency}.json",events)
+                try:
+                    for w in workers:
+                        evicted[w] = delete_layer(w,nodes[w]["ip"],target["layer_digest"],a)
+                        print("[EVICTED]",w,target["layer_digest"],"physical_blob_bytes",evicted[w],flush=True)
+                    ns = "falcons-xfer-" + uuid.uuid4().hex[:8]
+                    pods,events = pull_pods(ns,target["image_ref"],workers,a,rid+f"c{concurrency}",a.timeout)
+                    jsonwrite(out/f"pods_c{concurrency}.json",pods)
+                    jsonwrite(out/f"events_c{concurrency}.json",events)
+                    kubectl("delete","namespace",ns,"--wait=false",timeout=30)
+                except Exception:
+                    # Never leave a deliberately evicted test blob missing if a
+                    # later worker eviction or the Kubernetes pull fails.
+                    for rw in workers:
+                        current = remote(rw,nodes[rw]["ip"],
+                            "sudo -n ctr -n k8s.io content ls",a,timeout=120,check=False).stdout
+                        if target["layer_digest"] not in parse_digests(current):
+                            port = inventories[rw]["proxy_port"]
+                            env = (f"HTTP_PROXY=http://127.0.0.1:{port} HTTPS_PROXY=http://127.0.0.1:{port} " if port else "")
+                            restored = remote(rw,nodes[rw]["ip"],
+                                f"sudo -n env {env} ctr -n k8s.io images pull --skip-unpack --platform linux/amd64 {shlex.quote(target['image_ref'])}",
+                                a,timeout=900,check=False)
+                            print("[ROLLBACK RESTORE]",rw,"rc",restored.returncode,restored.stderr[-300:],flush=True)
+                    raise
             finally:
                 capture = {w:stop_capture(w,nodes[w]["ip"],caps[w],a) for w in workers}
             after_net = {w:node_network(w) for w in workers}
