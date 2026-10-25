@@ -196,8 +196,8 @@ def is_shell_image(image):
     return any(name in text for name in SHELL_FAMILIES) and bool(image.get("layers"))
 
 
-def make_plan(catalog, inventories, workers):
-    """Plan 1 + 2 + 4 unique image pulls with verified missing-layer sets."""
+def make_plan(catalog, inventories, workers, min_missing_bytes, max_missing_bytes, target_missing_bytes):
+    """Plan 1 + 2 + 4 pulls with a bounded, comparable missing-layer byte range."""
     used_refs = set()
     used_layers_by_worker = {w: set() for w in workers}
     plan = {}
@@ -205,8 +205,7 @@ def make_plan(catalog, inventories, workers):
         slots = []
         for worker in workers[:concurrency]:
             inv = inventories[worker]
-            chosen = None
-            chosen_missing = []
+            candidates = []
             for image in catalog.get("images", []):
                 ref = image.get("image_ref", "")
                 manifest_digests = {
@@ -230,24 +229,28 @@ def make_plan(catalog, inventories, workers):
                     d for d in layers
                     if d not in inv["content_digests"] and d not in inv["blob_sizes"]
                 ]
-                if not missing:
+                if not missing or set(missing) & used_layers_by_worker[worker]:
                     continue
-                if set(missing) & used_layers_by_worker[worker]:
+                layer_sizes = {x["digest"]: int(x["size_bytes"]) for x in image["layers"]}
+                missing_bytes = sum(layer_sizes[d] for d in missing)
+                if not min_missing_bytes <= missing_bytes <= max_missing_bytes:
                     continue
-                chosen = image
-                chosen_missing = missing
-                break
-            if chosen is None:
+                candidates.append((
+                    abs(missing_bytes - target_missing_bytes),
+                    missing_bytes, image, missing, layer_sizes,
+                ))
+            if not candidates:
                 raise RuntimeError(
-                    "Preflight found too few image references with missing compressed "
-                    "layers for concurrency 1/2/4 without reusing a missing layer on "
-                    "the same worker. No Pod has been created and no cache was changed. "
-                    "Audit a larger OCI catalog, then rerun. Worker needing a candidate: "
-                    + worker
+                    "Preflight found no unused image with missing-layer bytes in the "
+                    f"configured range [{min_missing_bytes}, {max_missing_bytes}] on "
+                    f"{worker}. No Pod has been created and no cache was changed. "
+                    "Audit more image references or widen the range deliberately."
                 )
+            _, missing_bytes, chosen, chosen_missing, layer_sizes = min(
+                candidates, key=lambda x: (x[0], x[1], x[2].get("image_ref", ""))
+            )
             used_refs.add(chosen["image_ref"])
             used_layers_by_worker[worker].update(chosen_missing)
-            layer_sizes = {x["digest"]: int(x["size_bytes"]) for x in chosen["layers"]}
             slots.append({
                 "worker": worker, "image_ref": chosen["image_ref"],
                 "source": chosen.get("source", ""),
@@ -256,7 +259,7 @@ def make_plan(catalog, inventories, workers):
                 "preexisting_layer_count": len(chosen["layers"]) - len(chosen_missing),
                 "missing_layer_count": len(chosen_missing),
                 "compressed_layer_bytes": sum(layer_sizes.values()),
-                "missing_layer_bytes": sum(layer_sizes[d] for d in chosen_missing),
+                "missing_layer_bytes": missing_bytes,
                 "layer_digests": [x["digest"] for x in chosen["layers"]],
                 "missing_layer_digests": chosen_missing,
             })
@@ -466,11 +469,19 @@ def main():
     ap.add_argument("--ssh-targets", nargs="*", default=[],
                     help="Optional worker=host or worker=user@host overrides")
     ap.add_argument("--timeout", type=int, default=300)
+    ap.add_argument("--min-missing-mib", type=float, default=8.0,
+                    help="Minimum expected missing compressed-layer bytes per Pod (MiB)")
+    ap.add_argument("--max-missing-mib", type=float, default=60.0,
+                    help="Maximum expected missing compressed-layer bytes per Pod (MiB)")
+    ap.add_argument("--target-missing-mib", type=float, default=25.0,
+                    help="Planner chooses eligible images closest to this missing-layer size")
     ap.add_argument("--out-root",
                     default="results/comnet_revision/k8s_real_testbed/registry_contention")
     a = ap.parse_args()
     if a.timeout < 60 or a.timeout > 1200:
         ap.error("--timeout must be 60..1200")
+    if not (0 < a.min_missing_mib <= a.target_missing_mib <= a.max_missing_mib):
+        ap.error("Require 0 < --min-missing-mib <= --target-missing-mib <= --max-missing-mib")
     if len(a.workers) < 4:
         ap.error("At least four workers are required for the 1/2/4 concurrency plan")
     a.ssh_targets = {
@@ -513,7 +524,12 @@ def main():
         } for w, inv in inventories.items()
     })
 
-    plan = make_plan(catalog, inventories, a.workers)
+    plan = make_plan(
+        catalog, inventories, a.workers,
+        int(a.min_missing_mib * 1024 * 1024),
+        int(a.max_missing_mib * 1024 * 1024),
+        int(a.target_missing_mib * 1024 * 1024),
+    )
     write_json(root / "plan.json", plan)
     print("[PREFLIGHT PASS] planned unique, uncached image pulls for concurrency 1/2/4",
           flush=True)
@@ -562,7 +578,12 @@ def main():
         "levels": [1, 2, 4], "repetitions_per_level": 1,
         "cache_precondition": "each selected image is checked before any Pods are created; missing layer digests are absent from containerd content records and physical blob paths; only those missing layers are counted as expected transfer bytes; missing layer digests are not reused on the same worker across levels",
         "capture": "tcpdump on worker loopback proxy response direction; TCP payload includes registry protocol/TLS overhead and is not identical to compressed layer bytes",
-        "limitation": "different immutable image references are used at each slot to avoid destructive eviction; some layers may already be cached, so compare observed proxy payload against expected missing-layer bytes and repeat with a fresh catalog for statistical confidence",
+        "load_matching": {
+            "min_missing_layer_MiB_per_pod": a.min_missing_mib,
+            "target_missing_layer_MiB_per_pod": a.target_missing_mib,
+            "max_missing_layer_MiB_per_pod": a.max_missing_mib,
+        },
+        "limitation": "different immutable image references are used at each slot to avoid destructive eviction; each selected Pod is constrained to a bounded expected missing-layer size, but image contents and nodes still differ. Report per-Pod duration and normalize observed proxy payload by expected missing-layer bytes; this is not a perfectly identical-payload trial.",
         "output_dir": str(root),
     })
     print("[SAVED]", root, flush=True)
