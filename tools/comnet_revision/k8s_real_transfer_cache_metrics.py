@@ -182,8 +182,6 @@ def delete_layer(worker, ip, digest, args):
 def pull_pods(namespace, image_ref, workers, args, rid, timeout):
     ns_obj = {"apiVersion":"v1","kind":"Namespace","metadata":{"name":namespace,
         "labels":{"app.kubernetes.io/part-of":"falcons-transfer-metrics"}}}
-    kubectl("create", "-f", "-", timeout=30) if False else None
-    call(["kubectl", "create", "-f", "-"], timeout=30, check=False)
     # Create the namespace through JSON stdin.
     p = subprocess.run(["kubectl", "create", "-f", "-"], input=json.dumps(ns_obj),
         text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30)
@@ -238,6 +236,7 @@ def parse_pull_seconds(message):
 
 def measure_unpack(worker, ip, image_ref, args, rid, out):
     ns = f"falcons-metrics-{rid[:6]}-{worker[-2:]}"
+    remote(worker, ip, f"sudo -n ctr namespaces create {shlex.quote(ns)}", args, check=False)
     inv = remote(worker, ip, "sudo -n systemctl show containerd -p Environment --value", args).stdout
     m = re.search(r"(?:HTTP|HTTPS)_PROXY=(?:http://)?127\.0\.0\.1:(\d+)", inv, re.I)
     proxy = m.group(1) if m else ""
@@ -375,12 +374,13 @@ def main():
             event_items = events.get("items",[])
             for w in workers:
                 phase = pod_by_node.get(w,{}).get("status",{}).get("phase","Missing")
+                pod_name = pod_by_node.get(w,{}).get("metadata",{}).get("name","")
                 durations = [parse_pull_seconds(e.get("message","")) for e in event_items
                     if e.get("reason") == "Pulled" and
-                    (w in e.get("message","") or target["image_ref"] in e.get("message",""))]
+                    e.get("involvedObject",{}).get("name") == pod_name]
                 durations = [x for x in durations if x is not None]
-                present_after = target["layer_digest"] in remote(w,nodes[w]["ip"],
-                    "sudo -n ctr -n k8s.io content ls",a,timeout=120).stdout
+                present_after = target["layer_digest"] in parse_digests(remote(w,nodes[w]["ip"],
+                    "sudo -n ctr -n k8s.io content ls",a,timeout=120).stdout)
                 rx0,rx1 = before_net[w]["rx"],after_net[w]["rx"]
                 tx0,tx1 = before_net[w]["tx"],after_net[w]["tx"]
                 rows.append({"timestamp_utc":stamp(),"concurrency":concurrency,"worker":w,
