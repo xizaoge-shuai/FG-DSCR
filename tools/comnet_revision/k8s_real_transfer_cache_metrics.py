@@ -341,13 +341,15 @@ def main():
         jsonwrite(out/"decompression_metrics.json",unpackrows)
     if a.mode in ("contention","all"):
         active = json.loads(kubectl("get","pods","-A","-o","json"))
+        target_manifest_digest = target["image_ref"].rsplit("@",1)[-1]
         for p in active.get("items",[]):
             phase = p.get("status",{}).get("phase","")
             if phase not in ("Pending","Running"):
                 continue
             refs = [c.get("image","") for c in p.get("spec",{}).get("containers",[])]
             ids = [c.get("imageID","") for c in p.get("status",{}).get("containerStatuses",[])]
-            if target["image_ref"] in refs or any(target["layer_digest"] in x for x in ids):
+            if (target["image_ref"] in refs or
+                any(target_manifest_digest in x for x in ids)):
                 raise SystemExit("Active Pod may use target image/layer; refusing physical eviction: " +
                                  p["metadata"]["namespace"] + "/" + p["metadata"]["name"])
         rows = []
