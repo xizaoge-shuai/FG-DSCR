@@ -476,25 +476,31 @@ def main():
         unpackrows = []
         for w in a.workers:
             print("[UNPACK]",w,flush=True)
-            row = measure_unpack(w,nodes[w]["ip"],target["image_ref"],a,rid,out)
+            row = measure_unpack(w,nodes[w]["ip"],target,a,rid,out)
             unpackrows.append(row)
-            print("  pull_skip_unpack_ms",row["pull_skip_unpack_ms"],
+            print("  archive_export_ms",row["archive_export_ms"],
+                  "import_no_unpack_ms",row["import_no_unpack_ms"],
                   "unpack_overlayfs_ms",row["unpack_overlayfs_ms"],
-                  "rc",row["pull_return_code"],row["unpack_return_code"],flush=True)
+                  "rc",row["archive_export_return_code"],row["import_return_code"],
+                  row["unpack_return_code"],flush=True)
         csvwrite(out/"decompression_metrics.csv",unpackrows)
         jsonwrite(out/"decompression_metrics.json",unpackrows)
     if a.mode in ("contention","all"):
         active = json.loads(kubectl("get","pods","-A","-o","json"))
-        target_manifest_digest = target["image_ref"].rsplit("@",1)[-1]
+        source_ref = normalize_source_ref(target.get("source", target["image_ref"]))
+        target_digests = {target.get("index_digest", ""),
+                          target.get("platform_manifest_digest", ""),
+                          target["image_ref"].rsplit("@",1)[-1]}
+        target_digests.discard("")
         for p in active.get("items",[]):
             phase = p.get("status",{}).get("phase","")
             if phase not in ("Pending","Running"):
                 continue
             refs = [c.get("image","") for c in p.get("spec",{}).get("containers",[])]
             ids = [c.get("imageID","") for c in p.get("status",{}).get("containerStatuses",[])]
-            if (target["image_ref"] in refs or
-                any(target_manifest_digest in x for x in ids)):
-                raise SystemExit("Active Pod may use target image/layer; refusing physical eviction: " +
+            if (target["image_ref"] in refs or source_ref in refs or
+                any(any(d in x for d in target_digests) for x in ids)):
+                raise SystemExit("Active Pod may use target image; refusing image-cache eviction: " +
                                  p["metadata"]["namespace"] + "/" + p["metadata"]["name"])
         rows = []
         for concurrency in (1,2,4):
@@ -508,8 +514,10 @@ def main():
             try:
                 try:
                     for w in workers:
-                        evicted[w] = delete_layer(w,nodes[w]["ip"],target["layer_digest"],a)
-                        print("[EVICTED]",w,target["layer_digest"],"physical_blob_bytes",evicted[w],flush=True)
+                        evicted[w] = evict_image_cache(w,nodes[w]["ip"],target,a)
+                        print("[EVICTED]",w,"refs",evicted[w]["removed_image_refs"],
+                              "layers",evicted[w]["evicted_layer_count"],
+                              "physical_blob_bytes",evicted[w]["evicted_blob_bytes_observed"],flush=True)
                     ns = "falcons-xfer-" + uuid.uuid4().hex[:8]
                     pods,events = pull_pods(ns,target["image_ref"],workers,a,rid+f"c{concurrency}",a.timeout)
                     jsonwrite(out/f"pods_c{concurrency}.json",pods)
@@ -521,13 +529,15 @@ def main():
                     for rw in workers:
                         current = remote(rw,nodes[rw]["ip"],
                             "sudo -n ctr -n k8s.io content ls",a,timeout=120,check=False).stdout
-                        if target["layer_digest"] not in parse_digests(current):
-                            port = inventories[rw]["proxy_port"]
-                            env = (f"HTTP_PROXY=http://127.0.0.1:{port} HTTPS_PROXY=http://127.0.0.1:{port} " if port else "")
-                            restored = remote(rw,nodes[rw]["ip"],
-                                f"sudo -n env {env} ctr -n k8s.io images pull --skip-unpack --platform linux/amd64 {shlex.quote(target['image_ref'])}",
-                                a,timeout=900,check=False)
-                            print("[ROLLBACK RESTORE]",rw,"rc",restored.returncode,restored.stderr[-300:],flush=True)
+                        image_text = remote(rw,nodes[rw]["ip"],
+                            "sudo -n ctr -n k8s.io images ls",a,timeout=120,check=False).stdout
+                        local_refs = {x["ref"] for x in parse_image_rows(image_text)}
+                        if (target["layer_digest"] not in parse_digests(current) or
+                            normalize_source_ref(target.get("source", target["image_ref"])) not in local_refs):
+                            restored = restore_image(rw,nodes[rw]["ip"],target,a,
+                                                     inventories[rw]["proxy_port"])
+                            print("[ROLLBACK RESTORE]",rw,"rc",restored.returncode,
+                                  restored.stderr[-300:],flush=True)
                     raise
             finally:
                 capture = {w:stop_capture(w,nodes[w]["ip"],caps[w],a) for w in workers}
@@ -544,28 +554,34 @@ def main():
                     if e.get("reason") == "Pulled" and
                     e.get("involvedObject",{}).get("name") == pod_name]
                 durations = [x for x in durations if x is not None]
-                present_after = target["layer_digest"] in parse_digests(remote(w,nodes[w]["ip"],
-                    "sudo -n ctr -n k8s.io content ls",a,timeout=120).stdout)
+                content_after = remote(w,nodes[w]["ip"],
+                    "sudo -n ctr -n k8s.io content ls",a,timeout=120).stdout
+                present_after = target["layer_digest"] in parse_digests(content_after)
+                all_layers_after = all(x["digest"] in parse_digests(content_after)
+                                       for x in target.get("image_layers", []))
                 rx0,rx1 = before_net[w]["rx"],after_net[w]["rx"]
                 tx0,tx1 = before_net[w]["tx"],after_net[w]["tx"]
+                er = evicted.get(w, {})
                 rows.append({"timestamp_utc":stamp(),"concurrency":concurrency,"worker":w,
                     "runtime":nodes[w]["runtime"],"image_ref":target["image_ref"],
                     "evicted_layer_digest":target["layer_digest"],
-                    "evicted_blob_bytes_observed":evicted.get(w),
+                    "evicted_blob_bytes_observed":er.get("evicted_blob_bytes_observed"),
+                    "evicted_layer_count":er.get("evicted_layer_count"),
+                    "evicted_layer_digests":json.dumps(er.get("evicted_layer_digests", [])),
+                    "removed_image_refs":json.dumps(er.get("removed_image_refs", [])),
                     "catalog_compressed_layer_bytes":target["layer_size_bytes"],
-                    "blob_restored_after_pull":present_after,"pod_phase":phase,
+                    "blob_restored_after_pull":present_after,
+                    "all_image_layers_restored_after_pull":all_layers_after,
+                    "pod_phase":phase,
                     "host_rx_delta_bytes_NOT_OCI":(rx1-rx0) if isinstance(rx0,int) and isinstance(rx1,int) else None,
                     "host_tx_delta_bytes_NOT_OCI":(tx1-tx0) if isinstance(tx0,int) and isinstance(tx1,int) else None,
                     **capture[w],
                     "pull_duration_event_s":durations[0] if durations else None,
-                    "interpretation":"proxy TCP payload is measured on local proxy response path and includes protocol overhead; host RX/TX is unattributed background-inclusive traffic"})
-                if not present_after:
-                    print("[WARN] layer not restored after pull on",w,"attempting explicit restore",flush=True)
-                    port = inventories[w]["proxy_port"]
-                    env = (f"HTTP_PROXY=http://127.0.0.1:{port} HTTPS_PROXY=http://127.0.0.1:{port} " if port else "")
-                    restore = remote(w,nodes[w]["ip"],
-                        f"sudo -n env {env} ctr -n k8s.io images pull --skip-unpack --platform linux/amd64 {shlex.quote(target['image_ref'])}",
-                        a,timeout=900,check=False)
+                    "interpretation":"Containerd image metadata was removed and only GC-unreferenced blobs confirmed absent are counted; this is image-level eviction constrained by OCI references, not native PGDSF. Proxy TCP payload includes protocol overhead; host RX/TX includes background traffic."})
+                if not present_after or not all_layers_after:
+                    print("[WARN] image layers not all restored after Kubernetes pull on",w,
+                          "attempting explicit restore",flush=True)
+                    restore = restore_image(w,nodes[w]["ip"],target,a,inventories[w]["proxy_port"])
                     print("[RESTORE]",w,"rc",restore.returncode,restore.stderr[-200:],flush=True)
         csvwrite(out/"transfer_contention_metrics.csv",rows)
         jsonwrite(out/"transfer_contention_metrics.json",rows)
@@ -574,7 +590,7 @@ def main():
         "workers":a.workers,"catalog":a.catalog,"target":target if a.mode!="inventory" else None,
         "limitations":["Node RX/TX deltas are not registry-only bytes.",
         "Proxy TCP payload counts response payload on the configured proxy loopback path and includes TLS/HTTP protocol overhead.",
-        "Physical eviction is a one-layer mechanism validation, not evidence that containerd natively implements PGDSF.",
+        "Eviction removes image references and relies on containerd GC; only blobs confirmed physically absent are counted. This is image-level eviction constrained by OCI manifest references, not a native PGDSF layer-cache implementation.",
         "PGDSF score is a catalog-derived proxy because live scheduler history/future-slot state is not observable here."]})
     return 0
 
