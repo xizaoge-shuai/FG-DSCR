@@ -751,4 +751,30 @@ class KeepOptimizer:
             key=lambda x: x[0],
         )
 
-        return set(chosen)
+        # CIDER_KEEP_FILL_SLACK_20261114
+        # Secondary retention: use genuinely unused
+        # physical capacity without evicting DP choices.
+        selected = set(chosen)
+
+        free_mb = float(capacity_mb) - sum(
+            float(sizes[layer])
+            for layer in selected
+        )
+
+        remaining = sorted(
+            set(candidate_layers) - selected,
+            key=lambda layer: (
+                -float(self.p_hat.get(layer, 0.0)),
+                float(sizes[layer]),
+                str(layer),
+            ),
+        )
+
+        for layer in remaining:
+            layer_size = float(sizes[layer])
+
+            if layer_size <= free_mb + EPS:
+                selected.add(layer)
+                free_mb -= layer_size
+
+        return selected
