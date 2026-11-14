@@ -22,15 +22,12 @@ The first stage assigns containers to edge nodes. It considers:
 
 - image-layer reuse potential;
 - pulling cost;
-- resource fragmentation;
+- resource fragmentation; 
 - node load balance;
 - affinity among containers sharing common layers.
 
-The full method is named:
-
-
-FG-DSCR-GC
-
+The full method is named·
+FG-DSCR-G
 which means:
 
 Fragmentation-aware Game for Dynamic State-aware Cache Reuse with Greedy initialization and Cache-aware ordering

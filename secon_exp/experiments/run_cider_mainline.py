@@ -1,0 +1,659 @@
+from __future__ import annotations
+
+import argparse
+import csv
+import json
+import time
+from collections import Counter
+from pathlib import Path
+
+from secon_exp.network.topology import EdgeTopology
+from secon_exp.adapters.fg_dscr_adapter import FGDSCRAdapter
+from secon_exp.cider_simulator import simulate_cider
+
+
+FIELDS = [
+    "case",
+    "num_nodes",
+    "num_domains",
+    "seed",
+    "wan_mb_s",
+    "ablation",
+
+    "accepted",
+    "excluded",
+
+    "mean_ready_s",
+    "p95_ready_s",
+    "makespan_s",
+
+    "registry_mb",
+    "peer_mb",
+    "same_domain_peer_mb",
+    "cross_domain_peer_mb",
+    "p2p_offload_pct",
+
+    "peak_link_utilization",
+    "p95_link_utilization",
+    "wan_busy_time_s",
+    "avg_layer_transfer_s",
+
+    "evicted_mb",
+    "not_preserved_mb",
+
+    "pulse_ms",
+    "scout_ms",
+    "keep_ms",
+    "scheduler_runtime_ms",
+
+    "scheduling_cycles",
+    "pulse_selected_total",
+    "keep_virtual_queue",
+
+    "wall_runtime_s",
+    "keep_retained_new_pairs",
+    "keep_reused_retained_pairs",
+    "keep_retained_reuse_pct",
+    "keep_rejected_pairs",
+    "keep_rejected_then_needed",
+    "keep_rejected_needed_pct",
+]
+
+
+def main():
+    ap = argparse.ArgumentParser()
+
+    ap.add_argument(
+        "--state-root",
+        required=True,
+    )
+
+    ap.add_argument(
+        "--cases",
+        nargs="+",
+        required=True,
+    )
+
+    # 固定数据划分，不做 seed sweep
+    ap.add_argument(
+        "--seed",
+        type=int,
+        default=1,
+    )
+
+    ap.add_argument(
+        "--wan",
+        type=float,
+        default=10.0,
+    )
+
+    ap.add_argument(
+        "--core-capacity",
+        type=float,
+        default=1000.0,
+    )
+
+    ap.add_argument(
+        "--domain-capacity",
+        type=float,
+        default=300.0,
+    )
+
+    ap.add_argument(
+        "--access-capacity",
+        type=float,
+        default=200.0,
+    )
+
+    ap.add_argument(
+        "--peer-upload",
+        type=float,
+        default=100.0,
+    )
+
+    # PULSE
+    ap.add_argument(
+        "--pulse-budget-mb",
+        type=float,
+        default=2048.0,
+    )
+
+    ap.add_argument(
+        "--pulse-max-transfers",
+        type=int,
+        default=0,
+    )
+
+    ap.add_argument(
+        "--pulse-refill-ratio",
+        type=float,
+        default=0.50,
+        help=(
+            "Trigger a new PULSE epoch when this "
+            "fraction of global transfer slots is free."
+        ),
+    )
+
+    # SCOUT
+    ap.add_argument(
+        "--scout-alpha",
+        type=float,
+        default=1.0,
+    )
+
+    ap.add_argument(
+        "--scout-beta",
+        type=float,
+        default=1.0,
+    )
+
+    ap.add_argument(
+        "--scout-gamma",
+        type=float,
+        default=0.5,
+    )
+
+    ap.add_argument(
+        "--scout-source-concurrency",
+        type=int,
+        default=0,
+    )
+
+    # Controlled component ablation.
+    ap.add_argument(
+        "--ablation",
+        choices=(
+            "full",
+            "no_pulse",
+            "no_scout",
+            "no_keep",
+        ),
+        default="full",
+    )
+
+    # KEEP
+    ap.add_argument(
+        "--keep-v",
+        type=float,
+        default=1.0,
+    )
+
+    ap.add_argument(
+        "--keep-upper-budget-mb-s",
+        type=float,
+        default=None,
+        help=(
+            "Absolute long-term upper-network "
+            "traffic budget in MB/s. "
+            "When set, it is independent of "
+            "WAN capacity."
+        ),
+    )
+
+    ap.add_argument(
+        "--keep-upper-budget-ratio",
+        "--keep-registry-budget-ratio",
+        dest="keep_upper_budget_ratio",
+        type=float,
+        default=0.30,
+        help=(
+            "Long-term upper-network traffic budget "
+            "(Registry + cross-domain peer) "
+            "as a fraction of WAN capacity. "
+            "The old --keep-registry-budget-ratio "
+            "name is retained as a compatibility alias."
+        ),
+    )
+
+    ap.add_argument(
+        "--out",
+        required=True,
+    )
+
+    
+    ap.add_argument(
+        "--registry-latency-ms",
+        type=float,
+        default=40.0,
+    )
+
+    ap.add_argument(
+        "--inter-domain-latency-ms",
+        type=float,
+        default=10.0,
+    )
+
+    ap.add_argument(
+        "--intra-domain-latency-ms",
+        type=float,
+        default=2.0,
+    )
+
+    args = ap.parse_args()
+
+    adapter = FGDSCRAdapter(
+        "scripts/fg_dscr_incremental.py"
+    )
+
+    state_root = Path(
+        args.state_root
+    )
+
+    if (
+        state_root / "states"
+    ).is_dir():
+        state_root = (
+            state_root / "states"
+        )
+
+    out = Path(args.out)
+
+    out.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    raw_path = (
+        out / "raw.csv"
+    )
+
+    rows = []
+
+    for case_path in args.cases:
+
+        case_name = (
+            Path(case_path).stem
+        )
+
+        state_path = (
+            state_root
+            / (
+                f"{case_name}"
+                f"__seed{args.seed}.json"
+            )
+        )
+
+        if not state_path.exists():
+            raise FileNotFoundError(
+                f"Missing state: "
+                f"{state_path}"
+            )
+
+        state = json.loads(
+            state_path.read_text(
+                encoding="utf-8"
+            )
+        )
+
+        case = state[
+            "target_case"
+        ]
+
+        placement = state[
+            "placement"
+        ]
+
+        # KEEP 的 p_hat 只能使用 warmup/history，
+        # 不能读取 target future workload。
+        original_case = json.loads(
+            Path(
+                state["case"]
+            ).read_text(
+                encoding="utf-8"
+            )
+        )
+
+        warm_case, _ = (
+            adapter.split_windows(
+                original_case,
+                warmup_fraction=0.5,
+                seed=args.seed,
+            )
+        )
+
+        history_count = Counter()
+
+        for container in warm_case[
+            "containers"
+        ]:
+            for layer in set(
+                container["layers"]
+            ):
+                history_count[
+                    layer
+                ] += 1
+
+        history_total = max(
+            1,
+            sum(
+                history_count.values()
+            ),
+        )
+
+        history_probability = {
+            layer: (
+                count
+                / history_total
+            )
+            for layer, count
+            in history_count.items()
+        }
+
+        num_nodes = int(
+            state["num_nodes"]
+        )
+
+        num_domains = int(
+            state["num_domains"]
+        )
+
+        topology = EdgeTopology(
+            nodes=case["nodes"],
+            num_domains=(
+                num_domains
+            ),
+
+            wan_capacity=args.wan,
+
+            core_capacity=(
+                args.core_capacity
+            ),
+
+            domain_capacity=(
+                args.domain_capacity
+            ),
+
+            access_capacity=(
+                args.access_capacity
+            ),
+
+            peer_upload_capacity=(
+                args.peer_upload
+            ),
+
+            registry_latency_ms=args.registry_latency_ms,
+            inter_domain_latency_ms=args.inter_domain_latency_ms,
+            intra_domain_latency_ms=args.intra_domain_latency_ms,
+        )
+
+        print()
+        print(
+            "=" * 80
+        )
+
+        print(
+            f"CIDER N={num_nodes} "
+            f"domains={num_domains} "
+            f"WAN={args.wan:g} "
+            f"ablation={args.ablation}"
+        )
+
+        print(
+            "=" * 80,
+            flush=True,
+        )
+
+        t0 = time.perf_counter()
+
+        result = simulate_cider(
+            case=case,
+            placement=placement,
+            topology=topology,
+            history_probability=(
+                history_probability
+            ),
+
+            pulse_budget_mb=(
+                args.pulse_budget_mb
+            ),
+
+            pulse_max_transfers=(
+                args.pulse_max_transfers
+            ),
+
+            pulse_refill_ratio=(
+                args.pulse_refill_ratio
+            ),
+
+            scout_alpha=(
+                args.scout_alpha
+            ),
+
+            scout_beta=(
+                args.scout_beta
+            ),
+
+            scout_gamma=(
+                args.scout_gamma
+            ),
+
+            scout_source_concurrency=(
+                args
+                .scout_source_concurrency
+            ),
+
+            keep_v=(
+                args.keep_v
+            ),
+
+            keep_upper_budget_rate_mb_s=(
+                args.keep_upper_budget_mb_s
+                if (
+                    args.keep_upper_budget_mb_s
+                    is not None
+                )
+                else (
+                    args.wan
+                    * args.keep_upper_budget_ratio
+                )
+            ),
+
+            ablation=(
+                args.ablation
+            ),
+        )
+
+        wall_runtime = (
+            time.perf_counter()
+            - t0
+        )
+
+        row = {
+            "case": case_name,
+            "num_nodes": num_nodes,
+            "num_domains": (
+                num_domains
+            ),
+            "seed": args.seed,
+            "wan_mb_s": args.wan,
+            "ablation": args.ablation,
+
+            "accepted": (
+                result["accepted"]
+            ),
+            "excluded": (
+                result["excluded"]
+            ),
+
+            "mean_ready_s": (
+                result[
+                    "mean_ready_s"
+                ]
+            ),
+            "p95_ready_s": (
+                result[
+                    "p95_ready_s"
+                ]
+            ),
+            "makespan_s": (
+                result[
+                    "makespan_s"
+                ]
+            ),
+
+            "registry_mb": (
+                result[
+                    "registry_mb"
+                ]
+            ),
+            "peer_mb": (
+                result[
+                    "peer_mb"
+                ]
+            ),
+            "same_domain_peer_mb": (
+                result[
+                    "same_domain_peer_mb"
+                ]
+            ),
+            "cross_domain_peer_mb": (
+                result[
+                    "cross_domain_peer_mb"
+                ]
+            ),
+            "p2p_offload_pct": (
+                result[
+                    "p2p_offload_pct"
+                ]
+            ),
+
+            "peak_link_utilization": (
+                result[
+                    "peak_link_utilization"
+                ]
+            ),
+            "p95_link_utilization": (
+                result[
+                    "p95_link_utilization"
+                ]
+            ),
+            "wan_busy_time_s": (
+                result[
+                    "wan_busy_time_s"
+                ]
+            ),
+            "avg_layer_transfer_s": (
+                result[
+                    "avg_layer_transfer_s"
+                ]
+            ),
+
+            "evicted_mb": (
+                result[
+                    "evicted_mb"
+                ]
+            ),
+            "not_preserved_mb": (
+                result[
+                    "not_preserved_mb"
+                ]
+            ),
+
+            "keep_retained_new_pairs": (
+                result[
+                    "keep_retained_new_pairs"
+                ]
+            ),
+
+            "keep_reused_retained_pairs": (
+                result[
+                    "keep_reused_retained_pairs"
+                ]
+            ),
+
+            "keep_retained_reuse_pct": (
+                result[
+                    "keep_retained_reuse_pct"
+                ]
+            ),
+
+            "keep_rejected_pairs": (
+                result[
+                    "keep_rejected_pairs"
+                ]
+            ),
+
+            "keep_rejected_then_needed": (
+                result[
+                    "keep_rejected_then_needed"
+                ]
+            ),
+
+            "keep_rejected_needed_pct": (
+                result[
+                    "keep_rejected_needed_pct"
+                ]
+            ),
+
+            "pulse_ms": (
+                result["pulse_ms"]
+            ),
+            "scout_ms": (
+                result["scout_ms"]
+            ),
+            "keep_ms": (
+                result["keep_ms"]
+            ),
+            "scheduler_runtime_ms": (
+                result[
+                    "scheduler_runtime_ms"
+                ]
+            ),
+
+            "scheduling_cycles": (
+                result[
+                    "scheduling_cycles"
+                ]
+            ),
+            "pulse_selected_total": (
+                result[
+                    "pulse_selected_total"
+                ]
+            ),
+            "keep_virtual_queue": (
+                result[
+                    "keep_virtual_queue"
+                ]
+            ),
+
+            "wall_runtime_s": (
+                wall_runtime
+            ),
+        }
+
+        rows.append(row)
+
+        print(
+            f"mean={row['mean_ready_s']:.2f}s "
+            f"p95={row['p95_ready_s']:.2f}s "
+            f"registry={row['registry_mb']:.0f}MB "
+            f"peer={row['peer_mb']:.0f}MB "
+            f"cross={row['cross_domain_peer_mb']:.0f}MB "
+            f"offload={row['p2p_offload_pct']:.1f}% "
+            f"scheduler={row['scheduler_runtime_ms']:.2f}ms",
+            flush=True,
+        )
+
+    with raw_path.open(
+        "w",
+        newline="",
+        encoding="utf-8",
+    ) as f:
+
+        writer = csv.DictWriter(
+            f,
+            fieldnames=FIELDS,
+        )
+
+        writer.writeheader()
+        writer.writerows(rows)
+
+    print()
+    print(
+        "Saved:",
+        raw_path.resolve(),
+    )
+
+
+if __name__ == "__main__":
+    main()

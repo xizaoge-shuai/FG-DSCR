@@ -1,0 +1,1655 @@
+from __future__ import annotations
+
+import math
+import statistics
+from collections import Counter
+from typing import Dict, List, Tuple
+
+from secon_exp.network.topology import EdgeTopology
+from secon_exp.simulator import fair_rates
+
+
+EPS = 1e-9
+
+
+def percentile(values, q):
+    if not values:
+        return 0.0
+
+    xs = sorted(values)
+
+    if len(xs) == 1:
+        return xs[0]
+
+    pos = (len(xs) - 1) * q
+    lo = int(math.floor(pos))
+    hi = int(math.ceil(pos))
+
+    if lo == hi:
+        return xs[lo]
+
+    frac = pos - lo
+
+    return (
+        xs[lo] * (1.0 - frac)
+        + xs[hi] * frac
+    )
+
+
+def weighted_percentile(samples, q):
+    """
+    samples:
+        [(value, duration), ...]
+
+    用事件区间持续时间作为权重计算百分位。
+    """
+    samples = [
+        (float(v), float(w))
+        for v, w in samples
+        if w > EPS
+    ]
+
+    if not samples:
+        return 0.0
+
+    samples.sort(
+        key=lambda x: x[0]
+    )
+
+    total = sum(
+        w for _, w in samples
+    )
+
+    target = total * q
+    acc = 0.0
+
+    for value, weight in samples:
+        acc += weight
+
+        if acc + EPS >= target:
+            return value
+
+    return samples[-1][0]
+
+
+def simulate_v2(
+    case,
+    placement,
+    policy,
+    topology: EdgeTopology,
+):
+    """
+    Topology-aware event-driven image-layer delivery simulator.
+
+    主要区别：
+    1. Registry 和 P2P 流使用真实多跳路径；
+    2. 所有 flow 在路径上的共享链路竞争容量；
+    3. 跟踪跨域流量、WAN 流量、链路利用率；
+    4. 保持和旧 simulator 一样的：
+       - delivered state
+       - reusable relay cache
+       - one-download-per-destination
+       - max-min fair bandwidth sharing
+    """
+
+    sizes = {
+        str(k): float(v)
+        for k, v in case[
+            "layer_sizes_mb"
+        ].items()
+    }
+
+    nodes = {
+        n["eid"]: n
+        for n in case["nodes"]
+    }
+
+    containers = {
+        c["cid"]: c
+        for c in case[
+            "containers"
+        ]
+    }
+
+    groups = {
+        eid: list(
+            placement.get(
+                eid,
+                []
+            )
+        )
+        for eid in nodes
+    }
+
+    assigned = set()
+
+    for cids in groups.values():
+        assigned.update(cids)
+
+    accepted = len(assigned)
+
+    excluded = (
+        len(containers)
+        - accepted
+    )
+
+    # ------------------------------------------------
+    # container -> unique layer set
+    # ------------------------------------------------
+
+    tasks = {}
+
+    for cid in assigned:
+        tasks[cid] = set(
+            containers[cid][
+                "layers"
+            ]
+        )
+
+    # ------------------------------------------------
+    # Global popularity.
+    # ------------------------------------------------
+
+    layer_popularity = Counter()
+
+    for layers in tasks.values():
+        for layer in layers:
+            layer_popularity[
+                layer
+            ] += 1
+
+    # ------------------------------------------------
+    # Per-node required layers.
+    # ------------------------------------------------
+
+    # =================================================
+    # ARRIVAL_AWARE_BASELINE_V1
+    #
+    # A request contributes layer demand only after
+    # its release/arrival event.
+    # =================================================
+
+    arrival_time = {
+        cid: float(
+            containers[cid].get(
+                "arrival_time_s",
+                0.0,
+            )
+        )
+        for cid in assigned
+    }
+
+    released = set()
+
+    # REQUEST_SCOPED_BASELINE_V1
+    #
+    # relay_cache[node]:
+    #   persistent reusable state.
+    #
+    # obtained[cid]:
+    #   layers obtained by this request only.
+    #
+    # Layers removed from relay_cache must NOT remain as
+    # permanent free hits for requests arriving later.
+    obtained = {
+        cid: set()
+        for cid in assigned
+    }
+
+    request_node = {
+        cid: node
+        for node in nodes
+        for cid in groups[node]
+    }
+
+    need = {
+        n: set()
+        for n in nodes
+    }
+
+    def release_due(now):
+        newly_released = []
+
+        for n in nodes:
+
+            for cid in groups[n]:
+
+                if cid in released:
+                    continue
+
+                if (
+                    arrival_time[cid]
+                    <= now + EPS
+                ):
+                    released.add(cid)
+
+                    obtained[cid] = set(
+                        tasks[cid]
+                        & relay_cache[
+                            request_node[cid]
+                        ]
+                    )
+
+
+                    need[n].update(
+                        tasks[cid]
+                    )
+
+                    newly_released.append(
+                        cid
+                    )
+
+        return newly_released
+
+    def next_arrival_after(now):
+        future = [
+            arrival_time[cid]
+            for cid in assigned
+            if (
+                cid not in released
+                and arrival_time[cid]
+                > now + EPS
+            )
+        ]
+
+        if not future:
+            return None
+
+        return min(future)
+
+
+    # acquired:
+    # 当前 deployment 可直接使用的 layer。
+    #
+    # relay_cache:
+    # 可作为未来 P2P source 的可复用压缩 layer。
+    # ------------------------------------------------
+
+    relay_cache = {}
+
+    for n in nodes:
+        initial = set(
+            nodes[n].get(
+                "initial_cache",
+                []
+            )
+        )
+
+        initial &= set(sizes)
+
+        relay_cache[n] = set(
+            initial
+        )
+
+    capacity = {
+        n: float(
+            nodes[n].get(
+                "repo_capacity_mb",
+                nodes[n].get(
+                    "cache_capacity_mb",
+                    float("inf"),
+                ),
+            )
+        )
+        for n in nodes
+    }
+
+    cache_bytes = {
+        n: sum(
+            sizes[x]
+            for x in relay_cache[n]
+        )
+        for n in nodes
+    }
+
+    touched = {
+        n: {
+            x: 0.0
+            for x in relay_cache[n]
+        }
+        for n in nodes
+    }
+
+    # ------------------------------------------------
+    # Ready states.
+    # ------------------------------------------------
+
+    ready = {}
+
+    def update_ready(now):
+        changed = True
+
+        while changed:
+            changed = False
+
+            for n in nodes:
+
+                for cid in groups[n]:
+
+                    if (
+                        cid not in released
+                        or cid in ready
+                    ):
+                        continue
+
+                    if (
+                        tasks[cid] <= obtained[cid]
+                    ):
+                        ready[cid] = now
+                        changed = True
+
+    release_due(0.0)
+    update_ready(0.0)
+
+    # ------------------------------------------------
+    # Selection helpers.
+    # ------------------------------------------------
+
+    def missing_layers(node):
+        """
+        Residual layers of currently released,
+        non-ready requests on this node.
+        """
+        missing = set()
+
+        for cid in groups[node]:
+
+            if (
+                cid not in released
+                or cid in ready
+            ):
+                continue
+
+            missing.update(
+                tasks[cid]
+                - obtained[cid]
+            )
+
+        return missing
+
+    def observed_popularity(layer):
+        """
+        Online-only popularity.
+
+        Uses requests released up to current simulation time.
+        It never looks at future target requests.
+        """
+        return sum(
+            1
+            for cid in released
+            if layer in tasks[cid]
+        )
+
+    def layer_order_key(
+        node,
+        layer,
+    ):
+        if policy.ordering == "fifo":
+            first_index = 10**9
+
+            for i, cid in enumerate(
+                groups[node]
+            ):
+                if (
+                    cid in released
+                    and cid not in ready
+                    and layer
+                    in (
+                        tasks[cid] - obtained[cid]
+                    )
+                ):
+                    first_index = min(
+                        first_index,
+                        i,
+                    )
+
+            return (
+                first_index,
+                layer,
+            )
+
+        if policy.ordering == "sjf":
+            return (
+                sizes[layer],
+                layer,
+            )
+
+        if policy.ordering == "reuse":
+            local_users = sum(
+                1
+                for cid in groups[node]
+                if (
+                    cid in released
+                    and cid not in ready
+                    and layer
+                    in (
+                        tasks[cid] - obtained[cid]
+                    )
+                )
+            )
+
+            reuse_bytes = (
+                local_users
+                * sizes[layer]
+            )
+
+            return (
+                -reuse_bytes,
+                layer,
+            )
+
+        if policy.ordering == "popularity":
+            waiters = sum(
+                1
+                for other in nodes
+                if (
+                    layer
+                    in missing_layers(
+                        other
+                    )
+                )
+            )
+
+            score = (
+                waiters
+                + 0.25
+                * observed_popularity(layer)
+            ) / max(
+                sizes[layer],
+                EPS,
+            )
+
+            return (
+                -score,
+                layer,
+            )
+
+        # local readiness ordering
+        score = 0.0
+
+        for cid in groups[node]:
+            if (
+                cid not in released
+                or cid in ready
+            ):
+                continue
+
+            remaining = (
+                tasks[cid] - obtained[cid]
+            )
+
+            if (
+                layer in remaining
+                and remaining
+            ):
+                score += (
+                    1.0
+                    / len(remaining)
+                )
+
+        return (
+            -score
+            / max(
+                sizes[layer],
+                EPS,
+            ),
+            layer,
+        )
+
+    # ------------------------------------------------
+    # Cache eviction.
+    # ------------------------------------------------
+
+    def active_source_pins(
+        active,
+        pending,
+    ):
+        pins = {
+            n: set()
+            for n in nodes
+        }
+
+        for f in (
+            active + pending
+        ):
+            src = f["src"]
+
+            if src is not None:
+                pins[src].add(
+                    f["layer"]
+                )
+
+        return pins
+
+    def victim_key(
+        node,
+        layer,
+    ):
+        if (
+            policy.eviction
+            == "replica_popularity"
+        ):
+            holders = sum(
+                1
+                for other in nodes
+                if layer
+                in relay_cache[other]
+            )
+
+            # min() chooses victim.
+            #
+            # 1. 尽量不删最后一个 edge replica；
+            # 2. 更久未使用的先删；
+            # 3. 副本较多的更适合删除；
+            # 4. 同等条件下大 layer 优先释放空间。
+            #
+            # 不再读取未来 target demand。
+            return (
+                holders <= 1,
+                touched[node].get(
+                    layer,
+                    0.0,
+                ),
+                -holders,
+                -sizes[layer],
+                layer,
+            )
+
+        if (
+            policy.eviction
+            == "future_reuse"
+        ):
+            future_use = sum(
+                1
+                for cid in groups[node]
+                if (
+                    cid in released
+                    and cid not in ready
+                    and layer
+                    in tasks[cid]
+                )
+            )
+
+            return (
+                future_use,
+                touched[node].get(
+                    layer,
+                    0.0,
+                ),
+                -sizes[layer],
+                layer,
+            )
+
+        # lease 在 v2 baseline 中按 LRU fallback。
+        # CIDER KEEP 后面单独实现。
+        return (
+            touched[node].get(
+                layer,
+                0.0,
+            ),
+            layer,
+        )
+
+    evicted_mb = 0.0
+    refused_cache_mb = 0.0
+
+    def admit_cache(
+        node,
+        layer,
+        now,
+        active,
+        pending,
+    ):
+        nonlocal evicted_mb
+        nonlocal refused_cache_mb
+
+        if layer in relay_cache[node]:
+            touched[node][layer] = now
+            return
+
+        layer_size = sizes[layer]
+
+        if (
+            layer_size
+            > capacity[node] + EPS
+        ):
+            refused_cache_mb += (
+                layer_size
+            )
+            return
+
+        pins = active_source_pins(
+            active,
+            pending,
+        )[node]
+
+        while (
+            cache_bytes[node]
+            + layer_size
+            > capacity[node] + EPS
+        ):
+            candidates = [
+                x
+                for x in relay_cache[
+                    node
+                ]
+                if x not in pins
+            ]
+
+            if not candidates:
+                refused_cache_mb += (
+                    layer_size
+                )
+                return
+
+            victim = min(
+                candidates,
+                key=lambda x:
+                    victim_key(
+                        node,
+                        x,
+                    ),
+            )
+
+            relay_cache[node].remove(
+                victim
+            )
+
+            cache_bytes[node] -= (
+                sizes[victim]
+            )
+
+            evicted_mb += (
+                sizes[victim]
+            )
+
+        relay_cache[node].add(
+            layer
+        )
+
+        cache_bytes[node] += (
+            layer_size
+        )
+
+        touched[node][layer] = now
+
+    # ------------------------------------------------
+    # Flow state.
+    # ------------------------------------------------
+
+    active = []
+    pending = []
+
+    registry_mb = 0.0
+    peer_mb = 0.0
+
+    cross_domain_peer_mb = 0.0
+    same_domain_peer_mb = 0.0
+
+    link_bytes = {
+        lid: 0.0
+        for lid in topology.capacity
+    }
+
+    link_busy_time = {
+        lid: 0.0
+        for lid in topology.capacity
+    }
+
+    link_peak_util = {
+        lid: 0.0
+        for lid in topology.capacity
+    }
+
+    util_samples = []
+
+    wan_busy_time_s = 0.0
+
+    now = 0.0
+
+    # ------------------------------------------------
+    # Source selection.
+    # ------------------------------------------------
+
+    def resource_usage():
+        usage = Counter()
+
+        for f in active:
+            for r in f["path"]:
+                usage[r] += 1
+
+        return usage
+
+    def estimate_rate(path):
+        usage = resource_usage()
+
+        return min(
+            topology.capacity[r]
+            / (
+                usage[r]
+                + 1
+            )
+            for r in path
+        )
+
+    def candidate_sources(
+        node,
+        layer,
+    ):
+        options = []
+
+        registry_path = (
+            topology.registry_path(
+                node
+            )
+        )
+
+        options.append(
+            (
+                None,
+                registry_path,
+                estimate_rate(
+                    registry_path
+                ),
+            )
+        )
+
+        if policy.source_mode in (
+            "p2p",
+            "dragonfly",
+            "peersync",
+        ):
+            for src in nodes:
+                if src == node:
+                    continue
+
+                if (
+                    layer
+                    not in relay_cache[
+                        src
+                    ]
+                ):
+                    continue
+
+                pth = (
+                    topology.peer_path(
+                        src,
+                        node,
+                    )
+                )
+
+                options.append(
+                    (
+                        src,
+                        pth,
+                        estimate_rate(
+                            pth
+                        ),
+                    )
+                )
+
+        return options
+
+    def choose_source(
+        node,
+        layer,
+    ):
+        options = candidate_sources(
+            node,
+            layer,
+        )
+
+        if (
+            policy.source_mode
+            == "cloud"
+        ):
+            return options[0]
+
+        peers = [
+            x
+            for x in options
+            if x[0] is not None
+        ]
+
+        if (
+            policy.source_mode
+            == "dragonfly"
+        ):
+            if not peers:
+                return options[0]
+
+            def key(opt):
+                src, path, rate = opt
+
+                uploads = sum(
+                    1
+                    for f in active
+                    if f["src"]
+                    == src
+                )
+
+                latency = (
+                    topology
+                    .path_latency_ms(
+                        path
+                    )
+                )
+
+                return (
+                    rate
+                    / (
+                        1.0
+                        + uploads
+                    ),
+                    -latency,
+                    src,
+                )
+
+            return max(
+                peers,
+                key=key,
+            )
+
+        if (
+            policy.source_mode
+            == "peersync"
+        ):
+            # ------------------------------------------------
+            # PeerSync-inspired request dispatcher.
+            #
+            # The real PeerSync system:
+            #   1. prefers LAN-local replicas;
+            #   2. directly fetches tiny layers upstream;
+            #   3. uses network-aware peer selection;
+            #   4. falls back to the upstream Registry.
+            #
+            # Our unified simulator is layer-level rather than
+            # PeerSync's block-level multi-source downloader,
+            # so estimate_rate() is used as the observable
+            # throughput proxy.
+            # ------------------------------------------------
+
+            registry = options[0]
+
+            def transfer_time(opt):
+                src, path, rate = opt
+
+                latency_s = (
+                    topology
+                    .path_latency_ms(
+                        path
+                    )
+                    / 1000.0
+                )
+
+                return (
+                    latency_s
+                    + sizes[layer]
+                    / max(
+                        rate,
+                        EPS,
+                    )
+                )
+
+            # --------------------------------------------
+            # Stage 1:
+            # LAN-local replicas are preferred.
+            # Among local replicas, use the one with the
+            # best current estimated completion time.
+            # --------------------------------------------
+
+            local_peers = [
+                opt
+                for opt in peers
+                if topology.same_domain(
+                    opt[0],
+                    node,
+                )
+            ]
+
+            if local_peers:
+
+                return min(
+                    local_peers,
+                    key=lambda opt: (
+                        transfer_time(
+                            opt
+                        ),
+                        -opt[2],
+                        str(opt[0]),
+                    ),
+                )
+
+            # --------------------------------------------
+            # Stage 2:
+            # PeerSync sends very small layers directly
+            # upstream because discovery/coordination
+            # overhead can dominate.
+            #
+            # The paper uses a configurable threshold
+            # and gives 1 MiB as an example.
+            # --------------------------------------------
+
+            if (
+                float(sizes[layer])
+                < 1.0
+            ):
+                return registry
+
+            # --------------------------------------------
+            # Stage 3:
+            # No LAN-local copy.
+            #
+            # Use current observable throughput to decide
+            # whether remote P2P is actually preferable
+            # to direct upstream fetching.
+            #
+            # This prevents the old pathological behavior:
+            # "any peer exists -> always use peer".
+            # --------------------------------------------
+
+            if not peers:
+                return registry
+
+            best_peer = min(
+                peers,
+                key=lambda opt: (
+                    transfer_time(
+                        opt
+                    ),
+                    -opt[2],
+                    str(opt[0]),
+                ),
+            )
+
+            peer_time = transfer_time(
+                best_peer
+            )
+
+            registry_time = transfer_time(
+                registry
+            )
+
+            if (
+                peer_time
+                + EPS
+                < registry_time
+            ):
+                return best_peer
+
+            return registry
+
+        # generic P2P:
+        # choose fastest current path.
+        return max(
+            options,
+            key=lambda x: (
+                x[2],
+                x[0] is not None,
+                -topology.path_latency_ms(
+                    x[1]
+                ),
+            ),
+        )
+
+    # ------------------------------------------------
+    # Start new downloads for idle destinations.
+    # ------------------------------------------------
+
+    def schedule_new():
+        started = 0
+
+        # 与 CIDER 使用相同的全局并发预算：
+        # K = number of edge nodes.
+        max_total_transfers = len(nodes)
+
+        slots = max(
+            0,
+            max_total_transfers
+            - len(active)
+            - len(pending),
+        )
+
+        if slots <= 0:
+            return 0
+
+        layers_inflight = {
+            f["layer"]
+            for f in (
+                active + pending
+            )
+        }
+
+        inflight_pairs = {
+            (
+                f["dst"],
+                f["layer"],
+            )
+            for f in (
+                active + pending
+            )
+        }
+
+        # Round-robin:
+        # 每轮每个 node 最多补一个，
+        # 若仍有空槽则进入下一轮，
+        # 避免系统后期只剩少数节点时出现人为 idle。
+        progress = True
+
+        while (
+            slots > 0
+            and progress
+        ):
+            progress = False
+
+            for node in nodes:
+
+                if slots <= 0:
+                    break
+
+                missing = [
+                    layer
+                    for layer
+                    in missing_layers(node)
+                    if (
+                        node,
+                        layer,
+                    )
+                    not in inflight_pairs
+                ]
+
+                if not missing:
+                    continue
+
+                missing.sort(
+                    key=lambda l:
+                        layer_order_key(
+                            node,
+                            l,
+                        )
+                )
+
+                chosen = None
+
+                for layer in missing:
+
+                    src, path, rate = (
+                        choose_source(
+                            node,
+                            layer,
+                        )
+                    )
+
+                    if (
+                        policy.coalesce
+                        and src is None
+                        and layer
+                        in layers_inflight
+                    ):
+                        continue
+
+                    chosen = (
+                        layer,
+                        src,
+                        path,
+                        rate,
+                    )
+                    break
+
+                if chosen is None:
+                    continue
+
+                (
+                    layer,
+                    src,
+                    path,
+                    _,
+                ) = chosen
+
+                latency_s = (
+                    topology
+                    .path_latency_ms(path)
+                    / 1000.0
+                )
+
+                flow = {
+                    "dst": node,
+                    "src": src,
+                    "layer": layer,
+                    "path": tuple(path),
+                    "remaining": (
+                        sizes[layer]
+                    ),
+                    "size": (
+                        sizes[layer]
+                    ),
+                    "ready_at": (
+                        now + latency_s
+                    ),
+                }
+
+                if latency_s <= EPS:
+                    active.append(
+                        flow
+                    )
+                else:
+                    pending.append(
+                        flow
+                    )
+
+                inflight_pairs.add(
+                    (
+                        node,
+                        layer,
+                    )
+                )
+
+                layers_inflight.add(
+                    layer
+                )
+
+                slots -= 1
+                started += 1
+                progress = True
+
+        return started
+
+    # ------------------------------------------------
+    # Simulation loop.
+    # ------------------------------------------------
+
+    release_due(0.0)
+    update_ready(0.0)
+
+    schedule_new()
+
+    safety = 0
+
+    while (
+        len(ready)
+        < accepted
+    ):
+        safety += 1
+
+        if safety > 10_000_000:
+            raise RuntimeError(
+                "simulation safety limit "
+                "exceeded"
+            )
+
+        # Release request-arrival events first.
+        release_due(now)
+        update_ready(now)
+
+        # Activate flows whose propagation
+        # delay has elapsed.
+        newly_active = [
+            f
+            for f in pending
+            if f["ready_at"]
+            <= now + EPS
+        ]
+
+        if newly_active:
+            for f in newly_active:
+                pending.remove(f)
+                active.append(f)
+
+        schedule_new()
+
+        if not active:
+
+            event_times = []
+
+            if pending:
+                event_times.append(
+                    min(
+                        f["ready_at"]
+                        for f in pending
+                    )
+                )
+
+            next_arrival = (
+                next_arrival_after(
+                    now
+                )
+            )
+
+            if next_arrival is not None:
+                event_times.append(
+                    next_arrival
+                )
+
+            if event_times:
+
+                next_time = min(
+                    event_times
+                )
+
+                if (
+                    next_time
+                    > now + EPS
+                ):
+                    now = next_time
+                    continue
+
+            # No flow but unfinished requests.
+            # Usually caused by coalescing:
+            # disable one wait cycle by
+            # starting the first missing layer.
+            started = 0
+
+            busy = {
+                f["dst"]
+                for f in pending
+            }
+
+            for node in nodes:
+                if node in busy:
+                    continue
+
+                missing = list(
+                    missing_layers(
+                        node
+                    )
+                )
+
+                if not missing:
+                    continue
+
+                missing.sort(
+                    key=lambda l:
+                        layer_order_key(
+                            node,
+                            l,
+                        )
+                )
+
+                layer = missing[0]
+
+                src, path, _ = (
+                    choose_source(
+                        node,
+                        layer,
+                    )
+                )
+
+                latency_s = (
+                    topology
+                    .path_latency_ms(
+                        path
+                    )
+                    / 1000.0
+                )
+
+                flow = {
+                    "dst": node,
+                    "src": src,
+                    "layer": layer,
+                    "path": tuple(path),
+                    "remaining": (
+                        sizes[layer]
+                    ),
+                    "size": (
+                        sizes[layer]
+                    ),
+                    "ready_at": (
+                        now
+                        + latency_s
+                    ),
+                }
+
+                pending.append(
+                    flow
+                )
+
+                started += 1
+
+            if started:
+                continue
+
+            break
+
+        paths = [
+            f["path"]
+            for f in active
+        ]
+
+        rates = fair_rates(
+            paths,
+            topology.capacity,
+        )
+
+        # Completion time under current
+        # bandwidth allocation.
+        dt_complete = min(
+            f["remaining"]
+            / max(
+                rates[i],
+                EPS,
+            )
+            for i, f
+            in enumerate(active)
+        )
+
+        # A pending flow may become active
+        # before an existing flow completes.
+        if pending:
+            next_activation = min(
+                f["ready_at"]
+                for f in pending
+            )
+
+            dt_activation = max(
+                0.0,
+                next_activation
+                - now
+            )
+
+            if (
+                dt_activation
+                > EPS
+            ):
+                dt = min(
+                    dt_complete,
+                    dt_activation,
+                )
+            else:
+                dt = 0.0
+        else:
+            dt = dt_complete
+
+        next_arrival = (
+            next_arrival_after(
+                now
+            )
+        )
+
+        if next_arrival is not None:
+
+            dt_arrival = (
+                next_arrival
+                - now
+            )
+
+            if dt_arrival > EPS:
+                dt = min(
+                    dt,
+                    dt_arrival,
+                )
+
+        if dt <= EPS:
+            # activate pending flows
+            now += EPS
+            continue
+
+        # --------------------------------------------
+        # Link utilization in this event interval.
+        # --------------------------------------------
+
+        link_rate = Counter()
+
+        for i, f in enumerate(
+            active
+        ):
+            r = rates[i]
+
+            for lid in f["path"]:
+                link_rate[lid] += r
+
+        for lid, cap in (
+            topology.capacity.items()
+        ):
+            util = min(
+                1.0,
+                link_rate.get(
+                    lid,
+                    0.0,
+                )
+                / cap,
+            )
+
+            link_peak_util[lid] = max(
+                link_peak_util[lid],
+                util,
+            )
+
+            util_samples.append(
+                (
+                    util,
+                    dt,
+                )
+            )
+
+            if util > EPS:
+                link_busy_time[lid] += (
+                    dt
+                )
+
+        if (
+            link_rate.get(
+                "wan",
+                0.0,
+            )
+            > EPS
+        ):
+            wan_busy_time_s += dt
+
+        # --------------------------------------------
+        # Transfer bytes.
+        # --------------------------------------------
+
+        for i, f in enumerate(
+            active
+        ):
+            amount = min(
+                f["remaining"],
+                rates[i] * dt,
+            )
+
+            f["remaining"] -= amount
+
+            for lid in f["path"]:
+                link_bytes[lid] += (
+                    amount
+                )
+
+        now += dt
+
+        # Boundary arrivals can join a transfer that was
+        # already in flight before this timestamp.
+        release_due(now)
+        update_ready(now)
+
+        completed = [
+            f
+            for f in active
+            if f["remaining"]
+            <= EPS
+        ]
+
+        if not completed:
+            continue
+
+        for f in completed:
+            active.remove(f)
+
+            dst = f["dst"]
+            src = f["src"]
+            layer = f["layer"]
+            size = f["size"]
+
+            for cid in groups[dst]:
+
+                if (
+                    cid not in released
+                    or cid in ready
+                ):
+                    continue
+
+                if layer in tasks[cid]:
+                    obtained[cid].add(
+                        layer
+                    )
+
+            touched[dst][
+                layer
+            ] = now
+
+            if src is None:
+                registry_mb += size
+            else:
+                peer_mb += size
+
+                if (
+                    topology.same_domain(
+                        src,
+                        dst,
+                    )
+                ):
+                    same_domain_peer_mb += (
+                        size
+                    )
+                else:
+                    cross_domain_peer_mb += (
+                        size
+                    )
+
+                touched[src][
+                    layer
+                ] = now
+
+            admit_cache(
+                dst,
+                layer,
+                now,
+                active,
+                pending,
+            )
+
+        update_ready(now)
+
+    ready_values = [
+        max(
+            0.0,
+            ready[cid]
+            - arrival_time[cid],
+        )
+        for cid in ready
+    ]
+
+    mean_ready = (
+        statistics.mean(
+            ready_values
+        )
+        if ready_values
+        else 0.0
+    )
+
+    p95_ready = percentile(
+        ready_values,
+        0.95,
+    )
+
+    # Absolute completion time of the target
+    # arrival window.
+    makespan = (
+        max(
+            ready.values()
+        )
+        if ready
+        else 0.0
+    )
+
+    total_transfer = (
+        registry_mb
+        + peer_mb
+    )
+
+    p2p_offload = (
+        100.0
+        * peer_mb
+        / max(
+            total_transfer,
+            EPS,
+        )
+    )
+
+    peak_link_util = max(
+        link_peak_util.values(),
+        default=0.0,
+    )
+
+    p95_link_util = (
+        weighted_percentile(
+            util_samples,
+            0.95,
+        )
+    )
+
+    return {
+        "policy": policy.name,
+
+        "accepted": accepted,
+        "excluded": excluded,
+
+        "mean_ready_s": (
+            mean_ready
+        ),
+        "p95_ready_s": (
+            p95_ready
+        ),
+        "makespan_s": (
+            makespan
+        ),
+
+        "registry_mb": (
+            registry_mb
+        ),
+        "peer_mb": (
+            peer_mb
+        ),
+        "total_transfer_mb": (
+            total_transfer
+        ),
+
+        "same_domain_peer_mb": (
+            same_domain_peer_mb
+        ),
+        "cross_domain_peer_mb": (
+            cross_domain_peer_mb
+        ),
+
+        "p2p_offload_pct": (
+            p2p_offload
+        ),
+
+        "evicted_mb": (
+            evicted_mb
+        ),
+        "refused_cache_mb": (
+            refused_cache_mb
+        ),
+
+        "peak_link_utilization": (
+            peak_link_util
+        ),
+        "p95_link_utilization": (
+            p95_link_util
+        ),
+        "wan_busy_time_s": (
+            wan_busy_time_s
+        ),
+
+        "link_bytes": (
+            link_bytes
+        ),
+        "link_busy_time_s": (
+            link_busy_time
+        ),
+        "link_peak_utilization": (
+            link_peak_util
+        ),
+
+        "simulation_end_s": now,
+    }
