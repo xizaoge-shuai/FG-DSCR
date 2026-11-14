@@ -815,40 +815,37 @@ def simulate_v2(
             policy.source_mode
             == "dragonfly"
         ):
+            # Dragonfly-style corrected:
+            # Prefer a peer only when its estimated
+            # delivery time improves on back-to-source.
+            # This avoids unconditional global P2P selection.
             if not peers:
                 return options[0]
 
-            def key(opt):
+            def predicted_time(opt):
                 src, path, rate = opt
-
-                uploads = sum(
-                    1
-                    for f in active
-                    if f["src"]
-                    == src
-                )
-
-                latency = (
-                    topology
-                    .path_latency_ms(
-                        path
-                    )
-                )
-
                 return (
-                    rate
-                    / (
-                        1.0
-                        + uploads
-                    ),
-                    -latency,
-                    src,
+                    topology.path_latency_ms(path) / 1000.0
+                    + sizes[layer] / max(rate, EPS)
                 )
 
-            return max(
+            best_peer = min(
                 peers,
-                key=key,
+                key=lambda opt: (
+                    predicted_time(opt),
+                    str(opt[0]),
+                ),
             )
+
+            registry = options[0]
+
+            if (
+                predicted_time(best_peer) + EPS
+                < predicted_time(registry)
+            ):
+                return best_peer
+
+            return registry
 
         if (
             policy.source_mode
@@ -1080,13 +1077,23 @@ def simulate_v2(
                         )
                     )
 
-                    if (
-                        policy.coalesce
-                        and src is None
-                        and layer
-                        in layers_inflight
-                    ):
-                        continue
+                    if policy.coalesce and src is None:
+                        if policy.source_mode == "dragonfly":
+                            # Suppress duplicate upstream pulls
+                            # only within the same edge domain.
+                            blocked = any(
+                                f["src"] is None
+                                and f["layer"] == layer
+                                and topology.same_domain(
+                                    f["dst"], node
+                                )
+                                for f in (active + pending)
+                            )
+                        else:
+                            blocked = layer in layers_inflight
+
+                        if blocked:
+                            continue
 
                     chosen = (
                         layer,
